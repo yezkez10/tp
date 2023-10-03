@@ -96,7 +96,7 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Deleting an appointment :
+### Deleting an appointment : `delete appt`
 
 Deletes the appointment at the specified index of the specified patient.
 
