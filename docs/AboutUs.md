@@ -17,7 +17,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[homepage](https://github.com/AY2324S1-CS2103T-W09-3/tp.git)]
 [[github](https://github.com/Bryan-Goh)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/bryan-goh.md)]
 
 * Role: Developer
 * Responsibilities: Delete Appointments
