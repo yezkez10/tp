@@ -4,7 +4,7 @@ title: "Developer Guide"
 pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# ClinicAssistant Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
