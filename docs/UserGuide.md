@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# Asclepius User Guide
+# ClinicAssistant User Guide
 
-Asclepius is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Asclepius can get your contact management tasks done faster than traditional GUI apps.
+ClinicAssistant is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClinicAssistant can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
