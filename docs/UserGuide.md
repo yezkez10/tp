@@ -90,6 +90,18 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+### Adding an appointment: `add appt`
+
+Adds a new appointment to a specific patient at index. Need to include the upcoming date of this new appointment.
+
+Format: `add appt /for INDEX /on DATE`
+
+**Note:**
+An appointment must have all tags to work. e.g. add appt, add appt /for 3, add appt /on 2023-09-17 will not work
+
+Examples:
+* `add appt /for 6 /on 2023-09-17 13:00`
+
 ### Listing all patients : `list`
 
 Shows a list of all patients in the database.
