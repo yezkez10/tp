@@ -66,29 +66,18 @@ ClinicAssistant is a **desktop app for managing contacts, optimized for use via 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
 
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a patient to the database. A patient has a **name, phone number, email, IC** and **address**.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /ic NRIC /a ADDRESS`
 
-<box type="tip" seamless>
-
-**Tip:** A person can have any number of tags (including 0)
-</box>
+**Note:**
+An appointment must have all tags to work. e.g. add appt, add appt /for 3, add appt /on 2023-09-17 will not work
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add /n Drizzy /p 999 /e drake@gmail.com /ic T03XXXXXE /a 901 Shelby Dr`
 
 ### Adding an appointment: `add appt`
 
