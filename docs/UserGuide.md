@@ -99,22 +99,21 @@ Format: `list`
 **Note:**
 There should not be any parameters after “list”. e.g. `list 123` will not return the list of patients
 
-### Editing a person : `edit`
+### Deleting an appointment :
 
-Edits an existing person in the address book.
+Deletes the appointment at the specified index of the specified patient.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `delete appt INDEX /of T03XXXXXE`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* The command is case-sensitive. E.g. Delete appt INDEX /of T03XXXXXE will not work
+* INDEX must be a positive integer, starting from 1
+* Acceptable values for INDEX is a single integer that is within the number of appointments of that patient
+* Cannot have any missing parameters. E.g. delete appt, delete appt 4, delete appt /of T03XXXXXE will not work
+
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `delete appt /idx 4 /of T03XXXXXE` Deletes the fourth appointment of `T03XXXXXE`
+*  `delete appt /idx 1 /of T11111111` Deletes the first appointment of `T11111111`
 
 ### Finding patient details by name: `find`
 
@@ -130,11 +129,11 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified patient from the Clinic Records.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
+* Deletes the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
