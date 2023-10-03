@@ -36,7 +36,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/wj331.png" width="200px">
 
-[[github](http://github.com/wj331)] 
+[[github](http://github.com/wj331)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer

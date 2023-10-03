@@ -36,5 +36,5 @@ Given below are my contributions to the project.
   * Contributed to forum discussions (examples: to be added soon)
   * Reported bugs and suggestions for other teams in the class (examples: to be added soon)
 
-**COntributions beyond the project scope:**
+**Contributions beyond the project scope:**
 - to be added soon
