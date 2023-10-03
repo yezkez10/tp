@@ -4,9 +4,9 @@
 
 ![Ui](docs/images/Ui.png)
 
-**ClinicAssistant is a desktop app for managing contacts**, optimized for use via a Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+**ClinicAssistant is a desktop app for managing contacts**, optimized for use via a Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-If you can type fast, ClinicAssistant can get your contact management tasks done *faster than traditional GUI apps.* 
+If you can type fast, ClinicAssistant can get your contact management tasks done *faster than traditional GUI apps.*
 
 **If you are interested**
 - to use ClinicAssistant, head over to the [**Quick Start** section of the **User Guide**](docs/UserGuide.md).
