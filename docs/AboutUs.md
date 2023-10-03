@@ -11,51 +11,53 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Bryan Goh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/bryan-goh.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://github.com/AY2324S1-CS2103T-W09-3/tp.git)]
+[[github](https://github.com/Bryan-Goh)]
+[[portfolio](team/bryan-goh.md)]
 
-* Role: Project Advisor
+* Role: Developer
+* Responsibilities: Delete Appointments
 
-### Jane Doe
+### Foo Jing Ning
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/yezkez10.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/yezkez10)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Team Lead
-* Responsibilities: UI
+* Responsibilities: Add Patients
 
-### Johnny Doe
+### Niu Wenjia
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/wj331.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/wj331)] 
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Delete Patients
 
-### James Doe
+### Toh Pin Ren
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/tohpinren.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/tohpinren)]
+[[portfolio](team/tohpinren.md)]
+
+* Role: Developer
+* Responsibilities: Add Lists
+
+### Yip Sin Hang
+
+<img src="images/simbayippy.png" width="200px">
+
+[[github](http://github.com/simbayippy)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Add Appointments
