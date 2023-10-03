@@ -47,7 +47,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/tohpinren.png" width="200px">
 
 [[github](http://github.com/tohpinren)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/tohpinren.md)]
 
 * Role: Developer
 * Responsibilities: Add Lists
