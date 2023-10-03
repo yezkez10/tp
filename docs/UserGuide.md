@@ -108,6 +108,9 @@ Shows a list of all patients in the database.
 
 Format: `list`
 
+**Note:**
+There should not be any parameters after “list”. e.g. `list 123` will not return the list of patients
+
 ### Deleting an appointment : `delete appt`
 
 Deletes the appointment at the specified index of the specified patient.
