@@ -267,7 +267,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile: Clinic Assistants**
+**Target user profile: Clinic Staff**
 
 * has a need to manage a significant number of patients
 * prefer desktop apps over other types
@@ -319,13 +319,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Clinic staff needs patient records
+1.  Clinic staff wants to see all patient records
 2.  Clinic staff requests to list patients
 3.  ClinicRecords shows a list of patients
 
     Use case ends.
 
-**Use case 3: Delete a patient**
+**Use case 3: List a specific patient**
+
+**MSS**
+
+1. Patient visits the clinic
+2. Clinic staff needs the information of this specific patient
+3. Clinic staff inserts the patient's details
+4. ClinicRecords retrieves the patient's information for the clinic staff
+
+**Extensions**
+
+* 3a. The patient cannot be found
+    * 3a1. ClinicRecords shows an error message.
+        Use Case resumes at step 3
+
+**Use case 4: Delete a patient**
 
 **MSS**
 
@@ -352,16 +367,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1.  Should be able to find a patient's information in less than 2 seconds
 2.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3.  Should be able to load all patient's information in about 3 seconds.
 
 *{More to be added}*
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **ClinicRecords**: The record book we use to store information of patients
 * **Private patient record**: Details that are not meant to be shared with others
+* **Clinic Staff**: Any healthcare professional at the clinics including doctors/nurses/staff
 
 --------------------------------------------------------------------------------------------------------------------
 
