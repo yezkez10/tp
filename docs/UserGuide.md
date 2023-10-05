@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# Asclepius User Guide
+# ClinicAssistant User Guide
 
-Asclepius is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Asclepius can get your contact management tasks done faster than traditional GUI apps.
+ClinicAssistant is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClinicAssistant can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -28,7 +28,7 @@ Asclepius is a **desktop app for managing contacts, optimized for use via a  Lin
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all patients.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
@@ -90,54 +90,62 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all persons : `list`
+### Adding an appointment: `add appt`
 
-Shows a list of all persons in the address book.
+Adds a new appointment to a specific patient at index. Need to include the upcoming date of this new appointment.
+
+Format: `add appt /for INDEX /on DATE`
+
+**Note:**
+An appointment must have all tags to work. e.g. add appt, add appt /for 3, add appt /on 2023-09-17 will not work
+
+Examples:
+* `add appt /for 6 /on 2023-09-17 13:00`
+
+### Listing all patients : `list`
+
+Shows a list of all patients in the database.
 
 Format: `list`
 
-### Editing a person : `edit`
+**Note:**
+There should not be any parameters after “list”. e.g. `list 123` will not return the list of patients
 
-Edits an existing person in the address book.
+### Deleting an appointment : `delete appt`
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Deletes the appointment at the specified index of the specified patient.
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+Format: `delete appt INDEX /of T03XXXXXE`
+
+* The command is case-sensitive. E.g. Delete appt INDEX /of T03XXXXXE will not work
+* INDEX must be a positive integer, starting from 1
+* Acceptable values for INDEX is a single integer that is within the number of appointments of that patient
+* Cannot have any missing parameters. E.g. delete appt, delete appt 4, delete appt /of T03XXXXXE will not work
+
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `delete appt /idx 4 /of T03XXXXXE` Deletes the fourth appointment of `T03XXXXXE`
+*  `delete appt /idx 1 /of T11111111` Deletes the first appointment of `T11111111`
 
-### Locating persons by name: `find`
+### Finding patient details by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds patients whose name contains the given keyword.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified patient from the Clinic Records.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
+* Deletes the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -198,6 +206,6 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find**   | `find KEYWORD`<br> e.g., `find john`
 **List**   | `list`
 **Help**   | `help`
