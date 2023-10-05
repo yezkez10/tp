@@ -12,7 +12,6 @@ Given below are my contributions to the project.
 
 ### Code contributed: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=Bryan-Goh&breakdown=true)
 
-   
 ### Enhancements implemented:
 * to be added soon
 ### Contributions to the UG:
