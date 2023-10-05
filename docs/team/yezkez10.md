@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "Joy Foo's Project Portfolio Page"
+layout: default.md
+title: "Joy Foo's Project Portfolio Page"
 ---
 
 ## Project: ClinicAssistant
@@ -26,15 +26,15 @@ Given below are my contributions to the project.
 - to be added soon
 
 **Contributions to Documentation:**
-  * User Guide:
-    * Added documentation for the features `add`
-  * Developer Guide:
-    - to be added soon
+* User Guide:
+  * Added documentation for the features `add`
+* Developer Guide:
+  - to be added soon
 
 **Community**:
-  * PRs reviewed to be added soon
-  * Contributed to forum discussions (examples: to be added soon)
-  * Reported bugs and suggestions for other teams in the class (examples: to be added soon)
+* PRs reviewed to be added soon
+* Contributed to forum discussions (examples: to be added soon)
+* Reported bugs and suggestions for other teams in the class (examples: to be added soon)
 
 **Contributions beyond the project scope:**
 - to be added soon

@@ -22,7 +22,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Delete Appointments
 
-### Foo Jing Ning
+### Foo Jing Ning, Joy
 
 <img src="images/yezkez10.png" width="200px">
 
