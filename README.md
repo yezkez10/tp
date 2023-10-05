@@ -15,3 +15,5 @@ If you can type fast, ClinicAssistant can get your contact management tasks done
 **Acknowledgements**
 
   - Libraries used: JavaFX, JUnit5
+
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
