@@ -31,19 +31,22 @@ public class Messages {
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
     }
 
+    //TODO: change this to own format
     /**
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
-                .append("; Phone: ")
+                .append("| Phone: ")
                 .append(person.getPhone())
-                .append("; Email: ")
+                .append("| Email: ")
                 .append(person.getEmail())
-                .append("; Address: ")
+                .append("| NRIC: ")
+                .append(person.getNRIC())
+                .append("| Address: ")
                 .append(person.getAddress())
-                .append("; Tags: ");
+                .append("| Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
     }
