@@ -76,7 +76,7 @@ public class ParserUtil {
         requireNonNull(nric);
         String trimmedNRIC = nric.trim();
         if (!NRIC.isValidNRIC(trimmedNRIC)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+            throw new ParseException(NRIC.MESSAGE_CONSTRAINTS);
         }
         return new NRIC(trimmedNRIC);
     }
