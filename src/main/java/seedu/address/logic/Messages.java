@@ -43,7 +43,7 @@ public class Messages {
                 .append(" | Email: ")
                 .append(person.getEmail())
                 .append(" | NRIC: ")
-                .append(person.getNRIC())
+                .append(person.getNric())
                 .append(" | Address: ")
                 .append(person.getAddress())
                 .append(" | Tags: ");

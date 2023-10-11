@@ -20,7 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final NRIC nric;
+    private final Nric nric;
 
     // Data fields
     private final Address address;
@@ -29,7 +29,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, NRIC nric, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -55,7 +55,7 @@ public class Person {
         return address;
     }
 
-    public NRIC getNRIC() {
+    public Nric getNric() {
         return nric;
     }
 
