@@ -16,13 +16,14 @@ public class Appointment {
     /*
      * description must be alphanumeric
      */
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     private final String description;
     private final LocalDateTime dateTime;
 
     public Appointment(String description, LocalDateTime dateTime) {
         requireAllNonNull(description, dateTime);
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
         this.dateTime = dateTime;
     }
@@ -80,7 +81,6 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
 
-        // Compare both description and dateTime for equality
         return Objects.equals(description, otherAppointment.description) &&
                 Objects.equals(dateTime, otherAppointment.dateTime);
     }
