@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,12 +26,13 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Appointment> appointments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -68,6 +70,13 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Set<Appointment> getAppointments() {
+        return Collections.unmodifiableSet(appointments);
+    }
+
+    public void addAppointment(Appointment toAdd) {
+        this.appointments.add(toAdd);
+    }
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -120,6 +129,7 @@ public class Person {
                 .add("nric", nric)
                 .add("address", address)
                 .add("tags", tags)
+                .add("appointments", appointments)
                 .toString();
     }
 
