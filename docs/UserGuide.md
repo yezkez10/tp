@@ -104,17 +104,17 @@ There should not be any parameters after “list”. e.g. `list 123` will not re
 
 Deletes the appointment at the specified index of the specified patient.
 
-Format: `delete_appt INDEX /of T03XXXXXE`
+Format: `delete_appt INDEX /appt INDEX`
 
-* The command is case-sensitive. E.g. Delete appt INDEX /of T03XXXXXE will not work
+* The command is case-sensitive. E.g. delete_appt INDEX /appt 3 will not work
 * INDEX must be a positive integer, starting from 1
 * Acceptable values for INDEX is a single integer that is within the number of appointments of that patient
-* Cannot have any missing parameters. E.g. delete appt, delete appt 4, delete appt /of T03XXXXXE will not work
+* Cannot have any missing parameters. E.g. delete_appt, delete_appt 4, delete_appt /appt 3 will not work
 
 
 Examples:
-*  `delete_appt 4 /of T03XXXXXE` Deletes the fourth appointment of `T03XXXXXE`
-*  `delete_appt 1 /of T11111111` Deletes the first appointment of `T11111111`
+*  `delete_appt 4 /appt 4` Deletes the fourth appointment of Person index 4
+*  `delete_appt 1 /appt 1` Deletes the first appointment of Person index 1
 
 ### Finding patient details by name: `find`
 

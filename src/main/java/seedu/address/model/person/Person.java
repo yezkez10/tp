@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -41,6 +42,17 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags, Set<Appointment> appointments) {
+        requireAllNonNull(name, phone, email, nric, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.nric = nric;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.appointments.addAll(appointments);
+    }
+
     public Name getName() {
         return name;
     }
@@ -76,6 +88,13 @@ public class Person {
 
     public void addAppointment(Appointment toAdd) {
         this.appointments.add(toAdd);
+    }
+
+    public Set<Appointment> deleteAppointment(int index) {
+        ArrayList<Appointment> array = new ArrayList<>(appointments);
+        array.remove(index);
+        HashSet<Appointment> set = new HashSet<>(array);
+        return set;
     }
     /**
      * Returns true if both persons have the same name.
