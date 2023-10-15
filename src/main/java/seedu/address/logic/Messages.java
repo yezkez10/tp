@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,7 +15,7 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The patient index provided is invalid";
     public static final String MESSAGE_PATIENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_PATIENT_FOUND_OVERVIEW = "1 patient found!";
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
@@ -53,4 +54,16 @@ public class Messages {
         return builder.toString();
     }
 
+    public static String formatAppointment(Person person, Appointment appointment) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("\nPatient: ")
+                .append(person.getName())
+                .append("\n")
+                .append("Description: ")
+                .append(appointment.getDescription())
+                .append("\n")
+                .append("Date: ")
+                .append(appointment.getDateTime());
+        return builder.toString();
+    }
 }

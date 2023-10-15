@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,11 +11,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
-import seedu.address.model.person.Phone;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -136,5 +135,24 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static LocalDateTime parseDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!Appointment.isValidDateTime(trimmedDateTime)) {
+            throw new ParseException(Appointment.MESSAGE_CONSTRAINTS);
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime parsedDateTime = LocalDateTime.parse(trimmedDateTime, formatter);
+
+        return parsedDateTime;
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -29,6 +30,7 @@ public class PersonBuilder {
     private Nric nric;
     private Address address;
     private Set<Tag> tags;
+    private Set<Appointment> appointments;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -70,6 +72,11 @@ public class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withAppointments(String ... appointments) {
+        this.appointments = SampleDataUtil.getAppointmentSet(appointments);
+        return this;
+    }
+
     /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
@@ -95,7 +102,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code NRIC} of the {@code Person} that we are building.
      */
     public PersonBuilder withNric(String nric) {
         this.nric = new Nric(nric);

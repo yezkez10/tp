@@ -100,11 +100,11 @@ Format: `list`
 **Note:**
 There should not be any parameters after “list”. e.g. `list 123` will not return the list of patients
 
-### Deleting an appointment : `delete appt`
+### Deleting an appointment : `delete_appt`
 
 Deletes the appointment at the specified index of the specified patient.
 
-Format: `delete appt INDEX /of T03XXXXXE`
+Format: `delete_appt INDEX /of T03XXXXXE`
 
 * The command is case-sensitive. E.g. Delete appt INDEX /of T03XXXXXE will not work
 * INDEX must be a positive integer, starting from 1
@@ -113,8 +113,8 @@ Format: `delete appt INDEX /of T03XXXXXE`
 
 
 Examples:
-*  `delete appt /idx 4 /of T03XXXXXE` Deletes the fourth appointment of `T03XXXXXE`
-*  `delete appt /idx 1 /of T11111111` Deletes the first appointment of `T11111111`
+*  `delete_appt 4 /of T03XXXXXE` Deletes the fourth appointment of `T03XXXXXE`
+*  `delete_appt 1 /of T11111111` Deletes the first appointment of `T11111111`
 
 ### Finding patient details by name: `find`
 
