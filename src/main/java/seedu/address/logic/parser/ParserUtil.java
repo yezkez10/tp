@@ -80,6 +80,34 @@ public class ParserUtil {
         return new Nric(trimmedNric);
     }
 
+    public static Gender parseGender(String gender) throws ParseException {
+        requireNonNull(gender);
+        String trimmedGender = gender.trim();
+        if (!Gender.isValidGender(gender)) {
+            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        return new Gender(trimmedGender);
+    }
+
+    public static Age parseAge(String age) throws ParseException {
+        requireNonNull(age);
+        String trimmedAge = age.trim();
+        int ageInt = Integer.parseInt(trimmedAge);
+        if (!Age.isValidAge(ageInt)) {
+            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+        }
+        return new Age(ageInt);
+    }
+
+    public static Ethnicity parseEthnic(String ethnic) throws ParseException {
+        requireNonNull(ethnic);
+        String trimmedEthnic = ethnic.trim();
+        if (!Ethnicity.isValidEthnic(trimmedEthnic)) {
+            throw new ParseException(Ethnicity.MESSAGE_CONSTRAINTS);
+        }
+        return Ethnicity.valueOf(trimmedEthnic);
+    }
+
     /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.

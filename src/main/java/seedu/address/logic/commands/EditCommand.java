@@ -1,12 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -22,12 +17,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,6 +34,9 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_ETHNIC + "ETHNIC] "
             + "[" + PREFIX_NRIC + "NRIC] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -101,11 +94,15 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
+        Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
+        Ethnicity updatedEthnic = editPersonDescriptor.getEthnic().orElse(personToEdit.getEthnic());
         Nric updatedNric = editPersonDescriptor.getNric().orElse(personToEdit.getNric());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNric, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedGender, updatedAge, updatedEthnic,
+                updatedNric, updatedAddress, updatedTags);
     }
 
     @Override
@@ -140,6 +137,9 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Gender gender;
+        private Age age;
+        private Ethnicity ethnic;
         private Address address;
         private Nric nric;
         private Set<Tag> tags;
@@ -154,6 +154,9 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setGender(toCopy.gender);
+            setAge(toCopy.age);
+            setEthnic(toCopy.ethnic);
             setNric(toCopy.nric);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
@@ -189,13 +192,30 @@ public class EditCommand extends Command {
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
-
-        public Optional<Nric> getNric() {
-            return Optional.ofNullable(nric);
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+        public Optional<Gender> getGender() {
+            return Optional.ofNullable(gender);
+        }
+        public void setAge(Age age) {
+            this.age = age;
+        }
+        public Optional<Age> getAge() {
+            return Optional.ofNullable(age);
+        }
+        public void setEthnic(Ethnicity ethnic) {
+            this.ethnic = ethnic;
+        }
+        public Optional<Ethnicity> getEthnic() {
+            return Optional.ofNullable(ethnic);
         }
 
         public void setNric(Nric nric) {
             this.nric = nric;
+        }
+        public Optional<Nric> getNric() {
+            return Optional.ofNullable(nric);
         }
         public void setAddress(Address address) {
             this.address = address;
@@ -237,6 +257,9 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
+                    && Objects.equals(gender, otherEditPersonDescriptor.gender)
+                    && Objects.equals(age, otherEditPersonDescriptor.age)
+                    && Objects.equals(ethnic, otherEditPersonDescriptor.ethnic)
                     && Objects.equals(nric, otherEditPersonDescriptor.nric)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
@@ -248,6 +271,9 @@ public class EditCommand extends Command {
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
+                    .add("gender", gender)
+                    .add("age", age)
+                    .add("ethnic", ethnic)
                     .add("nric", nric)
                     .add("address", address)
                     .add("tags", tags)

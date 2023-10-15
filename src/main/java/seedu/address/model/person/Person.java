@@ -22,7 +22,9 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Nric nric;
-
+    private final Gender gender;
+    private final Age age;
+    private final Ethnicity ethnic;
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
@@ -31,11 +33,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Gender gender,
+                  Age age, Ethnicity ethnic, Nric nric, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.ethnic = ethnic;
         this.nric = nric;
         this.address = address;
         this.tags.addAll(tags);
@@ -59,6 +65,16 @@ public class Person {
 
     public Nric getNric() {
         return nric;
+    }
+
+    public Gender getGender() {
+        return this.gender;
+    }
+    public Age getAge() {
+        return this.age;
+    }
+    public Ethnicity getEthnic() {
+        return this.ethnic;
     }
 
     /**
@@ -117,7 +133,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, nric, address, tags);
+        return Objects.hash(name, phone, email, gender, age, ethnic, nric, address, tags);
     }
 
     @Override
@@ -126,6 +142,9 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("gender", gender)
+                .add("age", age)
+                .add("ethnic", ethnic)
                 .add("nric", nric)
                 .add("address", address)
                 .add("tags", tags)
