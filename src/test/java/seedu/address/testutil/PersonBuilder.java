@@ -18,7 +18,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_GENDER = "M";
     public static final int DEFAULT_AGE = 21;
-    public static final Ethnicity DEFAULT_ETHNIC = Ethnicity.CHINESE;
+    public static final String DEFAULT_ETHNIC = "Chinese";
     public static final String DEFAULT_NRIC = "T0123456E";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
@@ -42,7 +42,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         gender = new Gender(DEFAULT_GENDER);
         age = new Age(DEFAULT_AGE);
-        ethnic = DEFAULT_ETHNIC;
+        ethnic = new Ethnicity(DEFAULT_ETHNIC);
         nric = new Nric(DEFAULT_NRIC);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -125,7 +125,7 @@ public class PersonBuilder {
      * Sets the {@code Ethnic} of the {@code Person} that we are building.
      */
     public PersonBuilder withEthnic(String ethnic) {
-        this.ethnic = Ethnicity.valueOf(ethnic.toUpperCase());
+        this.ethnic = new Ethnicity(ethnic);
         return this;
     }
 

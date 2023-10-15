@@ -45,4 +45,9 @@ public class Age {
         Age otherAge = (Age) other;
         return this.age == otherAge.age;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(this.age);
+    }
 }

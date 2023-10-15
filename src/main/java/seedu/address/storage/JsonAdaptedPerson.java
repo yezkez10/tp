@@ -143,7 +143,7 @@ class JsonAdaptedPerson {
         if (!Ethnicity.isValidEthnic(ethnic)) {
             throw new IllegalValueException(Ethnicity.MESSAGE_CONSTRAINTS);
         }
-        final Ethnicity modelEthnic = Ethnicity.valueOf(ethnic);
+        final Ethnicity modelEthnic = new Ethnicity(ethnic);
 
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));

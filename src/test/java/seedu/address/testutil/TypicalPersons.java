@@ -36,7 +36,7 @@ public class TypicalPersons {
             .withEmail("heinz@example.com")
             .withGender("M")
             .withAge(22)
-            .withEthnic("Eurasian")
+            .withEthnic("Others")
             .withNric("T1234567E").withAddress("wall street").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com")

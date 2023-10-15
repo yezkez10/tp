@@ -34,8 +34,11 @@ public class PersonCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label phone;
+    @FXML
     private Label gender;
+    @FXML
     private Label age;
+    @FXML
     private Label ethnic;
     @FXML
     private Label nric;

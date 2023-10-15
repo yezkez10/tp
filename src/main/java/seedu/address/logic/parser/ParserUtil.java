@@ -105,7 +105,7 @@ public class ParserUtil {
         if (!Ethnicity.isValidEthnic(trimmedEthnic)) {
             throw new ParseException(Ethnicity.MESSAGE_CONSTRAINTS);
         }
-        return Ethnicity.valueOf(trimmedEthnic);
+        return new Ethnicity(trimmedEthnic);
     }
 
     /**

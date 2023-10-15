@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.Set;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -7,20 +9,24 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's Gender in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEthnic(String)}
  */
-public enum Ethnicity {
-    CHINESE("Chinese"), MALAY("Malay"), INDIAN("Indian"), EURASIAN("Eurasian"), OTHERS("Others");
+public class Ethnicity {
+    private static final Set<String> VALID_ETHNICITIES =
+            Set.of("Chinese", "Malay", "Indian", "Eurasian", "Others");
+
+    public final String ethnic;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ethnic should be Chinese/ Malay/ Indian/ Eurasian or Others";
-    public final String ethnic;
+            "Ethnic should be 'Chinese'/ 'Malay'/ 'Indian'/ 'Eurasian' or 'Others' ";
+
 
     /**
      * Constructs a {@code Gender}.
      *
      * @param ethnic A valid Ethnicity.
      */
-    Ethnicity(String ethnic) {
+    public Ethnicity(String ethnic) {
         requireNonNull(ethnic);
+        checkArgument(isValidEthnic(ethnic), MESSAGE_CONSTRAINTS);
         this.ethnic = ethnic;
     }
 
@@ -28,12 +34,7 @@ public enum Ethnicity {
      * Returns true if a given string is a valid Ethnicity.
      */
     public static boolean isValidEthnic(String test) {
-        for (Ethnicity e: Ethnicity.values()){
-            if (e.name().equalsIgnoreCase(test)) {
-                return true;
-            }
-        }
-        return false;
+        return VALID_ETHNICITIES.contains(test);
     }
 
     @Override
@@ -41,19 +42,24 @@ public enum Ethnicity {
         return this.ethnic;
     }
 
-//    @Override
-//    public boolean equals(Object other) {
-//        if (other == this) {
-//            return true;
-//        }
-//
-//        // instanceof handles nulls
-//        if (!(other instanceof Ethnicity)) {
-//            return false;
-//        }
-//
-//        Ethnicity otherEthnicity = (Ethnicity) other;
-//        return this.ethnic.equals(otherEthnicity.ethnic);
-//    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Ethnicity)) {
+            return false;
+        }
+
+        Ethnicity otherEthnicity = (Ethnicity) other;
+        return this.ethnic.equals(otherEthnicity.ethnic);
+    }
+
+    @Override
+    public int hashCode() {
+        return ethnic.hashCode();
+    }
 
 }
