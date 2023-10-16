@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -34,17 +35,27 @@ public class DeleteAppointmentCommandTest {
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         LocalDateTime time2 = ParserUtil.parseDateTime("02-01-2025 12:00");
         LocalDateTime time3 = ParserUtil.parseDateTime("02-01-2026 12:00");
+        LocalDateTime time4 = ParserUtil.parseDateTime("02-01-2027 12:00");
         Appointment one = new Appointment("one", time1);
         Appointment two = new Appointment("two", time2);
         Appointment three = new Appointment("three", time3);
+        Appointment four = new Appointment("4", time4);
+        Appointment five = new Appointment("5", time4);
         validPerson.addAppointment(one);
         validPerson.addAppointment(two);
         validPerson.addAppointment(three);
-        Set<Appointment> original = validPerson.getAppointments();
+        validPerson.addAppointment(four);
+        validPerson.addAppointment(five);
+        ArrayList<Appointment> original = validPerson.getAppointments();
         int length = original.size() - 1;
-        Set<Appointment> editted = validPerson.deleteAppointment(length - 2);
-        System.out.println(original.toString());
-        System.out.println(editted.toString());
+        ArrayList<Appointment> editted = validPerson.deleteAppointment(1);
+        ArrayList<Appointment>  test = new ArrayList<>(original);
+        for(int i = 0; i < original.size(); i++) {
+            System.out.println(test.get(i).toString());
+        }
+        for(int i = 0; i < editted.size(); i++) {
+            System.out.println(editted.get(i).toString());
+        }
         assertEquals(1,1);
     }
 }

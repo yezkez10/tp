@@ -67,7 +67,7 @@ public class DeleteAppointmentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         int length = personToEdit.getAppointments().size() - 1;
-        Set<Appointment> editedAppointment = personToEdit.deleteAppointment( length - index2.getZeroBased());
+        ArrayList<Appointment> editedAppointment = personToEdit.deleteAppointment( index2.getZeroBased());
 
         Person newPerson = editAppointment(personToEdit, editedAppointment);
 
@@ -77,7 +77,7 @@ public class DeleteAppointmentCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, index2, Messages.format(personToEdit)));
     }
 
-    private static Person editAppointment(Person personToEdit, Set<Appointment> appointments) {
+    private static Person editAppointment(Person personToEdit, ArrayList<Appointment> appointments) {
         assert personToEdit != null;
 
         Name updatedName = personToEdit.getName();

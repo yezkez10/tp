@@ -27,7 +27,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Appointment> appointments = new HashSet<>();
+    private final ArrayList<Appointment> appointments = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -42,7 +42,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags, Set<Appointment> appointments) {
+    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags, ArrayList<Appointment> appointments) {
         requireAllNonNull(name, phone, email, nric, address, tags);
         this.name = name;
         this.phone = phone;
@@ -82,19 +82,19 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    public Set<Appointment> getAppointments() {
-        return Collections.unmodifiableSet(appointments);
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
     }
 
     public void addAppointment(Appointment toAdd) {
         this.appointments.add(toAdd);
     }
 
-    public Set<Appointment> deleteAppointment(int index) {
-        ArrayList<Appointment> array = new ArrayList<>(appointments);
+    public ArrayList<Appointment> deleteAppointment(int index) {
+        ArrayList<Appointment> array = new ArrayList<>();
+        array.addAll(appointments);
         array.remove(index);
-        HashSet<Appointment> set = new HashSet<>(array);
-        return set;
+        return array;
     }
     /**
      * Returns true if both persons have the same name.
