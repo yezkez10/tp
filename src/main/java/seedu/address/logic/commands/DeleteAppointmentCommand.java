@@ -66,8 +66,8 @@ public class DeleteAppointmentCommand extends Command {
         if(index2.getZeroBased() >= personToEdit.getAppointments().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        Set<Appointment> editedAppointment = personToEdit.deleteAppointment(index2.getZeroBased());
+        int length = personToEdit.getAppointments().size() - 1;
+        Set<Appointment> editedAppointment = personToEdit.deleteAppointment( length - index2.getZeroBased());
 
         Person newPerson = editAppointment(personToEdit, editedAppointment);
 
