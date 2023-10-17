@@ -12,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Gender;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Ethnicity;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -145,8 +145,8 @@ class JsonAdaptedPerson {
         final Age modelAge = new Age(age);
 
         if (ethnic == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT
-                    , Ethnicity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Ethnicity.class.getSimpleName()));
         }
         if (!Ethnicity.isValidEthnic(ethnic)) {
             throw new IllegalValueException(Ethnicity.MESSAGE_CONSTRAINTS);
