@@ -1,25 +1,30 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for RemarkCommand.
  */
 public class DeleteAppointmentCommandTest {
-
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     @Test
     public void execute_deleteAppointmentSuccessful() throws Exception {
-        Person validPerson = new PersonBuilder().build();
+        Person validPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         LocalDateTime time2 = ParserUtil.parseDateTime("02-01-2025 12:00");
         LocalDateTime time3 = ParserUtil.parseDateTime("02-01-2026 12:00");
@@ -34,16 +39,10 @@ public class DeleteAppointmentCommandTest {
         validPerson.addAppointment(three);
         validPerson.addAppointment(four);
         validPerson.addAppointment(five);
-        ArrayList<Appointment> original = validPerson.getAppointments();
-        int length = original.size() - 1;
-        ArrayList<Appointment> editted = validPerson.deleteAppointment(1);
-        ArrayList<Appointment> test = new ArrayList<>(original);
-        for (int i = 0; i < original.size(); i++) {
-            System.out.println(test.get(i).toString());
-        }
-        for (int i = 0; i < editted.size(); i++) {
-            System.out.println(editted.get(i).toString());
-        }
-        assertEquals(1, 1);
+        DeleteAppointmentCommand command = new DeleteAppointmentCommand(INDEX_FIRST_PERSON,INDEX_SECOND_PERSON);
+        String expectedString = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, two,
+                Messages.format(validPerson));
+        assertEquals(new CommandResult(expectedString), command.execute(model));
+        System.out.print(validPerson.getAppointments().toString());
     }
 }
