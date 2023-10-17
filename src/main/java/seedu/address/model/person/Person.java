@@ -102,11 +102,10 @@ public class Person {
      * @param index Index of the appointment to delete
      * @return An ArrayList without the deleted appointment
      */
-    public ArrayList<Appointment> deleteAppointment(int index) {
-        ArrayList<Appointment> array = new ArrayList<>();
-        array.addAll(appointments);
-        array.remove(index);
-        return array;
+    public Appointment deleteAppointment(int index) {
+        Appointment appt = appointments.get(index);
+        this.appointments.remove(index);
+        return appt;
     }
     /**
      * Returns true if both persons have the same name.
