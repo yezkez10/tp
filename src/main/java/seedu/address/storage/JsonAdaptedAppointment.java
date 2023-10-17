@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -21,7 +21,8 @@ class JsonAdaptedAppointment {
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
      */
     @JsonCreator
-    public JsonAdaptedAppointment(@JsonProperty("description") String description, @JsonProperty("dateTime") String dateTime) {
+    public JsonAdaptedAppointment(@JsonProperty("description") String description
+            , @JsonProperty("dateTime") String dateTime) {
         this.description = description;
         this.dateTime = LocalDateTime.parse(dateTime);
     }

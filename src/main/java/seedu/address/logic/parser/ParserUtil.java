@@ -12,7 +12,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Ethnicity;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -80,6 +87,12 @@ public class ParserUtil {
         return new Nric(trimmedNric);
     }
 
+    /**
+     * Parses a {@code String Gender} into a {@code Gender}.
+     * @param gender The input string that represents Gender "M" or "F"
+     * @return Gender instance
+     * @throws ParseException if the given {@code gender} is not "M" or "F".
+     */
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
         String trimmedGender = gender.trim();
@@ -89,6 +102,12 @@ public class ParserUtil {
         return new Gender(trimmedGender);
     }
 
+    /**
+     * Parses a {@code String age} into a {@code Age}.
+     * @param age The input string that represents age of patient
+     * @return Age an Age instance
+     * @throws ParseException if the given {@code age} is not between 0 and 150.
+     */
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
         String trimmedAge = age.trim();
@@ -99,6 +118,12 @@ public class ParserUtil {
         return new Age(ageInt);
     }
 
+    /**
+     * Parses a {@code String ethnic} into a {@code Ethnicity}.
+     * @param ethnic The input string that represents ethnic group of patient
+     * @return Gender instance
+     * @throws ParseException if the given {@code ethnic} is not "Chinese", "Malay", "Indian", "Eurasian" or "Others".
+     */
     public static Ethnicity parseEthnic(String ethnic) throws ParseException {
         requireNonNull(ethnic);
         String trimmedEthnic = ethnic.trim();

@@ -5,11 +5,11 @@ import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Gender;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Ethnicity;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -87,6 +87,11 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Assigns the Person object with the appointments
+     * @param appointments The list of appointments of the patients
+     * @return PersonBuilder instance
+     */
     public PersonBuilder withAppointments(String ... appointments) {
         this.appointments = SampleDataUtil.getAppointmentSet(appointments);
         return this;

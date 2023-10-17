@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.AppParameters;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
@@ -146,7 +145,8 @@ class JsonAdaptedPerson {
         final Age modelAge = new Age(age);
 
         if (ethnic == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Ethnicity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT
+                    , Ethnicity.class.getSimpleName()));
         }
         if (!Ethnicity.isValidEthnic(ethnic)) {
             throw new IllegalValueException(Ethnicity.MESSAGE_CONSTRAINTS);
@@ -162,7 +162,8 @@ class JsonAdaptedPerson {
         final Nric modelNric = new Nric(nric);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
@@ -170,7 +171,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelGender, modelAge, modelEthnic, modelNric, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelGender,
+                modelAge, modelEthnic, modelNric, modelAddress, modelTags);
     }
-
 }

@@ -60,6 +60,12 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code address of the patient} for display to the user.
+     * @param person Patient we are interested in
+     * @param appointment Appointment of the patient
+     * @return
+     */
     public static String formatAppointment(Person person, Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nPatient: ")

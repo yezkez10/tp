@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -12,12 +13,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Ethnicity {
     private static final Set<String> VALID_ETHNICITIES =
             Set.of("Chinese", "Malay", "Indian", "Eurasian", "Others");
-
-    public final String ethnic;
-
     public static final String MESSAGE_CONSTRAINTS =
             "Ethnic should be 'Chinese'/ 'Malay'/ 'Indian'/ 'Eurasian' or 'Others' ";
-
+    public final String ethnic;
 
     /**
      * Constructs a {@code Gender}.

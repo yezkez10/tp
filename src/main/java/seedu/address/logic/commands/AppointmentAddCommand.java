@@ -10,7 +10,6 @@ import seedu.address.model.person.Person;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
