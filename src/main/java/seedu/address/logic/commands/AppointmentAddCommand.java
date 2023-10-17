@@ -1,5 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -8,18 +17,16 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-
+/**
+ * A AppointmentAddCommand instance to add appointment to patients
+ */
 public class AppointmentAddCommand extends Command {
     public static final String COMMAND_WORD = "appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a appointment to the patient identified by the index number used in the displayed patient list.\n"
-            + "Parameters: INDEX (must be a positive integer), DESCRIPTION, DATE_TIME (must be a valid date in the future)\n"
+            + "Parameters: INDEX (must be a positive integer), DESCRIPTION, "
+            + "DATE_TIME (must be a valid date in the future)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOR + " 1 "
             + PREFIX_DESCRIPTION + " description details "

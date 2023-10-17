@@ -8,7 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-
+/**
+ * Appointment instance for patients
+ */
 public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
@@ -21,6 +23,11 @@ public class Appointment {
     private final String description;
     private final LocalDateTime dateTime;
 
+    /**
+     * Constructor for Appointment instance
+     * @param description Description of the appointment
+     * @param dateTime Time and Date of the appointment
+     */
     public Appointment(String description, LocalDateTime dateTime) {
         requireAllNonNull(description, dateTime);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
@@ -81,8 +88,8 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
 
-        return Objects.equals(description, otherAppointment.description) &&
-                Objects.equals(dateTime, otherAppointment.dateTime);
+        return Objects.equals(description, otherAppointment.description)
+                && Objects.equals(dateTime, otherAppointment.dateTime);
     }
 
     @Override

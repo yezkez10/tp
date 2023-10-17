@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 
 /**
  * Jackson-friendly version of {@link Appointment}.

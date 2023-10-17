@@ -1,15 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
+import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AppointmentAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.time.LocalDateTime;
-import java.util.stream.Stream;
-
+/**
+ * Parses input for AddAppointment instance
+ */
 public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -22,7 +32,8 @@ public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FOR, PREFIX_DESCRIPTION, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AppointmentAddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AppointmentAddCommand.MESSAGE_USAGE));
         }
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC, PREFIX_ADDRESS);
         Index patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_FOR).get());
