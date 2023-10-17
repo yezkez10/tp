@@ -39,7 +39,7 @@ public class DeleteAppointmentCommandTest {
         validPerson.addAppointment(three);
         validPerson.addAppointment(four);
         validPerson.addAppointment(five);
-        DeleteAppointmentCommand command = new DeleteAppointmentCommand(INDEX_FIRST_PERSON,INDEX_SECOND_PERSON);
+        DeleteAppointmentCommand command = new DeleteAppointmentCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
         String expectedString = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, two,
                 Messages.format(validPerson));
         assertEquals(new CommandResult(expectedString), command.execute(model));
