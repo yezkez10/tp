@@ -72,6 +72,10 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code appointments} into a {@code ArrayList<Appointment>}
+     * and set it to the {@code Person} that we are building.
+     */
     public PersonBuilder withAppointments(String ... appointments) {
         this.appointments = SampleDataUtil.getAppointmentSet(appointments);
         return this;

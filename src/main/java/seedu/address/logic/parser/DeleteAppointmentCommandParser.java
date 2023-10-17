@@ -3,13 +3,11 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Nric;
 
 /**
  * Parses input arguments and creates a new {@code DeleteAppointmentCommand} object
@@ -28,23 +26,27 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAppointmentCommand.MESSAGE_USAGE), ive);
         }
 
         String text = argMultimap.getValue(PREFIX_APPOINTMENT).orElse("");
 
         if (text == "") {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAppointmentCommand.MESSAGE_USAGE));
         }
 
         if (!text.matches("[0-9]+")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAppointmentCommand.MESSAGE_USAGE));
         }
 
         int number = Integer.valueOf(text);
 
         if (number <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteAppointmentCommand.MESSAGE_USAGE));
         }
 
         Index index2 = Index.fromOneBased(number);

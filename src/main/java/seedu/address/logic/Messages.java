@@ -53,7 +53,9 @@ public class Messages {
         person.getTags().forEach(builder::append);
         return builder.toString();
     }
-
+    /**
+     * Formats the {@code person} for display to the user.
+     */
     public static String formatAppointment(Person person, Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nPatient: ")

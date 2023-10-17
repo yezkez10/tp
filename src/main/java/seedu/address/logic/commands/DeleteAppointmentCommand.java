@@ -3,11 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,6 +43,10 @@ public class DeleteAppointmentCommand extends Command {
     private final Index index;
     private final Index index2;
 
+    /**
+     * @param index Index of the patient
+     * @param index2 Index of the appointment
+     */
     public DeleteAppointmentCommand(Index index, Index index2) {
         requireAllNonNull(index, index2);
 
@@ -63,18 +65,19 @@ public class DeleteAppointmentCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        if(index2.getZeroBased() >= personToEdit.getAppointments().size()) {
+        if (index2.getZeroBased() >= personToEdit.getAppointments().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         int length = personToEdit.getAppointments().size() - 1;
-        ArrayList<Appointment> editedAppointment = personToEdit.deleteAppointment( index2.getZeroBased());
+        ArrayList<Appointment> editedAppointment = personToEdit.deleteAppointment(index2.getZeroBased());
 
         Person newPerson = editAppointment(personToEdit, editedAppointment);
 
         model.setPerson(personToEdit, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, index2, Messages.format(personToEdit)));
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
+                index2, Messages.format(personToEdit)));
     }
 
     private static Person editAppointment(Person personToEdit, ArrayList<Appointment> appointments) {
@@ -87,7 +90,8 @@ public class DeleteAppointmentCommand extends Command {
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = personToEdit.getTags();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNric, updatedAddress, updatedTags, appointments);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedNric,
+                updatedAddress, updatedTags, appointments);
     }
 
     @Override
