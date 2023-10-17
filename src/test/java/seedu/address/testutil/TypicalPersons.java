@@ -33,7 +33,7 @@ public class TypicalPersons {
             .withNric("T0000000Z")
             .withAddress("123 NUS DRIVE")
             .withTags("owesMoney", "friends")
-            .withAppointments("appointment1 details", "01-01-2024").build();
+            .build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
