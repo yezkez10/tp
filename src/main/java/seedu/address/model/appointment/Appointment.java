@@ -1,5 +1,7 @@
 package seedu.address.model.appointment;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -71,8 +73,10 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Description: " + description + " \nOn: "
-                + dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+        return new ToStringBuilder(this)
+                .add("description", description)
+                .add("dateTime", dateTime)
+                .toString();
     }
 
     @Override
