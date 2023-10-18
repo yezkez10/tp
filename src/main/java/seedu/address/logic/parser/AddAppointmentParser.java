@@ -18,7 +18,7 @@ import seedu.address.logic.commands.AppointmentAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code AppointmentAddCommand} object
+ * Parses input arguments and creates a new {@code AppointmentAddCommand} objectg
  */
 public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
     /**
@@ -41,7 +41,6 @@ public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
         LocalDateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATE).get());
         return new AppointmentAddCommand(patientIndex, description, dateTime);
     }
-
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
