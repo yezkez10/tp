@@ -11,7 +11,7 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Holds the information of the appointment.
+ * Appointment instance for patients
  */
 public class Appointment {
 
@@ -26,8 +26,9 @@ public class Appointment {
     private final LocalDateTime dateTime;
 
     /**
-     * @param description String of the description of the appointment
-     * @param dateTime Information on when this appointment is happening
+     * Constructor for Appointment instance
+     * @param description Description of the appointment
+     * @param dateTime Time and Date of the appointment
      */
     public Appointment(String description, LocalDateTime dateTime) {
         requireAllNonNull(description, dateTime);
