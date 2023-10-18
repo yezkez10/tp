@@ -88,9 +88,8 @@ public class PersonBuilder {
     }
 
     /**
-     * Assigns the Person object with the appointments
-     * @param appointments The list of appointments of the patients
-     * @return PersonBuilder instance
+     * Parses the {@code appointments} into a {@code ArrayList<Appointment>}
+     * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withAppointments(String ... appointments) {
         this.appointments = SampleDataUtil.getAppointmentSet(appointments);

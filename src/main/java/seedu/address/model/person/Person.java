@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Appointment> appointments = new HashSet<>();
+    private final ArrayList<Appointment> appointments = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -45,6 +46,21 @@ public class Person {
         this.nric = nric;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags,
+                  ArrayList<Appointment> appointments) {
+        requireAllNonNull(name, phone, email, nric, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.nric = nric;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.appointments.addAll(appointments);
     }
 
     public Name getName() {
@@ -86,12 +102,26 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    public Set<Appointment> getAppointments() {
-        return Collections.unmodifiableSet(appointments);
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
     }
 
+    /**
+     * Adds an appointment to this Person
+     * @param toAdd Appointment to be added
+     */
     public void addAppointment(Appointment toAdd) {
         this.appointments.add(toAdd);
+    }
+
+    /**
+     * @param index Index of the appointment to delete
+     * @return An ArrayList without the deleted appointment
+     */
+    public Appointment deleteAppointment(int index) {
+        Appointment appt = appointments.get(index);
+        this.appointments.remove(index);
+        return appt;
     }
     /**
      * Returns true if both persons have the same name.

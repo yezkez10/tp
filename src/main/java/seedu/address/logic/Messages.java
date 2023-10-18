@@ -59,7 +59,6 @@ public class Messages {
         person.getTags().forEach(builder::append);
         return builder.toString();
     }
-
     /**
      * Formats the {@code address of the patient} for display to the user.
      * @param person Patient we are interested in

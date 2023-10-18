@@ -17,8 +17,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AppointmentAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-/**
- * Parses input for AddAppointment instance
+
+ /** 
+   * Parses input arguments and creates a new {@code AppointmentAddCommand} object
  */
 public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
     /**
