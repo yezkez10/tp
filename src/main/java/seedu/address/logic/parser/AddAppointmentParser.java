@@ -42,7 +42,6 @@ public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
         return new AppointmentAddCommand(patientIndex, description, dateTime);
     }
 
-
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
