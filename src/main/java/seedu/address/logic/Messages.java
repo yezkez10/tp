@@ -48,6 +48,12 @@ public class Messages {
                 .append(person.getPhone())
                 .append(" | Email: ")
                 .append(person.getEmail())
+                .append(" | Gender: ")
+                .append(person.getGender())
+                .append(" | Age: ")
+                .append(person.getAge())
+                .append(" | Ethnic: ")
+                .append(person.getEthnic())
                 .append(" | NRIC: ")
                 .append(person.getNric())
                 .append(" | Address: ")
@@ -57,7 +63,10 @@ public class Messages {
         return builder.toString();
     }
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code address of the patient} for display to the user.
+     * @param person Patient we are interested in
+     * @param appointment Appointment of the patient
+     * @return
      */
     public static String formatAppointment(Person person, Appointment appointment) {
         final StringBuilder builder = new StringBuilder();

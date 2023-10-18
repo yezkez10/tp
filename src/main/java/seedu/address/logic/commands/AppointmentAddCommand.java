@@ -17,7 +17,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
 /**
- * Adds an appointment to a specified person.
+ * A AppointmentAddCommand instance to add appointment to patients
  */
 public class AppointmentAddCommand extends Command {
     public static final String COMMAND_WORD = "appt";
