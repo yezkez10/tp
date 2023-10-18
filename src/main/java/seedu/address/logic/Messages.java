@@ -21,8 +21,8 @@ public class Messages {
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX
-            = "The Appointment index provided is invalid";
+    public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
+            "The Appointment index provided is invalid";
 
 
     /**

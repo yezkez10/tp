@@ -1,7 +1,5 @@
 package seedu.address.model.appointment;
 
-import seedu.address.commons.util.ToStringBuilder;
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
+
+import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Holds the information of the appointment.

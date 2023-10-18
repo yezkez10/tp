@@ -3,9 +3,7 @@ package seedu.address.testutil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.commands.EditAppointmentCommand.EditAppointmentDescriptor;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.appointment.Appointment;
 
 /**
@@ -16,10 +14,13 @@ public class EditAppointmentDescriptorBuilder {
     private EditAppointmentDescriptor descriptor;
 
     public EditAppointmentDescriptorBuilder() {
-
         descriptor = new EditAppointmentDescriptor();
     }
 
+    /**
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code EditAppointmentDescriptor}'s details
+     * @param descriptor
+     */
     public EditAppointmentDescriptorBuilder(EditAppointmentDescriptor descriptor) {
         this.descriptor = new EditAppointmentDescriptor(descriptor);
     }

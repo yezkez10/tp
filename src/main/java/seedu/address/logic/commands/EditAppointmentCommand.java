@@ -1,12 +1,17 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.person.Person.createClone;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -95,7 +100,8 @@ public class EditAppointmentCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS, editedAppointment, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
+                editedAppointment, Messages.format(editedPerson)));
     }
 
     /**
@@ -136,12 +142,19 @@ public class EditAppointmentCommand extends Command {
                 .toString();
     }
 
+    /**
+     * Stores the Appointment to edit the patient with. Each non-empty field value will replace the
+     * corresponding field value of the patient.
+     */
     public static class EditAppointmentDescriptor {
         private String description;
         private LocalDateTime dateTime;
 
-        public EditAppointmentDescriptor(){}
+        public EditAppointmentDescriptor() {}
 
+        /**
+         * Copy constructor.
+         */
         public EditAppointmentDescriptor(EditAppointmentDescriptor toCopy) {
             setDescription(toCopy.description);
             setDateTime(toCopy.dateTime);
@@ -180,8 +193,8 @@ public class EditAppointmentCommand extends Command {
             if (!(other instanceof EditAppointmentCommand.EditAppointmentDescriptor)) {
                 return false;
             }
-            EditAppointmentCommand.EditAppointmentDescriptor otherAppointmentDescriptor
-                    = (EditAppointmentCommand.EditAppointmentDescriptor) other;
+            EditAppointmentCommand.EditAppointmentDescriptor otherAppointmentDescriptor =
+                    (EditAppointmentCommand.EditAppointmentDescriptor) other;
             return Objects.equals(description, otherAppointmentDescriptor.description)
                     && Objects.equals(dateTime, otherAppointmentDescriptor.dateTime);
         }
