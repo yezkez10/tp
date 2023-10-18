@@ -51,12 +51,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags,
-                  ArrayList<Appointment> appointments) {
+    public Person(Name name, Phone phone, Email email, Gender gender, Age age, Ethnicity ethnic, Nric nric,
+                  Address address, Set<Tag> tags, ArrayList<Appointment> appointments) {
         requireAllNonNull(name, phone, email, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.ethnic = ethnic;
         this.nric = nric;
         this.address = address;
         this.tags.addAll(tags);
