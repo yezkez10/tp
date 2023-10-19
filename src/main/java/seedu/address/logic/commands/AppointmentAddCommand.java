@@ -27,9 +27,9 @@ public class AppointmentAddCommand extends Command {
             + "Parameters: INDEX (must be a positive integer), "
             + "DESCRIPTION, DATE_TIME (must be a valid date in the future)\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FOR + " 1 "
-            + PREFIX_DESCRIPTION + " description details "
-            + PREFIX_DATE + " 02-01-2024 12:00";
+            + PREFIX_FOR + "1 "
+            + PREFIX_DESCRIPTION + "description details "
+            + PREFIX_DATE + "02-01-2024 12:00";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added: %1$s";
 
@@ -57,8 +57,10 @@ public class AppointmentAddCommand extends Command {
 
         Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
 
-        Appointment toAdd = new Appointment(description, dateTime);
+        Appointment toAdd = new Appointment(description, dateTime, targetPatient);
         targetPatient.addAppointment(toAdd);
+
+        model.addAppointment(toAdd);
 
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
     }
