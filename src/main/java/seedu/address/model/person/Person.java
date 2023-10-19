@@ -184,7 +184,8 @@ public class Person {
         Set<Tag> cloneTags = new HashSet<>(personToClone.getTags());
         ArrayList<Appointment> cloneAppointments = new ArrayList<>(personToClone.getAppointments());
 
-        return new Person(cloneName, clonePhone, cloneEmail, cloneGender, cloneAge, cloneEthnicity, cloneNric, cloneAddress, cloneTags, cloneAppointments);
+        return new Person(cloneName, clonePhone, cloneEmail, cloneGender, cloneAge, cloneEthnicity, cloneNric,
+                cloneAddress, cloneTags, cloneAppointments);
     }
 
     /**

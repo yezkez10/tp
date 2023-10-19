@@ -13,10 +13,11 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls.
- * A appointment is considered unique by comparing using {@code Appointment#isSameAppointment(Appointment)}. As such, adding and updating of
- * appointments uses Appointment#isSameAppointment(Appointment) for equality so as to ensure that the appointment being added or updated is
- * unique in the UniqueAppointmentList. However, the removal of a person uses Appointment#equals(Object) so
- * as to ensure that the appointment with exactly the same fields will be removed.
+ * A appointment is considered unique by comparing using {@code Appointment#isSameAppointment(Appointment)}.
+ * As such, adding and updating of appointments uses Appointment#isSameAppointment(Appointment) for equality
+ * so as to ensure that the appointment being added or updated is unique in the UniqueAppointmentList.
+ * However, the removal of a person uses Appointment#equals(Object) so as to ensure that the appointment
+ * with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -85,16 +86,16 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Replaces the contents of this list with {@code Appointments}.
-     * {@code Appointments} must not contain duplicate Appointments.
+     * Replaces the contents of this list with {@code appointments}.
+     * {@code appointments} must not contain duplicate Appointments.
      */
-    public void setAppointments(List<Appointment> Appointments) {
-        requireAllNonNull(Appointments);
-        if (!AppointmentsAreUnique(Appointments)) {
+    public void setAppointments(List<Appointment> appointments) {
+        requireAllNonNull(appointments);
+        if (!appointmentsAreUnique(appointments)) {
             throw new DuplicateAppointmentException();
         }
 
-        internalList.setAll(Appointments);
+        internalList.setAll(appointments);
     }
 
     /**
@@ -135,12 +136,12 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Returns true if {@code Appointments} contains only unique Appointments.
+     * Returns true if {@code appointments} contains only unique Appointments.
      */
-    private boolean AppointmentsAreUnique(List<Appointment> Appointments) {
-        for (int i = 0; i < Appointments.size() - 1; i++) {
-            for (int j = i + 1; j < Appointments.size(); j++) {
-                if (Appointments.get(i).isSameAppointment(Appointments.get(j))) {
+    private boolean appointmentsAreUnique(List<Appointment> appointments) {
+        for (int i = 0; i < appointments.size() - 1; i++) {
+            for (int j = i + 1; j < appointments.size(); j++) {
+                if (appointments.get(i).isSameAppointment(appointments.get(j))) {
                     return false;
                 }
             }

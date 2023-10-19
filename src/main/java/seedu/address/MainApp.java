@@ -15,8 +15,12 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
 import seedu.address.model.ClinicAssistant;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyClinicAssistant;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.ClinicAssistantStorage;
 import seedu.address.storage.JsonClinicAssistantStorage;
@@ -53,7 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ClinicAssistantStorage clinicAssistantStorage = new JsonClinicAssistantStorage(userPrefs.getAddressBookFilePath());
+        ClinicAssistantStorage clinicAssistantStorage = new JsonClinicAssistantStorage(
+                userPrefs.getAddressBookFilePath());
         storage = new StorageManager(clinicAssistantStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
