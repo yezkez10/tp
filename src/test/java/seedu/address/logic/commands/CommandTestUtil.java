@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -37,11 +37,9 @@ public class CommandTestUtil {
     public static final String VALID_ETHNIC_AMY = "Chinese";
     public static final String VALID_NRIC_AMY = "T1234567E";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_NRIC_AMY = "S1234567A";
     public static final String VALID_NRIC_BOB = "S1234567B";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_NRIC_BOB = "T1234567E";
     public static final String VALID_GENDER_BOB = "M";
     public static final int VALID_AGE_BOB = 42;
     public static final String VALID_ETHNIC_BOB = "Chinese";

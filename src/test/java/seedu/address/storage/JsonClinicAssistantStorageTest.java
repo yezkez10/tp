@@ -31,7 +31,8 @@ public class JsonClinicAssistantStorageTest {
     }
 
     private java.util.Optional<ReadOnlyClinicAssistant> readAddressBook(String filePath) throws Exception {
-        return new JsonClinicAssistantStorage(Paths.get(filePath)).readClinicAssistant(addToTestDataPathIfNotNull(filePath));
+        return new JsonClinicAssistantStorage(Paths.get(filePath)).readClinicAssistant(
+                addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
