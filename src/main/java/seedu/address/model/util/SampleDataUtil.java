@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ClinicAssistant;
+import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -44,8 +44,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyClinicAssistant getSampleAddressBook() {
+        ClinicAssistant sampleAb = new ClinicAssistant();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
@@ -71,7 +71,8 @@ public class SampleDataUtil {
         for (int i = 0; i < strings.length; i += 2) {
             String details = strings[i];
             LocalDateTime dateTime = LocalDateTime.parse(strings[i + 1]); // Parse the string to LocalDateTime
-            appointments.add(new Appointment(details, dateTime));
+            // Left patient as null for now
+            appointments.add(new Appointment(details, dateTime, null));
         }
 
         return appointments;
