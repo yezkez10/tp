@@ -171,7 +171,8 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+        final ArrayList<Appointment> modelAppointments = new ArrayList<>(personAppointments);
         return new Person(modelName, modelPhone, modelEmail, modelGender,
-                modelAge, modelEthnic, modelNric, modelAddress, modelTags);
+                modelAge, modelEthnic, modelNric, modelAddress, modelTags, modelAppointments);
     }
 }
