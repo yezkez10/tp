@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.ETHNIC_DESC_AMY;
@@ -54,8 +54,6 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
-
-import com.sun.marlin.RendererNoAA;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
@@ -282,7 +280,7 @@ public class AddCommandParserTest {
 
         // invalid age
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                +GENDER_DESC_BOB + INVALID_AGE_DESC + ETHNIC_DESC_BOB + NRIC_DESC_BOB
+                + GENDER_DESC_BOB + INVALID_AGE_DESC + ETHNIC_DESC_BOB + NRIC_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Age.MESSAGE_CONSTRAINTS);
 
         // invalid ethnicity
