@@ -184,7 +184,8 @@ public class Person {
         Set<Tag> cloneTags = new HashSet<>(personToClone.getTags());
         ArrayList<Appointment> cloneAppointments = new ArrayList<>(personToClone.getAppointments());
 
-        return new Person(cloneName, clonePhone, cloneEmail, cloneGender, cloneAge, cloneEthnicity, cloneNric, cloneAddress, cloneTags, cloneAppointments);
+        return new Person(cloneName, clonePhone, cloneEmail, cloneGender, cloneAge, cloneEthnicity, cloneNric,
+                cloneAddress, cloneTags, cloneAppointments);
     }
 
     /**
@@ -205,10 +206,10 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                //&& email.equals(otherPerson.email)
-                && nric.equals(otherPerson.nric);
-                //&& address.equals(otherPerson.address)
-                //&& tags.equals(otherPerson.tags);
+                && email.equals(otherPerson.email)
+                && nric.equals(otherPerson.nric)
+                && address.equals(otherPerson.address)
+                && tags.equals(otherPerson.tags);
     }
 
     @Override

@@ -36,8 +36,8 @@ public class EditAppointmentCommandTest {
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         LocalDateTime time2 = ParserUtil.parseDateTime("02-01-2025 12:00");
 
-        Appointment initialAdd = new Appointment("one", time1);
-        Appointment toEditWith = new Appointment("two", time2);
+        Appointment initialAdd = new Appointment("one", time1, validPerson);
+        Appointment toEditWith = new Appointment("two", time2, validPerson);
 
         // add initial appointment to patient
         validPerson.addAppointment(initialAdd);
@@ -56,14 +56,14 @@ public class EditAppointmentCommandTest {
     public void execute_someFieldsSpecified_success() throws ParseException, CommandException {
         Person validPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
-        Appointment initialAdd = new Appointment("one", time1);
+        Appointment initialAdd = new Appointment("one", time1, validPerson);
         validPerson.addAppointment(initialAdd);
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder()
                 .withDescription(VALID_APPOINTMENT_DESCRIPTION).build();
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_APPOINTMENT , descriptor);
-        Appointment edited = createEditedAppointment(initialAdd, descriptor);
+        Appointment edited = createEditedAppointment(initialAdd, descriptor, validPerson);
 
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 edited, Messages.format(validPerson));
@@ -81,11 +81,11 @@ public class EditAppointmentCommandTest {
     public void execute_noFieldSpecified_failure() throws ParseException {
         Person validPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
-        Appointment initialAdd = new Appointment("one", time1);
+        Appointment initialAdd = new Appointment("one", time1, validPerson);
         validPerson.addAppointment(initialAdd);
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder().build();
-        Appointment edited = createEditedAppointment(initialAdd, descriptor);
+        Appointment edited = createEditedAppointment(initialAdd, descriptor, validPerson);
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_APPOINTMENT, descriptor);
@@ -98,7 +98,7 @@ public class EditAppointmentCommandTest {
     public void execute_duplicateAppointment_failure() throws ParseException {
         Person validPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
-        Appointment initialAdd = new Appointment("one", time1);
+        Appointment initialAdd = new Appointment("one", time1, validPerson);
         validPerson.addAppointment(initialAdd);
 
         // edited person has SAME description and date
@@ -123,13 +123,14 @@ public class EditAppointmentCommandTest {
         assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc) {
+    private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc,
+                                                       Person editedPerson) {
         assert apptToEdit != null;
 
         String updatedDescription = editApptDesc.getDescription().orElse(apptToEdit.getDescription());
         LocalDateTime updatedDateTime = editApptDesc.getDateTime().orElse(apptToEdit.getDateTime());
 
-        return new Appointment(updatedDescription, updatedDateTime);
+        return new Appointment(updatedDescription, updatedDateTime, editedPerson);
     }
 
 }

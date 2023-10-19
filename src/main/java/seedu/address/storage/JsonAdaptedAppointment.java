@@ -51,6 +51,7 @@ class JsonAdaptedAppointment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted appointment.
      */
     public Appointment toModelType() throws IllegalValueException {
-        return new Appointment(description, dateTime);
+        // Left patient as null for now
+        return new Appointment(description, dateTime, null);
     }
 }
