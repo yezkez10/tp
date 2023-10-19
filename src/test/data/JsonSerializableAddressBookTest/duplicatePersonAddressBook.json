@@ -3,12 +3,20 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
+    "gender": "F",
+    "age": 12,
+    "ethnic": "Eurasian",
+    "nric": "T1234567E",
     "address": "123, Jurong West Ave 6, #08-111",
     "tags": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
+    "gender": "F",
+    "age": 12,
+    "ethnic": "Eurasian",
+    "nric": "T1234567E",
     "address": "4th street"
   } ]
 }

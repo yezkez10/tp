@@ -36,7 +36,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Gender gender,
                   Age age, Ethnicity ethnic, Nric nric, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, nric, address, tags);
+        requireAllNonNull(name, phone, email, gender, age, ethnic, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -51,12 +51,16 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags,
+    public Person(Name name, Phone phone, Email email, Gender gender,
+                  Age age, Ethnicity ethnic, Nric nric, Address address, Set<Tag> tags,
                   ArrayList<Appointment> appointments) {
-        requireAllNonNull(name, phone, email, nric, address, tags);
+        requireAllNonNull(name, phone, email, gender, age, ethnic, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.ethnic = ethnic;
         this.nric = nric;
         this.address = address;
         this.tags.addAll(tags);
@@ -84,13 +88,13 @@ public class Person {
     }
 
     public Gender getGender() {
-        return this.gender;
+        return gender;
     }
     public Age getAge() {
-        return this.age;
+        return age;
     }
     public Ethnicity getEthnic() {
-        return this.ethnic;
+        return ethnic;
     }
 
     /**
@@ -154,10 +158,10 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
-                //&& email.equals(otherPerson.email)
-                && nric.equals(otherPerson.nric);
-                //&& address.equals(otherPerson.address)
-                //&& tags.equals(otherPerson.tags);
+                && email.equals(otherPerson.email)
+                && nric.equals(otherPerson.nric)
+                && address.equals(otherPerson.address)
+                && tags.equals(otherPerson.tags);
     }
 
     @Override

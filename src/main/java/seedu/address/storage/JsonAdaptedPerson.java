@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -96,7 +97,7 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Person toModelType() throws IllegalValueException, DateTimeParseException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
@@ -171,7 +172,8 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
+        final ArrayList<Appointment> modelAppointments = new ArrayList<>(personAppointments);
         return new Person(modelName, modelPhone, modelEmail, modelGender,
-                modelAge, modelEthnic, modelNric, modelAddress, modelTags);
+                modelAge, modelEthnic, modelNric, modelAddress, modelTags, modelAppointments);
     }
 }

@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Set;
 
 /**
- * Represents a Person's Gender in the address book.
+ * Represents a Person's Ethnicity in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEthnic(String)}
  */
 public class Ethnicity {

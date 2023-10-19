@@ -2,11 +2,11 @@ package seedu.address.storage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 
 /**
@@ -16,6 +16,8 @@ class JsonAdaptedAppointment {
 
     private final String description;
     private final LocalDateTime dateTime;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -24,7 +26,7 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(@JsonProperty("description") String description,
                                   @JsonProperty("dateTime") String dateTime) {
         this.description = description;
-        this.dateTime = LocalDateTime.parse(dateTime);
+        this.dateTime = LocalDateTime.parse(dateTime, formatter);
     }
 
     /**
@@ -48,9 +50,9 @@ class JsonAdaptedAppointment {
     /**
      * Converts this Jackson-friendly adapted appointment object into the model's {@code Appointment} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted appointment.
+     * @throws DateTimeParseException if there were any data constraints violated in the adapted appointment.
      */
-    public Appointment toModelType() throws IllegalValueException {
+    public Appointment toModelType() throws DateTimeParseException {
         return new Appointment(description, dateTime);
     }
 }

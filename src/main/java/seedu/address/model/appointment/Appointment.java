@@ -20,6 +20,9 @@ public class Appointment {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+
     private final String description;
     private final LocalDateTime dateTime;
 
