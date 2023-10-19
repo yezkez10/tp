@@ -12,7 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Ethnicity;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -29,6 +32,9 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String email;
+    private final String gender;
+    private final int age;
+    private final String ethnic;
     private final String nric;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -40,13 +46,20 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("nric") String nric,
+            @JsonProperty("email") String email,
+            @JsonProperty("gender") String gender,
+            @JsonProperty("age") int age,
+            @JsonProperty("ethnic") String ethnic,
+            @JsonProperty("nric") String nric,
             @JsonProperty("address") String address,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.ethnic = ethnic;
         this.nric = nric;
         this.address = address;
         if (tags != null) {
@@ -65,6 +78,9 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        gender = source.getGender().gender;
+        age = source.getAge().age;
+        ethnic = source.getEthnic().ethnic;
         nric = source.getNric().value;
         address = source.getAddress().value;
         tags.addAll(source.getTags().stream()
@@ -115,6 +131,28 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (gender == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
+        }
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        final Gender modelGender = new Gender(gender);
+
+        if (!Age.isValidAge(age)) {
+            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+        }
+        final Age modelAge = new Age(age);
+
+        if (ethnic == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Ethnicity.class.getSimpleName()));
+        }
+        if (!Ethnicity.isValidEthnic(ethnic)) {
+            throw new IllegalValueException(Ethnicity.MESSAGE_CONSTRAINTS);
+        }
+        final Ethnicity modelEthnic = new Ethnicity(ethnic);
+
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
@@ -124,7 +162,8 @@ class JsonAdaptedPerson {
         final Nric modelNric = new Nric(nric);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
@@ -132,7 +171,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelNric, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelGender,
+                modelAge, modelEthnic, modelNric, modelAddress, modelTags);
     }
-
 }
