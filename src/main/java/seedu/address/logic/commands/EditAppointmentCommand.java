@@ -90,7 +90,8 @@ public class EditAppointmentCommand extends Command {
 
         // get the appointment to edit from the list of appointments of Person
         Appointment appointmentToEdit = appointmentList.get(appointmentIndex.getZeroBased());
-        Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor);
+        Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor,
+                editedPerson);
 
         editedPerson.editAppointment(appointmentIndex.getZeroBased(), editedAppointment);
 
@@ -108,13 +109,14 @@ public class EditAppointmentCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc) {
+    private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc,
+                                                       Person editedPerson) {
         assert apptToEdit != null;
 
         String updatedDescription = editApptDesc.getDescription().orElse(apptToEdit.getDescription());
         LocalDateTime updatedDateTime = editApptDesc.getDateTime().orElse(apptToEdit.getDateTime());
 
-        return new Appointment(updatedDescription, updatedDateTime);
+        return new Appointment(updatedDescription, updatedDateTime, editedPerson);
     }
 
     @Override

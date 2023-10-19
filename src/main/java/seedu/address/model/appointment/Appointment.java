@@ -124,6 +124,7 @@ public class Appointment {
 
         return otherAppt != null
                 && otherAppt.getPatient().equals(getPatient())
+                && otherAppt.getDescription().equals(getDescription())
                 && otherAppt.getDateTime().equals(getDateTime());
     }
 }
