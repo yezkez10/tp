@@ -16,8 +16,6 @@ class JsonAdaptedAppointment {
 
     private final String description;
     private final LocalDateTime dateTime;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -26,6 +24,7 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(@JsonProperty("description") String description,
                                   @JsonProperty("dateTime") String dateTime) {
         this.description = description;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         this.dateTime = LocalDateTime.parse(dateTime, formatter);
     }
 
