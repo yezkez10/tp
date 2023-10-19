@@ -176,12 +176,15 @@ public class Person {
         Name cloneName = personToClone.getName();
         Phone clonePhone = personToClone.getPhone();
         Email cloneEmail = personToClone.getEmail();
+        Gender cloneGender = personToClone.getGender();
+        Age cloneAge = personToClone.getAge();
+        Ethnicity cloneEthnicity = personToClone.getEthnic();
         Nric cloneNric = personToClone.getNric();
         Address cloneAddress = personToClone.getAddress();
         Set<Tag> cloneTags = new HashSet<>(personToClone.getTags());
         ArrayList<Appointment> cloneAppointments = new ArrayList<>(personToClone.getAppointments());
 
-        return new Person(cloneName, clonePhone, cloneEmail, cloneNric, cloneAddress, cloneTags, cloneAppointments);
+        return new Person(cloneName, clonePhone, cloneEmail, cloneGender, cloneAge, cloneEthnicity, cloneNric, cloneAddress, cloneTags, cloneAppointments);
     }
 
     /**
