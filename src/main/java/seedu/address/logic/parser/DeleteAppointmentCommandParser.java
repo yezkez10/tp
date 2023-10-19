@@ -21,7 +21,6 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
     public DeleteAppointmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_APPOINTMENT);
-
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -29,7 +28,6 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAppointmentCommand.MESSAGE_USAGE), ive);
         }
-
         String text = argMultimap.getValue(PREFIX_APPOINTMENT).orElse("");
 
         if (text == "") {
@@ -43,14 +41,12 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
         }
 
         int number = Integer.valueOf(text);
-
         if (number <= 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAppointmentCommand.MESSAGE_USAGE));
         }
 
         Index index2 = Index.fromOneBased(number);
-
         return new DeleteAppointmentCommand(index, index2);
     }
 }

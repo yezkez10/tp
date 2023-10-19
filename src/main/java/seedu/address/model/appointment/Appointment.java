@@ -9,9 +9,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import seedu.address.model.person.Person;
+import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Holds the information of the appointment.
+ * Appointment instance for patients
  */
 public class Appointment {
 
@@ -27,8 +28,9 @@ public class Appointment {
     private final Person patient;
 
     /**
-     * @param description String of the description of the appointment
-     * @param dateTime Information on when this appointment is happening
+     * Constructor for Appointment instance
+     * @param description Description of the appointment
+     * @param dateTime Time and Date of the appointment
      */
     public Appointment(String description, LocalDateTime dateTime, Person patient) {
         requireAllNonNull(description, dateTime);
@@ -75,8 +77,10 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Description: " + description + " \nOn: "
-                + dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+        return new ToStringBuilder(this)
+                .add("description", description)
+                .add("dateTime", dateTime)
+                .toString();
     }
 
     @Override

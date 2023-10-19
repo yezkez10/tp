@@ -23,7 +23,9 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Nric nric;
-
+    private final Gender gender;
+    private final Age age;
+    private final Ethnicity ethnic;
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
@@ -32,11 +34,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Gender gender,
+                  Age age, Ethnicity ethnic, Nric nric, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.ethnic = ethnic;
         this.nric = nric;
         this.address = address;
         this.tags.addAll(tags);
@@ -45,12 +51,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Nric nric, Address address, Set<Tag> tags,
-                  ArrayList<Appointment> appointments) {
+    public Person(Name name, Phone phone, Email email, Gender gender, Age age, Ethnicity ethnic, Nric nric,
+                  Address address, Set<Tag> tags, ArrayList<Appointment> appointments) {
         requireAllNonNull(name, phone, email, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.ethnic = ethnic;
         this.nric = nric;
         this.address = address;
         this.tags.addAll(tags);
@@ -75,6 +84,16 @@ public class Person {
 
     public Nric getNric() {
         return nric;
+    }
+
+    public Gender getGender() {
+        return this.gender;
+    }
+    public Age getAge() {
+        return this.age;
+    }
+    public Ethnicity getEthnic() {
+        return this.ethnic;
     }
 
     /**
@@ -102,11 +121,19 @@ public class Person {
      * @param index Index of the appointment to delete
      * @return An ArrayList without the deleted appointment
      */
-    public ArrayList<Appointment> deleteAppointment(int index) {
-        ArrayList<Appointment> array = new ArrayList<>();
-        array.addAll(appointments);
-        array.remove(index);
-        return array;
+    public Appointment deleteAppointment(int index) {
+        Appointment appt = appointments.get(index);
+        this.appointments.remove(index);
+        return appt;
+    }
+
+    /**
+     * Edits the appointment at the input index with the updated Appointment
+     * @param index Index of the appointment to edit
+     * @param updatedAppointment the updated Appointment
+     */
+    public void editAppointment(int index, Appointment updatedAppointment) {
+        this.appointments.set(index, updatedAppointment);
     }
     /**
      * Returns true if both persons have the same name.
@@ -119,6 +146,45 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if both patients have the same Appointments.
+     * @param otherPerson the other patient to check
+     * @return if both patients have the same appointment
+     */
+    public boolean haveSameAppointments(Person otherPerson) {
+        return this.appointments.equals(otherPerson.getAppointments());
+    }
+
+    /**
+     * Returns true if patient already has this sa,e Appointment
+     * @param otherAppointment Appointment to check if it exists
+     * @return if patient has this Appointment
+     */
+    public boolean hasAppointment(Appointment otherAppointment) {
+        return this.appointments.contains(otherAppointment);
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToClone}
+     * Needed for edit Appointment.
+     */
+    public static Person createClone(Person personToClone) {
+        assert personToClone != null;
+
+        Name cloneName = personToClone.getName();
+        Phone clonePhone = personToClone.getPhone();
+        Email cloneEmail = personToClone.getEmail();
+        Gender cloneGender = personToClone.getGender();
+        Age cloneAge = personToClone.getAge();
+        Ethnicity cloneEthnicity = personToClone.getEthnic();
+        Nric cloneNric = personToClone.getNric();
+        Address cloneAddress = personToClone.getAddress();
+        Set<Tag> cloneTags = new HashSet<>(personToClone.getTags());
+        ArrayList<Appointment> cloneAppointments = new ArrayList<>(personToClone.getAppointments());
+
+        return new Person(cloneName, clonePhone, cloneEmail, cloneGender, cloneAge, cloneEthnicity, cloneNric, cloneAddress, cloneTags, cloneAppointments);
     }
 
     /**
@@ -148,7 +214,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, nric, address, tags);
+        return Objects.hash(name, phone, email, gender, age, ethnic, nric, address, tags);
     }
 
     @Override
@@ -157,6 +223,9 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("gender", gender)
+                .add("age", age)
+                .add("ethnic", ethnic)
                 .add("nric", nric)
                 .add("address", address)
                 .add("tags", tags)

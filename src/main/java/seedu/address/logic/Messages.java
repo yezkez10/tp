@@ -21,6 +21,9 @@ public class Messages {
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
+            "The Appointment index provided is invalid";
+
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -45,6 +48,12 @@ public class Messages {
                 .append(person.getPhone())
                 .append(" | Email: ")
                 .append(person.getEmail())
+                .append(" | Gender: ")
+                .append(person.getGender())
+                .append(" | Age: ")
+                .append(person.getAge())
+                .append(" | Ethnic: ")
+                .append(person.getEthnic())
                 .append(" | NRIC: ")
                 .append(person.getNric())
                 .append(" | Address: ")
@@ -54,7 +63,10 @@ public class Messages {
         return builder.toString();
     }
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code address of the patient} for display to the user.
+     * @param person Patient we are interested in
+     * @param appointment Appointment of the patient
+     * @return
      */
     public static String formatAppointment(Person person, Appointment appointment) {
         final StringBuilder builder = new StringBuilder();

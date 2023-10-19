@@ -32,13 +32,23 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
+    public static final String VALID_GENDER_AMY = "F";
+    public static final int VALID_AGE_AMY = 10;
+    public static final String VALID_ETHNIC_AMY = "Chinese";
+    public static final String VALID_NRIC_AMY = "T1234567E";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_NRIC_AMY = "S1234567A";
     public static final String VALID_NRIC_BOB = "S1234567B";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_NRIC_BOB = "T1234567E";
+    public static final String VALID_GENDER_BOB = "M";
+    public static final int VALID_AGE_BOB = 42;
+    public static final String VALID_ETHNIC_BOB = "Chinese";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_APPOINTMENT_DESCRIPTION = "description of appointment";
+    public static final String VALID_APPOINTMENT_DATE = "01-01-2023 00:00";
 
     public static final String NAME_DESC_AMY = VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

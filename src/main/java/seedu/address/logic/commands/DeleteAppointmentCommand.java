@@ -3,24 +3,15 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Deletes the appointment of an existing person in the address book.
@@ -38,7 +29,7 @@ public class DeleteAppointmentCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_APPOINTMENT + "3";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %d : %1$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s  of %2$s";
 
     private final Index index;
     private final Index index2;
@@ -68,30 +59,11 @@ public class DeleteAppointmentCommand extends Command {
         if (index2.getZeroBased() >= personToEdit.getAppointments().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        int length = personToEdit.getAppointments().size() - 1;
-        ArrayList<Appointment> editedAppointment = personToEdit.deleteAppointment(index2.getZeroBased());
 
-        Person newPerson = editAppointment(personToEdit, editedAppointment);
+        Appointment deleted = personToEdit.deleteAppointment(index2.getZeroBased());
 
-        model.setPerson(personToEdit, newPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-                index2, Messages.format(personToEdit)));
-    }
-
-    private static Person editAppointment(Person personToEdit, ArrayList<Appointment> appointments) {
-        assert personToEdit != null;
-
-        Name updatedName = personToEdit.getName();
-        Phone updatedPhone = personToEdit.getPhone();
-        Email updatedEmail = personToEdit.getEmail();
-        Nric updatedNric = personToEdit.getNric();
-        Address updatedAddress = personToEdit.getAddress();
-        Set<Tag> updatedTags = personToEdit.getTags();
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedNric,
-                updatedAddress, updatedTags, appointments);
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, deleted,
+                Messages.format(personToEdit)));
     }
 
     @Override
