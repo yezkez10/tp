@@ -52,7 +52,8 @@ class JsonAdaptedAppointment {
      *
      * @throws DateTimeParseException if there were any data constraints violated in the adapted appointment.
      */
-    public Appointment toModelType() throws DateTimeParseException {
-        return new Appointment(description, dateTime);
+    public Appointment toModelType() throws IllegalValueException {
+        // Left patient as null for now
+        return new Appointment(description, dateTime, null);
     }
 }

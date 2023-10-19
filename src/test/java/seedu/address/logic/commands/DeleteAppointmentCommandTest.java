@@ -29,11 +29,11 @@ public class DeleteAppointmentCommandTest {
         LocalDateTime time2 = ParserUtil.parseDateTime("02-01-2025 12:00");
         LocalDateTime time3 = ParserUtil.parseDateTime("02-01-2026 12:00");
         LocalDateTime time4 = ParserUtil.parseDateTime("02-01-2027 12:00");
-        Appointment one = new Appointment("one", time1);
-        Appointment two = new Appointment("two", time2);
-        Appointment three = new Appointment("three", time3);
-        Appointment four = new Appointment("4", time4);
-        Appointment five = new Appointment("5", time4);
+        Appointment one = new Appointment("one", time1, validPerson);
+        Appointment two = new Appointment("two", time2, validPerson);
+        Appointment three = new Appointment("three", time3, validPerson);
+        Appointment four = new Appointment("4", time4, validPerson);
+        Appointment five = new Appointment("5", time4, validPerson);
         validPerson.addAppointment(one);
         validPerson.addAppointment(two);
         validPerson.addAppointment(three);

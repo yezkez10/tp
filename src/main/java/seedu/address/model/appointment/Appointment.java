@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
+
 /**
  * Appointment instance for patients
  */
@@ -25,23 +28,25 @@ public class Appointment {
 
     private final String description;
     private final LocalDateTime dateTime;
+    private final Person patient;
 
     /**
      * Constructor for Appointment instance
      * @param description Description of the appointment
      * @param dateTime Time and Date of the appointment
      */
-    public Appointment(String description, LocalDateTime dateTime) {
+    public Appointment(String description, LocalDateTime dateTime, Person patient) {
         requireAllNonNull(description, dateTime);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
         this.dateTime = dateTime;
+        this.patient = patient;
     }
 
     /**
      * Returns true if a given string is a valid descrption
-     * @param test
-     * @return
+     * @param test String to be tested
+     * @return True if the string is a valid description
      */
     public static boolean isValidDescription(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -75,8 +80,10 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Description: " + description + " \nOn: "
-                + dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+        return new ToStringBuilder(this)
+                .add("description", description)
+                .add("dateTime", dateTime)
+                .toString();
     }
 
     @Override
@@ -99,5 +106,28 @@ public class Appointment {
     public int hashCode() {
         // Generate a hashCode based on description and dateTime
         return Objects.hash(description, dateTime);
+    }
+
+    /**
+     * Returns the patient of the appointment.
+     *
+     * @return Patient of the appointment.
+     */
+    public Person getPatient() {
+        return this.patient;
+    }
+
+    /**
+     * Returns true if both appointments have the same details.
+     */
+    public boolean isSameAppointment(Appointment otherAppt) {
+        if (otherAppt == this) {
+            return true;
+        }
+
+        return otherAppt != null
+                && otherAppt.getPatient().equals(getPatient())
+                && otherAppt.getDescription().equals(getDescription())
+                && otherAppt.getDateTime().equals(getDateTime());
     }
 }
