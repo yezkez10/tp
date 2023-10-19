@@ -31,6 +31,8 @@ public class AppointmentAddCommand extends Command {
             + PREFIX_DESCRIPTION + " description details "
             + PREFIX_DATE + " 02-01-2024 12:00";
 
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";
+
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added: %1$s";
 
     private final Index targetIndex;
@@ -58,6 +60,10 @@ public class AppointmentAddCommand extends Command {
         Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
 
         Appointment toAdd = new Appointment(description, dateTime);
+        if (targetPatient.hasAppointment(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+
         targetPatient.addAppointment(toAdd);
 
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));

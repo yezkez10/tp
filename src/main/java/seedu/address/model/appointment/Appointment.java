@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 /**
  * Appointment instance for patients
  */
@@ -72,8 +74,10 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Description: " + description + " \nOn: "
-                + dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+        return new ToStringBuilder(this)
+                .add("description", description)
+                .add("dateTime", dateTime)
+                .toString();
     }
 
     @Override

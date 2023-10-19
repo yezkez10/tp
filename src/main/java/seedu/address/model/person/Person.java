@@ -126,6 +126,15 @@ public class Person {
         this.appointments.remove(index);
         return appt;
     }
+
+    /**
+     * Edits the appointment at the input index with the updated Appointment
+     * @param index Index of the appointment to edit
+     * @param updatedAppointment the updated Appointment
+     */
+    public void editAppointment(int index, Appointment updatedAppointment) {
+        this.appointments.set(index, updatedAppointment);
+    }
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -137,6 +146,42 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if both patients have the same Appointments.
+     * @param otherPerson the other patient to check
+     * @return if both patients have the same appointment
+     */
+    public boolean haveSameAppointments(Person otherPerson) {
+        return this.appointments.equals(otherPerson.getAppointments());
+    }
+
+    /**
+     * Returns true if patient already has this sa,e Appointment
+     * @param otherAppointment Appointment to check if it exists
+     * @return if patient has this Appointment
+     */
+    public boolean hasAppointment(Appointment otherAppointment) {
+        return this.appointments.contains(otherAppointment);
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToClone}
+     * Needed for edit Appointment.
+     */
+    public static Person createClone(Person personToClone) {
+        assert personToClone != null;
+
+        Name cloneName = personToClone.getName();
+        Phone clonePhone = personToClone.getPhone();
+        Email cloneEmail = personToClone.getEmail();
+        Nric cloneNric = personToClone.getNric();
+        Address cloneAddress = personToClone.getAddress();
+        Set<Tag> cloneTags = new HashSet<>(personToClone.getTags());
+        ArrayList<Appointment> cloneAppointments = new ArrayList<>(personToClone.getAppointments());
+
+        return new Person(cloneName, clonePhone, cloneEmail, cloneNric, cloneAddress, cloneTags, cloneAppointments);
     }
 
     /**
