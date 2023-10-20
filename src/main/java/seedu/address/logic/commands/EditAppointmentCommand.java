@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPTS;
 import static seedu.address.model.person.Person.createClone;
 
 import java.time.LocalDateTime;
@@ -99,8 +99,8 @@ public class EditAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setAppointment(appointmentToEdit, editedAppointment);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 editedAppointment, Messages.format(editedPerson)));
     }

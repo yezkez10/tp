@@ -109,4 +109,11 @@ public interface Model {
      * @param index Index of apoointment to delete.
      */
     void deleteAppointment(int index);
+  
+     * Replaces Appointment with updated Appointment
+     *
+     * @param target Appointment to replace
+     * @param editedAppointment edited Appointment to replace with
+     */
+    void setAppointment(Appointment target, Appointment editedAppointment);
 }
