@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.person.Person;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -51,8 +52,8 @@ class JsonAdaptedAppointment {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted appointment.
      */
-    public Appointment toModelType() throws IllegalValueException {
+    public Appointment toModelType(Person patient) throws IllegalValueException {
         // Left patient as null for now
-        return new Appointment(description, dateTime, null);
+        return new Appointment(description, dateTime, patient);
     }
 }

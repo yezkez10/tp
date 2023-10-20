@@ -6,7 +6,8 @@
 
 # ClinicAssistant User Guide
 
-ClinicAssistant is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClinicAssistant can get your contact management tasks done faster than traditional GUI apps.
+ClinicAssistant is a **desktop app for managing patients' records, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+ClinicAssistant requires a lot of typing of various prefixes to add, list or store patients or appointments accordingly.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -28,11 +29,13 @@ ClinicAssistant is a **desktop app for managing contacts, optimized for use via 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all patients.
+   * `list` : Lists all patients in the ClinicAssistant.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a patient named `John Doe` to ClinicAssistant.
-
-   * `delete 3` : Deletes the 3rd patient shown in the current list.
+   * `add /n John Doe /p 98765432 /ejohnd@example.com /g M /age 22 /eth Chinese /ic T1234567E a/John street, block 123, #01-01 /t allergy` : 
+   Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
+   
+   * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
+   * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
 
    * `clear` : Deletes all patients.
 
@@ -49,7 +52,7 @@ ClinicAssistant is a **desktop app for managing contacts, optimized for use via 
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add n/ John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -69,31 +72,28 @@ ClinicAssistant is a **desktop app for managing contacts, optimized for use via 
 
 ### Adding a person: `add`
 
-Adds a patient to the database. A patient has a **name, phone number, email, IC** and **address**.
+Adds a patient to the database. A patient has a **name, phone number, email, gender, age, ethnicity, IC** and **address**.
 
-Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /ic NRIC /a ADDRESS`
-
-**Note:**
-An appointment must have all tags to work. e.g. add appt, add appt /for 3, add appt /on 2023-09-17 will not work
+Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g M /age 22 /eth Chinese /ic NRIC /a ADDRESS`
 
 Examples:
 * `add /n Drizzy /p 999 /e drake@gmail.com /ic T03XXXXXE /a 901 Shelby Dr`
 
 ### Adding an appointment: `add appt`
 
-Adds a new appointment to a specific patient at index. Need to include the upcoming date of this new appointment.
+Adds a new appointment to a specific patient at index. Upcoming date of this new appointment must be included.
 
-Format: `add appt /for INDEX /on DATE`
+Format: `add appt /for INDEX /on YYYY-MM-DD HH:MM`
 
 **Note:**
-An appointment must have all tags to work. e.g. add appt, add appt /for 3, add appt /on 2023-09-17 will not work
+An appointment must have all tags to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
 * `add appt /for 6 /on 2023-09-17 13:00`
 
 ### Listing all patients : `list`
 
-Shows a list of all patients in the database.
+Shows a list of all patients in clinicAssistant.
 
 Format: `list`
 
@@ -150,7 +150,7 @@ Format: `clear`
 
 ### Exiting the program : `exit`
 
-Exits the program.
+Exits ClinicAssistant.
 
 Format: `exit`
 
@@ -191,7 +191,8 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Appointment**  | `appt /for INDEX /d details /on DATE & TIME` <br> e.g., `appt /for 1 /d orthopaedic /on 02-01-2024 12:00`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Find**   | `find KEYWORD`<br> e.g., `find john`

@@ -30,7 +30,6 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyClinicAssistant addressBook, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(addressBook, userPrefs);
-
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.clinicAssistant = new ClinicAssistant(addressBook);
@@ -119,6 +118,14 @@ public class ModelManager implements Model {
         clinicAssistant.addAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
     }
+
+    @Override
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
+        requireAllNonNull(target, editedAppointment);
+
+        clinicAssistant.setAppointment(target, editedAppointment);
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
