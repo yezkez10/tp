@@ -49,6 +49,13 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         internalList.add(toAdd);
     }
 
+    public void delete(int index) {
+        if(index >= internalList.size()) {
+            throw new AppointmentNotFoundException();
+        }
+        internalList.remove(index);
+    }
+
     /**
      * Replaces the Appointment {@code target} in the list with {@code editedAppointment}.
      * {@code target} must exist in the list.

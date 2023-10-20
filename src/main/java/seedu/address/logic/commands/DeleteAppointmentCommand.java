@@ -57,10 +57,12 @@ public class DeleteAppointmentCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
         if (index2.getZeroBased() >= personToEdit.getAppointments().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
         Appointment deleted = personToEdit.deleteAppointment(index2.getZeroBased());
+
+        model.deleteAppointment(index2.getZeroBased());
 
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, deleted,
                 Messages.format(personToEdit)));
