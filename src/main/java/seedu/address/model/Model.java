@@ -102,4 +102,12 @@ public interface Model {
      * @param toAdd Appointment to be added.
      */
     void addAppointment(Appointment toAdd);
+
+    /**
+     * Replaces Appointment with updated Appointment
+     *
+     * @param target Appointment to replace
+     * @param editedAppointment edited Appointment to replace with
+     */
+    void setAppointment(Appointment target, Appointment editedAppointment);
 }
