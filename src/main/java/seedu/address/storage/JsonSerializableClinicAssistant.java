@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.ReadOnlyClinicAssistant;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 
 /**
@@ -47,13 +50,18 @@ class JsonSerializableClinicAssistant {
      */
     public ClinicAssistant toModelType() throws IllegalValueException {
         ClinicAssistant clinicAssistant = new ClinicAssistant();
+
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
+            ArrayList<Appointment> appointments = jsonAdaptedPerson.toModelTypeAppointments(person);
+            person.setAppointments(appointments);
             if (clinicAssistant.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             clinicAssistant.addPerson(person);
+            clinicAssistant.setAppointments(appointments);
         }
+        System.out.println(clinicAssistant);
         return clinicAssistant;
     }
 

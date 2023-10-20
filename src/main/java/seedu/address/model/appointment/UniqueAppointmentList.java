@@ -96,6 +96,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.setAll(appointments);
+        System.out.println(appointments);
     }
 
     /**
