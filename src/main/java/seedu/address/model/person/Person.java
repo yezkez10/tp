@@ -29,7 +29,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final ArrayList<Appointment> appointments = new ArrayList<>();
+    private ArrayList<Appointment> appointments = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -115,6 +115,10 @@ public class Person {
      */
     public void addAppointment(Appointment toAdd) {
         this.appointments.add(toAdd);
+    }
+
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     /**
