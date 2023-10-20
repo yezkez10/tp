@@ -52,11 +52,9 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     /**
      * Deletes an Appointment from the list.
      */
-    public void delete(int index) {
-        if (index >= internalList.size()) {
-            throw new AppointmentNotFoundException();
-        }
-        internalList.remove(index);
+    public void delete(Appointment appointment) {
+        requireAllNonNull(appointment);
+        internalList.remove(appointment);
     }
 
     /**

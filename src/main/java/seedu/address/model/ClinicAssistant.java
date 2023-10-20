@@ -160,7 +160,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         this.allAppointments.setAppointments(appointments);
     }
 
-    public void deleteAppointment(int index) {
-        this.allAppointments.delete(index);
+    public void deleteAppointment(Appointment appointment) {
+        this.allAppointments.delete(appointment);
     }
 }

@@ -62,7 +62,7 @@ public class DeleteAppointmentCommand extends Command {
 
         Appointment deleted = personToEdit.deleteAppointment(index2.getZeroBased());
 
-        model.deleteAppointment(index2.getZeroBased());
+        model.deleteAppointment(deleted);
 
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, deleted,
                 Messages.format(personToEdit)));

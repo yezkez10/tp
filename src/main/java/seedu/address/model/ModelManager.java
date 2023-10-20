@@ -120,8 +120,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteAppointment(int index) {
-        clinicAssistant.deleteAppointment(index);
+    public void deleteAppointment(Appointment appointment) {
+        clinicAssistant.deleteAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
     }
 
