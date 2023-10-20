@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -117,6 +118,9 @@ public class Appointment {
         return this.patient;
     }
 
+    public Name getPatientName() {
+        return this.patient.getName();
+    }
     /**
      * Returns true if both appointments have the same details.
      */

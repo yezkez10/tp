@@ -50,6 +50,14 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Deletes an Appointment from the list.
+     */
+    public void delete(Appointment appointment) {
+        requireAllNonNull(appointment);
+        internalList.remove(appointment);
+    }
+
+    /**
      * Replaces the Appointment {@code target} in the list with {@code editedAppointment}.
      * {@code target} must exist in the list.
      * The Appointment of {@code editedAppointment} must not be the same as another existing Appointment in the list.
