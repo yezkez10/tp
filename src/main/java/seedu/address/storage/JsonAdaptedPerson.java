@@ -103,11 +103,6 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        final List<Appointment> personAppointments = new ArrayList<>();
-        for (JsonAdaptedAppointment appointment : appointments) {
-            personAppointments.add(appointment.toModelType());
-        }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -172,8 +167,15 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        final ArrayList<Appointment> modelAppointments = new ArrayList<>(personAppointments);
         return new Person(modelName, modelPhone, modelEmail, modelGender,
-                modelAge, modelEthnic, modelNric, modelAddress, modelTags, modelAppointments);
+                modelAge, modelEthnic, modelNric, modelAddress, modelTags);
+    }
+
+    public ArrayList<Appointment> toModelTypeAppointments(Person patient) throws IllegalValueException {
+        final ArrayList<Appointment> personAppointments = new ArrayList<>();
+        for (JsonAdaptedAppointment appointment : appointments) {
+            personAppointments.add(appointment.toModelType(patient));
+        }
+        return personAppointments;
     }
 }
