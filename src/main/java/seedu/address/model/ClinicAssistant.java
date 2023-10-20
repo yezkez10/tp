@@ -159,4 +159,8 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     public void setAppointments(List<Appointment> appointments) {
         this.allAppointments.setAppointments(appointments);
     }
+
+    public void deleteAppointment(Appointment appointment) {
+        this.allAppointments.delete(appointment);
+    }
 }

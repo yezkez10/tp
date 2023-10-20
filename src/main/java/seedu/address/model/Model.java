@@ -104,6 +104,11 @@ public interface Model {
     void addAppointment(Appointment toAdd);
 
     /**
+     * Deletes an appointment in the address book.
+     */
+    void deleteAppointment(Appointment appointment);
+
+    /**
      * Replaces Appointment with updated Appointment
      *
      * @param target Appointment to replace
