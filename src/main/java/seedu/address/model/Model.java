@@ -105,8 +105,6 @@ public interface Model {
 
     /**
      * Deletes an appointment in the address book.
-     *
-     * @param index Index of apoointment to delete.
      */
     void deleteAppointment(Appointment appointment);
 
