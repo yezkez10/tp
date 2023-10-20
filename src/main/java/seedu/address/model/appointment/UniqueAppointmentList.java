@@ -99,6 +99,19 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Adds to the contents of this list with {@code appointments}.
+     * {@code appointments} must not contain duplicate Appointments.
+     */
+    public void addAll(List<Appointment> appointments) {
+        requireAllNonNull(appointments);
+        if (!appointmentsAreUnique(appointments)) {
+            throw new DuplicateAppointmentException();
+        }
+
+        internalList.addAll(appointments);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Appointment> asUnmodifiableObservableList() {

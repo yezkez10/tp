@@ -43,6 +43,5 @@ public class DeleteAppointmentCommandTest {
         String expectedString = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, two,
                 Messages.format(validPerson));
         assertEquals(new CommandResult(expectedString), command.execute(model));
-        System.out.print(validPerson.getAppointments().toString());
     }
 }
