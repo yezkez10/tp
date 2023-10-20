@@ -1,0 +1,94 @@
+package seedu.address.logic.commands;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_FOUND_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAppointments.ALICES_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.BENSONS_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.CARLS_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.getTypicalAddressBook;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.NameContainsKeywordsApptPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+
+/**
+ * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ */
+public class FindAppointmentByNameCommandTest {
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void equals() {
+        NameContainsKeywordsApptPredicate firstPredicate =
+                new NameContainsKeywordsApptPredicate(Collections.singletonList("first"));
+        NameContainsKeywordsApptPredicate secondPredicate =
+                new NameContainsKeywordsApptPredicate(Collections.singletonList("second"));
+
+        FindAppointmentsByNameCommand findFirstCommand = new FindAppointmentsByNameCommand(firstPredicate);
+        FindAppointmentsByNameCommand findSecondCommand = new FindAppointmentsByNameCommand(secondPredicate);
+
+        // same object -> returns true
+        assertTrue(findFirstCommand.equals(findFirstCommand));
+
+        // same values -> returns true
+        FindAppointmentsByNameCommand findFirstCommandCopy = new FindAppointmentsByNameCommand(firstPredicate);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(findFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(findFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(findFirstCommand.equals(findSecondCommand));
+    }
+
+    @Test
+    public void execute_zeroKeywords_noPersonFound() {
+        String expectedMessage = MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW;
+        NameContainsKeywordsApptPredicate predicate = preparePredicate(" ");
+        FindAppointmentsByNameCommand command = new FindAppointmentsByNameCommand(predicate);
+        expectedModel.updateFilteredAppointmentList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multipleAppointmentsFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 3);
+        NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ Alice BENson Carl jeff");
+        FindAppointmentsByNameCommand command = new FindAppointmentsByNameCommand(predicate);
+        expectedModel.updateFilteredAppointmentList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT, CARLS_APPOINTMENT),
+                model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void toStringMethod() {
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
+        FindCommand findCommand = new FindCommand(predicate);
+        String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        assertEquals(expected, findCommand.toString());
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     */
+    private NameContainsKeywordsApptPredicate preparePredicate(String userInput) {
+        return new NameContainsKeywordsApptPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+}

@@ -120,12 +120,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAppointment(Appointment appointment) {
+        clinicAssistant.deleteAppointment(appointment);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
+    }
+
+    @Override
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireAllNonNull(target, editedAppointment);
 
         clinicAssistant.setAppointment(target, editedAppointment);
     }
-
 
     //=========== Filtered Person List Accessors =============================================================
 
