@@ -59,9 +59,10 @@ class JsonSerializableClinicAssistant {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             clinicAssistant.addPerson(person);
-            clinicAssistant.setAppointments(appointments);
+
+            // ADDS ENTIRE LIST TO BE APPENDED TO THE MAIN APPOINTMENT LIST
+            clinicAssistant.addAppointmentAsList(appointments);
         }
-        System.out.println(clinicAssistant);
         return clinicAssistant;
     }
 

@@ -19,7 +19,7 @@ import seedu.address.model.person.UniquePersonList;
 public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     private final UniquePersonList persons;
-    private final UniqueAppointmentList appointments;
+    private final UniqueAppointmentList allAppointments;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,7 +30,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
      */
     {
         persons = new UniquePersonList();
-        appointments = new UniqueAppointmentList();
+        allAppointments = new UniqueAppointmentList();
     }
 
     public ClinicAssistant() {}
@@ -60,6 +60,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setAppointments(newData.getAppointmentList());
     }
 
     //// person-level operations
@@ -140,14 +141,17 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
      */
     @Override
     public ObservableList<Appointment> getAppointmentList() {
-        return appointments.asUnmodifiableObservableList();
+        return allAppointments.asUnmodifiableObservableList();
     }
 
     public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
+        allAppointments.add(appointment);
     }
 
-    public void setAppointments(ArrayList<Appointment> appointments) {
-        this.appointments.setAppointments(appointments);
+    public void addAppointmentAsList(List<Appointment> appointments) {
+        this.allAppointments.addAll(appointments);
+    }
+    public void setAppointments(List<Appointment> appointments) {
+        this.allAppointments.setAppointments(appointments);
     }
 }
