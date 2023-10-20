@@ -60,7 +60,7 @@ class JsonSerializableClinicAssistant {
             }
             clinicAssistant.addPerson(person);
 
-            // ADDS ENTIRE LIST TO BE APPENDED TO THE MAIN APPOINTMENT LIST
+            // ADDS ENTIRE LIST TO BE APPENDED TO THE MAIN APPOINTMENT LIST.
             clinicAssistant.addAppointmentAsList(appointments);
         }
         return clinicAssistant;
