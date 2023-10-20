@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class PersonBuilder {
     private Nric nric;
     private Address address;
     private Set<Tag> tags;
-    private Set<Appointment> appointments;
+    private ArrayList<Appointment> appointments;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -69,6 +70,7 @@ public class PersonBuilder {
         nric = personToCopy.getNric();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        appointments = new ArrayList<>(personToCopy.getAppointments());
     }
 
     /**
