@@ -1,7 +1,10 @@
 package seedu.address.storage;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,7 +28,6 @@ class JsonAdaptedAppointment {
                                   @JsonProperty("dateTime") String dateTime) {
         this.description = description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
         this.dateTime = LocalDateTime.parse(dateTime, formatter);
     }
 
@@ -52,7 +54,7 @@ class JsonAdaptedAppointment {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted appointment.
      */
-    public Appointment toModelType(Person patient) throws IllegalValueException {
+    public Appointment toModelType(Person patient) {
         // Left patient as null for now
         return new Appointment(description, dateTime, patient);
     }

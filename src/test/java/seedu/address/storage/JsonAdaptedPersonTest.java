@@ -31,7 +31,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ETHNIC = "American";
     private static final String INVALID_NRIC = "A1B2C3D4E";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_TAG = "";
     private static final String[] INVALID_APPOINTMENT = new String[]{"hii", "01 01 2019"};
 
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -195,11 +195,12 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidAppointments_throwsDateTimeParseException() {
         List<JsonAdaptedAppointment> invalidAppointments = new ArrayList<>();
-        invalidAppointments.add(new JsonAdaptedAppointment(INVALID_APPOINTMENT[0], INVALID_APPOINTMENT[1]));
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_GENDER, VALID_AGE, VALID_ETHNIC,
-                        VALID_NRIC, VALID_ADDRESS, VALID_TAGS, invalidAppointments);
-        assertThrows(DateTimeParseException.class, person::toModelType);
+            invalidAppointments.add(new JsonAdaptedAppointment(INVALID_APPOINTMENT[0], INVALID_APPOINTMENT[1]));
+            //parse exception being thrown up here ^ which is too early
+            JsonAdaptedPerson person =
+                    new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_GENDER, VALID_AGE, VALID_ETHNIC,
+                            VALID_NRIC, VALID_ADDRESS, VALID_TAGS, invalidAppointments);
+            assertThrows(DateTimeParseException.class, person::toModelType);
     }
 
 }

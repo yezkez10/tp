@@ -97,7 +97,7 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException, DateTimeParseException {
+    public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
@@ -171,7 +171,7 @@ class JsonAdaptedPerson {
                 modelAge, modelEthnic, modelNric, modelAddress, modelTags);
     }
 
-    public ArrayList<Appointment> toModelTypeAppointments(Person patient) throws IllegalValueException {
+    public ArrayList<Appointment> toModelTypeAppointments(Person patient) throws DateTimeParseException {
         final ArrayList<Appointment> personAppointments = new ArrayList<>();
         for (JsonAdaptedAppointment appointment : appointments) {
             personAppointments.add(appointment.toModelType(patient));

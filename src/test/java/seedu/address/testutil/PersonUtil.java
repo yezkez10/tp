@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
@@ -64,7 +65,6 @@ public class PersonUtil {
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-
         }
         return sb.toString();
     }

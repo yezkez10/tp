@@ -78,7 +78,7 @@ public class CommandTestUtil {
     public static final String INVALID_ETHNIC_DESC = " " + PREFIX_ETHNIC + "Asian"; // not within our constraints
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "T0Q9W/46E"; // only alphabets and digits allowed
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + ""; // empty tags not allowed
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG; // empty tags not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

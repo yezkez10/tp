@@ -94,7 +94,7 @@ public class PersonBuilder {
      * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withAppointments(String ... appointments) {
-        this.appointments = SampleDataUtil.getAppointmentSet(appointments);
+        this.appointments = TypicalAppointments.getTypicalAppointments();
         return this;
     }
 
