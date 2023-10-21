@@ -206,6 +206,7 @@ public class EditCommandParserTest {
         try {
             assertParseSuccess(parser, userInput, expectedCommand);
         } catch (IllegalArgumentException e) {
-            }
+            return;
         }
+    }
 }
