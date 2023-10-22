@@ -6,13 +6,12 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.appointment.Appointment;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Appointment} objects to be used in tests.
  */
 public class TypicalAppointments {
 
@@ -39,7 +38,7 @@ public class TypicalAppointments {
         return ab;
     }
 
-    public static List<Appointment> getTypicalAppointments() {
+    public static ArrayList<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT, CARLS_APPOINTMENT));
     }
 }

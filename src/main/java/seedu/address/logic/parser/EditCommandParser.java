@@ -36,8 +36,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_GENDER, PREFIX_AGE,
-                        PREFIX_ETHNIC, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_GENDER,
+                        PREFIX_AGE, PREFIX_ETHNIC, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_TAG);
+
 
         Index index;
 
@@ -47,8 +48,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC,
-                PREFIX_GENDER, PREFIX_AGE, PREFIX_ETHNIC, PREFIX_ADDRESS);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_GENDER,
+                PREFIX_AGE, PREFIX_ETHNIC, PREFIX_NRIC, PREFIX_ADDRESS);
+
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -92,11 +95,16 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
-
+        Collection<String> tagSet;
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        if (tags.size() == 1 && tags.contains("")) {
+            tagSet = Collections.emptySet();
+            throw new ParseException(String.format(Tag.MESSAGE_CONSTRAINTS));
+        } else {
+            tagSet = tags;
+        }
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
