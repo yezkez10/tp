@@ -3,11 +3,19 @@
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",
+    "gender": "M",
+    "age": 25,
+    "ethnic": "Chinese",
+    "nric": "T0987654E",
     "address": "4th street"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
+    "gender": "M",
+    "age": 25,
+    "ethnic": "Chinese",
+    "nric": "T0987654E",
     "address": "4th street"
   } ]
 }

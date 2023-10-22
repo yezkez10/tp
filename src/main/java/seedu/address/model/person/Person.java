@@ -36,7 +36,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Gender gender,
                   Age age, Ethnicity ethnic, Nric nric, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, nric, address, tags);
+        requireAllNonNull(name, phone, email, gender, age, ethnic, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,7 +53,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Gender gender, Age age, Ethnicity ethnic, Nric nric,
                   Address address, Set<Tag> tags, ArrayList<Appointment> appointments) {
-        requireAllNonNull(name, phone, email, nric, address, tags);
+        requireAllNonNull(name, phone, email, gender, age, ethnic, nric, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -87,13 +87,13 @@ public class Person {
     }
 
     public Gender getGender() {
-        return this.gender;
+        return gender;
     }
     public Age getAge() {
-        return this.age;
+        return age;
     }
     public Ethnicity getEthnic() {
-        return this.ethnic;
+        return ethnic;
     }
 
     /**

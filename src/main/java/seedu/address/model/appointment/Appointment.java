@@ -25,6 +25,9 @@ public class Appointment {
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy hh.mma");
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+
     private final String description;
     private final LocalDateTime dateTime;
     private final Person patient;
@@ -54,19 +57,14 @@ public class Appointment {
     /**
      * Returns true if a given LocalDateTime is a valid date and time (must be in the future) for an appointment.
      */
-    public static boolean isValidDateTime(String test) {
+    public static boolean isValidDateTime(String test) throws DateTimeParseException {
         // Define the format that the string should adhere to
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        try {
-            // Attempt to parse the string into a LocalDateTime using the specified format
-            LocalDateTime parsedDateTime = LocalDateTime.parse(test, formatter);
-            LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
-            return parsedDateTime.isAfter(currentDateTime);
-        } catch (DateTimeParseException e) {
-            // Parsing failed, so the string is not in the correct format
-            return false;
-        }
+        // Attempt to parse the string into a LocalDateTime using the specified format
+        LocalDateTime parsedDateTime = LocalDateTime.parse(test, formatter);
+        LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
+        return parsedDateTime.isAfter(currentDateTime);
     }
 
     public String getDescription() {
