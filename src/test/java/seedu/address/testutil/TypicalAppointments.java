@@ -3,6 +3,10 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +37,22 @@ public class TypicalAppointments {
     public static final Appointment CARLS_APPOINTMENT = new AppointmentBuilder(CARL)
             .withDescription("x-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+    public static final Appointment DANIELS_APPOINTMENT = new AppointmentBuilder(DANIEL)
+            .withDescription("x-ray appointment")
+            .withDateTme("05-02-2024 00:00").build();
+
+    public static final Appointment ELLES_APPOINTMENT = new AppointmentBuilder(ELLE)
+            .withDescription("x-ray appointment")
+            .withDateTme("05-02-2024 00:00").build();
+
+    public static final Appointment FIONAS_APPOINTMENT = new AppointmentBuilder(FIONA)
+            .withDescription("x-ray appointment")
+            .withDateTme("05-02-2024 00:00").build();
+
+    public static final Appointment GEORGES_APPOINTMENT = new AppointmentBuilder(GEORGE)
+            .withDescription("x-ray appointment")
+            .withDateTme("05-02-2024 00:00").build();
 
     private TypicalAppointments() {} // prevents instantiation
 
@@ -63,6 +82,7 @@ public class TypicalAppointments {
 
     public static ArrayList<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT,
-                CARLS_APPOINTMENT));
+                CARLS_APPOINTMENT, DANIELS_APPOINTMENT, ELLES_APPOINTMENT, FIONAS_APPOINTMENT,
+                GEORGES_APPOINTMENT));
     }
 }

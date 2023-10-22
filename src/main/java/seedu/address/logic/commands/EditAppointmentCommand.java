@@ -163,7 +163,6 @@ public class EditAppointmentCommand extends Command {
             setDateTime(toCopy.dateTime);
             setPatient(toCopy.patient);
         }
-
         /**
          * Returns true if at least one field is edited.
          */

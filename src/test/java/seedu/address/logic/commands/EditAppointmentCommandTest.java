@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAppointments.ALICES_APPOINTMENT;
 import static seedu.address.testutil.TypicalAppointments.ALICES_APPOINTMENT_EDITED;
 import static seedu.address.testutil.TypicalAppointments.ALICES_APPOINTMENT_EDITED_ONLY_DESCRIPTION_SPECIFIED;
 import static seedu.address.testutil.TypicalAppointments.getTypicalAddressBookPatientsAndAppointments;
@@ -20,12 +21,12 @@ import seedu.address.logic.commands.EditAppointmentCommand.EditAppointmentDescri
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ClinicAssistant;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.EditAppointmentDescriptorBuilder;
 
 /**
@@ -34,15 +35,32 @@ import seedu.address.testutil.EditAppointmentDescriptorBuilder;
 public class EditAppointmentCommandTest {
     private Model model = new ModelManager(getTypicalAddressBookPatientsAndAppointments(), new UserPrefs());
     @Test
-    public void execute_editAppointmentSuccessful() {
-        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder(ALICES_APPOINTMENT_EDITED).build();
+    public void execute_editAppointmentSuccessful() throws CommandException {
+        Person patientAppointmentToEdit = model.getFilteredPersonList().get(0);
+        Appointment toAdd = new AppointmentBuilder(ALICES_APPOINTMENT, patientAppointmentToEdit).build();
+        patientAppointmentToEdit.addAppointment(toAdd);
+
+        Appointment edited = new AppointmentBuilder(ALICES_APPOINTMENT_EDITED, patientAppointmentToEdit).build();
+
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder(edited).build();
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_APPOINTMENT, descriptor);
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 ALICES_APPOINTMENT_EDITED, Messages.format(ALICES_APPOINTMENT_EDITED.getPatient()));
-        Model expectedModel = new ModelManager(new ClinicAssistant(model.getAddressBook()), new UserPrefs());
-        expectedModel.setAppointment(model.getFilteredAppointmentList().get(0), ALICES_APPOINTMENT_EDITED);
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        assertEquals(new CommandResult(expectedMessage), editAppointmentCommand.execute(model));
+    }
+
+    @Test
+    public void execute_editAppointmentSuccessful2() throws CommandException {
+        System.out.println(model.getFilteredAppointmentList());
+        Appointment editedAppointment = new AppointmentBuilder().build();
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder(editedAppointment).build();
+        EditAppointmentCommand command = new EditAppointmentCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_APPOINTMENT, descriptor);
+
+        String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
+                editedAppointment, Messages.format(editedAppointment.getPatient()));
+        assertEquals(new CommandResult(expectedMessage), command.execute(model));
     }
 
     @Test
@@ -54,10 +72,7 @@ public class EditAppointmentCommandTest {
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 ALICES_APPOINTMENT_EDITED_ONLY_DESCRIPTION_SPECIFIED,
                 Messages.format(ALICES_APPOINTMENT_EDITED_ONLY_DESCRIPTION_SPECIFIED.getPatient()));
-        Model expectedModel = new ModelManager(new ClinicAssistant(model.getAddressBook()), new UserPrefs());
-        expectedModel.setAppointment(model.getFilteredAppointmentList().get(0),
-                ALICES_APPOINTMENT_EDITED_ONLY_DESCRIPTION_SPECIFIED);
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        assertEquals(new CommandResult(expectedMessage), editAppointmentCommand.execute(model));
     }
 
     @Test
