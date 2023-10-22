@@ -32,8 +32,8 @@ public class EditAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "edit_appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the specified Appointment of the patient identified "
-            + "by the index number used in the displayed patients list. "
+            + ": Edits the specified Appointment identified "
+            + "by the index number used in the displayed appointments list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[APPOINTMENT INDEX]"

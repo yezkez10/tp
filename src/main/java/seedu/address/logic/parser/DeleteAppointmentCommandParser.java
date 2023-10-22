@@ -20,33 +20,15 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
      */
     public DeleteAppointmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_APPOINTMENT);
-        Index index;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
+        Index appointmentIndex;
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            appointmentIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAppointmentCommand.MESSAGE_USAGE), ive);
         }
-        String text = argMultimap.getValue(PREFIX_APPOINTMENT).orElse("");
 
-        if (text == "") {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAppointmentCommand.MESSAGE_USAGE));
-        }
-
-        if (!text.matches("[0-9]+")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAppointmentCommand.MESSAGE_USAGE));
-        }
-
-        int number = Integer.valueOf(text);
-        if (number <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteAppointmentCommand.MESSAGE_USAGE));
-        }
-
-        Index index2 = Index.fromOneBased(number);
-        return new DeleteAppointmentCommand(index, index2);
+        return new DeleteAppointmentCommand(appointmentIndex);
     }
 }
