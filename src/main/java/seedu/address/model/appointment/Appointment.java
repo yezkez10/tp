@@ -129,4 +129,13 @@ public class Appointment {
                 && otherAppt.getDescription().equals(getDescription())
                 && otherAppt.getDateTime().equals(getDateTime());
     }
+
+    /**
+     * Getter method for the patient of the appointment.
+     *
+     * @return Patient of the appointment.
+     */
+    public Person getPerson() {
+        return this.patient;
+    }
 }

@@ -41,10 +41,11 @@ public class EditAppointmentCommandTest {
 
         // add initial appointment to patient
         validPerson.addAppointment(initialAdd);
+        model.addAppointment(initialAdd);
+        Index index = Index.fromZeroBased(model.getFilteredAppointmentList().indexOf(initialAdd));
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder(toEditWith).build();
-        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_APPOINTMENT , descriptor);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index , descriptor);
 
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 toEditWith, Messages.format(validPerson));
@@ -58,11 +59,12 @@ public class EditAppointmentCommandTest {
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         Appointment initialAdd = new Appointment("one", time1, validPerson);
         validPerson.addAppointment(initialAdd);
+        model.addAppointment(initialAdd);
+        Index index = Index.fromZeroBased(model.getFilteredAppointmentList().indexOf(initialAdd));
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder()
                 .withDescription(VALID_APPOINTMENT_DESCRIPTION).build();
-        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_APPOINTMENT , descriptor);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index , descriptor);
         Appointment edited = createEditedAppointment(initialAdd, descriptor, validPerson);
 
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
@@ -83,12 +85,13 @@ public class EditAppointmentCommandTest {
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         Appointment initialAdd = new Appointment("one", time1, validPerson);
         validPerson.addAppointment(initialAdd);
+        model.addAppointment(initialAdd);
+        Index index = Index.fromZeroBased(model.getFilteredAppointmentList().indexOf(initialAdd));
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder().build();
         Appointment edited = createEditedAppointment(initialAdd, descriptor, validPerson);
 
-        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_APPOINTMENT, descriptor);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, descriptor);
         // testcase returns MESSAGE_DUPLICATE_APPOINTMENT as without proper input -> takes .orElse() (original input)
         // thus, tests with MESSAGE_DUPLICATE_APPOINTMENT.
         assertCommandFailure(editAppointmentCommand, model, editAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
@@ -100,27 +103,16 @@ public class EditAppointmentCommandTest {
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         Appointment initialAdd = new Appointment("one", time1, validPerson);
         validPerson.addAppointment(initialAdd);
+        model.addAppointment(initialAdd);
+        Index index = Index.fromZeroBased(model.getFilteredAppointmentList().indexOf(initialAdd));
 
         // edited person has SAME description and date
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder().withDescription("one")
                 .withDateTime("02-01-2024 12:00").build();
 
-        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON,
-                INDEX_FIRST_APPOINTMENT, descriptor);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(index, descriptor);
 
         assertCommandFailure(editAppointmentCommand, model, editAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
-    }
-
-    @Test
-    public void execute_invalidPatientIndex_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder()
-                .withDescription(VALID_APPOINTMENT_DESCRIPTION)
-                .withDateTime(VALID_APPOINTMENT_DATE).build();
-        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(outOfBoundIndex,
-                INDEX_FIRST_APPOINTMENT, descriptor);
-
-        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc,
