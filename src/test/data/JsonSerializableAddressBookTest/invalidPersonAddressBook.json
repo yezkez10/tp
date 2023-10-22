@@ -3,6 +3,10 @@
     "name": "Hans Muster",
     "phone": "9482424",
     "email": "invalid@email!3e",
+    "gender": "M",
+    "age": 20,
+    "ethnic": "Eurasian",
+    "nric": "T1234321E",
     "address": "4th street"
   } ]
 }

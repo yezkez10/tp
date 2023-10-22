@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -170,7 +171,7 @@ class JsonAdaptedPerson {
                 modelAge, modelEthnic, modelNric, modelAddress, modelTags);
     }
 
-    public ArrayList<Appointment> toModelTypeAppointments(Person patient) throws IllegalValueException {
+    public ArrayList<Appointment> toModelTypeAppointments(Person patient) throws DateTimeParseException {
         final ArrayList<Appointment> personAppointments = new ArrayList<>();
         for (JsonAdaptedAppointment appointment : appointments) {
             personAppointments.add(appointment.toModelType(patient));
