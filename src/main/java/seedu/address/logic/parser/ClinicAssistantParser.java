@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AppointmentAddCommand;
+import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
@@ -85,7 +85,7 @@ public class ClinicAssistantParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AppointmentAddCommand.COMMAND_WORD:
+        case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentParser().parse(arguments);
 
         case DeleteAppointmentCommand.COMMAND_WORD:
