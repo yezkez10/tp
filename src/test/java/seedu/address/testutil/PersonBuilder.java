@@ -55,6 +55,7 @@ public class PersonBuilder {
         nric = new Nric(DEFAULT_NRIC);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        appointments = new ArrayList<>();
     }
 
     /**
@@ -93,8 +94,8 @@ public class PersonBuilder {
      * Parses the {@code appointments} into a {@code ArrayList<Appointment>}
      * and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withAppointments(String ... appointments) {
-        this.appointments = TypicalAppointments.getTypicalAppointments();
+    public PersonBuilder withAppointment(Appointment appointment) {
+        this.appointments.add(appointment);
         return this;
     }
 
