@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 /**
  * A AppointmentAddCommand instance to add appointment to patients
  */
-public class AppointmentAddCommand extends Command {
+public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -42,7 +42,7 @@ public class AppointmentAddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AppointmentAddCommand(Index targetIndex, String description, LocalDateTime dateTime) {
+    public AddAppointmentCommand(Index targetIndex, String description, LocalDateTime dateTime) {
         this.targetIndex = targetIndex;
         this.description = description;
         this.dateTime = dateTime;
@@ -79,11 +79,11 @@ public class AppointmentAddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AppointmentAddCommand)) {
+        if (!(other instanceof AddAppointmentCommand)) {
             return false;
         }
 
-        AppointmentAddCommand otherAddCommand = (AppointmentAddCommand) other;
+        AddAppointmentCommand otherAddCommand = (AddAppointmentCommand) other;
         return false;
     }
 

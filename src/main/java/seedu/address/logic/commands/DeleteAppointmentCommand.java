@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 
 import java.util.List;
 
@@ -22,50 +21,43 @@ public class DeleteAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "delete_appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the Appointment of the person identified "
-            + "by the index number of the specified person. "
-            + "the person is specified by their Index.\n"
+            + ": Deletes the Appointment identified "
+            + "by the index number used in the displayed appointments list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_APPOINTMENT + "3";
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s  of %2$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s of %2$s";
 
-    private final Index index;
-    private final Index index2;
+    private final Index appointmentIndex;
 
     /**
-     * @param index Index of the patient
-     * @param index2 Index of the appointment
+     * @param appointmentIndex Index of the appointment
      */
-    public DeleteAppointmentCommand(Index index, Index index2) {
-        requireAllNonNull(index, index2);
+    public DeleteAppointmentCommand(Index appointmentIndex) {
+        requireAllNonNull(appointmentIndex);
 
-        this.index = index;
-        this.index2 = index2;
+        this.appointmentIndex = appointmentIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Appointment> lastShownAppointmentList = model.getFilteredAppointmentList();
+        int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (zeroBasedAppointmentIndex >= lastShownAppointmentList.size() || zeroBasedAppointmentIndex < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
+        // Delete appointment from model and patient
+        Appointment appointmentToDelete = lastShownAppointmentList.get(zeroBasedAppointmentIndex);
+        Person patient = appointmentToDelete.getPerson();
+        int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToDelete);
+        patient.deleteAppointment(appointmentIndexInPatient);
+        model.deleteAppointment(appointmentToDelete);
 
-        if (index2.getZeroBased() >= personToEdit.getAppointments().size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
-        }
-
-        Appointment deleted = personToEdit.deleteAppointment(index2.getZeroBased());
-
-        model.deleteAppointment(deleted);
-
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, deleted,
-                Messages.format(personToEdit)));
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete,
+                Messages.format(patient)));
     }
 
     @Override
@@ -79,9 +71,8 @@ public class DeleteAppointmentCommand extends Command {
             return false;
         }
 
-        DeleteAppointmentCommand e = (DeleteAppointmentCommand) other;
-        return index.equals(e.index)
-                && index2.equals(e.index2);
+        DeleteAppointmentCommand otherDeleteApptCommand = (DeleteAppointmentCommand) other;
+        return appointmentIndex.equals(otherDeleteApptCommand.appointmentIndex);
     }
 }
 

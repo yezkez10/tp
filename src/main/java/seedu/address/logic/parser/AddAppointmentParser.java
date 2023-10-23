@@ -17,19 +17,19 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AppointmentAddCommand;
+import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new {@code AppointmentAddCommand} objectg
  */
-public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
+public class AddAppointmentParser implements Parser<AddAppointmentCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AppointmentAddCommand parse(String args) throws ParseException {
+    public AddAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FOR, PREFIX_DESCRIPTION, PREFIX_DATE);
 
@@ -39,12 +39,12 @@ public class AddAppointmentParser implements Parser<AppointmentAddCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_FOR, PREFIX_DESCRIPTION, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AppointmentAddCommand.MESSAGE_USAGE));
+                    AddAppointmentCommand.MESSAGE_USAGE));
         }
         Index patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_FOR).get());
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
         LocalDateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATE).get());
-        return new AppointmentAddCommand(patientIndex, description, dateTime);
+        return new AddAppointmentCommand(patientIndex, description, dateTime);
     }
 
     /**
