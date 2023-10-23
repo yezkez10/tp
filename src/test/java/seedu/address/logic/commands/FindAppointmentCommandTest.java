@@ -13,19 +13,22 @@ import static seedu.address.testutil.TypicalAppointments.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.NameContainsKeywordsApptPredicate;
+import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindAppointmentByNameCommandTest {
+public class FindAppointmentCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -83,6 +86,31 @@ public class FindAppointmentByNameCommandTest {
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
+    }
+
+    @Test
+    public void execute_nameAndDate_appointmentsFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
+        NameContainsKeywordsApptPredicate namePredicate = preparePredicate("Alice");
+        OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(ALICES_APPOINTMENT.getDateTime().toLocalDate());
+
+        Predicate<Appointment> nameAndDatePredicate = namePredicate.and(datePredicate);
+        FindAppointmentsCommand command = new FindAppointmentsCommand(nameAndDatePredicate);
+        expectedModel.updateFilteredAppointmentList(nameAndDatePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICES_APPOINTMENT),
+                model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void execute_dateSearch_appointmentsFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
+        OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(ALICES_APPOINTMENT.getDateTime().toLocalDate());
+        FindAppointmentsCommand command = new FindAppointmentsCommand(datePredicate);
+        expectedModel.updateFilteredAppointmentList(datePredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICES_APPOINTMENT),
+                model.getFilteredAppointmentList());
     }
 
     /**
