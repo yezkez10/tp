@@ -111,6 +111,11 @@ public class ClinicAssistantTest {
         public ObservableList<Appointment> getAppointmentList() {
             return appointments;
         }
+
+        @Override
+        public boolean hasAppointment(Appointment appointment) {
+            return appointments.contains(appointment);
+        }
     }
 
 }

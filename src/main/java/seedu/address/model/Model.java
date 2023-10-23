@@ -115,4 +115,12 @@ public interface Model {
      * @param editedAppointment edited Appointment to replace with
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
+
+    /**
+     * Returns true if an appointment with the same identity as {@code appointment} exists in the address book.
+     *
+     * @param editedAppointment Appointment to check.
+     * @return true if appointment exists.
+     */
+    boolean hasAppointment(Appointment editedAppointment);
 }

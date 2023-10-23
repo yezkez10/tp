@@ -2,13 +2,13 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
@@ -33,14 +33,20 @@ public class DeleteAppointmentCommandTest {
         Appointment two = new Appointment("two", time2, validPerson);
         Appointment three = new Appointment("three", time3, validPerson);
         Appointment four = new Appointment("4", time4, validPerson);
-        Appointment five = new Appointment("5", time4, validPerson);
+
         validPerson.addAppointment(one);
         validPerson.addAppointment(two);
         validPerson.addAppointment(three);
         validPerson.addAppointment(four);
-        validPerson.addAppointment(five);
-        DeleteAppointmentCommand command = new DeleteAppointmentCommand(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
-        String expectedString = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, two,
+        model.addAppointment(one);
+        model.addAppointment(two);
+        model.addAppointment(three);
+        model.addAppointment(four);
+
+        Index index = Index.fromZeroBased(model.getFilteredAppointmentList().indexOf(three));
+
+        DeleteAppointmentCommand command = new DeleteAppointmentCommand(index);
+        String expectedString = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, three,
                 Messages.format(validPerson));
         assertEquals(new CommandResult(expectedString), command.execute(model));
     }

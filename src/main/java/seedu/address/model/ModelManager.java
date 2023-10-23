@@ -132,6 +132,12 @@ public class ModelManager implements Model {
         clinicAssistant.setAppointment(target, editedAppointment);
     }
 
+    @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return clinicAssistant.hasAppointment(appointment);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
