@@ -151,7 +151,7 @@ public class Person {
         if (otherPerson == this) {
             return true;
         }
-        return (otherPerson.getName().equals(getName()) && otherPerson.getNric().equals(getNric()));
+        return (otherPerson.getNric().equals(getNric()));
     }
 
     /**
