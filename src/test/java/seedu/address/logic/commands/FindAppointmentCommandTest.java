@@ -92,7 +92,8 @@ public class FindAppointmentCommandTest {
     public void execute_nameAndDate_appointmentsFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
         NameContainsKeywordsApptPredicate namePredicate = preparePredicate("Alice");
-        OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(ALICES_APPOINTMENT.getDateTime().toLocalDate());
+        OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
+                ALICES_APPOINTMENT.getDateTime().toLocalDate());
 
         Predicate<Appointment> nameAndDatePredicate = namePredicate.and(datePredicate);
         FindAppointmentsCommand command = new FindAppointmentsCommand(nameAndDatePredicate);
@@ -105,7 +106,8 @@ public class FindAppointmentCommandTest {
     @Test
     public void execute_dateSearch_appointmentsFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
-        OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(ALICES_APPOINTMENT.getDateTime().toLocalDate());
+        OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
+                ALICES_APPOINTMENT.getDateTime().toLocalDate());
         FindAppointmentsCommand command = new FindAppointmentsCommand(datePredicate);
         expectedModel.updateFilteredAppointmentList(datePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

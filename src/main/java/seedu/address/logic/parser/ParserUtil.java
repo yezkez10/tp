@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.text.DateFormatter;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -213,6 +211,13 @@ public class ParserUtil {
         return parsedDateTime;
     }
 
+    /**
+     * Parses a {@code String date} into an {@code LocalDate}.
+     *
+     * @param date String to be parsed.
+     * @return LocalDate instance.
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
