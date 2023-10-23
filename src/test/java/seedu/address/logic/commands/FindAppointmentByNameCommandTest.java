@@ -36,14 +36,14 @@ public class FindAppointmentByNameCommandTest {
         NameContainsKeywordsApptPredicate secondPredicate =
                 new NameContainsKeywordsApptPredicate(Collections.singletonList("second"));
 
-        FindAppointmentsByNameCommand findFirstCommand = new FindAppointmentsByNameCommand(firstPredicate);
-        FindAppointmentsByNameCommand findSecondCommand = new FindAppointmentsByNameCommand(secondPredicate);
+        FindAppointmentsCommand findFirstCommand = new FindAppointmentsCommand(firstPredicate);
+        FindAppointmentsCommand findSecondCommand = new FindAppointmentsCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindAppointmentsByNameCommand findFirstCommandCopy = new FindAppointmentsByNameCommand(firstPredicate);
+        FindAppointmentsCommand findFirstCommandCopy = new FindAppointmentsCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -60,7 +60,7 @@ public class FindAppointmentByNameCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW;
         NameContainsKeywordsApptPredicate predicate = preparePredicate(" ");
-        FindAppointmentsByNameCommand command = new FindAppointmentsByNameCommand(predicate);
+        FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredAppointmentList());
@@ -70,7 +70,7 @@ public class FindAppointmentByNameCommandTest {
     public void execute_multipleKeywords_multipleAppointmentsFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 3);
         NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ Alice BENson Carl jeff");
-        FindAppointmentsByNameCommand command = new FindAppointmentsByNameCommand(predicate);
+        FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT, CARLS_APPOINTMENT),
