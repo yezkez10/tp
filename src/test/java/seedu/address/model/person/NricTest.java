@@ -50,7 +50,7 @@ public class NricTest {
         assertTrue(nric.equals(nric));
 
         // same sequence in lowercase -> returns true
-        assertTrue(nric.equals("t1234567a"));
+        assertTrue(nric.equals(new Nric("t1234567a")));
 
         // null -> returns false
         assertFalse(nric.equals(null));
