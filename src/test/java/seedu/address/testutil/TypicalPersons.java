@@ -38,7 +38,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(12)
             .withEthnic("Eurasian")
-            .withNric("T1234567E")
+            .withNric("T1234567A")
             .withPhone("94351253")
             .withTags("friends")
             .build();
@@ -49,7 +49,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(42)
             .withEthnic("Eurasian")
-            .withNric("T0000000Z")
+            .withNric("X9876543B")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withTags("owesMoney", "friends")
             .build();
@@ -60,7 +60,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(22)
             .withEthnic("Others")
-            .withNric("T1234567E")
+            .withNric("Q4567890C")
             .withAddress("wall street")
             .build();
     public static final Person DANIEL = new PersonBuilder()
@@ -70,7 +70,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(25)
             .withEthnic("Chinese")
-            .withNric("T1234567E")
+            .withNric("M2345678D")
             .withAddress("10th street")
             .withTags("friends")
             .build();
@@ -81,7 +81,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(32)
             .withEthnic("Eurasian")
-            .withNric("T1234567E")
+            .withNric("H7890123E")
             .withAddress("michegan ave")
             .build();
     public static final Person FIONA = new PersonBuilder()
@@ -91,7 +91,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(120)
             .withEthnic("Malay")
-            .withNric("T1234567E")
+            .withNric("K3456789F")
             .withAddress("little tokyo")
             .build();
     public static final Person GEORGE = new PersonBuilder()
@@ -101,7 +101,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(100)
             .withEthnic("Indian")
-            .withNric("T1234567E")
+            .withNric("R5678901G")
             .withAddress("4th street")
             .build();
 
@@ -113,7 +113,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(0)
             .withEthnic("Chinese")
-            .withNric("T1234567E")
+            .withNric("S6543210H")
             .withAddress("little india")
             .build();
     public static final Person IDA = new PersonBuilder()
@@ -123,7 +123,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(12)
             .withEthnic("Eurasian")
-            .withNric("T1234567E")
+            .withNric("A4321098I")
             .withAddress("chicago ave")
             .build();
 

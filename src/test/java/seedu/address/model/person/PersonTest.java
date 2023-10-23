@@ -26,6 +26,7 @@ public class PersonTest {
 
     @Test
     public void isSamePerson() {
+        //todo: include additional fields
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
 

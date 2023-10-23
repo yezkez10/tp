@@ -22,7 +22,7 @@ public class Nric {
     public Nric(String nric) {
         requireNonNull(nric);
         checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
-        value = nric;
+        value = nric.toUpperCase();
     }
 
     /**
@@ -30,6 +30,19 @@ public class Nric {
      */
     public static boolean isValidNric(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if both Nrics have the same sequence.
+     * This defines a weaker notion of equality between two Nric.
+     */
+    public boolean isSameNric(Nric otherNric) {
+        if (otherNric == this) {
+            return true;
+        }
+
+        return otherNric != null
+                && otherNric.value.equals(value);
     }
 
     @Override
@@ -49,7 +62,7 @@ public class Nric {
         }
 
         Nric otherNric = (Nric) other;
-        return value.equals(otherNric.value);
+        return value.equals(otherNric.value.toUpperCase());
     }
 
     @Override

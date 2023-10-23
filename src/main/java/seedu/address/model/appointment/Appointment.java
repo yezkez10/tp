@@ -116,6 +116,7 @@ public class Appointment {
     public Name getPatientName() {
         return this.patient.getName();
     }
+
     /**
      * Returns true if both appointments have the same details.
      */
