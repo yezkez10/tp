@@ -18,36 +18,36 @@ import seedu.address.model.person.Person;
  */
 public class TypicalAppointments {
 
-    public static final Person ALICES_APPOINTMENT = new AppointmentBuilder(ALICE)
+    public static final Person ALICE_WITH_APPOINTMENT = new AppointmentBuilder(ALICE)
             .withDescription("See the doctor")
             .withDateTme("01-01-2024 00:00").build();
-    public static final Person BENSONS_APPOINTMENT = new AppointmentBuilder(BENSON)
+    public static final Person BENSON_WITH_APPOINTMENT = new AppointmentBuilder(BENSON)
             .withDescription("Urine Exam")
             .withDateTme("01-11-2023 00:00").build();
 
-    public static final Person CARLS_APPOINTMENT = new AppointmentBuilder(CARL)
+    public static final Person CARL_WITH_APPOINTMENT = new AppointmentBuilder(CARL)
             .withDescription("x-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
-    public static final Person DANIELS_APPOINTMENT = new AppointmentBuilder(DANIEL)
+    public static final Person DANIEL_WITH_APPOINTMENT = new AppointmentBuilder(DANIEL)
             .withDescription("z-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
-    public static final Person ELLES_APPOINTMENT = new AppointmentBuilder(ELLE)
+    public static final Person ELLE_WITH_APPOINTMENT = new AppointmentBuilder(ELLE)
             .withDescription("y-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
-    public static final Person FIONAS_APPOINTMENT = new AppointmentBuilder(FIONA)
+    public static final Person FIONA_WITH_APPOINTMENT = new AppointmentBuilder(FIONA)
             .withDescription("a-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
-    public static final Person GEORGES_APPOINTMENT = new AppointmentBuilder(GEORGE)
+    public static final Person GEORGE_WITH_APPOINTMENT = new AppointmentBuilder(GEORGE)
             .withDescription("x-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
     private TypicalAppointments() {} // prevents instantiation
 
     public static ArrayList<Person> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT, CARLS_APPOINTMENT,
-                DANIELS_APPOINTMENT, ELLES_APPOINTMENT, FIONAS_APPOINTMENT, GEORGES_APPOINTMENT));
+        return new ArrayList<>(Arrays.asList(ALICE_WITH_APPOINTMENT, BENSON_WITH_APPOINTMENT, CARL_WITH_APPOINTMENT,
+                DANIEL_WITH_APPOINTMENT, ELLE_WITH_APPOINTMENT, FIONA_WITH_APPOINTMENT, GEORGE_WITH_APPOINTMENT));
     }
 }

@@ -7,9 +7,9 @@ import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_FOUND_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalAppointments.ALICES_APPOINTMENT;
-import static seedu.address.testutil.TypicalAppointments.BENSONS_APPOINTMENT;
-import static seedu.address.testutil.TypicalAppointments.CARLS_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.ALICE_WITH_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.BENSON_WITH_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.CARL_WITH_APPOINTMENT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -76,8 +76,9 @@ public class FindAppointmentCommandTest {
         FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICES_APPOINTMENT.firstAppointment(), BENSONS_APPOINTMENT.firstAppointment(),
-                        CARLS_APPOINTMENT.firstAppointment()), model.getFilteredAppointmentList());
+        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment(),
+                BENSON_WITH_APPOINTMENT.firstAppointment(), CARL_WITH_APPOINTMENT.firstAppointment()),
+                model.getFilteredAppointmentList());
     }
 
     @Test
@@ -93,13 +94,13 @@ public class FindAppointmentCommandTest {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
         NameContainsKeywordsApptPredicate namePredicate = preparePredicate("Alice");
         OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
-                ALICES_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
+                ALICE_WITH_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
 
         Predicate<Appointment> nameAndDatePredicate = namePredicate.and(datePredicate);
         FindAppointmentsCommand command = new FindAppointmentsCommand(nameAndDatePredicate);
         expectedModel.updateFilteredAppointmentList(nameAndDatePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICES_APPOINTMENT.firstAppointment()),
+        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment()),
                 model.getFilteredAppointmentList());
     }
 
@@ -107,11 +108,11 @@ public class FindAppointmentCommandTest {
     public void execute_dateSearch_appointmentsFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
         OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
-                ALICES_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
+                ALICE_WITH_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
         FindAppointmentsCommand command = new FindAppointmentsCommand(datePredicate);
         expectedModel.updateFilteredAppointmentList(datePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICES_APPOINTMENT.firstAppointment()),
+        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment()),
                 model.getFilteredAppointmentList());
     }
 
