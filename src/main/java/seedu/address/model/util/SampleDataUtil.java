@@ -1,12 +1,11 @@
 package seedu.address.model.util;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.ReadOnlyClinicAssistant;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
@@ -67,22 +66,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
-    public static List<Appointment> getAppointmentSet(String... strings) {
-        if (strings.length % 2 != 0) {
-            throw new IllegalArgumentException("Arguments must be provided in pairs (details, LocalDateTime).");
-        }
-
-        List<Appointment> appointments = new ArrayList<>();
-
-        for (int i = 0; i < strings.length; i += 2) {
-            String details = strings[i];
-            LocalDateTime dateTime = LocalDateTime.parse(strings[i + 1]); // Parse the string to LocalDateTime
-            // Left patient as null for now
-            appointments.add(new Appointment(details, dateTime, null));
-        }
-
-        return appointments;
-    }
-
 }

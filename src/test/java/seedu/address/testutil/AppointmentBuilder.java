@@ -31,12 +31,6 @@ public class AppointmentBuilder {
         this.person = person;
     }
 
-    public AppointmentBuilder() {
-        description = DEFAULT_DESCRIPTION;
-        dateTime = LocalDateTime.parse(DEFAULT_DATE, formatter);
-        this.person = DEFAULT_PERSON;
-    }
-
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
@@ -54,18 +48,13 @@ public class AppointmentBuilder {
     }
 
     /**
-     * Sets the person associated with the appointment.
+     * Returns person with Appointment added to him
+     *
+     * @return Person with Appointment
      */
-    public AppointmentBuilder withPerson(Person person) {
-        this.person = person;
-        return this;
-    }
-
     public Person build() {
-
         Appointment appointment = new Appointment(description, dateTime, person);
         person.addAppointment(appointment);
-        System.out.println(person);
         return person;
     }
 

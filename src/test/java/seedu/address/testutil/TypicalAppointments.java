@@ -11,8 +11,6 @@ import static seedu.address.testutil.TypicalPersons.GEORGE;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import seedu.address.model.ClinicAssistant;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
 /**
@@ -48,18 +46,7 @@ public class TypicalAppointments {
 
     private TypicalAppointments() {} // prevents instantiation
 
-//    public static ClinicAssistant getTypicalAddressBook() {
-//        ClinicAssistant ab = new ClinicAssistant();
-//        for (Appointment appt : getTypicalAppointments()) {
-//            ab.addAppointment(appt);
-//        }
-//        return ab;
-//    }
-
     public static ArrayList<Person> getTypicalAppointments() {
-        System.out.println("GET TYPICAL APPOINTMENT: " + ALICES_APPOINTMENT);
-        System.out.println(new ArrayList<>(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT, CARLS_APPOINTMENT,
-                DANIELS_APPOINTMENT, ELLES_APPOINTMENT, FIONAS_APPOINTMENT, GEORGES_APPOINTMENT)));
         return new ArrayList<>(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT, CARLS_APPOINTMENT,
                 DANIELS_APPOINTMENT, ELLES_APPOINTMENT, FIONAS_APPOINTMENT, GEORGES_APPOINTMENT));
     }

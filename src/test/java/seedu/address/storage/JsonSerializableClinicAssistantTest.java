@@ -2,19 +2,18 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.BaseTest;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ClinicAssistant;
-import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 
-public class JsonSerializableClinicAssistantTest extends BaseTest {
+public class JsonSerializableClinicAssistantTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
@@ -26,8 +25,8 @@ public class JsonSerializableClinicAssistantTest extends BaseTest {
         JsonSerializableClinicAssistant dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableClinicAssistant.class).get();
         ClinicAssistant clinicAssistantFromFile = dataFromFile.toModelType();
-//        ClinicAssistant typicalPersonsClinicAssistant = getTypicalAddressBook();
-        assertEquals(clinicAssistantFromFile, ca);
+        ClinicAssistant typicalPersonsClinicAssistant = getTypicalAddressBook();
+        assertEquals(clinicAssistantFromFile, typicalPersonsClinicAssistant);
     }
 
     @Test

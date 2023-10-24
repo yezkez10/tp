@@ -110,6 +110,15 @@ public class Person {
     }
 
     /**
+     * returns First Appointment of the Patient
+     *
+     * @return First Appointment of patient
+     */
+    public Appointment firstAppointment() {
+        return appointments.get(0);
+    }
+
+    /**
      * Adds an appointment to this Person
      * @param toAdd Appointment to be added
      */
@@ -237,5 +246,4 @@ public class Person {
                 .add("appointments", appointments)
                 .toString();
     }
-
 }

@@ -47,14 +47,6 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public Appointment(String description, LocalDateTime dateTime) {
-        requireAllNonNull(description, dateTime);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
-        this.description = description;
-        this.dateTime = dateTime;
-        this.patient = null;
-    }
-
     /**
      * Returns true if a given string is a valid descrption
      * @param test String to be tested
