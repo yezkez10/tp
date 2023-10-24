@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -10,24 +10,25 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.BaseTest;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.UserPrefs;
 
-public class StorageManagerTest {
+public class StorageManagerTest extends BaseTest {
 
-    @TempDir
-    public Path testFolder;
+//    @TempDir
+//    public Path testFolder;
+//
+//    private StorageManager storageManager;
 
-    private StorageManager storageManager;
-
-    @BeforeEach
-    public void setUp() {
-        JsonClinicAssistantStorage addressBookStorage = new JsonClinicAssistantStorage(getTempFilePath("ab"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        JsonClinicAssistantStorage addressBookStorage = new JsonClinicAssistantStorage(getTempFilePath("ab"));
+//        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+//        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+//    }
 
     private Path getTempFilePath(String fileName) {
         return testFolder.resolve(fileName);
@@ -54,10 +55,15 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        ClinicAssistant original = getTypicalAddressBook();
-        storageManager.saveClinicAssistant(original);
+//        ClinicAssistant original = getTypicalAddressBook();
+        storageManager.saveClinicAssistant(ca);
+        System.out.println("HEREEEEEe");
+        System.out.println(ca.getAppointmentList());
+        System.out.println(ca.getAppointmentList().get(0).getPerson());
+        System.out.println(ca.getPersonList());
         ReadOnlyClinicAssistant retrieved = storageManager.readClinicAssistant().get();
-        assertEquals(original, new ClinicAssistant(retrieved));
+        System.out.println("HEREEEEEe2");
+        assertEquals(ca, new ClinicAssistant(retrieved));
     }
 
     @Test

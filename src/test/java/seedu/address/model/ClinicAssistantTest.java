@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,12 +18,13 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.BaseTest;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
-public class ClinicAssistantTest {
+public class ClinicAssistantTest extends BaseTest {
 
     private final ClinicAssistant clinicAssistant = new ClinicAssistant();
 
@@ -39,9 +40,9 @@ public class ClinicAssistantTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        ClinicAssistant newData = getTypicalAddressBook();
-        clinicAssistant.resetData(newData);
-        assertEquals(newData, clinicAssistant);
+//        ClinicAssistant newData = getTypicalAddressBook();
+        clinicAssistant.resetData(ca);
+        assertEquals(ca, clinicAssistant);
     }
 
     @Test

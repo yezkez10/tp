@@ -22,7 +22,8 @@ class JsonAdaptedAppointment {
      */
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("description") String description,
-                                  @JsonProperty("dateTime") String dateTime) {
+                                  @JsonProperty("dateTime") String dateTime,
+                                  @JsonProperty("patient") JsonAdaptedPerson person) {
         this.description = description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         this.dateTime = LocalDateTime.parse(dateTime, formatter);

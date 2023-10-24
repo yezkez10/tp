@@ -1,9 +1,7 @@
 package seedu.address.model.util;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ClinicAssistant;
@@ -70,12 +68,12 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
-    public static Set<Appointment> getAppointmentSet(String... strings) {
+    public static List<Appointment> getAppointmentSet(String... strings) {
         if (strings.length % 2 != 0) {
             throw new IllegalArgumentException("Arguments must be provided in pairs (details, LocalDateTime).");
         }
 
-        Set<Appointment> appointments = new HashSet<>();
+        List<Appointment> appointments = new ArrayList<>();
 
         for (int i = 0; i < strings.length; i += 2) {
             String details = strings[i];
