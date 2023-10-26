@@ -172,7 +172,7 @@ class JsonAdaptedPerson {
     }
 
     public ArrayList<Appointment> toModelTypeAppointments(Person patient) throws DateTimeParseException {
-        final ArrayList<Appointment> personAppointments = new ArrayList<>();
+        ArrayList<Appointment> personAppointments = new ArrayList<>();
         for (JsonAdaptedAppointment appointment : appointments) {
             personAppointments.add(appointment.toModelType(patient));
         }

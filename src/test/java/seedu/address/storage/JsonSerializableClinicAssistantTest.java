@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ClinicAssistant;
-import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableClinicAssistantTest {
 
@@ -25,7 +25,7 @@ public class JsonSerializableClinicAssistantTest {
         JsonSerializableClinicAssistant dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableClinicAssistant.class).get();
         ClinicAssistant clinicAssistantFromFile = dataFromFile.toModelType();
-        ClinicAssistant typicalPersonsClinicAssistant = TypicalPersons.getTypicalAddressBook();
+        ClinicAssistant typicalPersonsClinicAssistant = getTypicalAddressBook();
         assertEquals(clinicAssistantFromFile, typicalPersonsClinicAssistant);
     }
 
