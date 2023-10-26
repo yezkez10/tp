@@ -169,18 +169,18 @@ This command singles the patient whose NRIC matches the inputted NRIC out of the
 
 **The Specifics**
 
-`FindByNricCommandParser` parses the inputted command word `find_nric <keyword>` and extracts the `<keyword>`, 
-which is the NRIC of the patient that the user wants to look for. 
+`FindByNricCommandParser` parses the NRIC of the patient that the user wants to look for. 
 
-It then creates a `NricContainsKeywordPredicate`, which compares the given NRIC with the NRICs of patients in a list of patients with unique NRICs.
+A `FindByNricCommand` is created, together with a `NricContainsKeywordPredicate` that compares the given NRIC with the NRICs of patients in a list of patients with unique NRICs.
 
 This predicate is then passed into `FindByNricCommand`, which then finds the patient whose NRIC matches the inputted NRIC.
 
 **In-depth description**
 
-`NricContainsKeywordPredicate` implements `Predicate<Person>`. It is used as the predicate for the `FilteredList` data structure we use to store our Patient objects.
-When the `FindByNricCommand` is executed, `model::updateFilteredAppointmentList` is called, 
-with the `NricContainsKeywordPredicate` passed in as the filter condition. This returns the required patient. 
+<img src="images/FindByNricSequenceDiagram.png" width="1000px">
+The above shows the sequence diagram of the find by NRIC feature. 
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
