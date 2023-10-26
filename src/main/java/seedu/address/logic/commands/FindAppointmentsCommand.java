@@ -1,28 +1,38 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.appointment.NameContainsKeywordsApptPredicate;
+import seedu.address.model.appointment.Appointment;
 
 /**
  * Finds and lists all Appointments in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindAppointmentsByNameCommand extends Command {
+public class FindAppointmentsCommand extends Command {
 
     public static final String COMMAND_WORD = "find_appt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Appointments of patient whose names contain "
-            + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Appointments "
+            + " with patient name by keywords (case-insensitive) or date and displays them as a list with index "
+            + "numbers.\n"
+            + "Parameters: ["
+            + PREFIX_NAME
+            + "KEYWORD [MORE_KEYWORDS]...]"
+            + "["
+            + PREFIX_DATE
+            + "DATETIME]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie " + PREFIX_DATE + "01-01-2024";
 
-    private final NameContainsKeywordsApptPredicate predicate;
+    private final Predicate<Appointment> predicate;
 
-    public FindAppointmentsByNameCommand(NameContainsKeywordsApptPredicate predicate) {
+    public FindAppointmentsCommand(Predicate<Appointment> predicate) {
         this.predicate = predicate;
     }
 
@@ -50,11 +60,11 @@ public class FindAppointmentsByNameCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindAppointmentsByNameCommand)) {
+        if (!(other instanceof FindAppointmentsCommand)) {
             return false;
         }
 
-        FindAppointmentsByNameCommand otherFindCommand = (FindAppointmentsByNameCommand) other;
+        FindAppointmentsCommand otherFindCommand = (FindAppointmentsCommand) other;
         return predicate.equals(otherFindCommand.predicate);
     }
 

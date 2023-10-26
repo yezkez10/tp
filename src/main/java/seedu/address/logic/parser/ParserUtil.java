@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -201,12 +203,49 @@ public class ParserUtil {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
         if (!Appointment.isValidDateTime(trimmedDateTime)) {
-            throw new ParseException(Appointment.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Appointment.MESSAGE_INVALID_DATE_TIME);
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime parsedDateTime = LocalDateTime.parse(trimmedDateTime, formatter);
 
         return parsedDateTime;
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code LocalDate}.
+     *
+     * @param date String to be parsed.
+     * @return LocalDate instance.
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+
+        if (!isValidDate(trimmedDate)) {
+            throw new ParseException(Appointment.MESSAGE_INVALID_DATE);
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate parsedDate = LocalDate.parse(trimmedDate, formatter);
+
+        return parsedDate;
+    }
+
+    /**
+     * Checks if a given string is a valid date.
+     *
+     * @param date String to be checked.
+     * @return True if the string is a valid date, false otherwise.
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

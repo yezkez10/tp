@@ -143,11 +143,12 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         return allAppointments.asUnmodifiableObservableList();
     }
 
-    /**
-     * Adds an appointment to the unique list of appointments
-     *
-     * @param appointment Appointment to add
-     */
+    @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return allAppointments.contains(appointment);
+    }
+
     public void addAppointment(Appointment appointment) {
         allAppointments.add(appointment);
     }
