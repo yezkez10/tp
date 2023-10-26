@@ -38,7 +38,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.clinicAssistant.getPersonList());
         filteredAppointments = new FilteredList<>(this.clinicAssistant.getAppointmentList());
-        filteredDoctor =  new FilteredList<>(this.clinicAssistant.getDoctorList());
+        filteredDoctor = new FilteredList<>(this.clinicAssistant.getDoctorList());
     }
 
     public ModelManager() {
