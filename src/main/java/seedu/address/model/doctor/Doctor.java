@@ -51,8 +51,9 @@ public class Doctor {
     public Address getAddress() {
         return address;
     }
-
-
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
+    }
     public Gender getGender() {
         return gender;
     }
