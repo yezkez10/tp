@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -20,6 +22,8 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     private final UniquePersonList persons;
     private final UniqueAppointmentList allAppointments;
 
+    private final UniqueDoctorList doctors;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -30,6 +34,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     {
         persons = new UniquePersonList();
         allAppointments = new UniqueAppointmentList();
+        doctors = new UniqueDoctorList();
     }
 
     public ClinicAssistant() {}
@@ -60,6 +65,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
         setPersons(newData.getPersonList());
         setAppointments(newData.getAppointmentList());
+        setDoctors(newData.getDoctorList());
     }
 
     //// person-level operations
@@ -81,6 +87,14 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     /**
+     * Adds a doctor to clinic assistant.
+     * The doctor must not already exist in clinic assistant.
+     */
+    public void addDoctor(Doctor d) {
+        doctors.add(d);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -92,11 +106,35 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     /**
+     * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
+     * {@code target} must exist in clinic asisstant.
+     * The person identity of {@code editedDoctor} must not be the same as another existing person in the address book.
+     */
+    public void setDoctor(Doctor target, Doctor editedDoctor) {
+        requireNonNull(editedDoctor);
+
+        doctors.setDoctor(target, editedDoctor);
+    }
+
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return doctors.contains(doctor);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeDoctor(Doctor key) {
+        doctors.remove(key);
     }
 
     //// util methods
@@ -111,6 +149,11 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
     }
 
     @Override
@@ -164,6 +207,10 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     public void setAppointments(List<Appointment> appointments) {
         this.allAppointments.setAppointments(appointments);
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors.setDoctors(doctors);
     }
 
     public void deleteAppointment(Appointment appointment) {
