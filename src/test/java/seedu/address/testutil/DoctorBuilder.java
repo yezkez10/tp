@@ -69,15 +69,6 @@ public class DoctorBuilder {
     }
 
     /**
-     * Parses the {@code appointments} into a {@code ArrayList<Appointment>}
-     * and set it to the {@code Person} that we are building.
-     */
-    public DoctorBuilder withAppointments(String ... appointments) {
-        this.appointments = TypicalAppointments.getTypicalAppointments();
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public DoctorBuilder withAddress(String address) {

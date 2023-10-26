@@ -246,6 +246,69 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### List appointments feature
+
+#### Implementation
+
+The list appointments feature is added on from the `Appointment` class. The `list_appt` command will list out all 
+appointments in the Clinic Assistant database.
+
+Firstly, to implement the list appointments command, we have to edit the current frontend to add a new Panel to display
+the appointments. This is done by adding a new `AppointmentListPanel` class to the `seedu.address.ui` package. This 
+class is then added to the `MainWindow` class to display the appointments. The `AppointmentCard` class is also added to 
+display the individual appointments inside the `AppointmentListPanel`. In addition, the corresponding `fxml` files are
+also added to the `view` folder to display the appointments.
+
+To implement the backend of the list appointments command, we first have to store the appointments in the database.
+Like the implementation of storing of `Person`, we keep a `UniqueAppointmentList` in the `Model` class to store the
+appointments. The `UniqueAppointmentList` class is similar to the `UniquePersonList` class, except that it stores
+`Appointment` objects instead of `Person` objects. What we show on the frontend is the filtered list of appointments
+from the `UniqueAppointmentList` class.
+
+A `ListAppointmentCommand` class is then created to handle the `list_appt` command. This class is similar to the
+`ListCommand` class, except that it handles the `Appointment` objects instead of `Person` objects. The 
+`ListAppointmentCommand` class will then be called by the `LogicManager` class to execute the `list_appt` command.
+What this command does is that it changes the predicate to the filtered list of appointments to show all the 
+appointments in the database.
+
+#### Alternatives considered
+
+**Aspect: How to store and maintain list of appointments:**
+
+* **Alternative 1 (current choice):** Save the list of appointments as a `UniqueAppointmentList` and filter it when needed.
+    * Pros: Easy to implement - similar to the current implementation of `Person`
+    * Cons: More memory is used to store the list of appointments
+
+* **Alternative 2:** Get the list of appointments by parsing through each `Person` object in the `UniquePersonList`
+    * Pros: Will use less memory
+    * Cons: Will be slower because we have to iterate through all the `Person` objects to get the appointments each time
+
+### Find appointments by date feature
+
+#### Implementation
+
+The find appointments by date feature built on the find appointment command. The `find_appt /on` command will list out 
+all appointments in the Clinic Assistant database that falls on the date given.
+
+To implement the find appointments by date command, we have to update the predicate for the filtered list of
+appointments to show on the frontend. We have to add a predicate to check for all the appointments that falls on the
+date given.
+
+The find appointment command is extended to take in different parameters and filter the list shown on the frontend
+accordingly.
+
+#### Alternatives considered
+
+**Aspect: How to implement the find appointments by date command:**
+
+* **Alternative 1 (current choice):** Extend the functionality of the find appointment command to take in different parameters
+    * Pros: More user-friendly and allows user to filter by multiple parameters
+    * Cons: Harder to implement
+
+* **Alternative 2:** Add a new command to only filter by date
+    * Pros: Easier to implement
+    * Cons: Users cannot filter by multiple parameters
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
