@@ -163,6 +163,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         for (int i = 0; i < appointments.size() - 1; i++) {
             for (int j = i + 1; j < appointments.size(); j++) {
                 if (appointments.get(i).isSameAppointment(appointments.get(j))) {
+                    System.out.println(appointments.get(i) + " same as " + appointments.get(j));
                     return false;
                 }
             }

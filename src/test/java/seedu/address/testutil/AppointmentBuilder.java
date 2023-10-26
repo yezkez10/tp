@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
  */
 public class AppointmentBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "Description of Appointmetn";
+    public static final String DEFAULT_DESCRIPTION = "Description of Appointment";
     public static final String DEFAULT_DATE = "01-01-2024 00:00";
     public static final Person DEFAULT_PERSON = ALICE;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -28,15 +28,6 @@ public class AppointmentBuilder {
     public AppointmentBuilder(Person person) {
         description = DEFAULT_DESCRIPTION;
         dateTime = LocalDateTime.parse(DEFAULT_DATE, formatter);
-        this.person = person;
-    }
-
-    /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
-     */
-    public AppointmentBuilder(Appointment appointmentToCopy, Person person) {
-        description = appointmentToCopy.getDescription();
-        dateTime = appointmentToCopy.getDateTime();
         this.person = person;
     }
 
@@ -56,8 +47,15 @@ public class AppointmentBuilder {
         return this;
     }
 
-    public Appointment build() {
-        return new Appointment(description, dateTime, person);
+    /**
+     * Returns person with Appointment added to him
+     *
+     * @return Person with Appointment
+     */
+    public Person build() {
+        Appointment appointment = new Appointment(description, dateTime, person);
+        person.addAppointment(appointment);
+        return person;
     }
 
 }
