@@ -75,6 +75,11 @@ class JsonSerializableClinicAssistant {
         }
         for(JsonAdaptedDoctor jsonAdaptedDoctor: doctors) {
             Doctor doctor = jsonAdaptedDoctor.toModelType();
+            for(Appointment appointment: clinicAssistant.getAppointmentList()) {
+                if(appointment.getName().equals(doctor.getName())) {
+                    doctor.addAppointment(appointment);
+                }
+            }
             clinicAssistant.addDoctor((doctor));
         }
         return clinicAssistant;

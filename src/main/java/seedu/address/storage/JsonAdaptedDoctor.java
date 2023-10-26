@@ -68,7 +68,6 @@ public class JsonAdaptedDoctor {
                 .collect(Collectors.toList()));
     }
     public Doctor toModelType() throws IllegalValueException {
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }

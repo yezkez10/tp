@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
@@ -34,17 +35,21 @@ public class Appointment {
     private final LocalDateTime dateTime;
     private final Person patient;
 
+    private final String name;
+
+
     /**
      * Constructor for Appointment instance
      * @param description Description of the appointment
      * @param dateTime Time and Date of the appointment
      */
-    public Appointment(String description, LocalDateTime dateTime, Person patient) {
+    public Appointment(String description, LocalDateTime dateTime, Person patient, String name) {
         requireAllNonNull(description, dateTime);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
         this.dateTime = dateTime;
         this.patient = patient;
+        this.name = name;
     }
 
     /**
@@ -75,6 +80,10 @@ public class Appointment {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public LocalDateTime getDateTime() {

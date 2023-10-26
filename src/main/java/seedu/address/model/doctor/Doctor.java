@@ -3,6 +3,7 @@ package seedu.address.model.doctor;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -35,6 +36,18 @@ public class Doctor {
         this.age = age;
         this.address = address;
     }
+
+    public Doctor(Name name, Phone phone, Email email, Gender gender, Age age, Address address, ArrayList<Appointment> appointments) {
+        requireAllNonNull(name, phone, email, gender, age, address);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.age = age;
+        this.address = address;
+        this.appointments = appointments;
+    }
+
 
     public Name getName() {
         return name;
@@ -116,4 +129,59 @@ public class Doctor {
                 .toString();
     }
 
+
+    /**
+     * Returns true if patient already has this sa,e Appointment
+     * @param otherAppointment Appointment to check if it exists
+     * @return if patient has this Appointment
+     */
+    public boolean hasAppointment(Appointment otherAppointment) {
+        boolean result = false;
+       for (Appointment appointment: appointments) {
+           if(otherAppointment.getDateTime().equals(appointment.getDateTime())) {
+               result = true;
+           }
+       }
+       return result;
+    }
+
+    /**
+     * returns First Appointment of the Patient
+     *
+     * @return First Appointment of patient
+     */
+    public Appointment firstAppointment() {
+        return appointments.get(0);
+    }
+
+    /**
+     * Adds an appointment to this Person
+     * @param toAdd Appointment to be added
+     */
+    public void addAppointment(Appointment toAdd) {
+        this.appointments.add(toAdd);
+    }
+
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    /**
+     * @param index Index of the appointment to delete
+     * @return An ArrayList without the deleted appointment
+     */
+    public Appointment deleteAppointment(int index) {
+        Appointment appt = appointments.get(index);
+        this.appointments.remove(index);
+        return appt;
+    }
+
+    /**
+     * Edits the appointment at the input index with the updated Appointment
+     * @param index Index of the appointment to edit
+     * @param updatedAppointment the updated Appointment
+     */
+    public void editAppointment(int index, Appointment updatedAppointment) {
+        this.appointments.set(index, updatedAppointment);
+    }
 }

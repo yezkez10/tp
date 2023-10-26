@@ -102,7 +102,7 @@ public class EditAppointmentCommand extends Command {
         String updatedDescription = editApptDesc.getDescription().orElse(apptToEdit.getDescription());
         LocalDateTime updatedDateTime = editApptDesc.getDateTime().orElse(apptToEdit.getDateTime());
 
-        return new Appointment(updatedDescription, updatedDateTime, editedPerson);
+        return new Appointment(updatedDescription, updatedDateTime, editedPerson, "test");
     }
 
     @Override

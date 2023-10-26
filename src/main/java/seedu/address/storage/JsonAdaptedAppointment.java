@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -17,16 +18,18 @@ class JsonAdaptedAppointment {
 
     private final String description;
     private final LocalDateTime dateTime;
+    private final String name;
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
      */
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("description") String description,
                                   @JsonProperty("dateTime") String dateTime,
-                                  @JsonProperty("patient") JsonAdaptedPerson person) {
+                                  @JsonProperty("patient") JsonAdaptedPerson person) throws IllegalValueException {
         this.description = description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         this.dateTime = LocalDateTime.parse(dateTime, formatter);
+        this.name = "test";
     }
 
     /**
@@ -35,6 +38,7 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source) {
         description = source.getDescription();
         dateTime = source.getDateTime();
+        name = source.getName();
     }
 
     @JsonProperty("description")
@@ -54,6 +58,6 @@ class JsonAdaptedAppointment {
      */
     public Appointment toModelType(Person patient) {
         // Left patient as null for now
-        return new Appointment(description, dateTime, patient);
+        return new Appointment(description, dateTime, patient, name);
     }
 }

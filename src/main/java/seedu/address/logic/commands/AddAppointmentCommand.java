@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
@@ -14,6 +15,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,6 +30,7 @@ public class AddAppointmentCommand extends Command {
             + "DESCRIPTION, DATE_TIME (must be a valid date in the future)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOR + "1 "
+            + PREFIX_BY + "1 "
             + PREFIX_DESCRIPTION + "description details "
             + PREFIX_DATE + "02-01-2024 12:00";
 
@@ -39,33 +42,52 @@ public class AddAppointmentCommand extends Command {
     private final String description;
     private final LocalDateTime dateTime;
 
+    private  final Index doctorIndex;
+
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddAppointmentCommand(Index targetIndex, String description, LocalDateTime dateTime) {
+    public AddAppointmentCommand(Index targetIndex, Index doctorIndex, String description, LocalDateTime dateTime) {
         this.targetIndex = targetIndex;
         this.description = description;
         this.dateTime = dateTime;
+        this.doctorIndex = doctorIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor> lastDoctorList = model.getFilteredDoctorList();
+
+        if(lastDoctorList.size() == 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
+        if (doctorIndex.getZeroBased() > lastDoctorList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
-        Appointment toAdd = new Appointment(description, dateTime, targetPatient);
+        Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
+        Doctor targetDoctor = lastDoctorList.get(doctorIndex.getZeroBased());
+        String name = targetDoctor.getName().toString();
+        Appointment toAdd = new Appointment(description, dateTime, targetPatient, name);
 
         if (targetPatient.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
+        if(targetDoctor.hasAppointment(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+
         targetPatient.addAppointment(toAdd);
+
+        targetDoctor.addAppointment(toAdd);
 
         model.addAppointment(toAdd);
 
