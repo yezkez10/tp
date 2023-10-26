@@ -19,6 +19,9 @@ public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
 
+    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
+
+    public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm";
     /*
      * description must be alphanumeric
      */
@@ -57,14 +60,18 @@ public class Appointment {
     /**
      * Returns true if a given LocalDateTime is a valid date and time (must be in the future) for an appointment.
      */
-    public static boolean isValidDateTime(String test) throws DateTimeParseException {
+    public static boolean isValidDateTime(String test) {
         // Define the format that the string should adhere to
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
-        // Attempt to parse the string into a LocalDateTime using the specified format
-        LocalDateTime parsedDateTime = LocalDateTime.parse(test, formatter);
-        LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
-        return parsedDateTime.isAfter(currentDateTime);
+        try {
+            // Attempt to parse the string into a LocalDateTime using the specified format
+            LocalDateTime parsedDateTime = LocalDateTime.parse(test, formatter);
+            LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
+            return parsedDateTime.isAfter(currentDateTime);
+        } catch (DateTimeParseException e) {
+            // Parsing failed, so the string is not in the correct format
+            return false;
+        }
     }
 
     public String getDescription() {
@@ -129,5 +136,14 @@ public class Appointment {
                 && otherAppt.getPatient().equals(getPatient())
                 && otherAppt.getDescription().equals(getDescription())
                 && otherAppt.getDateTime().equals(getDateTime());
+    }
+
+    /**
+     * Getter method for the patient of the appointment.
+     *
+     * @return Patient of the appointment.
+     */
+    public Person getPerson() {
+        return this.patient;
     }
 }

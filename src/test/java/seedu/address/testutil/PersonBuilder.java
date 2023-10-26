@@ -55,6 +55,7 @@ public class PersonBuilder {
         nric = new Nric(DEFAULT_NRIC);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        appointments = new ArrayList<>();
     }
 
     /**
@@ -86,15 +87,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Parses the {@code appointments} into a {@code ArrayList<Appointment>}
-     * and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withAppointments(String ... appointments) {
-        this.appointments = TypicalAppointments.getTypicalAppointments();
         return this;
     }
 

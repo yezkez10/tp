@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AppointmentAddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
@@ -17,7 +17,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindAppointmentsByNameCommand;
+import seedu.address.logic.commands.FindAppointmentsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentCommand;
@@ -85,7 +85,7 @@ public class ClinicAssistantParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AppointmentAddCommand.COMMAND_WORD:
+        case AddAppointmentCommand.COMMAND_WORD:
             return new AddAppointmentParser().parse(arguments);
 
         case DeleteAppointmentCommand.COMMAND_WORD:
@@ -94,8 +94,8 @@ public class ClinicAssistantParser {
         case EditAppointmentCommand.COMMAND_WORD:
             return new EditAppointmentCommandParser().parse(arguments);
 
-        case FindAppointmentsByNameCommand.COMMAND_WORD:
-            return new FindAppointmentsByNameCommandParser().parse(arguments);
+        case FindAppointmentsCommand.COMMAND_WORD:
+            return new FindAppointmentsCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
