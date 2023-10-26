@@ -1,12 +1,17 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalAppointments.getTypicalAppointments;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.ClinicAssistant;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
 /**
@@ -51,5 +56,16 @@ public class TestUtil {
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+    public static ClinicAssistant getTypicalAddressBook() {
+        ClinicAssistant ab = new ClinicAssistant();
+        List<Person> appointmentList = getTypicalAppointments();
+        for (int i = 0; i < appointmentList.size(); i++) {
+            ab.addPerson(appointmentList.get(i));
+            for (Appointment appt : appointmentList.get(i).getAppointments()) {
+                ab.addAppointment(appt);
+            }
+        }
+        return ab;
     }
 }
