@@ -11,8 +11,6 @@ import static seedu.address.testutil.TypicalPersons.GEORGE;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import seedu.address.model.ClinicAssistant;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,69 +18,36 @@ import seedu.address.model.person.Person;
  */
 public class TypicalAppointments {
 
-    public static final Appointment ALICES_APPOINTMENT = new AppointmentBuilder(ALICE)
+    public static final Person ALICE_WITH_APPOINTMENT = new AppointmentBuilder(ALICE)
             .withDescription("See the doctor")
             .withDateTme("01-01-2024 00:00").build();
-
-    public static final Appointment ALICES_APPOINTMENT_EDITED = new AppointmentBuilder(ALICE)
-            .withDescription("EDITED See the doctor")
-            .withDateTme("01-01-2024 00:00").build();
-
-    public static final Appointment ALICES_APPOINTMENT_EDITED_ONLY_DESCRIPTION_SPECIFIED = new AppointmentBuilder(ALICE)
-            .withDescription("EDITED See the doctor").build();
-    public static final Appointment BENSONS_APPOINTMENT = new AppointmentBuilder(BENSON)
+    public static final Person BENSON_WITH_APPOINTMENT = new AppointmentBuilder(BENSON)
             .withDescription("Urine Exam")
             .withDateTme("01-11-2023 00:00").build();
 
-    public static final Appointment CARLS_APPOINTMENT = new AppointmentBuilder(CARL)
+    public static final Person CARL_WITH_APPOINTMENT = new AppointmentBuilder(CARL)
             .withDescription("x-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
-
-    public static final Appointment DANIELS_APPOINTMENT = new AppointmentBuilder(DANIEL)
-            .withDescription("x-ray appointment")
+    public static final Person DANIEL_WITH_APPOINTMENT = new AppointmentBuilder(DANIEL)
+            .withDescription("z-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
-    public static final Appointment ELLES_APPOINTMENT = new AppointmentBuilder(ELLE)
-            .withDescription("x-ray appointment")
+    public static final Person ELLE_WITH_APPOINTMENT = new AppointmentBuilder(ELLE)
+            .withDescription("y-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
-    public static final Appointment FIONAS_APPOINTMENT = new AppointmentBuilder(FIONA)
-            .withDescription("x-ray appointment")
+    public static final Person FIONA_WITH_APPOINTMENT = new AppointmentBuilder(FIONA)
+            .withDescription("a-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
-    public static final Appointment GEORGES_APPOINTMENT = new AppointmentBuilder(GEORGE)
+    public static final Person GEORGE_WITH_APPOINTMENT = new AppointmentBuilder(GEORGE)
             .withDescription("x-ray appointment")
             .withDateTme("05-02-2024 00:00").build();
 
     private TypicalAppointments() {} // prevents instantiation
 
-    public static ClinicAssistant getTypicalAddressBook() {
-        ClinicAssistant ab = new ClinicAssistant();
-        for (Appointment appt : getTypicalAppointments()) {
-            ab.addAppointment(appt);
-        }
-        return ab;
-    }
-
-    public static ClinicAssistant getTypicalAddressBookPatientsAndAppointments() {
-        ClinicAssistant ab = new ClinicAssistant();
-        for (Appointment appt : getTypicalAppointments()) {
-            Person currPatient = appt.getPatient();
-            if (!ab.hasPerson(appt.getPatient())) {
-                currPatient.addAppointment(appt);
-                ab.addPerson(appt.getPatient());
-            } else {
-                currPatient.addAppointment(appt);
-            }
-            ab.addAppointment(appt);
-        }
-
-        return ab;
-    }
-
-    public static ArrayList<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(ALICES_APPOINTMENT, BENSONS_APPOINTMENT,
-                CARLS_APPOINTMENT, DANIELS_APPOINTMENT, ELLES_APPOINTMENT, FIONAS_APPOINTMENT,
-                GEORGES_APPOINTMENT));
+    public static ArrayList<Person> getTypicalAppointments() {
+        return new ArrayList<>(Arrays.asList(ALICE_WITH_APPOINTMENT, BENSON_WITH_APPOINTMENT, CARL_WITH_APPOINTMENT,
+                DANIEL_WITH_APPOINTMENT, ELLE_WITH_APPOINTMENT, FIONA_WITH_APPOINTMENT, GEORGE_WITH_APPOINTMENT));
     }
 }

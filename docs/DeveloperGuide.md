@@ -157,6 +157,33 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### \[Proposed\] Add/delete Doctor feature
+
+#### \[Proposed\] Implementation
+
+ The proposed add/delete Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
+ The Doctor class stores the relevant data of the Doctor such as name and gender.
+ The following sequence diagram shows how the add Doctor operation works.
+
+<puml src="diagrams/AddDoctor.puml" alt="AddDoctor" />
+
+The delete Doctor command does the opposite — it calls deleteDoctor(INDEX), which deletes the Doctor from the system by their Index.
+
+**Note:** If the index of either add or delete is less than 1 or exceeds the number of Doctors in the List then the command is going to fail.
+
+#### Design considerations:
+
+**Aspect: How Doctor is going to be saved:**
+
+* **Alternative 1 (current choice):** Doctor is its own class containing detailed information on the doctor.
+    * Pros: Similar to Person
+    * Cons: May introduce new bugs and is generally going to take up a lot of lines of code.
+
+* **Alternative 2:** Doctor is just a String and is going to be saved inside an ArrayList since the most important part is just the name.
+    * Pros: Will be easier to implement and much simpler.
+    * Cons: Going to be harder for future developer to update the Doctor Class.
+
+
 ### Find patient by NRIC feature
 
 #### Implementation

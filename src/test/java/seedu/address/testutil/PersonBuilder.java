@@ -91,15 +91,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code appointments} into a {@code ArrayList<Appointment>}
-     * and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withAppointment(Appointment appointment) {
-        this.appointments.add(appointment);
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
