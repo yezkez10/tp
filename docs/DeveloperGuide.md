@@ -207,161 +207,28 @@ The following sequence diagram shows how the DeleteCommand class works.
     * Pros: Will be more accurate when deleting a patient
     * Cons: Takes more time as need to type out names of patient when deleting and length of names may vary from person to person
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how the undo operation works:
-
-<puml src="diagrams/UndoSequenceDiagram.puml" alt="UndoSequenceDiagram" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### List appointments feature
+### Find patient by NRIC feature
 
 #### Implementation
 
-The list appointments feature is added on from the `Appointment` class. The `list_appt` command will list out all 
-appointments in the Clinic Assistant database.
+The find patient by NRIC feature is parsed by the `FindByNricCommandParser` and facilitated the object `FindByNricCommand`.
 
-Firstly, to implement the list appointments command, we have to edit the current frontend to add a new Panel to display
-the appointments. This is done by adding a new `AppointmentListPanel` class to the `seedu.address.ui` package. This 
-class is then added to the `MainWindow` class to display the appointments. The `AppointmentCard` class is also added to 
-display the individual appointments inside the `AppointmentListPanel`. In addition, the corresponding `fxml` files are
-also added to the `view` folder to display the appointments.
+The job of the `FindByNricCommandParser` is to parse the inputted command word: `find_nric <keyword>`.
+After parsing the inputted command word, a `FindByNricCommand` command object is created. 
+This command singles the patient whose NRIC matches the inputted NRIC out of the stored list of unique patients.
 
-To implement the backend of the list appointments command, we first have to store the appointments in the database.
-Like the implementation of storing of `Person`, we keep a `UniqueAppointmentList` in the `Model` class to store the
-appointments. The `UniqueAppointmentList` class is similar to the `UniquePersonList` class, except that it stores
-`Appointment` objects instead of `Person` objects. What we show on the frontend is the filtered list of appointments
-from the `UniqueAppointmentList` class.
+**The Specifics**
 
-A `ListAppointmentCommand` class is then created to handle the `list_appt` command. This class is similar to the
-`ListCommand` class, except that it handles the `Appointment` objects instead of `Person` objects. The 
-`ListAppointmentCommand` class will then be called by the `LogicManager` class to execute the `list_appt` command.
-What this command does is that it changes the predicate to the filtered list of appointments to show all the 
-appointments in the database.
+`FindByNricCommandParser` parses the NRIC of the patient that the user wants to look for. 
 
-#### Alternatives considered
+A `FindByNricCommand` is created, together with a `NricContainsKeywordPredicate` that compares the given NRIC with the NRICs of patients in a list of patients with unique NRICs.
 
-**Aspect: How to store and maintain list of appointments:**
+This predicate is then passed into `FindByNricCommand`, which then finds the patient whose NRIC matches the inputted NRIC.
 
-* **Alternative 1 (current choice):** Save the list of appointments as a `UniqueAppointmentList` and filter it when needed.
-    * Pros: Easy to implement - similar to the current implementation of `Person`
-    * Cons: More memory is used to store the list of appointments
+**In-depth description**
 
-* **Alternative 2:** Get the list of appointments by parsing through each `Person` object in the `UniquePersonList`
-    * Pros: Will use less memory
-    * Cons: Will be slower because we have to iterate through all the `Person` objects to get the appointments each time
-
-### Find appointments by date feature
-
-#### Implementation
-
-The find appointments by date feature built on the find appointment command. The `find_appt /on` command will list out 
-all appointments in the Clinic Assistant database that falls on the date given.
-
-To implement the find appointments by date command, we have to update the predicate for the filtered list of
-appointments to show on the frontend. We have to add a predicate to check for all the appointments that falls on the
-date given.
-
-The find appointment command is extended to take in different parameters and filter the list shown on the frontend
-accordingly.
-
-#### Alternatives considered
-
-**Aspect: How to implement the find appointments by date command:**
-
-* **Alternative 1 (current choice):** Extend the functionality of the find appointment command to take in different parameters
-    * Pros: More user-friendly and allows user to filter by multiple parameters
-    * Cons: Harder to implement
-
-* **Alternative 2:** Add a new command to only filter by date
-    * Pros: Easier to implement
-    * Cons: Users cannot filter by multiple parameters
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
+<img src="images/FindByNricSequenceDiagram.png" width="1000px">
+The above shows the sequence diagram of the find by NRIC feature. 
 
 
 --------------------------------------------------------------------------------------------------------------------

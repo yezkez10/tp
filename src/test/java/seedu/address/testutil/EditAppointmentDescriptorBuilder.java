@@ -32,6 +32,7 @@ public class EditAppointmentDescriptorBuilder {
         descriptor = new EditAppointmentDescriptor();
         descriptor.setDescription(appointment.getDescription());
         descriptor.setDateTime(appointment.getDateTime());
+        descriptor.setPatient(appointment.getPatient());
     }
 
     /**
@@ -50,7 +51,6 @@ public class EditAppointmentDescriptorBuilder {
         descriptor.setDateTime(LocalDateTime.parse(dateTime, formatter));
         return this;
     }
-
     public EditAppointmentDescriptor build() {
         return descriptor;
     }
