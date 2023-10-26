@@ -26,6 +26,7 @@ public class Appointment {
      * description must be alphanumeric
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy hh.mma");
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 

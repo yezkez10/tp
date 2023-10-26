@@ -3,6 +3,7 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
             throw new DuplicateAppointmentException();
         }
         internalList.add(toAdd);
+        internalList.sort(Comparator.comparing(Appointment::getDateTime));
     }
 
     /**
@@ -75,6 +77,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.set(index, editedAppointment);
+        internalList.sort(Comparator.comparing(Appointment::getDateTime));
     }
 
     /**
@@ -91,6 +94,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     public void setAppointments(UniqueAppointmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        internalList.sort(Comparator.comparing(Appointment::getDateTime));
     }
 
     /**
@@ -104,6 +108,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.setAll(appointments);
+        internalList.sort(Comparator.comparing(Appointment::getDateTime));
     }
 
     /**
@@ -117,6 +122,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.addAll(appointments);
+        internalList.sort(Comparator.comparing(Appointment::getDateTime));
     }
 
     /**
