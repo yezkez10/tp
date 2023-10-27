@@ -8,7 +8,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.timeslots.Timeslots;
 
 /**
@@ -24,9 +23,9 @@ public class TimeSlotListPanel extends UiPart<Region> {
     /**
      * Creates a {@code AppointmentListPanel} with the given {@code ObservableList}.
      */
-    public TimeSlotListPanel(ObservableList<Timeslots> TimeslotsList) {
+    public TimeSlotListPanel(ObservableList<Timeslots> TimeSlotsList) {
         super(FXML);
-        timeslotsListView.setItems(TimeslotsList);
+        timeslotsListView.setItems(TimeSlotsList);
         timeslotsListView.setCellFactory(listView -> new TimeSlotListViewCell());
     }
 

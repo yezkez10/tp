@@ -24,11 +24,11 @@ public interface ReadOnlyClinicAssistant {
     ObservableList<Appointment> getAppointmentList();
 
     ObservableList<Timeslots> getTimeSlotList();
-        /**
-         * Returns true if the appointment list contains an equivalent appointment as the given argument.
-         *
-         * @param appointment Appointment to check.
-         * @return True if the appointment list contains an equivalent appointment as the given argument.
-         */
+    /**
+     * Returns true if the appointment list contains an equivalent appointment as the given argument.
+     *
+     * @param appointment Appointment to check.
+     * @return True if the appointment list contains an equivalent appointment as the given argument.
+     */
     boolean hasAppointment(Appointment appointment);
 }

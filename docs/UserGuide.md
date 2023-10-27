@@ -31,9 +31,9 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
    * `list` : Lists all patients in the ClinicAssistant.
 
-   * `add /n John Doe /p 98765432 /ejohnd@example.com /g M /age 22 /eth Chinese /ic T1234567E a/John street, block 123, #01-01 /t allergy` : 
+   * `add /n John Doe /p 98765432 /ejohnd@example.com /g M /age 22 /eth Chinese /ic T1234567E a/John street, block 123, #01-01 /t allergy` :
    Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
-   
+
    * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
    * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
 

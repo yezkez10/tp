@@ -17,8 +17,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslots;
 
-import javax.swing.text.View;
-
 /**
  * A AppointmentAddCommand instance to add appointment to patients
  */

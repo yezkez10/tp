@@ -121,7 +121,6 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
 
-//        //create available apptment list panel
         timeSlotListPanel = new TimeSlotListPanel(logic.getTimeSlotsList());
         timeslotListPanelPlaceholder.getChildren().add(timeSlotListPanel.getRoot());
 

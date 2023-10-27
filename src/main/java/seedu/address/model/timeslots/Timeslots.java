@@ -1,15 +1,17 @@
 package seedu.address.model.timeslots;
 
-import seedu.address.commons.util.ToStringBuilder;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.commons.util.ToStringBuilder;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * A Timeslot class that has a date and hour
+ */
 public class Timeslots {
     private LocalDate date;
     private int hour;
@@ -97,6 +99,11 @@ public class Timeslots {
         return Objects.hash(date, hour);
     }
 
+    /**
+     * Checks if 2 Timeslots instances are the same
+     * @param otherTimeSlot Other timeslot instance
+     * @return A boolean instance whether they are equal
+     */
     public boolean isSameTimeSlot(Timeslots otherTimeSlot) {
         if (otherTimeSlot == this) {
             return true;

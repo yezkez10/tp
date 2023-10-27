@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import java.time.LocalDate;
+import java.util.function.Predicate;
+
 import seedu.address.logic.commands.ViewAvailableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
@@ -7,14 +10,20 @@ import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 import seedu.address.model.timeslots.Timeslots;
 
-import java.time.LocalDate;
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
+/**
+ * Parser class for ViewAvailableCommand
+ */
 public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> {
+    /**
+     * Parses the input from the user and returns the ViewAvailableCommand
+     * @param args String input from user
+     * @return An instance of ViewAvailableCommand
+     * @throws ParseException when format of ViewAvailableCommand is wrongly used
+     */
     public ViewAvailableCommand parse(String args) throws ParseException {
         requireNonNull(args);
 

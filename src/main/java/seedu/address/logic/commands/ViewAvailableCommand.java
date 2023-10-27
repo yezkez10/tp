@@ -1,22 +1,24 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.timeslots.Timeslots;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-
-public class ViewAvailableCommand extends Command {//view /on <date>
+/**
+ * A ViewAvailableCommand instance which user can use to view available timeslots on a specified date
+ */
+public class ViewAvailableCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " /on DATE";
@@ -25,7 +27,14 @@ public class ViewAvailableCommand extends Command {//view /on <date>
     private Predicate<Appointment> apptPredicate;
     private LocalDate dateEntered;
 
-    public ViewAvailableCommand(Predicate<Timeslots> predicate, Predicate<Appointment> apptPredicate, LocalDate dateEntered) {
+    /**
+     * Constructor for ViewAvailableCommand class
+     * @param predicate A predicate instance for timeslots
+     * @param apptPredicate A predicate instance for appointments
+     * @param dateEntered Date which the user specified
+     */
+    public ViewAvailableCommand(Predicate<Timeslots> predicate, Predicate<Appointment> apptPredicate
+            , LocalDate dateEntered) {
         this.predicate = predicate;
         this.apptPredicate = apptPredicate;
         this.dateEntered = dateEntered;
@@ -35,7 +44,7 @@ public class ViewAvailableCommand extends Command {//view /on <date>
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(apptPredicate);
-        ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList(); //list of apptments for that DATE
+        ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList();
         Set<Integer> unavailableTimeslots = new HashSet<>();
 
         // populate unavailableTimeslots

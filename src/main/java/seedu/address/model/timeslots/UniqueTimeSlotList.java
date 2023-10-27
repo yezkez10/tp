@@ -1,17 +1,19 @@
 package seedu.address.model.timeslots;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
-import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
-
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
+import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * A UniqueTimeSlotList class that is used for JavaFX FrontEnd
+ */
 public class UniqueTimeSlotList implements Iterable<Timeslots> {
 
     private final ObservableList<Timeslots> internalList = FXCollections.observableArrayList();

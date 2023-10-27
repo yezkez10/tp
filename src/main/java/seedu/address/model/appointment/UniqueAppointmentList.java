@@ -11,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
-import seedu.address.model.timeslots.Timeslots;
-import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls.

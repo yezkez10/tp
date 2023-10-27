@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
@@ -105,11 +104,11 @@ public interface Model {
     void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate);
     ObservableList<Timeslots> getAvailableTimeSlotList();
 
-        /**
-         * Adds an appointment to the address book.
-         *
-         * @param toAdd Appointment to be added.
-         */
+    /**
+     * Adds an appointment to the address book.
+     *
+     * @param toAdd Appointment to be added.
+     */
     void addAppointment(Appointment toAdd);
 
     /**
