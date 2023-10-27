@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.sql.Time;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -10,6 +11,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.UniqueTimeSlotList;
 
 /**
  * Wraps all data at the address-book level
@@ -19,7 +22,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     private final UniquePersonList persons;
     private final UniqueAppointmentList allAppointments;
-
+    private final UniqueTimeSlotList allTimeSlots;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -30,6 +33,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     {
         persons = new UniquePersonList();
         allAppointments = new UniqueAppointmentList();
+        allTimeSlots = new UniqueTimeSlotList();
     }
 
     public ClinicAssistant() {}
@@ -60,6 +64,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
         setPersons(newData.getPersonList());
         setAppointments(newData.getAppointmentList());
+        setTimeslots(newData.getTimeSlotList());
     }
 
     //// person-level operations
@@ -144,6 +149,17 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     @Override
+    public ObservableList<Timeslots> getTimeSlotList() {
+        return allTimeSlots.asUnmodifiableObservableList();
+    }
+    public void addAvailableTimeSlot(Timeslots timeslots) {
+        allTimeSlots.add(timeslots);
+    }
+    public void removeTimeSlot(Timeslots timeslots) {
+        allTimeSlots.remove(timeslots);
+    }
+
+    @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return allAppointments.contains(appointment);
@@ -160,6 +176,9 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireNonNull(editedAppointment);
         allAppointments.setAppointment(target, editedAppointment);
+    }
+    public void setTimeslots(List<Timeslots> timeSlotsList) {
+        allTimeSlots.setTimeslotsList(timeSlotsList);
     }
 
     public void setAppointments(List<Appointment> appointments) {

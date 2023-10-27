@@ -4,9 +4,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslots;
 
 /**
  * The API of the Model component.
@@ -15,6 +17,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPTS = unused -> true;
+    Predicate<Timeslots> PREDICATE_SHOW_ALL_TIMESLOTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -95,12 +98,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+    void addAvailableTimeSlot(Timeslots timeslots);
 
-    /**
-     * Adds an appointment to the address book.
-     *
-     * @param toAdd Appointment to be added.
-     */
+    void removeAvailableTimeSlot(Timeslots timeslots);
+
+    void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate);
+    ObservableList<Timeslots> getAvailableTimeSlotList();
+
+        /**
+         * Adds an appointment to the address book.
+         *
+         * @param toAdd Appointment to be added.
+         */
     void addAppointment(Appointment toAdd);
 
     /**
@@ -123,4 +132,6 @@ public interface Model {
      * @return true if appointment exists.
      */
     boolean hasAppointment(Appointment editedAppointment);
+
+    Predicate<Timeslots> getCurrentPredicate();
 }

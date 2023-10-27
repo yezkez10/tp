@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslots;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -168,6 +169,10 @@ public class AddCommandTest {
         public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public Predicate<Timeslots> getCurrentPredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void addAppointment(Appointment appointment) {
@@ -186,6 +191,24 @@ public class AddCommandTest {
 
         @Override
         public boolean hasAppointment(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void addAvailableTimeSlot(Timeslots timeslots) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeAvailableTimeSlot(Timeslots timeslots) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ObservableList<Timeslots> getAvailableTimeSlotList() {
             throw new AssertionError("This method should not be called.");
         }
     }

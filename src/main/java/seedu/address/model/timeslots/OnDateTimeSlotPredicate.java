@@ -1,4 +1,4 @@
-package seedu.address.model.appointment;
+package seedu.address.model.timeslots;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,30 +9,32 @@ import seedu.address.commons.util.ToStringBuilder;
 /**
  * Tests that an {@code Apppointment}'s {@code DateTime} matches the DateTime given.
  */
-public class OnDateTimeApptPredicate implements Predicate<Appointment> {
+public class OnDateTimeSlotPredicate implements Predicate<Timeslots> {
     private final LocalDate date;
 
-    public OnDateTimeApptPredicate(LocalDate date) {
+    public OnDateTimeSlotPredicate(LocalDate date) {
         this.date = date;
     }
 
     @Override
-    public boolean test(Appointment appointment) {
-        return appointment.getDateTime().toLocalDate().equals(date);
+    public boolean test(Timeslots timeslot) {
+        return timeslot.getDate().equals(this.date);
     }
 
+    public LocalDate getDate() {
+        return this.date;
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
-        if (!(other instanceof OnDateTimeApptPredicate)) {
+        if (!(other instanceof OnDateTimeSlotPredicate)) {
             return false;
         }
 
-        OnDateTimeApptPredicate otherPredicate = (OnDateTimeApptPredicate) other;
+        OnDateTimeSlotPredicate otherPredicate = (OnDateTimeSlotPredicate) other;
         return date.equals(otherPredicate.date);
     }
 

@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslots;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
+    private FilteredList<Timeslots> filteredTimeSlots;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +38,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.clinicAssistant.getPersonList());
         filteredAppointments = new FilteredList<>(this.clinicAssistant.getAppointmentList());
+        filteredTimeSlots = new FilteredList<>(this.clinicAssistant.getTimeSlotList());
     }
 
     public ModelManager() {
@@ -170,6 +173,31 @@ public class ModelManager implements Model {
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
         filteredAppointments.setPredicate(predicate);
+    }
+
+    @Override
+    public void addAvailableTimeSlot(Timeslots timeslots) {
+        clinicAssistant.addAvailableTimeSlot(timeslots);
+        updateFilteredAvailableTimeslot(PREDICATE_SHOW_ALL_TIMESLOTS);
+    }
+    @Override
+    public void removeAvailableTimeSlot(Timeslots timeslots) {
+        clinicAssistant.removeTimeSlot(timeslots);
+    }
+
+    @Override
+    public void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate) {
+        requireNonNull(predicate);
+        filteredTimeSlots.setPredicate(predicate);
+    }
+    @Override
+    public ObservableList<Timeslots> getAvailableTimeSlotList() {
+        return this.clinicAssistant.getTimeSlotList();
+    }
+
+    @Override
+    public Predicate<Timeslots> getCurrentPredicate() {
+        return (Predicate<Timeslots>) this.filteredTimeSlots.getPredicate();
     }
 
     @Override
