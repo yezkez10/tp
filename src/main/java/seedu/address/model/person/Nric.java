@@ -32,19 +32,6 @@ public class Nric {
         return test.matches(VALIDATION_REGEX);
     }
 
-    /**
-     * Returns true if both Nrics have the same sequence.
-     * This defines a weaker notion of equality between two Nric.
-     */
-    public boolean isSameNric(Nric otherNric) {
-        if (otherNric == this) {
-            return true;
-        }
-
-        return otherNric != null
-                && otherNric.value.equals(value);
-    }
-
     @Override
     public String toString() {
         return value;

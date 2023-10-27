@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class NricTest {
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Nric(null));
@@ -37,6 +38,11 @@ public class NricTest {
         // valid nrics
         assertTrue(Nric.isValidNric("T1234567A"));
         assertTrue(Nric.isValidNric("t1234567a")); //lowercase alpha characters
+    }
+
+    @Test
+    public void isSameNric() {
+
     }
 
     @Test
