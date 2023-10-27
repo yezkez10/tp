@@ -1,5 +1,8 @@
 package seedu.address.model.timeslots;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,9 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A UniqueTimeSlotList class that is used for JavaFX FrontEnd

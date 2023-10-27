@@ -1,5 +1,7 @@
 package seedu.address.model.timeslots;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,15 +9,10 @@ import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * A Timeslot class that has a date and hour
  */
 public class Timeslots {
-    private LocalDate date;
-    private int hour;
-
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
 
     public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
@@ -25,6 +22,8 @@ public class Timeslots {
      * description must be alphanumeric
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    private LocalDate date;
+    private int hour;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 

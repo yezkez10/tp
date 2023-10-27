@@ -23,8 +23,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ViewAvailableCommand;
-
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

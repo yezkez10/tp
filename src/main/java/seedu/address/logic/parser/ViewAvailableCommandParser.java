@@ -1,5 +1,9 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
@@ -9,10 +13,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 import seedu.address.model.timeslots.Timeslots;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 /**
  * Parser class for ViewAvailableCommand

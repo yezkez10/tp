@@ -23,9 +23,9 @@ public class TimeSlotListPanel extends UiPart<Region> {
     /**
      * Creates a {@code AppointmentListPanel} with the given {@code ObservableList}.
      */
-    public TimeSlotListPanel(ObservableList<Timeslots> TimeSlotsList) {
+    public TimeSlotListPanel(ObservableList<Timeslots> timeslotList) {
         super(FXML);
-        timeslotsListView.setItems(TimeSlotsList);
+        timeslotsListView.setItems(timeslotList);
         timeslotsListView.setCellFactory(listView -> new TimeSlotListViewCell());
     }
 

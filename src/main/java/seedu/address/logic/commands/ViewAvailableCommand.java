@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
@@ -33,8 +32,8 @@ public class ViewAvailableCommand extends Command {
      * @param apptPredicate A predicate instance for appointments
      * @param dateEntered Date which the user specified
      */
-    public ViewAvailableCommand(Predicate<Timeslots> predicate, Predicate<Appointment> apptPredicate
-            , LocalDate dateEntered) {
+    public ViewAvailableCommand(Predicate<Timeslots> predicate, Predicate<Appointment> apptPredicate,
+                                LocalDate dateEntered) {
         this.predicate = predicate;
         this.apptPredicate = apptPredicate;
         this.dateEntered = dateEntered;
