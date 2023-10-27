@@ -326,13 +326,57 @@ The above shows the sequence diagram of the find by NRIC feature.
 * **Alternative 1 (current choice):** Create a new command that takes in the required NRIC as an argument.
     * Pros: Easy to implement, as it has a structure similar to the original Find command.
     * Cons: If users were to input an erratic NRIC, no matching patients will be shown.
-
 * **Alternative 2:** Extend the pre-existing Find command to accept NRIC as another argument
     * Pros: With more parameters, users can look for more patients at one time.
   Even if the user inputs an erratic NRIC, they can still input the patients name 
   and receive a list of possible matching patients to choose from.
     * Cons: This is harder to implement as the FilteredList would have to take in more than 1 type of predicate.
---------------------------------------------------------------------------------------------------------------------
+  
+### Add/delete Appointment feature
+
+#### Implementation
+
+The add/delete Appointment mechanism is facilitated by `UniqueAppointmentList` and a `Appointment` Class. `UniqueAppointmentList` extends `Iterable<Appointment>` which stores and ensures all the Appointments in this list are unique. Additionally it implements the same operations as the `UniquePersonList`.
+The Appointment class stores the relevant data of the Appointment such as description, date (inclusive of time) as well as Patient it belongs to.
+
+The delete Appointment command does the opposite — it calls deleteAppointment(INDEX), which deletes the Appointment from the system by their Index.
+
+**Note:** If the index of either add or delete is less than 1 or exceeds the number of Appointments in the List then the command will fail.
+
+#### Design considerations:
+
+**Aspect: How Appointments are going to be saved:**
+
+* **Alternative 1 (current choice):** Appointment is its own class containing detailed information on the Appointment.
+    * Pros: Similar to Person
+    * Cons: May introduce new bugs and is generally going to take up a lot of lines of code.
+
+* **Alternative 2:** Appointments are just a String and is going to be saved inside an ArrayList.
+    * Pros: Will be easier to implement and much simpler.
+    * Cons: Going to be harder for future developers to update the Appointment Class.
+
+### Edit Appointment feature
+
+#### Implementation
+
+The edit Appointment mechanism is facilitated by the `EditAppointmentDescriptor` class. It's mechanism is similar to that of `EditCommand`'s implementation.
+An `edit_appt` command input takes in an Appointment Index, followed by a minimum of 1 required input change of either description `[/d]` or date `[/on]`.
+
+After receiving the users input, the `EditAppointmentCommandParser` parses the given input to form an `EditAppointmentDescriptor`, which will then be used by `createEditedAppointment` to create an Appointment to replace the user specified index.
+
+**Note:** If the Index provided is invalid (0 or bigger than the size of Appointment list), or no input change is given, the command will fail.
+
+#### Design considerations:
+
+**Aspect: How Appointments are going to be edited:**
+
+* **Alternative 1 (current choice):** Appointment is Edited based on its Index in the overall Appointment List
+    * Pros: One centralized Appointment List for all Edit Appointment operations
+    * Cons: Harder to implement
+
+* **Alternative 2:** An additional Index field of the Patients Index is to be given, followed by his/her Appointment to edit
+    * Pros: Appointment to be edited is specified to the specific Patient index input
+    * Cons: Harder for the user to visualise which Appointment he is going to edit
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
