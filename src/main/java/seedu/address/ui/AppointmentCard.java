@@ -42,7 +42,7 @@ public class AppointmentCard extends UiPart<Region> {
         this.appointment = appointment;
         id.setText(displayedIndex + ". ");
         description.setText(appointment.getDescription());
-        dateTime.setText(appointment.getDateTime().toString());
+        dateTime.setText(appointment.getDateTime().format(Appointment.DATE_TIME_FORMATTER));
         patient.setText(appointment.getPatient().getName().toString());
     }
 }

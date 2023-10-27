@@ -157,6 +157,32 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add patient feature
+
+#### Implementation
+
+This feature deals with adding a patient to the health records database.
+
+The fields required when adding a patient are the patient's
+* `Name`
+* `Age`
+* `Gender`
+* `Ethnicity`
+* `Nric`
+* `Phone`
+* `Email`
+* `Address`
+
+This feature is facilitated by the `Person` class and the `UniquePersonList`, which extends Iterable<Person>
+and ensures all the Persons in this list is unique. 
+The `Person` class stores the required fields of the patient. 
+
+**The Specifics**
+
+`AddCommandParser` parses the user-inputted command and creates a `Person` object
+with its required fields, as well as an `AddCommand` that adds this person into the `Model`. 
+This `Person` is added into the `UniquePersonList`. 
+
 ### \[Proposed\] Add/delete Doctor feature
 
 #### \[Proposed\] Implementation
@@ -183,106 +209,40 @@ The delete Doctor command does the opposite — it calls deleteDoctor(INDEX)
     * Pros: Will be easier to implement and much simpler.
     * Cons: Going to be harder for future developer to update the Doctor Class.
 
+### \[Proposed\] Delete Patient
 
-### \[Proposed\] Undo/redo feature
+#### \[Proposed\] Implementation
 
-#### Proposed Implementation
+The proposed delete mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
+Clinic staff can enter `delete 3` which deletes all information of the person in the list, including their details and appointment.
+The following sequence diagram shows how the DeleteCommand class works.
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML" />
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how the undo operation works:
-
-<puml src="diagrams/UndoSequenceDiagram.puml" alt="UndoSequenceDiagram" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
+**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then deleteCommand is going to fail.
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How convenient it is for clinic staff to delete:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice):** Delete based on INDEX shown on the present list
+    * Pros: Intuitive and easy for nurse to delete
+    * Cons: Needs to use zero-based indexing since lists are zero-indexed but the view of clinic staff is one-indexed.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 2:** Delete based on name of patient
+    * Pros: Will be more accurate when deleting a patient
+    * Cons: Takes more time as need to type out names of patient when deleting and length of names may vary from person to person
 
-_{more aspects and alternatives to be added}_
-
-### List appointments feature
+### List feature
 
 #### Implementation
 
-The list appointments feature is added on from the `Appointment` class. The `list_appt` command will list out all 
+The list appointments feature is added on from the `Appointment` class. The `list_appt` command will list out all
 appointments in the Clinic Assistant database.
 
 Firstly, to implement the list appointments command, we have to edit the current frontend to add a new Panel to display
-the appointments. This is done by adding a new `AppointmentListPanel` class to the `seedu.address.ui` package. This 
-class is then added to the `MainWindow` class to display the appointments. The `AppointmentCard` class is also added to 
+the appointments. This is done by adding a new `AppointmentListPanel` class to the `seedu.address.ui` package. This
+class is then added to the `MainWindow` class to display the appointments. The `AppointmentCard` class is also added to
 display the individual appointments inside the `AppointmentListPanel`. In addition, the corresponding `fxml` files are
 also added to the `view` folder to display the appointments.
 
@@ -293,9 +253,9 @@ appointments. The `UniqueAppointmentList` class is similar to the `UniquePersonL
 from the `UniqueAppointmentList` class.
 
 A `ListAppointmentCommand` class is then created to handle the `list_appt` command. This class is similar to the
-`ListCommand` class, except that it handles the `Appointment` objects instead of `Person` objects. The 
+`ListCommand` class, except that it handles the `Appointment` objects instead of `Person` objects. The
 `ListAppointmentCommand` class will then be called by the `LogicManager` class to execute the `list_appt` command.
-What this command does is that it changes the predicate to the filtered list of appointments to show all the 
+What this command does is that it changes the predicate to the filtered list of appointments to show all the
 appointments in the database.
 
 #### Alternatives considered
@@ -314,7 +274,7 @@ appointments in the database.
 
 #### Implementation
 
-The find appointments by date feature built on the find appointment command. The `find_appt /on` command will list out 
+The find appointments by date feature built on the find appointment command. The `find_appt /on` command will list out
 all appointments in the Clinic Assistant database that falls on the date given.
 
 To implement the find appointments by date command, we have to update the predicate for the filtered list of
@@ -336,12 +296,87 @@ accordingly.
     * Pros: Easier to implement
     * Cons: Users cannot filter by multiple parameters
 
-### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+### Find patient by NRIC feature
+
+#### Implementation
+
+The find patient by NRIC feature will find a patient whose NRIC matches the given NRIC. 
+This feature is facilitated by the `FindByNricCommandParser` and `FindByNricCommand` classes.
+To find a patient using a given NRIC, we have to use this NRIC as a predicate for the list of patients with unique NRICs.
+We will compare each patient's NRIC to this given NRIC and return the patient with the matching NRIC.
+
+**The Specifics**
+
+The job of the `FindByNricCommandParser` is to create a `FindByNricCommand` command object, 
+with a `NricContainsKeywordPredicate` object passed in as a parameter. 
+
+The `updateFilteredPersonList` method in the `Model` class is called,
+which then calls the `setPredicate` method in the `FilteredList` class,
+both with the `NricContainsKeywordPredicate` object passed in as the predicate.
 
 
---------------------------------------------------------------------------------------------------------------------
+<img src="images/FindByNricSequenceDiagram.png" width="1000px">
+The above shows the sequence diagram of the find by NRIC feature. 
+
+**Alternatives considered**
+
+**Aspect: How to implement find patient by NRIC feature**
+
+* **Alternative 1 (current choice):** Create a new command that takes in the required NRIC as an argument.
+    * Pros: Easy to implement, as it has a structure similar to the original Find command.
+    * Cons: If users were to input an erratic NRIC, no matching patients will be shown.
+* **Alternative 2:** Extend the pre-existing Find command to accept NRIC as another argument
+    * Pros: With more parameters, users can look for more patients at one time.
+  Even if the user inputs an erratic NRIC, they can still input the patients name 
+  and receive a list of possible matching patients to choose from.
+    * Cons: This is harder to implement as the FilteredList would have to take in more than 1 type of predicate.
+  
+### Add/delete Appointment feature
+
+#### Implementation
+
+The add/delete Appointment mechanism is facilitated by `UniqueAppointmentList` and a `Appointment` Class. `UniqueAppointmentList` extends `Iterable<Appointment>` which stores and ensures all the Appointments in this list are unique. Additionally it implements the same operations as the `UniquePersonList`.
+The Appointment class stores the relevant data of the Appointment such as description, date (inclusive of time) as well as Patient it belongs to.
+
+The delete Appointment command does the opposite — it calls deleteAppointment(INDEX), which deletes the Appointment from the system by their Index.
+
+**Note:** If the index of either add or delete is less than 1 or exceeds the number of Appointments in the List then the command will fail.
+
+#### Design considerations:
+
+**Aspect: How Appointments are going to be saved:**
+
+* **Alternative 1 (current choice):** Appointment is its own class containing detailed information on the Appointment.
+    * Pros: Similar to Person
+    * Cons: May introduce new bugs and is generally going to take up a lot of lines of code.
+
+* **Alternative 2:** Appointments are just a String and is going to be saved inside an ArrayList.
+    * Pros: Will be easier to implement and much simpler.
+    * Cons: Going to be harder for future developers to update the Appointment Class.
+
+### Edit Appointment feature
+
+#### Implementation
+
+The edit Appointment mechanism is facilitated by the `EditAppointmentDescriptor` class. It's mechanism is similar to that of `EditCommand`'s implementation.
+An `edit_appt` command input takes in an Appointment Index, followed by a minimum of 1 required input change of either description `[/d]` or date `[/on]`.
+
+After receiving the users input, the `EditAppointmentCommandParser` parses the given input to form an `EditAppointmentDescriptor`, which will then be used by `createEditedAppointment` to create an Appointment to replace the user specified index.
+
+**Note:** If the Index provided is invalid (0 or bigger than the size of Appointment list), or no input change is given, the command will fail.
+
+#### Design considerations:
+
+**Aspect: How Appointments are going to be edited:**
+
+* **Alternative 1 (current choice):** Appointment is Edited based on its Index in the overall Appointment List
+    * Pros: One centralized Appointment List for all Edit Appointment operations
+    * Cons: Harder to implement
+
+* **Alternative 2:** An additional Index field of the Patients Index is to be given, followed by his/her Appointment to edit
+    * Pros: Appointment to be edited is specified to the specific Patient index input
+    * Cons: Harder for the user to visualise which Appointment he is going to edit
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
