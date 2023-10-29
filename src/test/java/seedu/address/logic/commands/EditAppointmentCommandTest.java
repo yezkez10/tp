@@ -31,8 +31,8 @@ public class EditAppointmentCommandTest {
 
     @Test
     public void execute_editAppointmentSuccessful() throws ParseException, CommandException {
-        Person validPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Appointment validAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Person validPerson = validAppointment.getPerson();
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
         Appointment editedAppointment = new Appointment("one", time1, validPerson);
 
