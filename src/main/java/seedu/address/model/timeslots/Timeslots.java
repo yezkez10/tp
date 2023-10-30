@@ -14,11 +14,10 @@ public class Timeslots {
     private LocalDate date;
     private int hour;
 
-    public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
     /**
-     * Constructor for Appointment instance
-     * @param hour the Timing of the TimeSlot
-     * @param date The Date of the TimeSlot
+     * Constructor for Timeslot instance
+     * @param hour the Timing of the Timeslot
+     * @param date The Date of the Timeslot
      */
     public Timeslots(LocalDate date, int hour) {
         requireAllNonNull(date, hour);
@@ -26,6 +25,10 @@ public class Timeslots {
         this.hour = hour;
     }
 
+    /**
+     * Gets the LocalDate of this Timeslot instance
+     * @return LocalDate instance of the date of Timeslot
+     */
     public LocalDate getDate() {
         return this.date;
     }
@@ -62,7 +65,7 @@ public class Timeslots {
 
     /**
      * Checks if 2 Timeslots instances are the same
-     * @param otherTimeSlot Other timeslot instance
+     * @param otherTimeSlot Other Timeslots instance
      * @return A boolean instance whether they are equal
      */
     public boolean isSameTimeSlot(Timeslots otherTimeSlot) {

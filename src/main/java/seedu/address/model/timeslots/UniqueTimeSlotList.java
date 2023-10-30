@@ -22,7 +22,7 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent Appointment as the given argument.
+     * Returns true if the list contains an equivalent Timeslot as the given argument.
      */
     public boolean contains(Timeslots toCheck) {
         requireNonNull(toCheck);
@@ -30,22 +30,21 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     /**
-     * Adds a Timeslot to the list.
-     * The Timeslot must not already exist in the list.
+     * Adds a Timeslot to the list if it is not already present.
+     * @param toAdd Timeslots instance we are adding to the list
      */
     public void add(Timeslots toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTimeslotException();
+        if (!contains(toAdd)) {
+            internalList.add(toAdd);
+            FXCollections.sort(internalList, Comparator.comparingInt(Timeslots::getHour));
         }
-        internalList.add(toAdd);
-        FXCollections.sort(internalList, Comparator.comparingInt(Timeslots::getHour));
     }
 
 
     /**
-     * Removes the equivalent Appointment from the list.
-     * The Appointment must exist in the list.
+     * Removes the equivalent Timeslot from the list.
+     * The Timeslot must exist in the list.
      */
     public void remove(Timeslots toRemove) {
         requireNonNull(toRemove);
@@ -54,16 +53,20 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
         }
     }
 
-    public void setAppointments(UniqueTimeSlotList replacement) {
+    /**
+     * Sets the UniqueTimeSlotList from current to the replacement given
+     * @param replacement UniqueTimeSlotList we want to set current List to
+     */
+    public void setTimeslots(UniqueTimeSlotList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code appointments}.
-     * {@code appointments} must not contain duplicate Appointments.
+     * Replaces the contents of this list with {@code timeslots}.
+     * {@code timeslots} must not contain duplicate Timeslots.
      */
-    public void setAppointments(List<Timeslots> timeSlotsList) {
+    public void setTimeslots(List<Timeslots> timeSlotsList) {
         requireAllNonNull(timeSlotsList);
         if (!timeSlotsAreUnique(timeSlotsList)) {
             throw new DuplicateTimeslotException();
@@ -73,8 +76,8 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     /**
-     * Adds to the contents of this list with {@code appointments}.
-     * {@code appointments} must not contain duplicate Appointments.
+     * Adds to the contents of this list with {@code timeslots}.
+     * {@code timeslots} must not contain duplicate Timeslots.
      */
     public void addAll(List<Timeslots> timeslotsList) {
         requireAllNonNull(timeslotsList);
@@ -91,7 +94,6 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     public ObservableList<Timeslots> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
-
 
     public void setTimeslotsList(List<Timeslots> timeslotsList) {
         requireNonNull(timeslotsList);
@@ -131,7 +133,15 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     /**
-     * Returns true if {@code appointments} contains only unique Appointments.
+     * Returns the size of the UniqueTimeSlotList
+     * @return Size of the internalList instance
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Returns true if {@code timeslots} contains only unique Timeslots.
      */
     private boolean timeSlotsAreUnique(List<Timeslots> timeslotsList) {
         for (int i = 0; i < timeslotsList.size() - 1; i++) {

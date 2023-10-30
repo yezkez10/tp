@@ -97,11 +97,29 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
+     * Adds timeslots instance into the list
+     * @param timeslots Timeslots instance to be added
+     */
     void addAvailableTimeSlot(Timeslots timeslots);
 
+    /**
+     * Removes timeslots instance from the list
+     * @param timeslots Timeslots instance to be removed
+     */
     void removeAvailableTimeSlot(Timeslots timeslots);
 
+    /**
+     * Updates the available timeslot list according to a given predicate
+     * @param predicate Predicate instance wrapped around a Timeslot
+     */
     void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate);
+
+    /**
+     * Gets the List of available timeslots
+     * @return ObservableList of Timeslots for JavaFX
+     */
     ObservableList<Timeslots> getAvailableTimeSlotList();
 
     /**

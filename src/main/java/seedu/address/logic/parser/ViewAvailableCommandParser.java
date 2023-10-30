@@ -14,8 +14,6 @@ import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 import seedu.address.model.timeslots.Timeslots;
 
-import javax.swing.text.View;
-
 /**
  * Parser class for ViewAvailableCommand
  */

@@ -151,11 +151,24 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     public ObservableList<Timeslots> getTimeSlotList() {
         return allTimeSlots.asUnmodifiableObservableList();
     }
+
+    /**
+     * Adds a Timeslot instance into the current timeslot list
+     * @param timeslots Timeslot instance to be added
+     */
     public void addAvailableTimeSlot(Timeslots timeslots) {
         allTimeSlots.add(timeslots);
     }
+
+    /**
+     * Removes the timeslot instance from the timeslot list
+     * @param timeslots Timeslot instance to be removed
+     */
     public void removeAvailableTimeSlot(Timeslots timeslots) {
-        allTimeSlots.remove(timeslots);
+        if (allTimeSlots.size() > 0) {
+            //cannot remove if allTimeSlots is not set via View
+            allTimeSlots.remove(timeslots);
+        }
     }
 
     @Override
@@ -176,6 +189,11 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         requireNonNull(editedAppointment);
         allAppointments.setAppointment(target, editedAppointment);
     }
+
+    /**
+     * Sets the current timeslot list to be the one given
+     * @param timeSlotsList The timeslot list to be set to
+     */
     public void setTimeslots(List<Timeslots> timeSlotsList) {
         allTimeSlots.setTimeslotsList(timeSlotsList);
     }
