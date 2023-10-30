@@ -182,7 +182,8 @@ public class ModelManager implements Model {
     }
     @Override
     public void removeAvailableTimeSlot(Timeslots timeslots) {
-        clinicAssistant.removeTimeSlot(timeslots);
+        clinicAssistant.removeAvailableTimeSlot(timeslots);
+        updateFilteredAvailableTimeslot(PREDICATE_SHOW_ALL_TIMESLOTS);
     }
 
     @Override

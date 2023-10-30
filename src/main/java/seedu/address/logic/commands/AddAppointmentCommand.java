@@ -69,9 +69,8 @@ public class AddAppointmentCommand extends Command {
         targetPatient.addAppointment(toAdd);
 
         model.addAppointment(toAdd);
-        Timeslots toRemove = new Timeslots(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
-        model.removeAvailableTimeSlot(toRemove);
-        model.updateFilteredAvailableTimeslot(model.getCurrentPredicate());
+        Timeslots timeslotToRemove = new Timeslots(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
+        model.removeAvailableTimeSlot(timeslotToRemove);
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
     }
 

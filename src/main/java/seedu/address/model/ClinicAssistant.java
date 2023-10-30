@@ -154,7 +154,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     public void addAvailableTimeSlot(Timeslots timeslots) {
         allTimeSlots.add(timeslots);
     }
-    public void removeTimeSlot(Timeslots timeslots) {
+    public void removeAvailableTimeSlot(Timeslots timeslots) {
         allTimeSlots.remove(timeslots);
     }
 
