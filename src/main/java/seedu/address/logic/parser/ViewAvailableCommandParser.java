@@ -14,6 +14,8 @@ import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 import seedu.address.model.timeslots.Timeslots;
 
+import javax.swing.text.View;
+
 /**
  * Parser class for ViewAvailableCommand
  */
@@ -49,7 +51,12 @@ public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> 
                         ViewAvailableCommand.MESSAGE_USAGE));
             }
 
-            date = ParserUtil.parseDate(dateStr);
+            try {
+                date = ParserUtil.parseDate(dateStr);
+            } catch (ParseException e) {
+                throw new ParseException(e.getMessage() + "\n" + "Please insert in the following format: "
+                        + ViewAvailableCommand.MESSAGE_USAGE);
+            }
 
             predicate = new OnDateTimeSlotPredicate(date);
             apptPredicate = new OnDateTimeApptPredicate(date);

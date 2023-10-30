@@ -21,7 +21,6 @@ public class ViewAvailableCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " /on DATE";
-
     private Predicate<Timeslots> predicate;
     private Predicate<Appointment> apptPredicate;
     private LocalDate dateEntered;
@@ -45,7 +44,6 @@ public class ViewAvailableCommand extends Command {
         model.updateFilteredAppointmentList(apptPredicate);
         ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList();
         Set<Integer> unavailableTimeslots = new HashSet<>();
-
         // populate unavailableTimeslots
         for (int i = 0; i < appointmentList.size(); i++) {
             Appointment currAppt = appointmentList.get(i);
@@ -60,12 +58,15 @@ public class ViewAvailableCommand extends Command {
             Timeslots timeslots = new Timeslots(dateEntered, i);
             model.addAvailableTimeSlot(timeslots);
         }
-        //assert
-        //format for = 0
-        System.out.println(model.getAvailableTimeSlotList().toString());
-
+        int sizeOfAvailableTimeslotList = model.getAvailableTimeSlotList().size();
+        assert sizeOfAvailableTimeslotList >= 0;
+        if (sizeOfAvailableTimeslotList == 0) {
+            return new CommandResult(String.format(Messages.MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW,
+                    dateEntered, dateEntered, dateEntered));
+        }
         // Return success command in command prompt
-        return new CommandResult(Messages.MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW);
+        return new CommandResult(String.format(Messages.MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW,
+                dateEntered, dateEntered, dateEntered));
     }
 
     @Override

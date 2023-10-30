@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
@@ -223,7 +224,7 @@ public class ParserUtil {
         String trimmedDate = date.trim();
 
         if (!isValidDate(trimmedDate)) {
-            throw new ParseException(Appointment.MESSAGE_INVALID_DATE);
+            throw new ParseException(Messages.MESSAGE_INVALID_DATE);
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

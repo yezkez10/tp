@@ -12,7 +12,6 @@ import seedu.address.model.person.Person;
  * Container for user visible messages.
  */
 public class Messages {
-
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The patient index provided is invalid";
@@ -22,11 +21,16 @@ public class Messages {
     public static final String MESSAGE_APPOINTMENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 patients found!";
     public static final String MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW = "No appointments found!";
-    public static final String MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW = "Available Timeslots Listed!";
+    public static final String MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW =
+            "All Available Timeslots on %tb %td, %tY Listed!";
+    public static final String MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW =
+            "No Available Timeslots Available on %tb %td, %tY!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
             "The Appointment index provided is invalid";
+    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
+
 
 
     /**

@@ -54,6 +54,7 @@ public class DeleteAppointmentCommand extends Command {
         Appointment appointmentToDelete = lastShownAppointmentList.get(zeroBasedAppointmentIndex);
         Person patient = appointmentToDelete.getPerson();
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToDelete);
+        System.out.println(appointmentIndexInPatient);
         patient.deleteAppointment(appointmentIndexInPatient);
         model.deleteAppointment(appointmentToDelete);
         //adding available timeslot back to list
