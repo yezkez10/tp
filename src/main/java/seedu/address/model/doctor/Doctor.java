@@ -3,7 +3,6 @@ package seedu.address.model.doctor;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -14,6 +13,11 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+
+/**
+ * Represents a Doctor in the address book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Doctor {
     // Identity fields
     private final Name name;
@@ -37,7 +41,11 @@ public class Doctor {
         this.address = address;
     }
 
-    public Doctor(Name name, Phone phone, Email email, Gender gender, Age age, Address address, ArrayList<Appointment> appointments) {
+    /**
+     * Every field must be present and not null.
+     */
+    public Doctor(Name name, Phone phone, Email email, Gender gender, Age age, Address address,
+                  ArrayList<Appointment> appointments) {
         requireAllNonNull(name, phone, email, gender, age, address);
         this.name = name;
         this.phone = phone;
@@ -137,12 +145,12 @@ public class Doctor {
      */
     public boolean hasAppointment(Appointment otherAppointment) {
         boolean result = false;
-       for (Appointment appointment: appointments) {
-           if(otherAppointment.getDateTime().equals(appointment.getDateTime())) {
-               result = true;
-           }
-       }
-       return result;
+        for (Appointment appointment: appointments) {
+            if (otherAppointment.getDateTime().equals(appointment.getDateTime())) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**

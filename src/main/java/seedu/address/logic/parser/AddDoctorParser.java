@@ -20,6 +20,9 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
+/**
+ * Parses input arguments and creates a new AddDoctorCommand object
+ */
 public class AddDoctorParser implements Parser<AddDoctorCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

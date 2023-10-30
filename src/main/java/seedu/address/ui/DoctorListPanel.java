@@ -9,6 +9,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.doctor.Doctor;
 
+/**
+ * Panel containing the list of doctors.
+ */
 public class DoctorListPanel extends UiPart<Region> {
     private static final String FXML = "DoctorListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(DoctorListPanel.class);

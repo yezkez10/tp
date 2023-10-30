@@ -13,6 +13,7 @@ import seedu.address.model.ClinicAssistant;
 import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -73,10 +74,10 @@ class JsonSerializableClinicAssistant {
             // ADDS ENTIRE LIST TO BE APPENDED TO THE MAIN APPOINTMENT LIST.
             clinicAssistant.addAppointmentAsList(appointments);
         }
-        for(JsonAdaptedDoctor jsonAdaptedDoctor: doctors) {
+        for (JsonAdaptedDoctor jsonAdaptedDoctor: doctors) {
             Doctor doctor = jsonAdaptedDoctor.toModelType();
-            for(Appointment appointment: clinicAssistant.getAppointmentList()) {
-                if(appointment.getName().equals(doctor.getName())) {
+            for (Appointment appointment: clinicAssistant.getAppointmentList()) {
+                if (doctor.getName().equals(new Name(appointment.getName()))) {
                     doctor.addAppointment(appointment);
                 }
             }

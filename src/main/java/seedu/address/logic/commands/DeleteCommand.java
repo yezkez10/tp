@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,6 +38,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -48,6 +50,18 @@ public class DeleteCommand extends Command {
         ArrayList<Appointment> patientAppointments = personToDelete.getAppointments();
         for (Appointment appointment : patientAppointments) {
             model.deleteAppointment(appointment);
+            Doctor targetDoctor = null;
+            for (Doctor doctor : doctorList) {
+                if (targetDoctor.hasAppointment(appointment)) {
+                    targetDoctor = doctor;
+                    break;
+                }
+            }
+            if (targetDoctor == null) {
+                throw new RuntimeException();
+            }
+            int appointmentIndex = targetDoctor.getAppointments().indexOf(appointment);
+            targetDoctor.deleteAppointment(appointmentIndex);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.format(personToDelete)));

@@ -116,6 +116,9 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         doctors.setDoctor(target, editedDoctor);
     }
 
+    /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in clinic assistant.
+     */
     public boolean hasDoctor(Doctor doctor) {
         requireNonNull(doctor);
         return doctors.contains(doctor);

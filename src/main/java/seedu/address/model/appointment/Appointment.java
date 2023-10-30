@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 

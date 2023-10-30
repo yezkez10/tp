@@ -11,6 +11,17 @@ import javafx.collections.ObservableList;
 import seedu.address.model.doctor.exceptions.DoctorNotFoundException;
 import seedu.address.model.doctor.exceptions.DuplicateDoctorException;
 
+/**
+ * A list of doctors that enforces uniqueness between its elements and does not allow nulls.
+ * A doctor is considered unique by comparing using {@code Doctor#isSameDoctor(Doctor)}. As such, adding and updating of
+ * persons uses Doctor#isSameDoctor(Doctor) for equality so as to ensure that the person being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Doctor#equals(Object) so
+ * as to ensure that the person with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Doctor#isSameDoctor(Doctor)
+ */
 public class UniqueDoctorList implements Iterable<Doctor> {
     private final ObservableList<Doctor> internalList = FXCollections.observableArrayList();
     private final ObservableList<Doctor> internalUnmodifiableList =

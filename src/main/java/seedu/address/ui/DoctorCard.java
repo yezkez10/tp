@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.doctor.Doctor;
 
+/**
+ * A UI component that displays information of a {@code Doctor}.
+ */
 public class DoctorCard extends UiPart<Region> {
 
     private static final String FXML = "DoctorListCard.fxml";

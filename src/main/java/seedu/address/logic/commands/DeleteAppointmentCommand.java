@@ -10,6 +10,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -43,6 +45,7 @@ public class DeleteAppointmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Appointment> lastShownAppointmentList = model.getFilteredAppointmentList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
         if (zeroBasedAppointmentIndex >= lastShownAppointmentList.size() || zeroBasedAppointmentIndex < 0) {
@@ -52,7 +55,20 @@ public class DeleteAppointmentCommand extends Command {
         // Delete appointment from model and patient
         Appointment appointmentToDelete = lastShownAppointmentList.get(zeroBasedAppointmentIndex);
         Person patient = appointmentToDelete.getPerson();
+        Doctor targetDoctor = null;
+        Name doctorName = new Name(appointmentToDelete.getName());
+        for (Doctor doctor : doctorList) {
+            if (doctor.getName().equals(doctorName)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToDelete);
+        int appointmentIndexInDoctor = targetDoctor.getAppointments().indexOf(appointmentToDelete);
+        targetDoctor.deleteAppointment(appointmentIndexInDoctor);
         patient.deleteAppointment(appointmentIndexInPatient);
         model.deleteAppointment(appointmentToDelete);
 

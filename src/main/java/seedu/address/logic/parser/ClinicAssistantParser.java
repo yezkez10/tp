@@ -15,6 +15,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -100,6 +101,9 @@ public class ClinicAssistantParser {
 
         case AddDoctorCommand.COMMAND_WORD:
             return new AddDoctorParser().parse(arguments);
+
+        case DeleteDoctorCommand.COMMAND_WORD:
+            return new DeleteDoctorParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

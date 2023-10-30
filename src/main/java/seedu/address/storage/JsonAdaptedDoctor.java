@@ -1,9 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,6 +16,9 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
+/**
+ * Jackson-friendly version of {@link Doctor}.
+ */
 public class JsonAdaptedDoctor {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Doctor's %s field is missing!";
@@ -67,6 +68,12 @@ public class JsonAdaptedDoctor {
                 .map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
     }
+
+    /**
+     * Converts this Jackson-friendly adapted doctor object into the model's {@code Doctor} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted doctor.
+     */
     public Doctor toModelType() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

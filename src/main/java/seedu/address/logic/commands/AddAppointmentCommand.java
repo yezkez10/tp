@@ -42,7 +42,7 @@ public class AddAppointmentCommand extends Command {
     private final String description;
     private final LocalDateTime dateTime;
 
-    private  final Index doctorIndex;
+    private final Index doctorIndex;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -60,7 +60,7 @@ public class AddAppointmentCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Doctor> lastDoctorList = model.getFilteredDoctorList();
 
-        if(lastDoctorList.size() == 0) {
+        if (lastDoctorList.size() == 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -81,7 +81,7 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        if(targetDoctor.hasAppointment(toAdd)) {
+        if (targetDoctor.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
