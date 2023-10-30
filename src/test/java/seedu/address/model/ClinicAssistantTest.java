@@ -121,8 +121,8 @@ public class ClinicAssistantTest {
         }
 
         @Override
-        public  ObservableList<Doctor> getDoctorList() {
-            return  doctors;
+        public ObservableList<Doctor> getDoctorList() {
+            return doctors;
         }
 
     }

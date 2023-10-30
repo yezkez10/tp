@@ -20,7 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditAppointmentDescriptorBuilder;
 
@@ -35,7 +34,8 @@ public class EditAppointmentCommandTest {
         Appointment validAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
         Person validPerson = validAppointment.getPerson();
         LocalDateTime time1 = ParserUtil.parseDateTime("02-01-2024 12:00");
-        Appointment editedAppointment = new Appointment("one", time1, validPerson);
+        String validDoctor = validAppointment.getName();
+        Appointment editedAppointment = new Appointment("one", time1, validPerson, validDoctor);
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder(editedAppointment).build();
         Index index = Index.fromZeroBased(model.getFilteredAppointmentList().indexOf(validAppointment));
@@ -56,7 +56,7 @@ public class EditAppointmentCommandTest {
         Person validPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Appointment validAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
         Appointment editedAppointment = new Appointment(VALID_APPOINTMENT_DESCRIPTION,
-                validAppointment.getDateTime(), validPerson);
+                validAppointment.getDateTime(), validPerson, validAppointment.getName());
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder()
                 .withDescription(VALID_APPOINTMENT_DESCRIPTION).build();
@@ -88,7 +88,7 @@ public class EditAppointmentCommandTest {
         String updatedDescription = editApptDesc.getDescription().orElse(apptToEdit.getDescription());
         LocalDateTime updatedDateTime = editApptDesc.getDateTime().orElse(apptToEdit.getDateTime());
 
-        return new Appointment(updatedDescription, updatedDateTime, editedPerson);
+        return new Appointment(updatedDescription, updatedDateTime, editedPerson, apptToEdit.getName());
     }
 
 }

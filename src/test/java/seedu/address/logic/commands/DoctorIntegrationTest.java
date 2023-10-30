@@ -4,7 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalDoctors.getTypicalAddressBook;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
@@ -15,9 +14,8 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.testutil.DoctorBuilder;
 
 public class DoctorIntegrationTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());;
-
-
+    private Model model = new ModelManager(getTypicalAddressBook(),
+            new UserPrefs());;
     @Test
     public void execute_newDoctor_success() {
         Doctor validDoctor = new DoctorBuilder().build();
