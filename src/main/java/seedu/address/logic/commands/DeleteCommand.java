@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
             model.deleteAppointment(appointment);
             Doctor targetDoctor = null;
             for (Doctor doctor : doctorList) {
-                if (targetDoctor.hasAppointment(appointment)) {
+                if (doctor.hasAppointment(appointment)) {
                     targetDoctor = doctor;
                     break;
                 }

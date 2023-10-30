@@ -74,9 +74,9 @@ public class TestUtil {
                     }
                 }
             }
-            for (Doctor doctor : doctorList) {
-                ab.addDoctor(doctor);
-            }
+        }
+        for (Doctor doctor : doctorList) {
+            ab.addDoctor(doctor);
         }
         return ab;
     }
