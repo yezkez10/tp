@@ -151,6 +151,7 @@ public class EditAppointmentCommand extends Command {
     public static class EditAppointmentDescriptor {
         private String description;
         private LocalDateTime dateTime;
+        private Person patient;
 
         public EditAppointmentDescriptor() {}
 
@@ -160,8 +161,8 @@ public class EditAppointmentCommand extends Command {
         public EditAppointmentDescriptor(EditAppointmentDescriptor toCopy) {
             setDescription(toCopy.description);
             setDateTime(toCopy.dateTime);
+            setPatient(toCopy.patient);
         }
-
         /**
          * Returns true if at least one field is edited.
          */
@@ -183,6 +184,14 @@ public class EditAppointmentCommand extends Command {
 
         public Optional<LocalDateTime> getDateTime() {
             return Optional.ofNullable(dateTime);
+        }
+
+        public void setPatient(Person patient) {
+            this.patient = patient;
+        }
+
+        public Optional<Person> getPatient() {
+            return Optional.ofNullable(patient);
         }
 
         @Override

@@ -23,7 +23,16 @@ public class AppointmentBuilder {
     private Person person;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code AppointmentBuilder} with the default details
+     */
+    public AppointmentBuilder() {
+        description = DEFAULT_DESCRIPTION;
+        dateTime = LocalDateTime.parse(DEFAULT_DATE, formatter);
+        person = DEFAULT_PERSON;
+    }
+
+    /**
+     * Creates a {@code AppointmentBuilder} with the details of patient
      */
     public AppointmentBuilder(Person person) {
         description = DEFAULT_DESCRIPTION;
