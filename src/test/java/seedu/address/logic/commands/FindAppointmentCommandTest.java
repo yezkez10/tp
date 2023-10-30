@@ -8,6 +8,8 @@ import static seedu.address.logic.Messages.MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIE
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalAppointments.ALICE_WITH_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.BENSON_WITH_APPOINTMENT;
+import static seedu.address.testutil.TypicalAppointments.CARL_WITH_APPOINTMENT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -66,20 +68,17 @@ public class FindAppointmentCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredAppointmentList());
     }
-    
-    //
-    //    @Test
-    //    public void execute_multipleKeywords_multipleAppointmentsFound() {
-    //        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 3);
-    //        NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ Alice BENson Carl jeff");
-    //        FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
-    //        expectedModel.updateFilteredAppointmentList(predicate);
-    //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    //        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment(),
-    //                BENSON_WITH_APPOINTMENT.firstAppointment(), CARL_WITH_APPOINTMENT.firstAppointment()),
-    //                model.getFilteredAppointmentList());
-    //    }
-
+    @Test
+    public void execute_multipleKeywords_multipleAppointmentsFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 3);
+        NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ Alice BENson Carl jeff");
+        FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
+        expectedModel.updateFilteredAppointmentList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON_WITH_APPOINTMENT.firstAppointment(),
+                ALICE_WITH_APPOINTMENT.firstAppointment(), CARL_WITH_APPOINTMENT.firstAppointment()),
+                expectedModel.getFilteredAppointmentList());
+    }
     @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));

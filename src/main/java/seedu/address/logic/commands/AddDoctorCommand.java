@@ -17,15 +17,15 @@ import seedu.address.model.doctor.Doctor;
  * Adds a Doctor to clinic assistant.
  */
 public class AddDoctorCommand extends Command {
-    public static final String COMMAND_WORD = "add_Doctor";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Doctor to clinic assistant. "
+    public static final String COMMAND_WORD = "add_doctor";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Doctor to clinic assistant. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_GENDER + "GENDER "
             + PREFIX_AGE + "AGE "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_ADDRESS + "ADDRESS \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
