@@ -249,10 +249,19 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Checks if dateStr is a valid date on calender
+     * @param dateStr String instance of date to check
+     * @return True as long as Date is on the Calender
+     */
     public static boolean isValidDateOnCalendar(String dateStr) {
         try {
-            LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ISO_DATE);
-            return true;
+            String trimmedDateStr = dateStr.substring(0, 10);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(trimmedDateStr, formatter);
+            int day = Integer.valueOf(trimmedDateStr.substring(0,2));
+            int month = date.getMonthValue();
+            return day >= 1 && day <= date.lengthOfMonth() && month >= 1 && month <= 12;
         } catch (DateTimeParseException e) {
             return false;
         }
