@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -145,13 +147,13 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
      * Returns true if {@code timeslot} contains only unique Timeslot.
      */
     private boolean timeSlotsAreUnique(List<Timeslot> timeslotsList) {
-        for (int i = 0; i < timeslotsList.size() - 1; i++) {
-            for (int j = i + 1; j < timeslotsList.size(); j++) {
-                if (timeslotsList.get(i).isSameTimeSlot(timeslotsList.get(j))) {
-                    return false;
-                }
+        Set<Timeslot> uniqueTimeslots = new HashSet<>();
+        for (Timeslot timeslot : timeslotsList) {
+            if (!uniqueTimeslots.add(timeslot)) {
+                return false; // Duplicate time slot found
             }
         }
+
         return true;
     }
 }
