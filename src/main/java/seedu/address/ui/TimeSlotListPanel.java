@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Panel containing the list of appointments.
@@ -18,12 +18,12 @@ public class TimeSlotListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TimeSlotListPanel.class);
 
     @FXML
-    private ListView<Timeslots> timeslotsListView;
+    private ListView<Timeslot> timeslotsListView;
 
     /**
      * Creates a {@code AppointmentListPanel} with the given {@code ObservableList}.
      */
-    public TimeSlotListPanel(ObservableList<Timeslots> timeslotList) {
+    public TimeSlotListPanel(ObservableList<Timeslot> timeslotList) {
         super(FXML);
         timeslotsListView.setItems(timeslotList);
         timeslotsListView.setCellFactory(listView -> new TimeSlotListViewCell());
@@ -32,9 +32,9 @@ public class TimeSlotListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Appointment} using a {@code AppointmentCard}.
      */
-    class TimeSlotListViewCell extends ListCell<Timeslots> {
+    class TimeSlotListViewCell extends ListCell<Timeslot> {
         @Override
-        protected void updateItem(Timeslots timeslot, boolean empty) {
+        protected void updateItem(Timeslot timeslot, boolean empty) {
             super.updateItem(timeslot, empty);
 
             if (empty || timeslot == null) {

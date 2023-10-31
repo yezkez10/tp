@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * An UI component that displays information of a {@code Appointment}.
@@ -21,7 +21,7 @@ public class TimeSlotCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Timeslots timeslots;
+    public final Timeslot timeslot;
 
     @FXML
     private HBox cardPane;
@@ -35,11 +35,11 @@ public class TimeSlotCard extends UiPart<Region> {
     /**
      * Creates a {@code AppointmentCode} with the given {@code Appointment} and index to display.
      */
-    public TimeSlotCard(Timeslots timeslots, int displayedIndex) {
+    public TimeSlotCard(Timeslot timeslot, int displayedIndex) {
         super(FXML);
-        this.timeslots = timeslots;
+        this.timeslot = timeslot;
         id.setText(displayedIndex + ". ");
-        date.setText(timeslots.getDate().toString());
-        hour.setText(String.valueOf(timeslots.getHour()));
+        date.setText(timeslot.getDate().toString());
+        hour.setText(String.valueOf(timeslot.getHour()));
     }
 }

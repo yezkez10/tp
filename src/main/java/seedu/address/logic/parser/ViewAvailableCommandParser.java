@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Parser class for ViewAvailableCommand
@@ -39,7 +39,7 @@ public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAvailableCommand.MESSAGE_USAGE));
         }
 
-        Predicate<Timeslots> predicate = null;
+        Predicate<Timeslot> predicate = null;
         Predicate<Appointment> apptPredicate = null;
         LocalDate date = null;
         // Check if required arguments are present

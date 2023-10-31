@@ -10,7 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 /**
  * A Timeslot class that has a date and hour
  */
-public class Timeslots {
+public class Timeslot {
     private LocalDate date;
     private int hour;
 
@@ -19,7 +19,7 @@ public class Timeslots {
      * @param hour the Timing of the Timeslot
      * @param date The Date of the Timeslot
      */
-    public Timeslots(LocalDate date, int hour) {
+    public Timeslot(LocalDate date, int hour) {
         requireAllNonNull(date, hour);
         this.date = date;
         this.hour = hour;
@@ -47,11 +47,11 @@ public class Timeslots {
             return true;
         }
 
-        if (!(other instanceof Timeslots)) {
+        if (!(other instanceof Timeslot)) {
             return false;
         }
 
-        Timeslots timeslot = (Timeslots) other;
+        Timeslot timeslot = (Timeslot) other;
 
         return Objects.equals(hour, timeslot.hour)
                 && Objects.equals(date, timeslot.date);
@@ -64,11 +64,11 @@ public class Timeslots {
     }
 
     /**
-     * Checks if 2 Timeslots instances are the same
-     * @param otherTimeSlot Other Timeslots instance
+     * Checks if 2 Timeslot instances are the same
+     * @param otherTimeSlot Other Timeslot instance
      * @return A boolean instance whether they are equal
      */
-    public boolean isSameTimeSlot(Timeslots otherTimeSlot) {
+    public boolean isSameTimeSlot(Timeslot otherTimeSlot) {
         if (otherTimeSlot == this) {
             return true;
         }

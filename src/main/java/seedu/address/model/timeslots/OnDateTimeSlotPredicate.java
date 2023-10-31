@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that an {@code Timeslots}'s {@code Date} matches the Date given.
+ * Tests that an {@code Timeslot}'s {@code Date} matches the Date given.
  */
-public class OnDateTimeSlotPredicate implements Predicate<Timeslots> {
+public class OnDateTimeSlotPredicate implements Predicate<Timeslot> {
     private final LocalDate date;
 
     /**
@@ -20,7 +20,7 @@ public class OnDateTimeSlotPredicate implements Predicate<Timeslots> {
     }
 
     @Override
-    public boolean test(Timeslots timeslot) {
+    public boolean test(Timeslot timeslot) {
         return timeslot.getDate().equals(this.date);
     }
 

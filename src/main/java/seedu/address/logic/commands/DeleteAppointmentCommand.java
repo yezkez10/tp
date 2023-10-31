@@ -11,7 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Deletes the appointment of an existing person in the address book.
@@ -57,7 +57,7 @@ public class DeleteAppointmentCommand extends Command {
         patient.deleteAppointment(appointmentIndexInPatient);
         model.deleteAppointment(appointmentToDelete);
         //adding available timeslot back to list
-        Timeslots timeslotToAdd = new Timeslots(appointmentToDelete.getDateTime().toLocalDate(),
+        Timeslot timeslotToAdd = new Timeslot(appointmentToDelete.getDateTime().toLocalDate(),
                 appointmentToDelete.getDateTime().getHour());
         model.addAvailableTimeSlot(timeslotToAdd);
 

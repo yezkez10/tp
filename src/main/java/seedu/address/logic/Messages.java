@@ -22,9 +22,9 @@ public class Messages {
     public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 patients found!";
     public static final String MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW = "No appointments found!";
     public static final String MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW =
-            "All Available Timeslots on %tb %td, %tY Listed!";
+            "All Available Timeslot on %tb %td, %tY Listed!";
     public static final String MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW =
-            "No Available Timeslots Available on %tb %td, %tY!";
+            "No Available Timeslot Available on %tb %td, %tY!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =

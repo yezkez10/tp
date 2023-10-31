@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 import seedu.address.testutil.PersonBuilder;
 
 public class ClinicAssistantTest {
@@ -98,7 +98,7 @@ public class ClinicAssistantTest {
     private static class ClinicAssistantStub implements ReadOnlyClinicAssistant {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        private final ObservableList<Timeslots> timeslots = FXCollections.observableArrayList();
+        private final ObservableList<Timeslot> timeslots = FXCollections.observableArrayList();
 
         ClinicAssistantStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -120,7 +120,7 @@ public class ClinicAssistantTest {
         }
 
         @Override
-        public ObservableList<Timeslots> getTimeSlotList() {
+        public ObservableList<Timeslot> getTimeSlotList() {
             return timeslots;
         }
     }

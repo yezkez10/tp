@@ -10,7 +10,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 import seedu.address.model.timeslots.UniqueTimeSlotList;
 
 /**
@@ -148,26 +148,26 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     @Override
-    public ObservableList<Timeslots> getTimeSlotList() {
+    public ObservableList<Timeslot> getTimeSlotList() {
         return allTimeSlots.asUnmodifiableObservableList();
     }
 
     /**
      * Adds a Timeslot instance into the current timeslot list
-     * @param timeslots Timeslot instance to be added
+     * @param timeslot Timeslot instance to be added
      */
-    public void addAvailableTimeSlot(Timeslots timeslots) {
-        allTimeSlots.add(timeslots);
+    public void addAvailableTimeSlot(Timeslot timeslot) {
+        allTimeSlots.add(timeslot);
     }
 
     /**
      * Removes the timeslot instance from the timeslot list
-     * @param timeslots Timeslot instance to be removed
+     * @param timeslot Timeslot instance to be removed
      */
-    public void removeAvailableTimeSlot(Timeslots timeslots) {
+    public void removeAvailableTimeSlot(Timeslot timeslot) {
         if (allTimeSlots.size() > 0) {
             //cannot remove if allTimeSlots is not set via View
-            allTimeSlots.remove(timeslots);
+            allTimeSlots.remove(timeslot);
         }
     }
 
@@ -194,7 +194,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
      * Sets the current timeslot list to be the one given
      * @param timeSlotsList The timeslot list to be set to
      */
-    public void setTimeslots(List<Timeslots> timeSlotsList) {
+    public void setTimeslots(List<Timeslot> timeSlotsList) {
         allTimeSlots.setTimeslotsList(timeSlotsList);
     }
 

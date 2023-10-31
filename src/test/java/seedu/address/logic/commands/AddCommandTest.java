@@ -24,7 +24,7 @@ import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -170,7 +170,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public Predicate<Timeslots> getCurrentPredicate() {
+        public Predicate<Timeslot> getCurrentPredicate() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,21 +194,21 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void addAvailableTimeSlot(Timeslots timeslots) {
+        public void addAvailableTimeSlot(Timeslot timeslot) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void removeAvailableTimeSlot(Timeslots timeslots) {
+        public void removeAvailableTimeSlot(Timeslot timeslot) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate) {
+        public void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate) {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public ObservableList<Timeslots> getAvailableTimeSlotList() {
+        public ObservableList<Timeslot> getAvailableTimeSlotList() {
             throw new AssertionError("This method should not be called.");
         }
     }

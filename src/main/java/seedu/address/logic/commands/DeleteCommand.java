@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Deletes a patient identified using its displayed index in the clinic records.
@@ -49,7 +49,7 @@ public class DeleteCommand extends Command {
         ArrayList<Appointment> patientAppointments = personToDelete.getAppointments();
         for (Appointment appointment : patientAppointments) {
             model.deleteAppointment(appointment);
-            Timeslots timeslotToAdd = new Timeslots(appointment.getDateTime().toLocalDate(),
+            Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
                     appointment.getDateTime().getHour());
             model.addAvailableTimeSlot(timeslotToAdd);
         }

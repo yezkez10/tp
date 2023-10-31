@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -14,29 +12,29 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
- * A ViewAvailableCommand instance which user can use to view available timeslots on a specified date
+ * A ViewAvailableCommand instance which user can use to view available timeslot on a specified date
  */
 public class ViewAvailableCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays all the available timeslots on given DATE.\n"
+            + ": Displays all the available timeslot on given DATE.\n"
             + "Parameters: DATE (must be given in dd-MM-yyyy exactly).\n"
             + "Example: " + COMMAND_WORD + " /on 01-02-2024";
-    private Predicate<Timeslots> predicate;
+    private Predicate<Timeslot> predicate;
     private Predicate<Appointment> apptPredicate;
     private LocalDate dateEntered;
 
     /**
      * Constructor for ViewAvailableCommand class
-     * @param predicate A predicate instance for timeslots
+     * @param predicate A predicate instance for timeslot
      * @param apptPredicate A predicate instance for appointments
      * @param dateEntered Date which the user specified
      */
-    public ViewAvailableCommand(Predicate<Timeslots> predicate, Predicate<Appointment> apptPredicate,
+    public ViewAvailableCommand(Predicate<Timeslot> predicate, Predicate<Appointment> apptPredicate,
                                 LocalDate dateEntered) {
         this.predicate = predicate;
         this.apptPredicate = apptPredicate;
@@ -60,8 +58,8 @@ public class ViewAvailableCommand extends Command {
             if (unavailableTimeslots.contains(i)) {
                 continue;
             }
-            Timeslots timeslots = new Timeslots(dateEntered, i);
-            model.addAvailableTimeSlot(timeslots);
+            Timeslot timeslot = new Timeslot(dateEntered, i);
+            model.addAvailableTimeSlot(timeslot);
         }
         int sizeOfAvailableTimeslotList = model.getAvailableTimeSlotList().size();
         assert sizeOfAvailableTimeslotList >= 0;

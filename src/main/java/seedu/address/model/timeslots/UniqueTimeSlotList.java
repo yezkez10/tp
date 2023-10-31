@@ -15,29 +15,29 @@ import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
 /**
  * A UniqueTimeSlotList class that is used for JavaFX FrontEnd
  */
-public class UniqueTimeSlotList implements Iterable<Timeslots> {
+public class UniqueTimeSlotList implements Iterable<Timeslot> {
 
-    private final ObservableList<Timeslots> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Timeslots> internalUnmodifiableList =
+    private final ObservableList<Timeslot> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Timeslot> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent Timeslot as the given argument.
      */
-    public boolean contains(Timeslots toCheck) {
+    public boolean contains(Timeslot toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameTimeSlot);
     }
 
     /**
      * Adds a Timeslot to the list if it is not already present.
-     * @param toAdd Timeslots instance we are adding to the list
+     * @param toAdd Timeslot instance we are adding to the list
      */
-    public void add(Timeslots toAdd) {
+    public void add(Timeslot toAdd) {
         requireNonNull(toAdd);
         if (!contains(toAdd)) {
             internalList.add(toAdd);
-            FXCollections.sort(internalList, Comparator.comparingInt(Timeslots::getHour));
+            FXCollections.sort(internalList, Comparator.comparingInt(Timeslot::getHour));
         }
     }
 
@@ -46,7 +46,7 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
      * Removes the equivalent Timeslot from the list.
      * The Timeslot must exist in the list.
      */
-    public void remove(Timeslots toRemove) {
+    public void remove(Timeslot toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new TimeSlotNotFoundException();
@@ -63,10 +63,10 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     /**
-     * Replaces the contents of this list with {@code timeslots}.
-     * {@code timeslots} must not contain duplicate Timeslots.
+     * Replaces the contents of this list with {@code timeslot}.
+     * {@code timeslot} must not contain duplicate Timeslot.
      */
-    public void setTimeslots(List<Timeslots> timeSlotsList) {
+    public void setTimeslots(List<Timeslot> timeSlotsList) {
         requireAllNonNull(timeSlotsList);
         if (!timeSlotsAreUnique(timeSlotsList)) {
             throw new DuplicateTimeslotException();
@@ -76,10 +76,10 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     /**
-     * Adds to the contents of this list with {@code timeslots}.
-     * {@code timeslots} must not contain duplicate Timeslots.
+     * Adds to the contents of this list with {@code timeslot}.
+     * {@code timeslot} must not contain duplicate Timeslot.
      */
-    public void addAll(List<Timeslots> timeslotsList) {
+    public void addAll(List<Timeslot> timeslotsList) {
         requireAllNonNull(timeslotsList);
         if (!timeSlotsAreUnique(timeslotsList)) {
             throw new DuplicateTimeslotException();
@@ -91,11 +91,11 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Timeslots> asUnmodifiableObservableList() {
+    public ObservableList<Timeslot> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
-    public void setTimeslotsList(List<Timeslots> timeslotsList) {
+    public void setTimeslotsList(List<Timeslot> timeslotsList) {
         requireNonNull(timeslotsList);
         if (!timeSlotsAreUnique(timeslotsList)) {
             throw new DuplicateTimeslotException();
@@ -103,7 +103,7 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     @Override
-    public Iterator<Timeslots> iterator() {
+    public Iterator<Timeslot> iterator() {
         return internalList.iterator();
     }
 
@@ -141,9 +141,9 @@ public class UniqueTimeSlotList implements Iterable<Timeslots> {
     }
 
     /**
-     * Returns true if {@code timeslots} contains only unique Timeslots.
+     * Returns true if {@code timeslot} contains only unique Timeslot.
      */
-    private boolean timeSlotsAreUnique(List<Timeslots> timeslotsList) {
+    private boolean timeSlotsAreUnique(List<Timeslot> timeslotsList) {
         for (int i = 0; i < timeslotsList.size() - 1; i++) {
             for (int j = i + 1; j < timeslotsList.size(); j++) {
                 if (timeslotsList.get(i).isSameTimeSlot(timeslotsList.get(j))) {

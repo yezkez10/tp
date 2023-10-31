@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.model.timeslots.Timeslots;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * The API of the Model component.
@@ -16,7 +16,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPTS = unused -> true;
-    Predicate<Timeslots> PREDICATE_SHOW_ALL_TIMESLOTS = unused -> true;
+    Predicate<Timeslot> PREDICATE_SHOW_ALL_TIMESLOTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -99,28 +99,28 @@ public interface Model {
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
     /**
-     * Adds timeslots instance into the list
-     * @param timeslots Timeslots instance to be added
+     * Adds timeslot instance into the list
+     * @param timeslot Timeslot instance to be added
      */
-    void addAvailableTimeSlot(Timeslots timeslots);
+    void addAvailableTimeSlot(Timeslot timeslot);
 
     /**
-     * Removes timeslots instance from the list
-     * @param timeslots Timeslots instance to be removed
+     * Removes timeslot instance from the list
+     * @param timeslot Timeslot instance to be removed
      */
-    void removeAvailableTimeSlot(Timeslots timeslots);
+    void removeAvailableTimeSlot(Timeslot timeslot);
 
     /**
      * Updates the available timeslot list according to a given predicate
      * @param predicate Predicate instance wrapped around a Timeslot
      */
-    void updateFilteredAvailableTimeslot(Predicate<Timeslots> predicate);
+    void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate);
 
     /**
-     * Gets the List of available timeslots
-     * @return ObservableList of Timeslots for JavaFX
+     * Gets the List of available timeslot
+     * @return ObservableList of Timeslot for JavaFX
      */
-    ObservableList<Timeslots> getAvailableTimeSlotList();
+    ObservableList<Timeslot> getAvailableTimeSlotList();
 
     /**
      * Adds an appointment to the address book.
@@ -150,5 +150,5 @@ public interface Model {
      */
     boolean hasAppointment(Appointment editedAppointment);
 
-    Predicate<Timeslots> getCurrentPredicate();
+    Predicate<Timeslot> getCurrentPredicate();
 }
