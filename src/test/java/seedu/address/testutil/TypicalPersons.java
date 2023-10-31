@@ -49,7 +49,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(42)
             .withEthnic("Eurasian")
-            .withNric("X9876543B")
+            .withNric("T9876543B")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withTags("owesMoney", "friends")
             .build();
@@ -60,7 +60,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(22)
             .withEthnic("Others")
-            .withNric("Q4567890C")
+            .withNric("S4567890C")
             .withAddress("wall street")
             .build();
     public static final Person DANIEL = new PersonBuilder()
@@ -70,7 +70,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(25)
             .withEthnic("Chinese")
-            .withNric("M2345678D")
+            .withNric("S2345678D")
             .withAddress("10th street")
             .withTags("friends")
             .build();
@@ -81,7 +81,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(32)
             .withEthnic("Eurasian")
-            .withNric("H7890123E")
+            .withNric("T7890123E")
             .withAddress("michegan ave")
             .build();
     public static final Person FIONA = new PersonBuilder()
@@ -91,7 +91,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(120)
             .withEthnic("Malay")
-            .withNric("K3456789F")
+            .withNric("T3456789F")
             .withAddress("little tokyo")
             .build();
     public static final Person GEORGE = new PersonBuilder()
@@ -101,7 +101,7 @@ public class TypicalPersons {
             .withGender("M")
             .withAge(100)
             .withEthnic("Indian")
-            .withNric("R5678901G")
+            .withNric("S5678901G")
             .withAddress("4th street")
             .build();
 
@@ -123,7 +123,7 @@ public class TypicalPersons {
             .withGender("F")
             .withAge(12)
             .withEthnic("Eurasian")
-            .withNric("A4321098I")
+            .withNric("S4321098I")
             .withAddress("chicago ave")
             .build();
 

@@ -4,6 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.logic.commands.FindByNricCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.NricContainsKeywordPredicate;
 
 /**
@@ -21,6 +22,10 @@ public class FindByNricCommandParser implements Parser<FindByNricCommand> {
         if (trimmedArg.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindByNricCommand.MESSAGE_USAGE));
+        }
+        if (!Nric.isValidNric(trimmedArg.toUpperCase())) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, Nric.MESSAGE_CONSTRAINTS));
         }
 
         return new FindByNricCommand(new NricContainsKeywordPredicate(trimmedArg));

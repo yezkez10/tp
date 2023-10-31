@@ -63,7 +63,7 @@ public class FindByNricCommandTest {
     @Test
     public void execute_oneKeyword_onePersonFound() {
         String expectedMessage = MESSAGE_ONE_PATIENT_FOUND_OVERVIEW;
-        NricContainsKeywordPredicate predicate = preparePredicate("Q4567890C");
+        NricContainsKeywordPredicate predicate = preparePredicate("S4567890C");
         FindByNricCommand command = new FindByNricCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
