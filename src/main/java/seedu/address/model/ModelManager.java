@@ -195,6 +195,10 @@ public class ModelManager implements Model {
     public ObservableList<Timeslot> getAvailableTimeSlotList() {
         return this.clinicAssistant.getTimeSlotList();
     }
+    @Override
+    public ObservableList<Timeslot> getFilteredTimeslotsList() {
+        return filteredTimeSlots;
+    }
 
     @Override
     public Predicate<Timeslot> getCurrentPredicate() {

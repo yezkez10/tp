@@ -150,5 +150,7 @@ public interface Model {
      */
     boolean hasAppointment(Appointment editedAppointment);
 
+    ObservableList<Timeslot> getFilteredTimeslotsList();
+
     Predicate<Timeslot> getCurrentPredicate();
 }

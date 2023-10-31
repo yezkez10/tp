@@ -173,6 +173,10 @@ public class AddCommandTest {
         public Predicate<Timeslot> getCurrentPredicate() {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public ObservableList<Timeslot> getFilteredTimeslotsList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void addAppointment(Appointment appointment) {

@@ -259,7 +259,7 @@ public class ParserUtil {
             String trimmedDateStr = dateStr.substring(0, 10);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate date = LocalDate.parse(trimmedDateStr, formatter);
-            int day = Integer.valueOf(trimmedDateStr.substring(0,2));
+            int day = Integer.valueOf(trimmedDateStr.substring(0, 2));
             int month = date.getMonthValue();
             return day >= 1 && day <= date.lengthOfMonth() && month >= 1 && month <= 12;
         } catch (DateTimeParseException e) {
