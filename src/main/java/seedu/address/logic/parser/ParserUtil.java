@@ -248,4 +248,13 @@ public class ParserUtil {
             return false;
         }
     }
+
+    public static boolean isValidDateOnCalendar(String dateStr) {
+        try {
+            LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ISO_DATE);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
 }
