@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -20,7 +22,10 @@ import seedu.address.model.timeslots.Timeslots;
 public class ViewAvailableCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " /on DATE";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Displays all the available timeslots on given DATE.\n"
+            + "Parameters: DATE (must be given in dd-MM-yyyy exactly).\n"
+            + "Example: " + COMMAND_WORD + " /on 01-02-2024";
     private Predicate<Timeslots> predicate;
     private Predicate<Appointment> apptPredicate;
     private LocalDate dateEntered;
