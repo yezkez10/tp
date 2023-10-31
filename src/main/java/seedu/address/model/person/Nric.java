@@ -11,7 +11,7 @@ public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
             "NRICs should contain 7 digits, with S or T at the beginning and a letter at the end";
-    public static final String VALIDATION_REGEX = "[ST][0-9]{7}[A-Za-z]";
+    public static final String VALIDATION_REGEX = "[stST][0-9]{7}[A-Za-z]";
     public final String value;
 
     /**

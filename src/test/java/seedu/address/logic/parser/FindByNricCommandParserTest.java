@@ -25,6 +25,9 @@ public class FindByNricCommandParserTest {
         FindByNricCommand expectedFindByNricCommand =
                 new FindByNricCommand(new NricContainsKeywordPredicate("S1234567N"));
         assertParseSuccess(parser, " S1234567N ", expectedFindByNricCommand);
+        FindByNricCommand expectedFindByNricCommand2 =
+                new FindByNricCommand(new NricContainsKeywordPredicate("s1234567n"));
+        assertParseSuccess(parser, " s1234567n ", expectedFindByNricCommand2);
     }
 
     @Test
