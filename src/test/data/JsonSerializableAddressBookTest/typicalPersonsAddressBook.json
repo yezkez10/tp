@@ -7,7 +7,7 @@
     "gender": "F",
     "age": 12,
     "ethnic": "Eurasian",
-    "nric": "T1234567E",
+    "nric": "T1234567A",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ]
   }, {
@@ -17,7 +17,7 @@
     "gender": "M",
     "age": 42,
     "ethnic": "Eurasian",
-    "nric": "T0000000Z",
+    "nric": "T9876543B",
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ]
   }, {
@@ -27,7 +27,7 @@
     "gender": "M",
     "age": 22,
     "ethnic": "Others",
-    "nric": "T1234567E",
+    "nric": "S4567890C",
     "address" : "wall street",
     "tags" : [ ]
   }, {
@@ -37,7 +37,7 @@
     "gender": "M",
     "age": 25,
     "ethnic": "Chinese",
-    "nric": "T1234567E",
+    "nric": "S2345678D",
     "address" : "10th street",
     "tags" : [ "friends" ]
   }, {
@@ -47,7 +47,7 @@
     "gender": "F",
     "age": 32,
     "ethnic": "Chinese",
-    "nric": "T1234567E",
+    "nric": "T7890123E",
     "address" : "michegan ave",
     "tags" : [ ]
   }, {
@@ -57,7 +57,7 @@
     "gender": "F",
     "age": 120,
     "ethnic": "Malay",
-    "nric": "T1234567E",
+    "nric": "T3456789F",
     "address" : "little tokyo",
     "tags" : [ ]
   }, {
@@ -67,7 +67,7 @@
     "gender": "M",
     "age": 100,
     "ethnic": "Indian",
-    "nric": "T1234567E",
+    "nric": "S5678901G",
     "address" : "4th street",
     "tags" : [ ]
   } ]

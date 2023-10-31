@@ -18,6 +18,7 @@ import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAppointmentsCommand;
+import seedu.address.logic.commands.FindByNricCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentCommand;
@@ -72,6 +73,9 @@ public class ClinicAssistantParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindByNricCommand.COMMAND_WORD:
+            return new FindByNricCommandParser().parse(arguments);
 
         case ListAppointmentCommand.COMMAND_WORD:
             return new ListAppointmentCommand();
