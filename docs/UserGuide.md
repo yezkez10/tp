@@ -91,6 +91,15 @@ An appointment must have all tags to work. For example, `add appt`, `add appt /f
 Examples:
 * `add appt /for 6 /on 2023-09-17 13:00`
 
+### Adding a doctor: `add_doctor`
+
+Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
+
+Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g M /age 22 /a ADDRESS`
+
+Examples:
+* `add_doctor /n Drizzy /p 999 /e drake@gmail.com /a 901 Shelby Dr`
+
 ### Listing all patients : `list`
 
 Shows a list of all patients in clinicAssistant.
@@ -104,17 +113,16 @@ There should not be any parameters after “list”. e.g. `list 123` will not re
 
 Deletes the appointment at the specified index of the specified patient.
 
-Format: `delete_appt INDEX /appt INDEX`
+Format: `delete_appt INDEX`
 
-* The command is case-sensitive. E.g. delete_appt INDEX /appt 3 will not work
+* The command is case-sensitive. E.g. Delete_appt INDEX will not work
 * INDEX must be a positive integer, starting from 1
-* Acceptable values for INDEX is a single integer that is within the number of appointments of that patient
-* Cannot have any missing parameters. E.g. delete_appt, delete_appt 4, delete_appt /appt 3 will not work
+* Acceptable values for INDEX is a single integer that is within the number of appointments
 
 
 Examples:
-*  `delete_appt 4 /appt 4` Deletes the fourth appointment of Person index 4
-*  `delete_appt 1 /appt 1` Deletes the first appointment of Person index 1
+*  `delete_appt 4` Deletes the fourth appointment of the appointment shown
+*  `delete_appt 1` Deletes the first appointment of the appointment shown
 
 ### Finding patient details by name: `find`
 
@@ -141,6 +149,19 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in ClinicAssistant.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Deleting a doctor : `delete_doctor`
+
+Deletes the specified doctor from the Clinic Records.
+
+Format: `delete_doctor INDEX`
+
+* Deletes the doctor at the specified `INDEX`.
+* The index refers to the index number shown in the displayed doctor list.
+* The index **must be a positive integer** 1, 2, 3, 4, …​
+
+Examples:
+* `delete_doctor 2` deletes the 2nd doctor in ClinicAssistant.
 
 ### Clearing all patients : `clear`
 
