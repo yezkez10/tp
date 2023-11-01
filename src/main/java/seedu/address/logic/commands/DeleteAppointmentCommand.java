@@ -52,11 +52,22 @@ public class DeleteAppointmentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        // Delete appointment from model and patient
+        // Delete appointment from model patient and doctor
         Appointment appointmentToDelete = lastShownAppointmentList.get(zeroBasedAppointmentIndex);
         Person patient = appointmentToDelete.getPerson();
+        Doctor targetDoctor = getDoctor(doctorList, new Name(appointmentToDelete.getName()));
+        int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToDelete);
+        int appointmentIndexInDoctor = targetDoctor.getAppointments().indexOf(appointmentToDelete);
+        targetDoctor.deleteAppointment(appointmentIndexInDoctor);
+        patient.deleteAppointment(appointmentIndexInPatient);
+        model.deleteAppointment(appointmentToDelete);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete,
+                Messages.format(patient)));
+    }
+
+    public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
         Doctor targetDoctor = null;
-        Name doctorName = new Name(appointmentToDelete.getName());
         for (Doctor doctor : doctorList) {
             if (doctor.getName().equals(doctorName)) {
                 targetDoctor = doctor;
@@ -66,14 +77,7 @@ public class DeleteAppointmentCommand extends Command {
         if (targetDoctor == null) {
             throw new RuntimeException();
         }
-        int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToDelete);
-        int appointmentIndexInDoctor = targetDoctor.getAppointments().indexOf(appointmentToDelete);
-        targetDoctor.deleteAppointment(appointmentIndexInDoctor);
-        patient.deleteAppointment(appointmentIndexInPatient);
-        model.deleteAppointment(appointmentToDelete);
-
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete,
-                Messages.format(patient)));
+        return  targetDoctor;
     }
 
     @Override

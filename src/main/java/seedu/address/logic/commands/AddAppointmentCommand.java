@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
 
@@ -30,11 +30,12 @@ public class AddAppointmentCommand extends Command {
             + "DESCRIPTION, DATE_TIME (must be a valid date in the future)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOR + "1 "
-            + PREFIX_BY + "1 "
+            + PREFIX_DOC + "1 "
             + PREFIX_DESCRIPTION + "description details "
             + PREFIX_DATE + "02-01-2024 12:00";
 
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR = "This doctor already has an appointment at the same time.";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added: %1$s";
 
@@ -61,7 +62,7 @@ public class AddAppointmentCommand extends Command {
         List<Doctor> lastDoctorList = model.getFilteredDoctorList();
 
         if (lastDoctorList.size() == 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
         }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -82,7 +83,7 @@ public class AddAppointmentCommand extends Command {
         }
 
         if (targetDoctor.hasAppointment(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
         }
 
         targetPatient.addAppointment(toAdd);

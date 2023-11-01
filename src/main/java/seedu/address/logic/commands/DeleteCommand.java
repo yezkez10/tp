@@ -50,21 +50,26 @@ public class DeleteCommand extends Command {
         ArrayList<Appointment> patientAppointments = personToDelete.getAppointments();
         for (Appointment appointment : patientAppointments) {
             model.deleteAppointment(appointment);
-            Doctor targetDoctor = null;
-            for (Doctor doctor : doctorList) {
-                if (doctor.hasAppointment(appointment)) {
-                    targetDoctor = doctor;
-                    break;
-                }
-            }
-            if (targetDoctor == null) {
-                throw new RuntimeException();
-            }
+            Doctor targetDoctor = targetDoctor(doctorList, appointment);
             int appointmentIndex = targetDoctor.getAppointments().indexOf(appointment);
             targetDoctor.deleteAppointment(appointmentIndex);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.format(personToDelete)));
+    }
+
+    public Doctor targetDoctor(List<Doctor> doctorList, Appointment appointment) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.hasAppointment(appointment)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return  targetDoctor;
     }
 
     @Override

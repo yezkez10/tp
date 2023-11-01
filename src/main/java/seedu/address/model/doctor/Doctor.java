@@ -112,7 +112,7 @@ public class Doctor {
         }
 
         Doctor otherDoctor = (Doctor) other;
-        return name.equals(otherDoctor.name)
+        return isSameDoctor(otherDoctor)
                 && phone.equals(otherDoctor.phone)
                 && email.equals(otherDoctor.email)
                 && address.equals(otherDoctor.address);

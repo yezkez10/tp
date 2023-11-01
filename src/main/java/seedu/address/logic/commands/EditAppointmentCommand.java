@@ -77,17 +77,7 @@ public class EditAppointmentCommand extends Command {
         // Create edited appointment
         Appointment appointmentToEdit = appointmentList.get(zeroBasedAppointmentIndex);
         Person patient = appointmentToEdit.getPerson();
-        Doctor targetDoctor = null;
-        Name doctorName = new Name(appointmentToEdit.getName());
-        for (Doctor doctor : doctorList) {
-            if (doctor.getName().equals(doctorName)) {
-                targetDoctor = doctor;
-                break;
-            }
-        }
-        if (targetDoctor == null) {
-            throw new RuntimeException();
-        }
+        Doctor targetDoctor = getDoctor(doctorList, new Name(appointmentToEdit.getName()));
 
         Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor,
                 patient, targetDoctor.getName().toString());
@@ -104,6 +94,23 @@ public class EditAppointmentCommand extends Command {
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 editedAppointment, Messages.format(patient)));
+    }
+
+    /**
+     * Returns Doctor of the doctorList by the name of the doctor.
+     */
+    public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.getName().equals(doctorName)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return targetDoctor;
     }
 
     /**

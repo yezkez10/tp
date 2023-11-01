@@ -35,7 +35,7 @@ public class Appointment {
     private final LocalDateTime dateTime;
     private final Person patient;
 
-    private final String name;
+    private final String doctorName;
 
 
     /**
@@ -49,7 +49,7 @@ public class Appointment {
         this.description = description;
         this.dateTime = dateTime;
         this.patient = patient;
-        this.name = name;
+        this.doctorName = name;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Appointment {
     }
 
     public String getName() {
-        return this.name;
+        return this.doctorName;
     }
 
     public LocalDateTime getDateTime() {
