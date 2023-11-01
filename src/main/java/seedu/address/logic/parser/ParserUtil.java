@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
@@ -224,7 +225,7 @@ public class ParserUtil {
         String trimmedDate = date.trim();
 
         if (!isValidDate(trimmedDate)) {
-            throw new ParseException(Appointment.MESSAGE_INVALID_DATE);
+            throw new ParseException(Messages.MESSAGE_INVALID_DATE);
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -244,6 +245,24 @@ public class ParserUtil {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate.parse(date, formatter);
             return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if dateStr is a valid date on calender
+     * @param dateStr String instance of date to check
+     * @return True as long as Date is on the Calender
+     */
+    public static boolean isValidDateOnCalendar(String dateStr) {
+        try {
+            String trimmedDateStr = dateStr.substring(0, 10);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(trimmedDateStr, formatter);
+            int day = Integer.valueOf(trimmedDateStr.substring(0, 2));
+            int month = date.getMonthValue();
+            return day >= 1 && day <= date.lengthOfMonth() && month >= 1 && month <= 12;
         } catch (DateTimeParseException e) {
             return false;
         }

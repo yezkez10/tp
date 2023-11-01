@@ -10,6 +10,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.timeslots.Timeslot;
+import seedu.address.model.timeslots.UniqueTimeSlotList;
 
 /**
  * Wraps all data at the address-book level
@@ -19,7 +21,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     private final UniquePersonList persons;
     private final UniqueAppointmentList allAppointments;
-
+    private final UniqueTimeSlotList allTimeSlots;
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -30,6 +32,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     {
         persons = new UniquePersonList();
         allAppointments = new UniqueAppointmentList();
+        allTimeSlots = new UniqueTimeSlotList();
     }
 
     public ClinicAssistant() {}
@@ -60,6 +63,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
         setPersons(newData.getPersonList());
         setAppointments(newData.getAppointmentList());
+        setTimeslots(newData.getTimeSlotList());
     }
 
     //// person-level operations
@@ -144,6 +148,30 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     @Override
+    public ObservableList<Timeslot> getTimeSlotList() {
+        return allTimeSlots.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Adds a Timeslot instance into the current timeslot list
+     * @param timeslot Timeslot instance to be added
+     */
+    public void addAvailableTimeSlot(Timeslot timeslot) {
+        allTimeSlots.add(timeslot);
+    }
+
+    /**
+     * Removes the timeslot instance from the timeslot list
+     * @param timeslot Timeslot instance to be removed
+     */
+    public void removeAvailableTimeSlot(Timeslot timeslot) {
+        if (allTimeSlots.size() > 0) {
+            //cannot remove if allTimeSlots is not set via View
+            allTimeSlots.remove(timeslot);
+        }
+    }
+
+    @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return allAppointments.contains(appointment);
@@ -160,6 +188,14 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireNonNull(editedAppointment);
         allAppointments.setAppointment(target, editedAppointment);
+    }
+
+    /**
+     * Sets the current timeslot list to be the one given
+     * @param timeSlotsList The timeslot list to be set to
+     */
+    public void setTimeslots(List<Timeslot> timeSlotsList) {
+        allTimeSlots.setTimeslotsList(timeSlotsList);
     }
 
     public void setAppointments(List<Appointment> appointments) {

@@ -23,6 +23,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ViewAvailableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -100,6 +101,9 @@ public class ClinicAssistantParser {
 
         case FindAppointmentsCommand.COMMAND_WORD:
             return new FindAppointmentsCommandParser().parse(arguments);
+
+        case ViewAvailableCommand.COMMAND_WORD:
+            return new ViewAvailableCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

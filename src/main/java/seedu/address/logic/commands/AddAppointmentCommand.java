@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * A AppointmentAddCommand instance to add appointment to patients
@@ -68,7 +69,8 @@ public class AddAppointmentCommand extends Command {
         targetPatient.addAppointment(toAdd);
 
         model.addAppointment(toAdd);
-
+        Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
+        model.removeAvailableTimeSlot(timeslotToRemove);
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
     }
 
