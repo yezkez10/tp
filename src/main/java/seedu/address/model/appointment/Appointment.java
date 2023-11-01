@@ -18,9 +18,6 @@ import seedu.address.model.person.Person;
 public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
-
-    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
-
     public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm";
     /*
      * description must be alphanumeric
@@ -132,6 +129,7 @@ public class Appointment {
     public Name getPatientName() {
         return this.patient.getName();
     }
+
     /**
      * Returns true if both appointments have the same details.
      */

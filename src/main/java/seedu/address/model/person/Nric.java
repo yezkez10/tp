@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "NRICs should contain 7 digits, with 2 capital letters at the beginning and end";
-    public static final String VALIDATION_REGEX = "\\p{Alpha}\\d{7}\\p{Alpha}";
+            "NRICs should contain 7 digits, with S or T at the beginning and a letter at the end";
+    public static final String VALIDATION_REGEX = "[stST][0-9]{7}[A-Za-z]";
     public final String value;
 
     /**
@@ -21,15 +21,15 @@ public class Nric {
      */
     public Nric(String nric) {
         requireNonNull(nric);
-        checkArgument(isValidNric(nric), MESSAGE_CONSTRAINTS);
-        value = nric;
+        checkArgument(isValidNric(nric.toUpperCase()), MESSAGE_CONSTRAINTS);
+        value = nric.toUpperCase();
     }
 
     /**
      * Returns true if a given string is a valid Nric.
      */
     public static boolean isValidNric(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.toUpperCase().matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Nric {
         }
 
         Nric otherNric = (Nric) other;
-        return value.equals(otherNric.value);
+        return value.equals(otherNric.value.toUpperCase());
     }
 
     @Override

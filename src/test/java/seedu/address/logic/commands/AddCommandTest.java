@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -169,6 +170,14 @@ public class AddCommandTest {
         public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public Predicate<Timeslot> getCurrentPredicate() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ObservableList<Timeslot> getFilteredTimeslotsList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void addAppointment(Appointment appointment) {
@@ -194,9 +203,17 @@ public class AddCommandTest {
         public ObservableList<Doctor> getFilteredDoctorList() {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void addAvailableTimeSlot(Timeslot timeslot) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void removeAvailableTimeSlot(Timeslot timeslot) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -217,6 +234,15 @@ public class AddCommandTest {
 
         @Override
         public boolean hasDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ObservableList<Timeslot> getAvailableTimeSlotList() {
             throw new AssertionError("This method should not be called.");
         }
     }

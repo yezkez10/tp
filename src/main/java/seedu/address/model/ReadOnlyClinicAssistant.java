@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Unmodifiable view of an address book
@@ -29,6 +30,7 @@ public interface ReadOnlyClinicAssistant {
      */
     ObservableList<Appointment> getAppointmentList();
 
+    ObservableList<Timeslot> getTimeSlotList();
     /**
      * Returns true if the appointment list contains an equivalent appointment as the given argument.
      *

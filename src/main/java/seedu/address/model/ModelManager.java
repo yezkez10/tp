@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Doctor> filteredDoctor;
     private final FilteredList<Appointment> filteredAppointments;
+    private FilteredList<Timeslot> filteredTimeSlots;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.clinicAssistant.getPersonList());
         filteredAppointments = new FilteredList<>(this.clinicAssistant.getAppointmentList());
         filteredDoctor = new FilteredList<>(this.clinicAssistant.getDoctorList());
+        filteredTimeSlots = new FilteredList<>(this.clinicAssistant.getTimeSlotList());
     }
 
     public ModelManager() {
@@ -215,6 +218,36 @@ public class ModelManager implements Model {
     public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
         requireNonNull(predicate);
         filteredDoctor.setPredicate(predicate);
+    }
+
+    @Override
+    public void addAvailableTimeSlot(Timeslot timeslot) {
+        clinicAssistant.addAvailableTimeSlot(timeslot);
+        updateFilteredAvailableTimeslot(PREDICATE_SHOW_ALL_TIMESLOTS);
+    }
+    @Override
+    public void removeAvailableTimeSlot(Timeslot timeslot) {
+        clinicAssistant.removeAvailableTimeSlot(timeslot);
+        updateFilteredAvailableTimeslot(PREDICATE_SHOW_ALL_TIMESLOTS);
+    }
+
+    @Override
+    public void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate) {
+        requireNonNull(predicate);
+        filteredTimeSlots.setPredicate(predicate);
+    }
+    @Override
+    public ObservableList<Timeslot> getAvailableTimeSlotList() {
+        return this.clinicAssistant.getTimeSlotList();
+    }
+    @Override
+    public ObservableList<Timeslot> getFilteredTimeslotsList() {
+        return filteredTimeSlots;
+    }
+
+    @Override
+    public Predicate<Timeslot> getCurrentPredicate() {
+        return (Predicate<Timeslot>) this.filteredTimeSlots.getPredicate();
     }
 
     @Override

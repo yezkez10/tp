@@ -13,6 +13,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Deletes the appointment of an existing person in the address book.
@@ -61,6 +62,10 @@ public class DeleteAppointmentCommand extends Command {
         targetDoctor.deleteAppointment(appointmentIndexInDoctor);
         patient.deleteAppointment(appointmentIndexInPatient);
         model.deleteAppointment(appointmentToDelete);
+        //adding available timeslot back to list
+        Timeslot timeslotToAdd = new Timeslot(appointmentToDelete.getDateTime().toLocalDate(),
+                appointmentToDelete.getDateTime().getHour());
+        model.addAvailableTimeSlot(timeslotToAdd);
 
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete,
                 Messages.format(patient)));
@@ -77,7 +82,7 @@ public class DeleteAppointmentCommand extends Command {
         if (targetDoctor == null) {
             throw new RuntimeException();
         }
-        return  targetDoctor;
+        return targetDoctor;
     }
 
     @Override

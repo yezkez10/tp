@@ -20,6 +20,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 
 /**
@@ -64,7 +65,6 @@ public class EditAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
         List<Doctor> doctorList = model.getFilteredDoctorList();
 
@@ -89,7 +89,15 @@ public class EditAppointmentCommand extends Command {
         // Update appointment in patient
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToEdit);
         patient.editAppointment(appointmentIndexInPatient, editedAppointment);
-
+        // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
+        if (!(model.getAvailableTimeSlotList().size() == 0)) {
+            Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
+                    appointmentToEdit.getDateTime().getHour());
+            model.addAvailableTimeSlot(timeslotToAdd);
+            Timeslot timeslotToRemove = new Timeslot(editedAppointment.getDateTime().toLocalDate(),
+                    editedAppointment.getDateTime().getHour());
+            model.removeAvailableTimeSlot(timeslotToRemove);
+        }
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,

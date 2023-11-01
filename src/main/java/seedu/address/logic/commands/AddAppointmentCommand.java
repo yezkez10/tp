@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DOC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
 
 import java.time.LocalDateTime;
@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * A AppointmentAddCommand instance to add appointment to patients
@@ -35,7 +36,8 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_DATE + "02-01-2024 12:00";
 
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR = "This doctor already has an appointment at the same time.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR = "This doctor already has "
+            + "an appointment at the same time.";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added: %1$s";
 
@@ -91,7 +93,8 @@ public class AddAppointmentCommand extends Command {
         targetDoctor.addAppointment(toAdd);
 
         model.addAppointment(toAdd);
-
+        Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
+        model.removeAvailableTimeSlot(timeslotToRemove);
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
     }
 
