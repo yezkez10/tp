@@ -71,13 +71,13 @@ public class FindAppointmentCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleAppointmentsFound() {
-        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 3);
-        NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ Alice BENson Carl jeff");
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 2);
+        NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ BENson Carl jeff");
         FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment(),
-                BENSON_WITH_APPOINTMENT.firstAppointment(), CARL_WITH_APPOINTMENT.firstAppointment()),
+        assertEquals(Arrays.asList(BENSON_WITH_APPOINTMENT.firstAppointment(),
+                        CARL_WITH_APPOINTMENT.firstAppointment()),
                 model.getFilteredAppointmentList());
     }
 

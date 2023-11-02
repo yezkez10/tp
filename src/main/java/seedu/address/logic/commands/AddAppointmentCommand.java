@@ -44,6 +44,10 @@ public class AddAppointmentCommand extends Command {
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddAppointmentCommand(Index targetIndex, String description, LocalDateTime dateTime) {
+        if (targetIndex == null || description == null || dateTime == null) {
+            throw new NullPointerException();
+        }
+
         this.targetIndex = targetIndex;
         this.description = description;
         this.dateTime = dateTime;
@@ -86,11 +90,17 @@ public class AddAppointmentCommand extends Command {
         }
 
         AddAppointmentCommand otherAddCommand = (AddAppointmentCommand) other;
-        return false;
+        return targetIndex.equals(otherAddCommand.targetIndex)
+                && description.equals(otherAddCommand.description)
+                && dateTime.equals(otherAddCommand.dateTime);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).toString();
+        return new ToStringBuilder(this)
+                .add("targetIndex", targetIndex)
+                .add("description", description)
+                .add("dateTime", dateTime)
+                .toString();
     }
 }
