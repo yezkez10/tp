@@ -52,10 +52,10 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add n/ John Doe`.
+  e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add /n John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t friend` or as `/n John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -66,6 +66,9 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* All commands are case-sensitive. <br>
+  e.g. `delete 1` will work, but `Delete 1` or `DELETE 1` will not work.
+
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
@@ -74,10 +77,10 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
 Adds a patient to the database. A patient has a **name, phone number, email, gender, age, ethnicity, IC** and **address**.
 
-Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic NRIC /a ADDRESS`
+Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
 
 Examples:
-* `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi`
+* `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi /t allergic to pollen`
 
 ### Adding an appointment: `appt`
 
@@ -86,7 +89,7 @@ Adds a new appointment for a specific patient at index. Upcoming date of this ne
 Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
 
 **Note:**
-* DateTime is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
+* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
 * An appointment must have all tags to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
@@ -99,7 +102,7 @@ Adds a doctor to the database. A doctor has a **name, phone number, email, gende
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
 Examples:
-* `add_doctor /n Drizzy /p 99999999 /e drake@gmail.com /g M /age 30 /a 901 Shelby Dr`
+* `add_doctor /n Dr. Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
 
 ### Listing all patients : `list`
 
@@ -107,17 +110,40 @@ Shows a list of all patients in Clinic Assistant.
 
 Format: `list`
 
-**Note:**
-There should not be any parameters after “list”. e.g. `list 123` will not return the list of patients
-
 ### Listing all patients : `list_appt`
 
 Shows a list of all appointments in Clinic Assistant.
 
 Format: `list_appt`
 
-**Note:**
-There should not be any parameters after “list_appt”. e.g. `list_appt 123` will not return the list of appointments
+### Editing a patient: `edit`
+
+Edits an existing patient from the Clinic Records.
+
+Format: `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​`
+
+* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+
+Examples:
+* `edit 1 /p 91234567 /e johndoe@example.com` edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+* `edit 2 /n Betsy Crower` edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
+
+### Editing an appointment: `edit_appt`
+
+Edits an existing appointment from the Clinic Records.
+
+Format: `edit_appt [/d DESCRIPTION] [/on DATETIME]`
+
+* Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+* `edit_appt 1 /d changed to x-ray scan` edits the description of the appointment of 1st appointment.
+* `edit_appt 2 /on 05-02-2024 12:00` edits the date of the 2nd appointment to be on 05-02-2024 12:00.
 
 ### Deleting a patient : `delete`
 
@@ -187,10 +213,13 @@ Examples:
 
 Finds appointments of a patient whose name contains the given keyword and/or appointment falls on the date given.
 
-Format: `find_appt /n KEYWORDS /on DATE`
+Format: `find_appt [/n KEYWORDS] [/on DATE]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+
+**Note:**
+Although both fields are optional, at least 1 must be given. e.g. `find_appt` with no field inputs will not work
 
 Examples:
 * `find_appt /n John /on 01-01-2024 ` returns appointments of patient with name `John` that falls on 1 Jan 2024.
@@ -257,8 +286,12 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Add Appointment**  | `appt /for INDEX /d details /on DATE & TIME` <br> e.g., `appt /for 1 /d orthopaedic /on 02-01-2024 12:00`
+**Edit**   | `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​` <br> e.g., `edit 1 /a 3 NUS Computing Drive`
+**Edit Appointment** | `edit_appt [/d DESCRIPTION] [/on DATETIME]` <br> e.g., `edit_appt 1 /d changed to X-ray scan`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Appointment** | `delete_appt INDEX` <br> e.g., `delete_appt 3`
 **Find**   | `find KEYWORD`<br> e.g., `find john`
+**Find Appointment** | `find_appt [/n KEYWORD] [/on DATE]`<br>e.g., `find_appt /n John /on 01-01-2024 12:00`
 **List**   | `list`
 **Help**   | `help`
