@@ -35,7 +35,10 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
    Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
 
    * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
+   
    * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
+
+   * `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
 
    * `clear` : Deletes all patients.
 
@@ -97,6 +100,11 @@ Examples:
 
 ### Adding a doctor: `add_doctor`
 
+**Note:**
+* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet
+* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time
+* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well
+
 Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
@@ -110,7 +118,7 @@ Shows a list of all patients in Clinic Assistant.
 
 Format: `list`
 
-### Listing all patients : `list_appt`
+### Listing all appointments : `list_appt`
 
 Shows a list of all appointments in Clinic Assistant.
 
@@ -161,7 +169,7 @@ Examples:
 
 ### Deleting an appointment : `delete_appt`
 
-Deletes the appointment at the specified index of the specified patient.
+Deletes the appointment at the specified index of the appointment shown on the list.
 
 Format: `delete_appt INDEX`
 
@@ -170,6 +178,10 @@ Format: `delete_appt INDEX`
 * Acceptable values for INDEX is a single integer that is within the number of appointments
 
 ### Deleting a doctor : `delete_doctor`
+
+**Note:**
+* Make sure that the doctor you are about to delete does not have any appointments
+* This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost
 
 Deletes the specified doctor from the Clinic Records.
 
@@ -224,16 +236,24 @@ Although both fields are optional, at least 1 must be given. e.g. `find_appt` wi
 Examples:
 * `find_appt /n John /on 01-01-2024 ` returns appointments of patient with name `John` that falls on 1 Jan 2024.
 
-### View available time slots: `view`
+### Viewing available timeslots : `view`
 
-Finds time slots that are available on a given date.
+Displays all **available** timeslots on the specified date by the user.
 
 Format: `view /on DATE`
-* 
-* Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+
+* Displays all available timeslots that can be booked on the `DATE`.
+* The `DATE` **must be a valid date on the calendar in the form `dd-MM-yyyy` exactly**
+* Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
+* Any Timeslot that is displayed after calling `view /on DATE` can be booked
 
 Examples:
-* `view /on 01-01-2024 ` returns time slots for appointments that can be booked (not booked yet) on 1 Jan 2024 from 9am to 5pm.
+* `view /on 02-01-2024` shows all available timeslots that can be booked on 02 Jan 2024.
+* If timeslot `10 AM` is displayed, one can proceed to book an appointment for that `DATE` at `10 AM`
+
+**Note:**
+* There should not be any timings after `DATE`. e.g. `dd-MM-yyyy 18:00` will return an error.
+* The `DATE` should be entered in exactly `dd-MM-yyyy` format separated by a `-` and not anything else such as `/`…​
 
 ### Clearing all patients : `clear`
 
@@ -294,4 +314,5 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD`<br> e.g., `find john`
 **Find Appointment** | `find_appt [/n KEYWORD] [/on DATE]`<br>e.g., `find_appt /n John /on 01-01-2024 12:00`
 **List**   | `list`
+**View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
