@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.Model;
@@ -64,8 +63,8 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void execute_appointmentIndexZero_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> new AddAppointmentCommand(Index.fromOneBased(0),
+        assertThrows(IndexOutOfBoundsException.class, ()
+                -> new AddAppointmentCommand(Index.fromOneBased(0),
                 "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0)));
     }
 
@@ -74,14 +73,14 @@ public class AddAppointmentCommandTest {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(Index.fromOneBased(3),
                 "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
-        assertThrows(CommandException.class,
-                () -> addAppointmentCommand.execute(modelStub));
+        assertThrows(CommandException.class, ()
+                -> addAppointmentCommand.execute(modelStub));
     }
 
     @Test
     public void execute_appointmentIndexLessThanZero_throwsIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> new AddAppointmentCommand(Index.fromOneBased(-5),
+        assertThrows(IndexOutOfBoundsException.class, ()
+                -> new AddAppointmentCommand(Index.fromOneBased(-5),
                         "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0)));
     }
 
@@ -92,8 +91,8 @@ public class AddAppointmentCommandTest {
                 "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
         try {
             addAppointmentCommand.execute(modelStub);
-            assertThrows(CommandException.class,
-                    () -> addAppointmentCommand.execute(modelStub));
+            assertThrows(CommandException.class, ()
+                -> addAppointmentCommand.execute(modelStub));
         } catch (Exception e) {
             e.printStackTrace();
         }
