@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * Deletes a doctor identified using its displayed index in the clinic records.
@@ -53,6 +54,10 @@ public class DeleteDoctorCommand extends Command {
             Person patient = appointment.getPatient();
             int appointmentIndex = patient.getAppointments().indexOf(appointment);
             patient.deleteAppointment(appointmentIndex);
+
+            Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
+                    appointment.getDateTime().getHour());
+            model.addAvailableTimeSlot(timeslotToAdd);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, Messages.formatDoctor(doctorToDelete)));
