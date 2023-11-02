@@ -9,7 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * API of the Logic component
@@ -51,4 +53,8 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of appointments */
     ObservableList<Appointment> getFilteredAppointmentList();
+
+    /** Returns an unmodifiable view of the filtered list of doctors */
+    ObservableList<Doctor> getFilteredDoctorList();
+    ObservableList<Timeslot> getTimeSlotsList();
 }

@@ -18,9 +18,6 @@ import seedu.address.model.person.Person;
 public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
-
-    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
-
     public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm";
     /*
      * description must be alphanumeric
@@ -35,17 +32,21 @@ public class Appointment {
     private final LocalDateTime dateTime;
     private final Person patient;
 
+    private final String doctorName;
+
+
     /**
      * Constructor for Appointment instance
      * @param description Description of the appointment
      * @param dateTime Time and Date of the appointment
      */
-    public Appointment(String description, LocalDateTime dateTime, Person patient) {
+    public Appointment(String description, LocalDateTime dateTime, Person patient, String name) {
         requireAllNonNull(description, dateTime);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
         this.dateTime = dateTime;
         this.patient = patient;
+        this.doctorName = name;
     }
 
     /**
@@ -76,6 +77,10 @@ public class Appointment {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getName() {
+        return this.doctorName;
     }
 
     public LocalDateTime getDateTime() {
@@ -124,6 +129,7 @@ public class Appointment {
     public Name getPatientName() {
         return this.patient.getName();
     }
+
     /**
      * Returns true if both appointments have the same details.
      */

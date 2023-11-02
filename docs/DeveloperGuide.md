@@ -174,14 +174,14 @@ The fields required when adding a patient are the patient's
 * `Address`
 
 This feature is facilitated by the `Person` class and the `UniquePersonList`, which extends Iterable<Person>
-and ensures all the Persons in this list is unique. 
-The `Person` class stores the required fields of the patient. 
+and ensures all the Persons in this list is unique.
+The `Person` class stores the required fields of the patient.
 
 **The Specifics**
 
 `AddCommandParser` parses the user-inputted command and creates a `Person` object
-with its required fields, as well as an `AddCommand` that adds this person into the `Model`. 
-This `Person` is added into the `UniquePersonList`. 
+with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
+This `Person` is added into the `UniquePersonList`.
 
 ### \[Proposed\] Add/delete Doctor feature
 
@@ -301,14 +301,14 @@ accordingly.
 
 #### Implementation
 
-The find patient by NRIC feature will find a patient whose NRIC matches the given NRIC. 
+The find patient by NRIC feature will find a patient whose NRIC matches the given NRIC.
 This feature is facilitated by the `FindByNricCommandParser` and `FindByNricCommand` classes.
 To find a patient using a given NRIC, we have to use this NRIC as a predicate for the list of patients with unique NRICs.
 We will compare each patient's NRIC to this given NRIC and return the patient with the matching NRIC.
 
 **The Specifics**
 
-The job of the `FindByNricCommandParser` is to create a `FindByNricCommand` command object, 
+The job of the `FindByNricCommandParser` is to create a `FindByNricCommand` command object,
 with a `NricContainsKeywordPredicate` object passed in as a parameter. 
 
 The `updateFilteredPersonList` method in the `Model` class is called,
@@ -317,7 +317,7 @@ both with the `NricContainsKeywordPredicate` object passed in as the predicate.
 
 
 <img src="images/FindByNricSequenceDiagram.png" width="1000px">
-The above shows the sequence diagram of the find by NRIC feature. 
+The above shows the sequence diagram of the find by NRIC feature.
 
 **Alternatives considered**
 
@@ -328,10 +328,10 @@ The above shows the sequence diagram of the find by NRIC feature.
     * Cons: If users were to input an erratic NRIC, no matching patients will be shown.
 * **Alternative 2:** Extend the pre-existing Find command to accept NRIC as another argument
     * Pros: With more parameters, users can look for more patients at one time.
-  Even if the user inputs an erratic NRIC, they can still input the patients name 
+  Even if the user inputs an erratic NRIC, they can still input the patients name
   and receive a list of possible matching patients to choose from.
     * Cons: This is harder to implement as the FilteredList would have to take in more than 1 type of predicate.
-  
+
 ### Add/delete Appointment feature
 
 #### Implementation

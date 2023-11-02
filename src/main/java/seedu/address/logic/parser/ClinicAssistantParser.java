@@ -10,18 +10,22 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDoctorCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAppointmentsCommand;
+import seedu.address.logic.commands.FindByNricCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ViewAvailableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -73,6 +77,9 @@ public class ClinicAssistantParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case FindByNricCommand.COMMAND_WORD:
+            return new FindByNricCommandParser().parse(arguments);
+
         case ListAppointmentCommand.COMMAND_WORD:
             return new ListAppointmentCommand();
 
@@ -96,6 +103,15 @@ public class ClinicAssistantParser {
 
         case FindAppointmentsCommand.COMMAND_WORD:
             return new FindAppointmentsCommandParser().parse(arguments);
+
+        case AddDoctorCommand.COMMAND_WORD:
+            return new AddDoctorParser().parse(arguments);
+
+        case DeleteDoctorCommand.COMMAND_WORD:
+            return new DeleteDoctorParser().parse(arguments);
+
+        case ViewAvailableCommand.COMMAND_WORD:
+            return new ViewAvailableCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

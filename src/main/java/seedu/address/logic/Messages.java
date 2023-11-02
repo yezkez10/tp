@@ -6,26 +6,33 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
  * Container for user visible messages.
  */
 public class Messages {
-
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The patient index provided is invalid";
+    public static final String MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX = "The doctor index provided is invalid";
     public static final String MESSAGE_PATIENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_PATIENT_FOUND_OVERVIEW = "1 patient found!";
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
     public static final String MESSAGE_APPOINTMENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 patients found!";
     public static final String MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW = "No appointments found!";
+    public static final String MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW =
+            "All Available Timeslot on %tb %td, %tY Listed!";
+    public static final String MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW =
+            "No Available Timeslot Available on %tb %td, %tY!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
             "The Appointment index provided is invalid";
+    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
+    public static final String MESSAGE_DATE_DOES_NOT_EXIST = "Date must be a valid date that exists on the calendar!";
 
 
     /**
@@ -63,6 +70,25 @@ public class Messages {
                 .append(person.getAddress())
                 .append(" | Tags: ");
         person.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code doctor} for display to the user.
+     */
+    public static String formatDoctor(Doctor doctor) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(doctor.getName())
+                .append(" | Phone: ")
+                .append(doctor.getPhone())
+                .append(" | Email: ")
+                .append(doctor.getEmail())
+                .append(" | Gender: ")
+                .append(doctor.getGender())
+                .append(" | Age: ")
+                .append(doctor.getAge())
+                .append(" | Address: ")
+                .append(doctor.getAddress());
         return builder.toString();
     }
     /**
