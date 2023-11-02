@@ -32,17 +32,21 @@ public class Appointment {
     private final LocalDateTime dateTime;
     private final Person patient;
 
+    private final String doctorName;
+
+
     /**
      * Constructor for Appointment instance
      * @param description Description of the appointment
      * @param dateTime Time and Date of the appointment
      */
-    public Appointment(String description, LocalDateTime dateTime, Person patient) {
+    public Appointment(String description, LocalDateTime dateTime, Person patient, String name) {
         requireAllNonNull(description, dateTime);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
         this.dateTime = dateTime;
         this.patient = patient;
+        this.doctorName = name;
     }
 
     /**
@@ -73,6 +77,10 @@ public class Appointment {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getName() {
+        return this.doctorName;
     }
 
     public LocalDateTime getDateTime() {

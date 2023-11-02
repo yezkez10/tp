@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final ClinicAssistant clinicAssistant;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Doctor> filteredDoctor;
     private final FilteredList<Appointment> filteredAppointments;
     private FilteredList<Timeslot> filteredTimeSlots;
 
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.clinicAssistant.getPersonList());
         filteredAppointments = new FilteredList<>(this.clinicAssistant.getAppointmentList());
+        filteredDoctor = new FilteredList<>(this.clinicAssistant.getDoctorList());
         filteredTimeSlots = new FilteredList<>(this.clinicAssistant.getTimeSlotList());
     }
 
@@ -141,6 +144,31 @@ public class ModelManager implements Model {
         return clinicAssistant.hasAppointment(appointment);
     }
 
+    @Override
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return clinicAssistant.hasDoctor(doctor);
+    }
+
+    @Override
+    public void deleteDoctor(Doctor target) {
+        clinicAssistant.removeDoctor(target);
+    }
+
+    @Override
+    public void addDoctor(Doctor doctor) {
+        clinicAssistant.addDoctor(doctor);
+        updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+    }
+
+    @Override
+    public void setDoctor(Doctor target, Doctor editedDoctor) {
+        requireAllNonNull(target, editedDoctor);
+
+        clinicAssistant.setDoctor(target, editedDoctor);
+    }
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -173,6 +201,23 @@ public class ModelManager implements Model {
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
         filteredAppointments.setPredicate(predicate);
+    }
+
+    //=========== Filtered Doctors List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return filteredDoctor;
+    }
+
+    @Override
+    public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        requireNonNull(predicate);
+        filteredDoctor.setPredicate(predicate);
     }
 
     @Override

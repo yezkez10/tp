@@ -68,7 +68,6 @@ public class FindAppointmentCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredAppointmentList());
     }
-
     @Test
     public void execute_multipleKeywords_multipleAppointmentsFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 3);
@@ -76,11 +75,10 @@ public class FindAppointmentCommandTest {
         FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment(),
-                BENSON_WITH_APPOINTMENT.firstAppointment(), CARL_WITH_APPOINTMENT.firstAppointment()),
-                model.getFilteredAppointmentList());
+        assertEquals(Arrays.asList(BENSON_WITH_APPOINTMENT.firstAppointment(),
+                ALICE_WITH_APPOINTMENT.firstAppointment(), CARL_WITH_APPOINTMENT.firstAppointment()),
+                expectedModel.getFilteredAppointmentList());
     }
-
     @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));

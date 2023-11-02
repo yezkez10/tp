@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalAppointments.getTypicalAppointments;
+import static seedu.address.testutil.TypicalDoctors.getTypicalDoctors;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +13,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -60,11 +63,20 @@ public class TestUtil {
     public static ClinicAssistant getTypicalAddressBook() {
         ClinicAssistant ab = new ClinicAssistant();
         List<Person> appointmentList = getTypicalAppointments();
+        List<Doctor> doctorList = getTypicalDoctors();
         for (int i = 0; i < appointmentList.size(); i++) {
             ab.addPerson(appointmentList.get(i));
             for (Appointment appt : appointmentList.get(i).getAppointments()) {
                 ab.addAppointment(appt);
+                for (Doctor doctor: doctorList) {
+                    if (doctor.getName().equals(new Name(appt.getName()))) {
+                        doctor.addAppointment(appt);
+                    }
+                }
             }
+        }
+        for (Doctor doctor : doctorList) {
+            ab.addDoctor(doctor);
         }
         return ab;
     }

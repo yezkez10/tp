@@ -33,6 +33,8 @@ public class AppointmentCard extends UiPart<Region> {
     private Label dateTime;
     @FXML
     private Label patient;
+    @FXML
+    private Label doctor;
 
     /**
      * Creates a {@code AppointmentCode} with the given {@code Appointment} and index to display.
@@ -44,5 +46,6 @@ public class AppointmentCard extends UiPart<Region> {
         description.setText(appointment.getDescription());
         dateTime.setText(appointment.getDateTime().format(Appointment.DATE_TIME_FORMATTER));
         patient.setText(appointment.getPatient().getName().toString());
+        doctor.setText(appointment.getName());
     }
 }

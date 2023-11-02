@@ -41,10 +41,27 @@
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+              <StackPane VBox.vgrow="ALWAYS">
+                        <children>
+                           <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                             <tabs>
+                               <Tab text="Patients">
+                                 <content>
+                                   <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                                 </content>
+                               </Tab>
+                               <Tab text="Doctors">
+                                 <content>
+                                   <StackPane fx:id="doctorListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                                 </content>
+                               </Tab>
+                             </tabs>
+                           </TabPane>
+                        </children>
+              </StackPane>
             </VBox>
 
-            <VBox fx:id="appointmentList" minWidth="340" prefWidth="340" styleClass="pane-with-border" HBox.hgrow="SOMETIMES">
+            <VBox fx:id="timeSlotList" styleClass="pane-with-border" minWidth="340" prefWidth="340" HBox.hgrow="SOMETIMES">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>

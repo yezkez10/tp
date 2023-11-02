@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
@@ -17,6 +18,8 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPTS = unused -> true;
     Predicate<Timeslot> PREDICATE_SHOW_ALL_TIMESLOTS = unused -> true;
+
+    Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -151,6 +154,43 @@ public interface Model {
      * @return true if appointment exists.
      */
     boolean hasAppointment(Appointment editedAppointment);
+
+    /**
+     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDoctorList(Predicate<Doctor> predicate);
+
+    /**
+     * Adds a doctor to clinic assistant.
+     *
+     * @param toAdd Doctor to be added.
+     */
+    void addDoctor(Doctor toAdd);
+
+    /**
+     * Deletes a doctor in clinic assistant.
+     */
+    void deleteDoctor(Doctor appointment);
+
+    /**
+     * Replaces Doctor with updated Doctor.
+     *
+     * @param target doctor to replace
+     * @param editedDoctor edited doctor to replace with
+     */
+    void setDoctor(Doctor target, Doctor editedDoctor);
+
+    /**
+     * Returns true if an appointment with the same identity as {@code appointment} exists in the address book.
+     *
+     * @param editedDoctor Appointment to check.
+     * @return true if appointment exists.
+     */
+    boolean hasDoctor(Doctor editedDoctor);
+
+    /** Returns an unmodifiable view of the filtered doctor list */
+    ObservableList<Doctor> getFilteredDoctorList();
 
     ObservableList<Timeslot> getFilteredTimeslotsList();
 
