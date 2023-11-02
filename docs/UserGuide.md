@@ -87,13 +87,14 @@ Examples:
 
 ### Adding an appointment: `appt`
 
-Adds a new appointment for a specific patient at index. Upcoming date of this new appointment must be included.
+Adds a new appointment for a specific patient at index.
 
 Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
 
 **Note:**
+* Upcoming date of this new appointment must be included.
 * `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
-* An appointment must have all tags to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
+* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
 * `appt /for 6 /d Blood test /on 01-01-2024 12:00`
@@ -212,14 +213,17 @@ Examples:
 
 ### Finding patient details by nric: `find_nric`
 
-Finds patient who has the given nric.
+Finds the patient who has the given NRIC.
 
 Format: `find_nric NRIC`
 
-* Only the NRIC is searched.
+* The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`.
+* The inputted NRIC must be valid. The NRIC must start with 'S' or 'T', and contain 7 digits between the 2 alphabets.
+  * ie v1234567e and s123456e are invalid NRICs
 
 Examples:
-* `find_nric T0123456G` returns patient with NRIC `T0123456G`
+* `find_nric T0123456G` returns the patient with NRIC `T0123456G`
+* `find_nric s0123456h` returns the patient with NRIC `S0123456H`
 
 ### Finding appointment by patient name or date: `find_appt`
 
@@ -275,15 +279,9 @@ ClinicAssistant data are saved in the hard disk automatically after any command 
 
 ClinicAssistant data are saved automatically as a JSON file `[JAR file location]/data/clinicassistant.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<box type="warning" seamless>
-
 **Caution:**
 If your changes to the data file makes its format invalid, ClinicAssistant will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
 </box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -312,6 +310,7 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Delete Appointment** | `delete_appt INDEX` <br> e.g., `delete_appt 3`
 **Find**   | `find KEYWORD`<br> e.g., `find john`
+**Find by NRIC**   | `find_nric NRIC` <br> e.g., `find_nric T1234567E`
 **Find Appointment** | `find_appt [/n KEYWORD] [/on DATE]`<br>e.g., `find_appt /n John /on 01-01-2024 12:00`
 **List**   | `list`
 **View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
