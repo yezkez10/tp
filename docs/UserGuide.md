@@ -74,67 +74,50 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
 Adds a patient to the database. A patient has a **name, phone number, email, gender, age, ethnicity, IC** and **address**.
 
-Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g M /age 22 /eth Chinese /ic NRIC /a ADDRESS`
+Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic NRIC /a ADDRESS`
 
 Examples:
-* `add /n Drizzy /p 999 /e drake@gmail.com /ic T03XXXXXE /a 901 Shelby Dr`
+* `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi`
 
-### Adding an appointment: `add appt`
+### Adding an appointment: `appt`
 
-Adds a new appointment to a specific patient at index. Upcoming date of this new appointment must be included.
+Adds a new appointment for a specific patient at index. Upcoming date of this new appointment must be included.
 
-Format: `add appt /for INDEX /on YYYY-MM-DD HH:MM`
+Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
 
 **Note:**
-An appointment must have all tags to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
+* DateTime is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
+* An appointment must have all tags to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
-* `add appt /for 6 /on 2023-09-17 13:00`
+* `appt /for 6 /d Blood test /on 01-01-2024 12:00`
 
 ### Adding a doctor: `add_doctor`
 
 Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
 
-Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g M /age 22 /a ADDRESS`
+Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
 Examples:
-* `add_doctor /n Drizzy /p 999 /e drake@gmail.com /a 901 Shelby Dr`
+* `add_doctor /n Drizzy /p 99999999 /e drake@gmail.com /g M /age 30 /a 901 Shelby Dr`
 
 ### Listing all patients : `list`
 
-Shows a list of all patients in clinicAssistant.
+Shows a list of all patients in Clinic Assistant.
 
 Format: `list`
 
 **Note:**
 There should not be any parameters after “list”. e.g. `list 123` will not return the list of patients
 
-### Deleting an appointment : `delete_appt`
+### Listing all patients : `list_appt`
 
-Deletes the appointment at the specified index of the specified patient.
+Shows a list of all appointments in Clinic Assistant.
 
-Format: `delete_appt INDEX`
+Format: `list_appt`
 
-* The command is case-sensitive. E.g. Delete_appt INDEX will not work
-* INDEX must be a positive integer, starting from 1
-* Acceptable values for INDEX is a single integer that is within the number of appointments
-
-
-Examples:
-*  `delete_appt 4` Deletes the fourth appointment of the appointment shown
-*  `delete_appt 1` Deletes the first appointment of the appointment shown
-
-### Finding patient details by name: `find`
-
-Finds patients whose name contains the given keyword.
-
-Format: `find KEYWORD`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* Only the name is searched.
-
-Examples:
-* `find John` returns `john` and `John Doe`
+**Note:**
+There should not be any parameters after “list_appt”. e.g. `list_appt 123` will not return the list of appointments
 
 ### Deleting a patient : `delete`
 
@@ -150,6 +133,16 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in ClinicAssistant.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Deleting an appointment : `delete_appt`
+
+Deletes the appointment at the specified index of the specified patient.
+
+Format: `delete_appt INDEX`
+
+* The command is case-sensitive. E.g. Delete_appt INDEX will not work
+* INDEX must be a positive integer, starting from 1
+* Acceptable values for INDEX is a single integer that is within the number of appointments
+
 ### Deleting a doctor : `delete_doctor`
 
 Deletes the specified doctor from the Clinic Records.
@@ -162,6 +155,56 @@ Format: `delete_doctor INDEX`
 
 Examples:
 * `delete_doctor 2` deletes the 2nd doctor in ClinicAssistant.
+
+Examples:
+*  `delete_appt 4` Deletes the fourth appointment of the appointment list shown
+*  `delete_appt 1` Deletes the first appointment of the appointment list shown
+
+### Finding patient details by name: `find`
+
+Finds patients whose name contains the given keyword.
+
+Format: `find KEYWORD`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* Only the name is searched.
+
+Examples:
+* `find John` returns `john` and `John Doe`
+
+### Finding patient details by nric: `find_nric`
+
+Finds patient who has the given nric.
+
+Format: `find_nric NRIC`
+
+* Only the NRIC is searched.
+
+Examples:
+* `find_nric T0123456G` returns patient with NRIC `T0123456G`
+
+### Finding appointment by patient name or date: `find_appt`
+
+Finds appointments of a patient whose name contains the given keyword and/or appointment falls on the date given.
+
+Format: `find_appt /n KEYWORDS /on DATE`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+
+Examples:
+* `find_appt /n John /on 01-01-2024 ` returns appointments of patient with name `John` that falls on 1 Jan 2024.
+
+### View available time slots: `view`
+
+Finds time slots that are available on a given date.
+
+Format: `view /on DATE`
+* 
+* Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+
+Examples:
+* `view /on 01-01-2024 ` returns time slots for appointments that can be booked (not booked yet) on 1 Jan 2024 from 9am to 5pm.
 
 ### Clearing all patients : `clear`
 
