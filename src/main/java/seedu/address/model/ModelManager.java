@@ -231,6 +231,14 @@ public class ModelManager implements Model {
         updateFilteredAvailableTimeslot(PREDICATE_SHOW_ALL_TIMESLOTS);
     }
 
+    /**
+     * Resets the list of available timeslots
+     */
+    @Override
+    public void resetAvailableTimeSlot() {
+        clinicAssistant.resetTimeslots();
+    }
+
     @Override
     public void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate) {
         requireNonNull(predicate);

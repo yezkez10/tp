@@ -9,13 +9,12 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -62,18 +61,28 @@
               </StackPane>
             </VBox>
 
-            <VBox fx:id="appointmentList" minWidth="340" prefWidth="340" styleClass="pane-with-border" HBox.hgrow="SOMETIMES">
+            <VBox fx:id="timeSlotList" styleClass="pane-with-border" minWidth="340" prefWidth="340" HBox.hgrow="SOMETIMES">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-              <StackPane fx:id="appointmentListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-            </VBox>
-
-            <VBox fx:id="timeSlotList" styleClass="pane-with-border" minWidth="340" prefWidth="340" HBox.hgrow="SOMETIMES">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="timeslotListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane VBox.vgrow="ALWAYS">
+                        <children>
+                           <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                             <tabs>
+                               <Tab text="Appointments">
+                                 <content>
+                                   <StackPane fx:id="appointmentListPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS" />
+                                 </content>
+                               </Tab>
+                               <Tab text="Timeslots" >
+                                 <content>
+                                   <StackPane fx:id="timeslotListPanelPlaceholder" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tab" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS" />
+                                 </content>
+                               </Tab>
+                             </tabs>
+                           </TabPane>
+                        </children>
+              </StackPane>
             </VBox>
           </children>
         </HBox>
