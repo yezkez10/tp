@@ -203,7 +203,7 @@ Examples:
 
 Finds the patient who has the given NRIC.
 
-Format: `find_nric <NRIC>`
+Format: `find_nric NRIC`
 
 * The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`.
 * The inputted NRIC must be valid. The NRIC must start with 'S' or 'T', and contain 7 digits between the 2 alphabets.
