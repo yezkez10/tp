@@ -208,6 +208,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetAvailableTimeSlot() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate) {
             throw new AssertionError("This method should not be called.");
         }
