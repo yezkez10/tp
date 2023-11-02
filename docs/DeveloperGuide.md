@@ -183,9 +183,9 @@ The `Person` class stores the required fields of the patient.
 with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
 This `Person` is added into the `UniquePersonList`.
 
-### \[Proposed\] Add/delete Doctor feature
+### Add/delete Doctor feature
 
-#### \[Proposed\] Implementation
+#### Implementation
 
  The proposed add/delete Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
  The Doctor class stores the relevant data of the Doctor such as name and gender.
@@ -377,6 +377,28 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
 * **Alternative 2:** An additional Index field of the Patients Index is to be given, followed by his/her Appointment to edit
     * Pros: Appointment to be edited is specified to the specific Patient index input
     * Cons: Harder for the user to visualise which Appointment he is going to edit
+
+## **Planned enhancements**
+
+### Edit Doctor
+
+#### Implementation
+
+This enhancements will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
+
+This edit command will take in a parameter INDEX whic is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore it will take in information that the specified doctor's information will be changed to.
+This will create a new Doctor Object and transfer over all the information that isnt specified in the edit command to be the same as the original doctor.
+
+#### Design consideration:
+
+**Aspect: How the doctor object is going to be edited:**
+
+* You can make it so that you change the value of the variables inside the original doctor
+    * Pros: save space and improve space and time complexity
+    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
+
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
