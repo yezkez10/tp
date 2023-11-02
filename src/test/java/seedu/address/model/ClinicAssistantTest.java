@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.timeslots.Timeslot;
@@ -100,6 +101,8 @@ public class ClinicAssistantTest {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Timeslot> timeslots = FXCollections.observableArrayList();
 
+        private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+
         ClinicAssistantStub(Collection<Person> persons) {
             this.persons.setAll(persons);
         }
@@ -117,6 +120,11 @@ public class ClinicAssistantTest {
         @Override
         public boolean hasAppointment(Appointment appointment) {
             return appointments.contains(appointment);
+        }
+
+        @Override
+        public ObservableList<Doctor> getDoctorList() {
+            return doctors;
         }
 
         @Override

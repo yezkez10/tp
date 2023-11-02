@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,6 +16,7 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The patient index provided is invalid";
+    public static final String MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX = "The doctor index provided is invalid";
     public static final String MESSAGE_PATIENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_PATIENT_FOUND_OVERVIEW = "1 patient found!";
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
@@ -68,6 +70,25 @@ public class Messages {
                 .append(person.getAddress())
                 .append(" | Tags: ");
         person.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code doctor} for display to the user.
+     */
+    public static String formatDoctor(Doctor doctor) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(doctor.getName())
+                .append(" | Phone: ")
+                .append(doctor.getPhone())
+                .append(" | Email: ")
+                .append(doctor.getEmail())
+                .append(" | Gender: ")
+                .append(doctor.getGender())
+                .append(" | Age: ")
+                .append(doctor.getAge())
+                .append(" | Address: ")
+                .append(doctor.getAddress());
         return builder.toString();
     }
     /**

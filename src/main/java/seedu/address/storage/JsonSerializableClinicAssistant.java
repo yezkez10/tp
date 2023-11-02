@@ -12,6 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +25,8 @@ class JsonSerializableClinicAssistant {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+
+    private final List<JsonAdaptedDoctor> doctors = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -39,6 +43,7 @@ class JsonSerializableClinicAssistant {
      */
     public JsonSerializableClinicAssistant(ReadOnlyClinicAssistant source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        doctors.addAll(source.getDoctorList().stream().map(JsonAdaptedDoctor::new).collect(Collectors.toList()));
     }
 
     /**
@@ -68,6 +73,15 @@ class JsonSerializableClinicAssistant {
 
             // ADDS ENTIRE LIST TO BE APPENDED TO THE MAIN APPOINTMENT LIST.
             clinicAssistant.addAppointmentAsList(appointments);
+        }
+        for (JsonAdaptedDoctor jsonAdaptedDoctor: doctors) {
+            Doctor doctor = jsonAdaptedDoctor.toModelType();
+            for (Appointment appointment: clinicAssistant.getAppointmentList()) {
+                if (doctor.getName().equals(new Name(appointment.getName()))) {
+                    doctor.addAppointment(appointment);
+                }
+            }
+            clinicAssistant.addDoctor((doctor));
         }
         return clinicAssistant;
     }

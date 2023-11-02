@@ -16,22 +16,22 @@ import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
 /**
- * Deletes a patient identified using its displayed index in the clinic records.
+ * Deletes a doctor identified using its displayed index in the clinic records.
  */
-public class DeleteCommand extends Command {
+public class DeleteDoctorCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "delete_doctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the patient with the index number used in the clinic records.\n"
+            + ": Deletes the doctor with the index number used in the clinic records.\n"
             + "Parameters: INDEX (must be a positive integer in the list)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PATIENT_SUCCESS = "Deleted Person: %1$s from clinic records";
+    public static final String MESSAGE_DELETE_DOCTOR_SUCCESS = "Deleted Doctor: %1$s from clinic records";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteDoctorCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -42,43 +42,25 @@ public class DeleteCommand extends Command {
         List<Doctor> doctorList = model.getFilteredDoctorList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
+        Doctor doctorToDelete = doctorList.get(targetIndex.getZeroBased());
+        model.deleteDoctor(doctorToDelete);
 
-        ArrayList<Appointment> patientAppointments = personToDelete.getAppointments();
-        for (Appointment appointment : patientAppointments) {
+        ArrayList<Appointment> doctorAppointments = doctorToDelete.getAppointments();
+        for (Appointment appointment : doctorAppointments) {
             model.deleteAppointment(appointment);
-
-            Doctor targetDoctor = targetDoctor(doctorList, appointment);
-            int appointmentIndex = targetDoctor.getAppointments().indexOf(appointment);
-            targetDoctor.deleteAppointment(appointmentIndex);
+            Person patient = appointment.getPatient();
+            int appointmentIndex = patient.getAppointments().indexOf(appointment);
+            patient.deleteAppointment(appointmentIndex);
 
             Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
                     appointment.getDateTime().getHour());
             model.addAvailableTimeSlot(timeslotToAdd);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.format(personToDelete)));
-    }
-
-    /**
-     * Returns the doctor that contains the given appointment.
-     */
-    public Doctor targetDoctor(List<Doctor> doctorList, Appointment appointment) {
-        Doctor targetDoctor = null;
-        for (Doctor doctor : doctorList) {
-            if (doctor.hasAppointment(appointment)) {
-                targetDoctor = doctor;
-                break;
-            }
-        }
-        if (targetDoctor == null) {
-            throw new RuntimeException();
-        }
-        return targetDoctor;
+        return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, Messages.formatDoctor(doctorToDelete)));
     }
 
     @Override
@@ -88,12 +70,12 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeleteDoctorCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        DeleteDoctorCommand otherDeleteDoctorCommand = (DeleteDoctorCommand) other;
+        return targetIndex.equals(otherDeleteDoctorCommand.targetIndex);
     }
 
     @Override
