@@ -35,7 +35,10 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
    Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
    
    * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
+   
    * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
+
+   * `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
 
    * `clear` : Deletes all patients.
 
@@ -142,6 +145,25 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in ClinicAssistant.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Viewing available timeslots : `view`
+
+Displays all **available** timeslots on the specified date by the user.
+
+Format: `view /on DATE`
+
+* Displays all available timeslots that can be booked on the `DATE`.
+* The `DATE` **must be a valid date on the calendar in the form `dd-MM-yyyy` exactly**
+* Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
+* Any Timeslot that is displayed after calling `view /on DATE` can be booked
+
+Examples:
+* `view /on 02-01-2024` shows all available timeslots that can be booked on 02 Jan 2024.
+* If timeslot `10 AM` is displayed, one can proceed to book an appointment for that `DATE` at `10 AM`
+
+**Note:**
+* There should not be any timings after `DATE`. e.g. `dd-MM-yyyy 18:00` will return an error.
+* The `DATE` should be entered in exactly `dd-MM-yyyy` format separated by a `-` and not anything else such as `/`…​
+
 ### Clearing all patients : `clear`
 
 Clears all patients from ClinicAssistant.
@@ -197,4 +219,5 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Find**   | `find KEYWORD`<br> e.g., `find john`
 **List**   | `list`
+**View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
