@@ -44,6 +44,7 @@ public class ViewAvailableCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.resetAvailableTimeSlot();
         model.updateFilteredAppointmentList(apptPredicate);
         ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList();
         Set<Integer> unavailableTimeslots = new HashSet<>();

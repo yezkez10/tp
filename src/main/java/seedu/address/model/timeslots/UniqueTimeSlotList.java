@@ -43,6 +43,14 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
         }
     }
 
+    /**
+     * Clears the list
+     */
+    public void clear() {
+        if (!internalList.isEmpty()) {
+            internalList.clear();
+        }
+    }
 
     /**
      * Removes the equivalent Timeslot from the list.

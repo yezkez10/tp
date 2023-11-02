@@ -171,6 +171,14 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         }
     }
 
+    /**
+     * Clears the list
+     */
+    public void resetTimeslots() {
+        allTimeSlots.clear();
+    }
+
+
     @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);

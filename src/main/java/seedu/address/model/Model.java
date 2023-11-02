@@ -110,6 +110,8 @@ public interface Model {
      */
     void removeAvailableTimeSlot(Timeslot timeslot);
 
+    public void resetAvailableTimeSlot();
+
     /**
      * Updates the available timeslot list according to a given predicate
      * @param predicate Predicate instance wrapped around a Timeslot
