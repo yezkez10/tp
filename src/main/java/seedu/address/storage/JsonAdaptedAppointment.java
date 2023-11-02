@@ -17,7 +17,7 @@ class JsonAdaptedAppointment {
 
     private final String description;
     private final LocalDateTime dateTime;
-    private final String name;
+    private final String doctorName;
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
      */
@@ -28,7 +28,7 @@ class JsonAdaptedAppointment {
         this.description = description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         this.dateTime = LocalDateTime.parse(dateTime, formatter);
-        this.name = "test";
+        this.doctorName = "test";
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source) {
         description = source.getDescription();
         dateTime = source.getDateTime();
-        name = source.getName();
+        doctorName = source.getName();
     }
 
     @JsonProperty("description")
@@ -57,6 +57,6 @@ class JsonAdaptedAppointment {
      */
     public Appointment toModelType(Person patient) {
         // Left patient as null for now
-        return new Appointment(description, dateTime, patient, name);
+        return new Appointment(description, dateTime, patient, doctorName);
     }
 }
