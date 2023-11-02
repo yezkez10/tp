@@ -17,7 +17,10 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 
 /**
@@ -62,8 +65,8 @@ public class EditAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
 
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
@@ -74,8 +77,10 @@ public class EditAppointmentCommand extends Command {
         // Create edited appointment
         Appointment appointmentToEdit = appointmentList.get(zeroBasedAppointmentIndex);
         Person patient = appointmentToEdit.getPerson();
+        Doctor targetDoctor = getDoctor(doctorList, new Name(appointmentToEdit.getName()));
+
         Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor,
-                patient);
+                patient, targetDoctor.getName().toString());
 
         if (appointmentToEdit.isSameAppointment(editedAppointment) && model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
@@ -84,7 +89,15 @@ public class EditAppointmentCommand extends Command {
         // Update appointment in patient
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToEdit);
         patient.editAppointment(appointmentIndexInPatient, editedAppointment);
-
+        // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
+        if (!(model.getAvailableTimeSlotList().size() == 0)) {
+            Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
+                    appointmentToEdit.getDateTime().getHour());
+            model.addAvailableTimeSlot(timeslotToAdd);
+            Timeslot timeslotToRemove = new Timeslot(editedAppointment.getDateTime().toLocalDate(),
+                    editedAppointment.getDateTime().getHour());
+            model.removeAvailableTimeSlot(timeslotToRemove);
+        }
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
@@ -92,17 +105,34 @@ public class EditAppointmentCommand extends Command {
     }
 
     /**
+     * Returns Doctor of the doctorList by the name of the doctor.
+     */
+    public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.getName().equals(doctorName)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return targetDoctor;
+    }
+
+    /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
     private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc,
-                                                       Person editedPerson) {
+                                                       Person editedPerson, String doctorName) {
         assert apptToEdit != null;
 
         String updatedDescription = editApptDesc.getDescription().orElse(apptToEdit.getDescription());
         LocalDateTime updatedDateTime = editApptDesc.getDateTime().orElse(apptToEdit.getDateTime());
 
-        return new Appointment(updatedDescription, updatedDateTime, editedPerson);
+        return new Appointment(updatedDescription, updatedDateTime, editedPerson, doctorName);
     }
 
     @Override

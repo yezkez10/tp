@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ETHNIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
@@ -31,20 +32,21 @@ public class AddAppointmentParser implements Parser<AddAppointmentCommand> {
      */
     public AddAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FOR, PREFIX_DESCRIPTION, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_FOR, PREFIX_DOC, PREFIX_DESCRIPTION, PREFIX_DATE);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_GENDER, PREFIX_AGE, PREFIX_ETHNIC, PREFIX_NRIC, PREFIX_ADDRESS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_FOR, PREFIX_DESCRIPTION, PREFIX_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_FOR, PREFIX_DOC, PREFIX_DESCRIPTION, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
         Index patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_FOR).get());
+        Index doctorIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DOC).get());
         String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
         LocalDateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATE).get());
-        return new AddAppointmentCommand(patientIndex, description, dateTime);
+        return new AddAppointmentCommand(patientIndex, doctorIndex, description, dateTime);
     }
 
     /**

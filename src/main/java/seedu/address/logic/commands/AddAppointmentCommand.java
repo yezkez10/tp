@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,9 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.timeslots.Timeslot;
 
 /**
  * A AppointmentAddCommand instance to add appointment to patients
@@ -28,10 +31,13 @@ public class AddAppointmentCommand extends Command {
             + "DESCRIPTION, DATE_TIME (must be a valid date in the future)\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOR + "1 "
+            + PREFIX_DOC + "1 "
             + PREFIX_DESCRIPTION + "description details "
             + PREFIX_DATE + "02-01-2024 12:00";
 
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR = "This doctor already has "
+            + "an appointment at the same time.";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added: %1$s";
 
@@ -39,36 +45,56 @@ public class AddAppointmentCommand extends Command {
     private final String description;
     private final LocalDateTime dateTime;
 
+    private final Index doctorIndex;
+
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddAppointmentCommand(Index targetIndex, String description, LocalDateTime dateTime) {
+    public AddAppointmentCommand(Index targetIndex, Index doctorIndex, String description, LocalDateTime dateTime) {
         this.targetIndex = targetIndex;
         this.description = description;
         this.dateTime = dateTime;
+        this.doctorIndex = doctorIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor> lastDoctorList = model.getFilteredDoctorList();
+
+        if (lastDoctorList.size() == 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
+        }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
+        if (doctorIndex.getZeroBased() > lastDoctorList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
-        Appointment toAdd = new Appointment(description, dateTime, targetPatient);
+        Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
+        Doctor targetDoctor = lastDoctorList.get(doctorIndex.getZeroBased());
+        String name = targetDoctor.getName().toString();
+        Appointment toAdd = new Appointment(description, dateTime, targetPatient, name);
 
         if (targetPatient.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
+        if (targetDoctor.hasAppointment(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
+        }
+
         targetPatient.addAppointment(toAdd);
 
-        model.addAppointment(toAdd);
+        targetDoctor.addAppointment(toAdd);
 
+        model.addAppointment(toAdd);
+        Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
+        model.removeAvailableTimeSlot(timeslotToRemove);
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
     }
 
