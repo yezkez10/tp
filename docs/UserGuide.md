@@ -97,6 +97,11 @@ Examples:
 
 ### Adding a doctor: `add_doctor`
 
+**Note:**
+* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet
+* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time
+* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well
+
 Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
@@ -161,7 +166,7 @@ Examples:
 
 ### Deleting an appointment : `delete_appt`
 
-Deletes the appointment at the specified index of the specified patient.
+Deletes the appointment at the specified index of the appointment shown on the list.
 
 Format: `delete_appt INDEX`
 
@@ -170,6 +175,10 @@ Format: `delete_appt INDEX`
 * Acceptable values for INDEX is a single integer that is within the number of appointments
 
 ### Deleting a doctor : `delete_doctor`
+
+**Note:**
+* Make sure that the doctor you are about to delete does not have any appointments
+* This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost
 
 Deletes the specified doctor from the Clinic Records.
 
