@@ -51,7 +51,7 @@ public class DeleteAppointmentCommand extends Command {
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
         if (zeroBasedAppointmentIndex >= lastShownAppointmentList.size() || zeroBasedAppointmentIndex < 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
         // Delete appointment from model patient and doctor
