@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -146,6 +147,8 @@ public interface Model {
      * @param editedAppointment edited Appointment to replace with
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
+
+    void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace);
 
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the address book.

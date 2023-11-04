@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -258,6 +259,9 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         this.allAppointments.setAppointments(appointments);
     }
 
+    public void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+        this.allAppointments.editPersonAppointments(oldAppointments, toReplace);
+    }
     public void setDoctors(List<Doctor> doctors) {
         this.doctors.setDoctors(doctors);
     }

@@ -3,6 +3,7 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -108,6 +109,35 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.setAll(appointments);
+        internalList.sort(Comparator.comparing(Appointment::getDateTime));
+    }
+
+    /**
+     * Replaces the Person Appointments with new Appointments with newly edited Person upon editing said Person.
+     *
+     * @param oldAppointments old Appointments of the Person
+     * @param toReplace new Appointments of the Person
+     */
+    public void editPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+        requireAllNonNull(oldAppointments, toReplace);
+
+        // Create a copy of the internalList
+        List<Appointment> appointmentsList = new ArrayList<>(internalList);
+
+        // Iterate through oldAppointments and replace with toReplace at the same index
+        for (int i = 0; i < appointmentsList.size(); i++) {
+            if (oldAppointments.contains(appointmentsList.get(i))) {
+                int replaceIndex = oldAppointments.indexOf(appointmentsList.get(i));
+                if (replaceIndex < toReplace.size()) {
+                    // Replace with the corresponding appointment from toReplace
+                    appointmentsList.set(i, toReplace.get(replaceIndex));
+                }
+            }
+        }
+
+        // Clear the internalList and add all elements from the updated appointmentsList
+        internalList.clear();
+        internalList.addAll(appointmentsList);
         internalList.sort(Comparator.comparing(Appointment::getDateTime));
     }
 

@@ -68,6 +68,7 @@ public class EditAppointmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
+        System.out.println(appointmentList);
         List<Doctor> doctorList = model.getFilteredDoctorList();
 
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
