@@ -56,11 +56,9 @@ class JsonSerializableClinicAssistant {
 
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType(); // creates the person
-            System.out.println("PERSON IS NOW " + person);
 
             // creates the appointments of the person
             ArrayList<Appointment> appointments = jsonAdaptedPerson.toModelTypeAppointments(person);
-            System.out.println("HERE?");
 
             // adds the appointments to the patient
             person.setAppointments(appointments);
@@ -69,7 +67,6 @@ class JsonSerializableClinicAssistant {
             }
             clinicAssistant.addPerson(person);
 
-            System.out.println("Appointments to add " + appointments);
 
             // ADDS ENTIRE LIST TO BE APPENDED TO THE MAIN APPOINTMENT LIST.
             clinicAssistant.addAppointmentAsList(appointments);

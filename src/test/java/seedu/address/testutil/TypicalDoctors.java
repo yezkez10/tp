@@ -126,7 +126,6 @@ public class TypicalDoctors {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static ClinicAssistant getTypicalAddressBook() {
-        System.out.print("success");
         ClinicAssistant ab = new ClinicAssistant();
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
@@ -135,7 +134,6 @@ public class TypicalDoctors {
     }
 
     public static List<Doctor> getTypicalDoctors() {
-        System.out.print("success");
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

@@ -47,7 +47,6 @@ public class DeleteAppointmentCommand extends Command {
         requireNonNull(model);
         List<Appointment> lastShownAppointmentList = model.getFilteredAppointmentList();
         List<Doctor> doctorList = model.getFilteredDoctorList();
-        System.out.println(lastShownAppointmentList);
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
         if (zeroBasedAppointmentIndex >= lastShownAppointmentList.size() || zeroBasedAppointmentIndex < 0) {

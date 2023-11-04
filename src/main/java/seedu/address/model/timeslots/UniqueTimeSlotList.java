@@ -58,7 +58,6 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
      */
     public void remove(Timeslot toRemove) {
         requireNonNull(toRemove);
-        System.out.println(internalList);
         if (!internalList.remove(toRemove)) {
             throw new TimeSlotNotFoundException();
         }
