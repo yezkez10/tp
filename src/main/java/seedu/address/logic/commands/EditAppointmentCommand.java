@@ -107,6 +107,8 @@ public class EditAppointmentCommand extends Command {
         // Update appointment in patient
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToEdit);
         patient.editAppointment(appointmentIndexInPatient, editedAppointment);
+        // update appointment in Doctor
+        targetDoctor.editAppointment(appointmentToEdit, editedAppointment);
         // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
         if (!(model.getAvailableTimeSlotList().size() == 0)) {
             Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),

@@ -47,6 +47,7 @@ public class DeleteAppointmentCommand extends Command {
         requireNonNull(model);
         List<Appointment> lastShownAppointmentList = model.getFilteredAppointmentList();
         List<Doctor> doctorList = model.getFilteredDoctorList();
+        System.out.println(lastShownAppointmentList);
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
         if (zeroBasedAppointmentIndex >= lastShownAppointmentList.size() || zeroBasedAppointmentIndex < 0) {
@@ -55,13 +56,23 @@ public class DeleteAppointmentCommand extends Command {
 
         // Delete appointment from model patient and doctor
         Appointment appointmentToDelete = lastShownAppointmentList.get(zeroBasedAppointmentIndex);
+        System.out.println("1");
         Person patient = appointmentToDelete.getPerson();
+        System.out.println("2");
         Doctor targetDoctor = getDoctor(doctorList, new Name(appointmentToDelete.getName()));
+        System.out.println("3");
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToDelete);
+        System.out.println("4");
         int appointmentIndexInDoctor = targetDoctor.getAppointments().indexOf(appointmentToDelete);
+        System.out.println("5");
+        System.out.println("appt index of doctor is" + appointmentIndexInDoctor);
+        System.out.println("doctors appointments " + targetDoctor.getAppointments());
         targetDoctor.deleteAppointment(appointmentIndexInDoctor);
+        System.out.println("6");
         patient.deleteAppointment(appointmentIndexInPatient);
+        System.out.println("7");
         model.deleteAppointment(appointmentToDelete);
+        System.out.println("8");
         //adding available timeslot back to list
         Timeslot timeslotToAdd = new Timeslot(appointmentToDelete.getDateTime().toLocalDate(),
                 appointmentToDelete.getDateTime().getHour());

@@ -186,10 +186,11 @@ public class Doctor {
 
     /**
      * Edits the appointment at the input index with the updated Appointment
-     * @param index Index of the appointment to edit
-     * @param updatedAppointment the updated Appointment
+     * @param old the old Appointment to replace
+     * @param editedAppointment the updated Appointment
      */
-    public void editAppointment(int index, Appointment updatedAppointment) {
-        this.appointments.set(index, updatedAppointment);
+    public void editAppointment(Appointment old, Appointment editedAppointment) {
+        int index = appointments.indexOf(old);
+        appointments.set(index, editedAppointment);
     }
 }
