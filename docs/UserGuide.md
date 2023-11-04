@@ -150,6 +150,8 @@ Format: `edit_appt [/d DESCRIPTION] [/on DATETIME]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
+**Note** Currently does **not** support editing of Doctors, planned for future implementations
+
 Examples:
 * `edit_appt 1 /d changed to x-ray scan` edits the description of the appointment of 1st appointment.
 * `edit_appt 2 /on 05-02-2024 12:00` edits the date of the 2nd appointment to be on 05-02-2024 12:00.
