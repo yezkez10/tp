@@ -18,7 +18,8 @@ import seedu.address.model.person.Person;
 public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
-    public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm";
+    public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm " +
+            "and must be set to a time after the CURRENT time";
     /*
      * description must be alphanumeric
      */

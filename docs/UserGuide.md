@@ -109,6 +109,7 @@ Format: `appt /for INDEX /doc INDEX /d DESCRIPTION /on DATETIME`
 * Doctor index must be valid, i.e. there must also be a doctor added first before an Appointment can be made
 * Upcoming date of this new appointment must be included.
 * `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
+* `DATETIME` must be a date after the **current** time
 * An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
