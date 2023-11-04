@@ -36,7 +36,7 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
    * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
    
-   * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
+   * `appt /for 1 /doc 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified Doctor index, description and time to the patient identified with `INDEX` 1 in the list.
 
    * `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
 
