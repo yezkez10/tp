@@ -4,6 +4,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
@@ -18,8 +19,9 @@ import seedu.address.model.person.Person;
 public class Appointment {
 
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
-    public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm "
-            + "and must be set to a time after the CURRENT time";
+    public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm format.\n"
+            + "Date & time must be after the current time.\n"
+            + "Time of appointment must be on the hour, between 9 AM and 5 PM.";
     /*
      * description must be alphanumeric
      */
@@ -63,15 +65,19 @@ public class Appointment {
      * Returns true if a given LocalDateTime is a valid date and time (must be in the future) for an appointment.
      */
     public static boolean isValidDateTime(String test) {
-        // Define the format that the string should adhere to
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         try {
-            // Attempt to parse the string into a LocalDateTime using the specified format
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             LocalDateTime parsedDateTime = LocalDateTime.parse(test, formatter);
-            LocalDateTime currentDateTime = LocalDateTime.now(); // Get the current date and time
-            return parsedDateTime.isAfter(currentDateTime);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+
+            LocalTime startTime = LocalTime.of(9, 0);
+            LocalTime endTime = LocalTime.of(17, 0);
+
+            return parsedDateTime.isAfter(currentDateTime)
+                    && parsedDateTime.toLocalTime().isAfter(startTime)
+                    && parsedDateTime.toLocalTime().isBefore(endTime)
+                    && parsedDateTime.getMinute() == 0; // Ensure it's on the hour
         } catch (DateTimeParseException e) {
-            // Parsing failed, so the string is not in the correct format
             return false;
         }
     }
