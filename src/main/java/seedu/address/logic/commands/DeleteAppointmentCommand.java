@@ -67,8 +67,8 @@ public class DeleteAppointmentCommand extends Command {
                 appointmentToDelete.getDateTime().getHour());
         model.addAvailableTimeSlot(timeslotToAdd);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete,
-                Messages.format(patient)));
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
+                Messages.formatAppointment(appointmentToDelete), Messages.format(patient)));
     }
 
     public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {

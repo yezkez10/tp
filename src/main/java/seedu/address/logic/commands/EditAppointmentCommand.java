@@ -41,7 +41,7 @@ public class EditAppointmentCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 00:00";
 
-    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited Appointment %1$s of %2$s";
+    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited Appointment: %1$s of %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided: "
             + "[" + PREFIX_DESCRIPTION + "]"
             + "[" + PREFIX_DATE + "]\n"
@@ -101,7 +101,7 @@ public class EditAppointmentCommand extends Command {
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                editedAppointment, Messages.format(patient)));
+                Messages.formatAppointment(editedAppointment), Messages.format(patient)));
     }
 
     /**
