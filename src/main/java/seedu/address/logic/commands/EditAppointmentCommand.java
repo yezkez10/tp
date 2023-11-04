@@ -39,7 +39,7 @@ public class EditAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[APPOINTMENT INDEX]"
             + "[" + PREFIX_DESCRIPTION + "]"
-            + "[" + PREFIX_DATE + "]...\n"
+            + "[" + PREFIX_DATE + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 00:00";
 
