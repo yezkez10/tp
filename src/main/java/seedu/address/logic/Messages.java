@@ -93,19 +93,16 @@ public class Messages {
     }
     /**
      * Formats the {@code address of the patient} for display to the user.
-     * @param person Patient we are interested in
      * @param appointment Appointment of the patient
      * @return
      */
-    public static String formatAppointment(Person person, Appointment appointment) {
+    public static String formatAppointment(Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nPatient: ")
-                .append(person.getName())
-                .append("\n")
-                .append("Description: ")
+        builder.append(" Patient: ")
+                .append(appointment.getPatientName())
+                .append(" | Description: ")
                 .append(appointment.getDescription())
-                .append("\n")
-                .append("Date: ")
+                .append(" | Date: ")
                 .append(appointment.getDateTime());
         return builder.toString();
     }
