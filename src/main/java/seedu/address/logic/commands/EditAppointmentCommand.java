@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR;
+import static seedu.address.logic.commands.AddAppointmentCommand.MESSAGE_SAME_APPOINTMENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPTS;
@@ -82,8 +84,24 @@ public class EditAppointmentCommand extends Command {
         Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor,
                 patient, targetDoctor.getName().toString());
 
+        // if you are editing JUST time
+        if (patient.hasAppointmentOnTimeslot(editedAppointment)
+                && editAppointmentDescriptor.getDescription().isEmpty()) {
+            throw new CommandException(MESSAGE_SAME_APPOINTMENT_TIME);
+        }
+
         if (appointmentToEdit.isSameAppointment(editedAppointment) && model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+
+        // JUST editing time of appointment
+        if (targetDoctor.hasAppointment(editedAppointment) && editAppointmentDescriptor.getDescription().isEmpty()) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
+        }
+
+        if (!editAppointmentDescriptor.getDescription().isEmpty() && targetDoctor.hasAppointment(editedAppointment)
+                && !editAppointmentDescriptor.getDateTime().isEmpty()) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
         }
 
         // Update appointment in patient
