@@ -85,20 +85,6 @@ Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic 
 Examples:
 * `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi /t allergic to pollen`
 
-### Adding an appointment: `appt`
-
-Adds a new appointment for a specific patient at index.
-
-Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
-
-**Note:**
-* Upcoming date of this new appointment must be included.
-* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
-* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
-
-Examples:
-* `appt /for 6 /d Blood test /on 01-01-2024 12:00`
-
 ### Adding a doctor: `add_doctor`
 
 **Note:**
@@ -112,6 +98,21 @@ Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRE
 
 Examples:
 * `add_doctor /n Dr. Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+
+### Adding an appointment: `appt`
+
+Adds a new appointment for a specific patient at index.
+
+Format: `appt /for INDEX /doc INDEX /d DESCRIPTION /on DATETIME`
+
+**Note:**
+* Doctor index must be valid, i.e. there must also be a doctor added first before an Appointment can be made
+* Upcoming date of this new appointment must be included.
+* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
+* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
+
+Examples:
+* `appt /for 6 /doc 1 /d Blood test /on 01-01-2024 12:00`
 
 ### Listing all patients : `list`
 
