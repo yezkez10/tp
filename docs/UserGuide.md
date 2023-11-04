@@ -146,7 +146,7 @@ Examples:
 
 Edits an existing appointment from the Clinic Records.
 
-Format: `edit_appt [/d DESCRIPTION] [/on DATETIME]`
+Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATETIME]`
 
 * Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
