@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_DATE_DOES_NOT_EXIST;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.ParserUtil.isValidDateOnCalendar;
 
@@ -50,6 +51,11 @@ public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> 
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ViewAvailableCommand.MESSAGE_USAGE));
             }
+            //check if dd/MM/yyyy
+            if (dateStr.contains("/")) {
+                throw new ParseException(String.format(MESSAGE_INVALID_DATE, ViewAvailableCommand.MESSAGE_USAGE));
+            }
+
             //passes as long as it is a valid date on calender
             //02-01-2024 18:00 will pass but will be caught later
             if (!isValidDateOnCalendar(dateStr)) {

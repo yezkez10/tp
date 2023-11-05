@@ -80,7 +80,7 @@ public class ViewAvailableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindAppointmentsCommand)) {
+        if (!(other instanceof ViewAvailableCommand)) {
             return false;
         }
         ViewAvailableCommand otherViewCommand = (ViewAvailableCommand) other;
