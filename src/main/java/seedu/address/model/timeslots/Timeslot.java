@@ -29,7 +29,7 @@ public class Timeslot {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("date", this.date)
-                .add("time", this.hour)
+                .add("hour", this.hour)
                 .toString();
     }
 

@@ -39,6 +39,11 @@ public class TimeslotBuilder {
         return this;
     }
 
+    public TimeslotBuilder withDate(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Timeslot} that we are building.
      */
