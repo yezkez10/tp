@@ -14,6 +14,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.timeslots.Timeslot;
 import seedu.address.model.timeslots.UniqueTimeslotList;
+import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 
 /**
  * Wraps all data at the address-book level
@@ -205,7 +206,9 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
      * @param timeslot Timeslot instance to be added
      */
     public void addAvailableTimeSlot(Timeslot timeslot) {
-        allTimeSlots.add(timeslot);
+        if (!allTimeSlots.contains(timeslot)) {
+            allTimeSlots.add(timeslot);
+        }
     }
 
     /**

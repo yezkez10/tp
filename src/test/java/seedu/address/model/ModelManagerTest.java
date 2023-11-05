@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.timeslots.Timeslot;
+import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalTimeslots;
@@ -99,6 +100,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addDuplicateTimeSlot_failure() {
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+        modelManager.addAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
+        modelManager.addAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 1);
+    }
+
+    @Test
+    public void addNullTimeSlot_failure() {
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+        assertThrows(NullPointerException.class, () -> modelManager.addAvailableTimeSlot(null));
+    }
+
+    @Test
     public void removeAvailableTimeSlot_success() {
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
@@ -108,11 +123,19 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void removeAvailableTimeSlot_failure() {
+    public void removeNotFoundAvailableTimeSlot_failure() {
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
         assertThrows(TimeSlotNotFoundException.class,
                 () -> modelManager.removeAvailableTimeSlot(TypicalTimeslots.TIMESLOT_TWO));
+    }
+
+    @Test
+    public void removeNullAvailableTimeSlot_failure() {
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+        modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
+        assertThrows(NullPointerException.class,
+                () -> modelManager.removeAvailableTimeSlot(null));
     }
 
     @Test
