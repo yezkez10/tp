@@ -16,7 +16,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.timeslots.Timeslot;
+import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TypicalTimeslots;
 
 public class ModelManagerTest {
 
@@ -86,6 +89,30 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void addAvailableTimeSlot_success() {
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+        modelManager.addAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 1);
+    }
+
+    @Test
+    public void removeAvailableTimeSlot_success() {
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+        modelManager.addAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 1);
+        modelManager.removeAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+    }
+
+    @Test
+    public void removeAvailableTimeSlot_failure() {
+        assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
+        modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
+        assertThrows(TimeSlotNotFoundException.class,
+                () -> modelManager.removeAvailableTimeSlot(TypicalTimeslots.TIMESLOT_TWO));
     }
 
     @Test

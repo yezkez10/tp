@@ -36,8 +36,8 @@ public class TypicalTimeslots {
 
     private TypicalTimeslots() {} // prevents instantiation
 
-//    public static ArrayList<Person> getTypicalAppointments() {
-//        return new ArrayList<>(Arrays.asList(ALICE_WITH_APPOINTMENT, BENSON_WITH_APPOINTMENT, CARL_WITH_APPOINTMENT,
-//                DANIEL_WITH_APPOINTMENT, ELLE_WITH_APPOINTMENT, FIONA_WITH_APPOINTMENT, GEORGE_WITH_APPOINTMENT));
-//    }
+    public static ArrayList<Timeslot> getTypicalTimeslots() {
+        return new ArrayList<>(Arrays.asList(DEFAULT_TIMESLOT, TIMESLOT_ONE, TIMESLOT_TWO,
+                TIMESLOT_THREE, TIMESLOT_FOUR));
+    }
 }

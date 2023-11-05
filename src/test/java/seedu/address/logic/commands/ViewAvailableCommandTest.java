@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalTimeslots.DEFAULT_TIMESLOT;
 import static seedu.address.testutil.TypicalTimeslots.TIMESLOT_TWO;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Predicate;
@@ -28,6 +29,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 import seedu.address.testutil.TypicalTimeslots;
 
+import javax.swing.text.DateFormatter;
 import javax.swing.text.View;
 
 /**
@@ -45,7 +47,7 @@ public class ViewAvailableCommandTest {
         OnDateTimeSlotPredicate timeslotPredicate =
                 new OnDateTimeSlotPredicate(DEFAULT_DATE);
 
-        LocalDate DATE_TWO =TIMESLOT_TWO.getDate();
+        LocalDate DATE_TWO = TIMESLOT_TWO.getDate();
         OnDateTimeApptPredicate appointmentPredicateTwo =
                 new OnDateTimeApptPredicate(DATE_TWO);
         OnDateTimeSlotPredicate timeslotPredicateTwo =
@@ -86,7 +88,7 @@ public class ViewAvailableCommandTest {
 //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
 //        assertEquals(Collections.emptyList(), model.getFilteredAppointmentList());
 //    }
-//
+
     @Test
     public void toStringMethod() {
         LocalDate DEFAULT_DATE = DEFAULT_TIMESLOT.getDate();
@@ -115,9 +117,10 @@ public class ViewAvailableCommandTest {
 //    }
 
 //    @Test
-//    public void execute_dateSearch_appointmentsFound() {
+//    public void execute_date_TimeslotsFound() {
+//        LocalDate date = prepareDate(DEFAULT_DATE);
 //        String expectedMessage = String.format(MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW,
-//                DEFAULT_DATE, DEFAULT_DATE, DEFAULT_DATE);
+//                date, date, date);
 //        OnDateTimeSlotPredicate datePredicate = preparePredicate(DEFAULT_DATE);
 //        OnDateTimeApptPredicate apptPredicate = new OnDateTimeApptPredicate(prepareDate(DEFAULT_DATE));
 //        ViewAvailableCommand command = new ViewAvailableCommand(datePredicate,
@@ -125,19 +128,21 @@ public class ViewAvailableCommandTest {
 //        expectedModel.updateFilteredAvailableTimeslot(datePredicate);
 //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
 //
-//        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment()),
-//                model.getFilteredTimeslotsList());
+////        assertEquals(Arrays.asList(ALICE_WITH_APPOINTMENT.firstAppointment()),
+////                model.getFilteredTimeslotsList());
 //    }
 
     /**
      * Parses {@code userInput} into a {@code OnDateTimeSlotPredicate}.
      */
     private OnDateTimeSlotPredicate preparePredicate(String userInput) {
-        LocalDate date = LocalDate.parse(userInput);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(userInput, formatter);
         return new OnDateTimeSlotPredicate(date);
     }
 
     private LocalDate prepareDate (String date) {
-        return LocalDate.parse(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(date, formatter);
     }
 }
