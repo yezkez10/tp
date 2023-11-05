@@ -24,7 +24,7 @@ public class OnDateTimeSlotPredicate implements Predicate<Timeslot> {
 
     @Override
     public boolean test(Timeslot timeslot) {
-        return timeslot.getDate().equals(this.date);
+        return this.date.equals(timeslot.getDate());
     }
 
     /**
