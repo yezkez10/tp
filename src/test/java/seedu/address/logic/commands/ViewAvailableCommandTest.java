@@ -23,7 +23,7 @@ import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 
 /**
- * Contains unit tests for {@code ViewAvailableCommand}.
+ * Contains unit and integration tests for {@code ViewAvailableCommand}.
  */
 public class ViewAvailableCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -66,7 +66,7 @@ public class ViewAvailableCommandTest {
         assertFalse(firstViewCommand.equals(secondViewCommand));
     }
 
-    @Test
+    @Test//Integration
     public void populateUnavailableTimeslotTest_success() {
         LocalDate date = prepareDate("05-02-2024");
         OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
@@ -83,8 +83,8 @@ public class ViewAvailableCommandTest {
         assertEquals(setExpected, setResult);
     }
 
-    @Test
-    public void addAvailableTimeslotsEmptySet_success() {
+    @Test//Integration
+    public void addAvailableTimeslotsEmptySet_success() {//Heuristic: Equivalence Partition: EmptySet/valid set
         LocalDate date = prepareDate("05-02-2024");
         OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
         OnDateTimeApptPredicate appointmentPredicate = new OnDateTimeApptPredicate(date);
@@ -95,7 +95,7 @@ public class ViewAvailableCommandTest {
         assertEquals(sizeExpected, model.getAvailableTimeSlotList().size());
     }
 
-    @Test
+    @Test//Integration
     public void addAvailableTimeslotsToModel_success() {
         LocalDate date = prepareDate("05-02-2024");
         OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
@@ -120,15 +120,6 @@ public class ViewAvailableCommandTest {
                 appointmentPredicate, defaultDate);
         String expected = ViewAvailableCommand.class.getCanonicalName() + "{predicate=" + timeslotPredicate + "}";
         assertEquals(expected, viewAvailableCommand.toString());
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code OnDateTimeSlotPredicate}.
-     */
-    private OnDateTimeSlotPredicate preparePredicate(String userInput) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate date = LocalDate.parse(userInput, formatter);
-        return new OnDateTimeSlotPredicate(date);
     }
 
     private LocalDate prepareDate(String date) {

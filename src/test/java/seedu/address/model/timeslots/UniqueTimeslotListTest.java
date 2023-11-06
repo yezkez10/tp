@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 import seedu.address.testutil.TypicalTimeslots;
 
+/**
+ * Contains unit and integration tests for {@code UniqueTimeslotList}.
+ */
 public class UniqueTimeslotListTest {
     @Test
     public void equal() {
