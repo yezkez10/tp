@@ -24,7 +24,7 @@ public class GenderTest {
         // null gender
         assertThrows(NullPointerException.class, () -> Gender.isValidGender(null));
 
-        // invalid genders
+        // invalid genders : Heuristic = Equivalence Partitioning: empty/whitespace/invalid/numbers/special characters
         assertFalse(Gender.isValidGender("m")); //lower case input
         assertFalse(Gender.isValidGender("")); // empty string
         assertFalse(Gender.isValidGender("     ")); // spaces only

@@ -19,7 +19,7 @@ import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code ViewAvailableCommand}.
+ * Contains unit tests for {@code ViewAvailableCommand}.
  */
 public class ViewAvailableCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());

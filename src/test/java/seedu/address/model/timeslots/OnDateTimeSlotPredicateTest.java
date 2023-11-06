@@ -13,7 +13,7 @@ import seedu.address.testutil.TypicalTimeslots;
 
 public class OnDateTimeSlotPredicateTest {
     private LocalDate defaultDate = TypicalTimeslots.DEFAULT_TIMESLOT.getDate();
-
+    //Heuristics: Equivalence Partition : DATE can be null/same date/different date
     @Test
     public void createPredicateNullFailure() {
         assertThrows(NullPointerException.class, () -> new OnDateTimeSlotPredicate(null));

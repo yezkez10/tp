@@ -89,7 +89,7 @@ public class ModelManagerTest {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
-
+    //Heuristic: equivalence partitioning: null/valid/duplicate timeslots
     @Test
     public void addAvailableTimeSlot_success() {
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
@@ -110,9 +110,9 @@ public class ModelManagerTest {
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         assertThrows(NullPointerException.class, () -> modelManager.addAvailableTimeSlot(null));
     }
-
+    ///Heuristic: equivalence partitioning: null/valid/non existing timeslots
     @Test
-    public void removeAvailableTimeSlot_success() {
+    public void removeAvailableTimeSlot_success() { //valid
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.DEFAULT_TIMESLOT);
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 1);
@@ -121,7 +121,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void removeNotFoundAvailableTimeSlot_failure() {
+    public void removeNotFoundAvailableTimeSlot_failure() { //non existing
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
         assertThrows(TimeSlotNotFoundException.class, () ->
@@ -129,7 +129,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void removeNullAvailableTimeSlot_failure() {
+    public void removeNullAvailableTimeSlot_failure() { //null
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
         assertThrows(NullPointerException.class, () ->

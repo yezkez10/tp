@@ -21,21 +21,22 @@ public class ViewAvailableCommandParserTest {
 
     private ViewAvailableCommandParser parser = new ViewAvailableCommandParser();
 
+    //Heuristic: Equivalence partitioning of String = whitespaces/empty/invalid/alphabet/numbers/mix inputs
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
+        assertParseFailure(parser, "     ", //whitespaces
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAvailableCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_emptyString_throwsParseException() {
-        assertParseFailure(parser, "",
+        assertParseFailure(parser, "", //empty
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAvailableCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_emptyDate_throwsParseException() {
-        assertParseFailure(parser, "view /on ",
+        assertParseFailure(parser, "view /on ", //invalid
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewAvailableCommand.MESSAGE_USAGE));
     }
 

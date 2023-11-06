@@ -16,7 +16,7 @@ public class AgeTest {
     public void constructor_impossibleAge_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Age(151));
     }
-
+    //Heuristic: Boundary value analysis: -1, 0, 1, 149, 150, 151
     @Test
     public void isValidAge() {
         // invalid age
@@ -25,6 +25,8 @@ public class AgeTest {
 
         assertTrue(Age.isValidAge(0));
         assertTrue(Age.isValidAge(1));
+        assertTrue(Age.isValidAge(149));
+        assertTrue(Age.isValidAge(150));
     }
 
     @Test
