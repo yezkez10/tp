@@ -74,19 +74,6 @@ public class UniqueTimeslotList implements Iterable<Timeslot> {
     }
 
     /**
-     * Replaces the contents of this list with {@code timeslot}.
-     * {@code timeslot} must not contain duplicate Timeslot.
-     */
-    public void setTimeslots(List<Timeslot> timeSlotsList) {
-        requireAllNonNull(timeSlotsList);
-        if (!timeSlotsAreUnique(timeSlotsList)) {
-            throw new DuplicateTimeslotException();
-        }
-
-        internalList.setAll(timeSlotsList);
-    }
-
-    /**
      * Adds to the contents of this list with {@code timeslot}.
      * {@code timeslot} must not contain duplicate Timeslot.
      */
@@ -107,10 +94,11 @@ public class UniqueTimeslotList implements Iterable<Timeslot> {
     }
 
     public void setTimeslotsList(List<Timeslot> timeslotsList) {
-        requireNonNull(timeslotsList);
+        requireAllNonNull(timeslotsList);
         if (!timeSlotsAreUnique(timeslotsList)) {
             throw new DuplicateTimeslotException();
         }
+        internalList.setAll(timeslotsList);
     }
 
     @Override

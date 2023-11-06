@@ -14,7 +14,7 @@ public class TypicalTimeslots {
             .withHour(TimeslotBuilder.DEFAULT_HOUR).build();
     public static final Timeslot TIMESLOT_ONE = new TimeslotBuilder()
             .withDate("02-01-2024")
-            .withHour(15).build();
+            .withHour(14).build();
     public static final Timeslot TIMESLOT_TWO = new TimeslotBuilder()
             .withDate("31-01-2024")
             .withHour(1).build();

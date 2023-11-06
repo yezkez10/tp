@@ -9,12 +9,16 @@ import static seedu.address.testutil.TypicalTimeslots.TIMESLOT_TWO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 
@@ -60,6 +64,49 @@ public class ViewAvailableCommandTest {
 
         // different person -> returns false
         assertFalse(firstViewCommand.equals(secondViewCommand));
+    }
+
+    @Test
+    public void populateUnavailableTimeslotTest_success() {
+        LocalDate date = prepareDate("05-02-2024");
+        OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
+        OnDateTimeApptPredicate apptPredicate = new OnDateTimeApptPredicate(date);
+        ViewAvailableCommand viewAvailableCommand = new ViewAvailableCommand(predicate, apptPredicate, date);
+        ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList();
+        Set<Integer> setResult = viewAvailableCommand.populateUnavailableTimeslot(appointmentList);
+        Set<Integer> setExpected = new HashSet<>();
+        for (Appointment appt: appointmentList) {
+            if (appt.getDateTime().toLocalDate().equals(date)) {
+                setExpected.add(appt.getDateTime().getHour());
+            }
+        }
+        assertEquals(setExpected, setResult);
+    }
+
+    @Test
+    public void addAvailableTimeslotsEmptySet_success() {
+        LocalDate date = prepareDate("05-02-2024");
+        OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
+        OnDateTimeApptPredicate appointmentPredicate = new OnDateTimeApptPredicate(date);
+        ViewAvailableCommand viewAvailableCommand = new ViewAvailableCommand(predicate, appointmentPredicate, date);
+        //total = 9 timeslots for the day
+        int sizeExpected = 9;
+        viewAvailableCommand.addAvailableTimeslotsToModel(new HashSet<>(), model);
+        assertEquals(sizeExpected, model.getAvailableTimeSlotList().size());
+    }
+
+    @Test
+    public void addAvailableTimeslotsToModel_success() {
+        LocalDate date = prepareDate("05-02-2024");
+        OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
+        OnDateTimeApptPredicate appointmentPredicate = new OnDateTimeApptPredicate(date);
+        ViewAvailableCommand viewAvailableCommand = new ViewAvailableCommand(predicate, appointmentPredicate, date);
+        ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList();
+        Set<Integer> unavailableTimeslot = viewAvailableCommand.populateUnavailableTimeslot(appointmentList);
+        //total = 9 timeslots for the day
+        int sizeExpected = 9 - unavailableTimeslot.size();
+        viewAvailableCommand.addAvailableTimeslotsToModel(unavailableTimeslot, model);
+        assertEquals(sizeExpected, model.getAvailableTimeSlotList().size());
     }
 
     @Test

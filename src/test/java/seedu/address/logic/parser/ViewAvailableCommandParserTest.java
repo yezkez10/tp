@@ -79,6 +79,13 @@ public class ViewAvailableCommandParserTest {
     }
 
     @Test
+    public void parse_withDateTime_throwsParseException() { //dateTime
+        assertParseFailure(parser, "view /on 02-02-2023 18:00",
+                MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
+                        + ViewAvailableCommand.MESSAGE_USAGE);
+    }
+
+    @Test
     public void parse_validArgs_returnsViewAvailableCommand() {
         LocalDate defaultDate = DEFAULT_TIMESLOT.getDate();
         OnDateTimeSlotPredicate timeslotPredicate = new OnDateTimeSlotPredicate(defaultDate);
