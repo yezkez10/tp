@@ -1,17 +1,21 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_DATE_DOES_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_DATE_TOO_SHORT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalTimeslots.DEFAULT_TIMESLOT;
+
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.ViewAvailableCommand;
 import seedu.address.model.appointment.OnDateTimeApptPredicate;
 import seedu.address.model.timeslots.OnDateTimeSlotPredicate;
 import seedu.address.testutil.TimeslotBuilder;
-
-import java.time.LocalDate;
-
-import static seedu.address.logic.Messages.*;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalTimeslots.DEFAULT_TIMESLOT;
 
 public class ViewAvailableCommandParserTest {
 
@@ -75,12 +79,12 @@ public class ViewAvailableCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsViewAvailableCommand() {
-        LocalDate DEFAULT_DATE = DEFAULT_TIMESLOT.getDate();
-        OnDateTimeSlotPredicate timeslotPredicate = new OnDateTimeSlotPredicate(DEFAULT_DATE);
-        OnDateTimeApptPredicate apptPredicate = new OnDateTimeApptPredicate(DEFAULT_DATE);
+        LocalDate defaultDate = DEFAULT_TIMESLOT.getDate();
+        OnDateTimeSlotPredicate timeslotPredicate = new OnDateTimeSlotPredicate(defaultDate);
+        OnDateTimeApptPredicate apptPredicate = new OnDateTimeApptPredicate(defaultDate);
 
         ViewAvailableCommand expectedViewAvailableCommand =
-                  new ViewAvailableCommand(timeslotPredicate, apptPredicate, DEFAULT_DATE);
+                  new ViewAvailableCommand(timeslotPredicate, apptPredicate, defaultDate);
 
         // no whitespaces in between
         assertParseSuccess(parser, "view /on " + TimeslotBuilder.DEFAULT_DATE, expectedViewAvailableCommand);

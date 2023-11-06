@@ -1,11 +1,11 @@
 package seedu.address.model.timeslots;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Tests that an {@code Timeslot}'s {@code Date} matches the Date given.

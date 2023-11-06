@@ -3,26 +3,17 @@ package seedu.address.model.timeslots;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TimeslotBuilder;
 import seedu.address.testutil.TypicalTimeslots;
 
 public class TimeslotTest {
 
     @Test
-    public void createTimeslot_NULL_DATE_FAILURE() {
+    public void createTimeslotNullFailure() { //Heuristic: Boundary value analysis: date can be null
         assertThrows(NullPointerException.class, () -> new Timeslot(null, 3));
     }
 
@@ -36,19 +27,19 @@ public class TimeslotTest {
         assertFalse(timeslotToTest.isSameTimeSlot(null));
 
         // date and hours same -> returns true
-        Timeslot TIMESLOT_TWO = new TimeslotBuilder()
+        Timeslot timeslotTwo = new TimeslotBuilder()
                 .withDate(timeslotToTest.getDate()).withHour(timeslotToTest.getHour()).build();
-        assertTrue(timeslotToTest.isSameTimeSlot(TIMESLOT_TWO));
+        assertTrue(timeslotToTest.isSameTimeSlot(timeslotTwo));
 
         // different date, same hour -> returns false
-        Timeslot TIMESLOT_THREE = new TimeslotBuilder()
+        Timeslot timeslotThree = new TimeslotBuilder() //Heuristic: 1 invalid input in 1 test case
                 .withDate(TypicalTimeslots.TIMESLOT_THREE.getDate()).withHour(timeslotToTest.getHour()).build();
-        assertFalse(timeslotToTest.isSameTimeSlot(TIMESLOT_THREE));
+        assertFalse(timeslotToTest.isSameTimeSlot(timeslotThree));
 
-        // same date different hour -> returns false
-        Timeslot TIMESLOT_FOUR = new TimeslotBuilder()
+        // same date different hour -> returns false //Heuristic: 1 invalid input in 1 test case
+        Timeslot timeslotFour = new TimeslotBuilder()
                 .withDate(timeslotToTest.getDate()).withHour(TypicalTimeslots.TIMESLOT_FOUR.getHour()).build();
-        assertFalse(timeslotToTest.isSameTimeSlot(TIMESLOT_FOUR));
+        assertFalse(timeslotToTest.isSameTimeSlot(timeslotFour));
     }
 
     @Test
@@ -84,8 +75,8 @@ public class TimeslotTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Timeslot.class.getCanonicalName() + "{date=" + TypicalTimeslots.DEFAULT_TIMESLOT.getDate() +
-                ", hour=" + TypicalTimeslots.DEFAULT_TIMESLOT.getHour() + "}";
+        String expected = Timeslot.class.getCanonicalName() + "{date=" + TypicalTimeslots.DEFAULT_TIMESLOT.getDate()
+                + ", hour=" + TypicalTimeslots.DEFAULT_TIMESLOT.getHour() + "}";
         assertEquals(expected, TypicalTimeslots.DEFAULT_TIMESLOT.toString());
     }
 }

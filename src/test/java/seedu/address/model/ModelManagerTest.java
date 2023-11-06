@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.timeslots.Timeslot;
-import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalTimeslots;
@@ -126,16 +124,16 @@ public class ModelManagerTest {
     public void removeNotFoundAvailableTimeSlot_failure() {
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
-        assertThrows(TimeSlotNotFoundException.class,
-                () -> modelManager.removeAvailableTimeSlot(TypicalTimeslots.TIMESLOT_TWO));
+        assertThrows(TimeSlotNotFoundException.class, () ->
+                modelManager.removeAvailableTimeSlot(TypicalTimeslots.TIMESLOT_TWO));
     }
 
     @Test
     public void removeNullAvailableTimeSlot_failure() {
         assertTrue(modelManager.getAvailableTimeSlotList().size() == 0);
         modelManager.addAvailableTimeSlot(TypicalTimeslots.TIMESLOT_ONE);
-        assertThrows(NullPointerException.class,
-                () -> modelManager.removeAvailableTimeSlot(null));
+        assertThrows(NullPointerException.class, () ->
+                modelManager.removeAvailableTimeSlot(null));
     }
 
     @Test

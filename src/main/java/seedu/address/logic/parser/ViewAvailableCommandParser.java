@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_DATE_DOES_NOT_EXIST;
+import static seedu.address.logic.Messages.MESSAGE_DATE_TOO_SHORT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE;
-import static seedu.address.logic.Messages.MESSAGE_DATE_TOO_SHORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.ParserUtil.isValidDateOnCalendar;
 

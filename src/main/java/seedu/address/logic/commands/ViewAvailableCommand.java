@@ -26,7 +26,7 @@ public class ViewAvailableCommand extends Command {
             + ": Displays all the available timeslot on given DATE.\n"
             + "Parameters: DATE (must be given in dd-MM-yyyy exactly).\n"
             + "Example: " + COMMAND_WORD + " /on 01-02-2024";
-    public static Logger logger = Logger.getLogger("ViewAvailableCommandLogger");
+    private static Logger logger = Logger.getLogger("ViewAvailableCommandLogger");
     private Predicate<Timeslot> predicate;
     private Predicate<Appointment> apptPredicate;
     private LocalDate dateEntered;
@@ -68,6 +68,11 @@ public class ViewAvailableCommand extends Command {
                 dateEntered, dateEntered, dateEntered));
     }
 
+    /**
+     * Adds unavailable timeslots to the empty hashset based on present appointments
+     * @param appointmentList ObservableList of all appointments already made
+     * @return Set of Integer of unavailable timings
+     */
     public Set<Integer> populateUnavailableTimeslot(ObservableList<Appointment> appointmentList) {
         Set<Integer> unavailableTimeslots = new HashSet<>();
         for (int i = 0; i < appointmentList.size(); i++) {
@@ -78,6 +83,11 @@ public class ViewAvailableCommand extends Command {
         return unavailableTimeslots;
     }
 
+    /**
+     * Adds available timeslots to the model
+     * @param unavailableTimeslots Set of unavailable timings from previous method
+     * @param model Current model we have
+     */
     public void addAvailableTimeslotsToModel(Set<Integer> unavailableTimeslots, Model model) {
         for (int i = 9; i < 18; i++) {
             if (unavailableTimeslots.contains(i)) {

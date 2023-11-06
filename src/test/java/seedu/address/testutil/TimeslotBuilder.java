@@ -39,6 +39,11 @@ public class TimeslotBuilder {
         return this;
     }
 
+    /**
+     * Sets the date of this instance
+     * @param date of this instance we want to set to
+     * @return this TimeslotBuilder instance
+     */
     public TimeslotBuilder withDate(LocalDate date) {
         this.date = date;
         return this;
