@@ -110,6 +110,7 @@ Format: `appt /for INDEX /doc INDEX /d DESCRIPTION /on DATETIME`
 * Upcoming date of this new appointment must be included.
 * `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
 * `DATETIME` must be a date after the **current** time
+* There can only be 1 appointment per timeslot, regardless of which doctor the appointment is associated to. i.e. 2 doctors cannot have appointments on the same timeslot. This is a known issue and is included in our future implementations
 * An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
