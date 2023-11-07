@@ -115,7 +115,12 @@ public class ParserUtil {
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
         String trimmedAge = age.trim();
-        int ageInt = Integer.parseInt(trimmedAge);
+        int ageInt;
+        try {
+            ageInt = Integer.parseInt(trimmedAge);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Messages.MESSAGE_AGE_SHOULD_BE_INTEGER);
+        }
         if (!Age.isValidAge(ageInt)) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
