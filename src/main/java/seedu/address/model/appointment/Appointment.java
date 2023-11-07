@@ -21,7 +21,7 @@ public class Appointment {
     public static final String MESSAGE_CONSTRAINTS = "Description must not be empty, Date must be in dd-MM-yyyy HH:mm";
     public static final String MESSAGE_INVALID_DATE_TIME = "Date must be in dd-MM-yyyy HH:mm format.\n"
             + "Date & time must be after the current time.\n"
-            + "Time of appointment must be on the hour, between 9 AM and 5 PM.";
+            + "Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.";
     /*
      * description must be alphanumeric
      */
@@ -70,8 +70,8 @@ public class Appointment {
             LocalDateTime parsedDateTime = LocalDateTime.parse(test, formatter);
             LocalDateTime currentDateTime = LocalDateTime.now();
 
-            LocalTime startTime = LocalTime.of(9, 0);
-            LocalTime endTime = LocalTime.of(17, 0);
+            LocalTime startTime = LocalTime.of(8, 0);
+            LocalTime endTime = LocalTime.of(18, 0);
 
             return parsedDateTime.isAfter(currentDateTime)
                     && parsedDateTime.toLocalTime().isAfter(startTime)
