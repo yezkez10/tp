@@ -29,7 +29,7 @@ public class DeleteAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s of %2$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment |%1$s";
 
     private final Index appointmentIndex;
 
@@ -68,7 +68,7 @@ public class DeleteAppointmentCommand extends Command {
         model.addAvailableTimeSlot(timeslotToAdd);
 
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-                Messages.formatAppointment(appointmentToDelete), Messages.format(patient)));
+                Messages.formatAppointment(appointmentToDelete)));
     }
 
     public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
