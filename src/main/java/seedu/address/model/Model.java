@@ -194,8 +194,4 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
-
-    ObservableList<Timeslot> getFilteredTimeslotsList();
-
-    Predicate<Timeslot> getCurrentPredicate();
 }

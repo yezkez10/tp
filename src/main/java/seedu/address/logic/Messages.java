@@ -32,10 +32,11 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
-            "The appointment index provided is invalid";
-    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
-    public static final String MESSAGE_DATE_DOES_NOT_EXIST = "Date must be a valid date that exists on the calendar!";
-
+            "The Appointment index provided is invalid";
+    public static final String MESSAGE_INVALID_DATE = "DATE must be in format dd-MM-yyyy";
+    public static final String MESSAGE_DATE_DOES_NOT_EXIST = "DATE must be a valid date (correct date and month) "
+            + "that exists on the calendar!";
+    public static final String MESSAGE_DATE_TOO_SHORT = "DATE entered is too short";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

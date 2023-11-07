@@ -73,8 +73,8 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (doctorIndex.getZeroBased() > lastDoctorList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (doctorIndex.getZeroBased() >= lastDoctorList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
         }
 
         Person targetPatient = lastShownList.get(targetIndex.getZeroBased());
