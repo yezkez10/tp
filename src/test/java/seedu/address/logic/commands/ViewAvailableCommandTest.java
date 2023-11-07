@@ -84,7 +84,7 @@ public class ViewAvailableCommandTest {
     }
 
     @Test//Integration
-    public void addAvailableTimeslotsEmptySet_success() {//Heuristic: Equivalence Partition: EmptySet/valid set
+    public void addAvailableTimeslotsEmptySet_success() { //Heuristic: Equivalence Partition: EmptySet/valid set
         LocalDate date = prepareDate("05-02-2024");
         OnDateTimeSlotPredicate predicate = new OnDateTimeSlotPredicate(date);
         OnDateTimeApptPredicate appointmentPredicate = new OnDateTimeApptPredicate(date);
