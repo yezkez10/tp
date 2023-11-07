@@ -13,7 +13,7 @@ import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.timeslots.Timeslot;
-import seedu.address.model.timeslots.UniqueTimeSlotList;
+import seedu.address.model.timeslots.UniqueTimeslotList;
 
 /**
  * Wraps all data at the address-book level
@@ -26,7 +26,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     private final UniqueDoctorList doctors;
 
-    private final UniqueTimeSlotList allTimeSlots;
+    private final UniqueTimeslotList allTimeSlots;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -39,7 +39,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
         persons = new UniquePersonList();
         allAppointments = new UniqueAppointmentList();
         doctors = new UniqueDoctorList();
-        allTimeSlots = new UniqueTimeSlotList();
+        allTimeSlots = new UniqueTimeslotList();
     }
 
     public ClinicAssistant() {}
@@ -205,7 +205,9 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
      * @param timeslot Timeslot instance to be added
      */
     public void addAvailableTimeSlot(Timeslot timeslot) {
-        allTimeSlots.add(timeslot);
+        if (!allTimeSlots.contains(timeslot)) {
+            allTimeSlots.add(timeslot);
+        }
     }
 
     /**

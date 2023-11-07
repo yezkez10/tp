@@ -1,5 +1,7 @@
 package seedu.address.model.timeslots;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
@@ -16,12 +18,13 @@ public class OnDateTimeSlotPredicate implements Predicate<Timeslot> {
      * @param date The date instance wrapped by the Predicate
      */
     public OnDateTimeSlotPredicate(LocalDate date) {
+        requireNonNull(date);
         this.date = date;
     }
 
     @Override
     public boolean test(Timeslot timeslot) {
-        return timeslot.getDate().equals(this.date);
+        return this.date.equals(timeslot.getDate());
     }
 
     /**

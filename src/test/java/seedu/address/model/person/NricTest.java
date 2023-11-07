@@ -16,7 +16,7 @@ public class NricTest {
     @Test
     public void constructor_invalidNric_throwsIllegalArgumentException() {
         String invalidNric = "A12345B";
-        assertThrows(IllegalArgumentException.class, () -> new Phone(invalidNric));
+        assertThrows(IllegalArgumentException.class, () -> new Nric(invalidNric));
     }
 
     @Test
