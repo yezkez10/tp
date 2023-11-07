@@ -40,8 +40,8 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR = "This doctor already has "
             + "an appointment at the same time.";
-
-    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added: %1$s";
+    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "New appointment added |%1$s";
+    public static final String MESSAGE_TIMESLOT_TAKEN = "This timeslot is already taken by %1$s";
 
     private final Index targetIndex;
     private final String description;
@@ -88,9 +88,18 @@ public class AddAppointmentCommand extends Command {
         if (targetPatient.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
-
         if (targetDoctor.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
+        }
+        for (Doctor doctor : lastDoctorList) {
+            if (doctor.equals(targetDoctor)) {
+                // skip if current doctor is target doctor
+                continue;
+            }
+            // checks if a doctor has an appointment on that timeslot already
+            if (doctor.hasAppointmentOnTimeslot(dateTime)) {
+                throw new CommandException(String.format(MESSAGE_TIMESLOT_TAKEN, doctor.getName()));
+            }
         }
 
         targetPatient.addAppointment(toAdd);

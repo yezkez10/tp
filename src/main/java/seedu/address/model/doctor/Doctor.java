@@ -2,6 +2,7 @@ package seedu.address.model.doctor;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -139,7 +140,7 @@ public class Doctor {
 
 
     /**
-     * Returns true if patient already has this sa,e Appointment
+     * Returns true if patient already has this same Appointment
      * @param otherAppointment Appointment to check if it exists
      * @return if patient has this Appointment
      */
@@ -151,6 +152,20 @@ public class Doctor {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns true if doctor has an appointment on the input dateTime
+     * @param dateTime LocalDateTime to check if doctor has an appointment on this time
+     * @return true if this doctor has an appointment on the given timeslot
+     */
+    public boolean hasAppointmentOnTimeslot(LocalDateTime dateTime) {
+        for (Appointment appointment : appointments) {
+            if (appointment.getDateTime().equals(dateTime)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
