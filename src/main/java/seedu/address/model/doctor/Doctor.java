@@ -92,7 +92,10 @@ public class Doctor {
         }
 
         return otherDoctor != null
-                && otherDoctor.getName().equals(getName());
+                && otherDoctor.getName().equals(getName())
+                && otherDoctor.getPhone().equals(phone)
+                && otherDoctor.getEmail().equals(email)
+                && otherDoctor.getAddress().equals(address);
     }
 
 
@@ -112,10 +115,7 @@ public class Doctor {
         }
 
         Doctor otherDoctor = (Doctor) other;
-        return isSameDoctor(otherDoctor)
-                && phone.equals(otherDoctor.phone)
-                && email.equals(otherDoctor.email)
-                && address.equals(otherDoctor.address);
+        return isSameDoctor(otherDoctor);
     }
 
     @Override
