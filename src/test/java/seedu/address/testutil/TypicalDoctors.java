@@ -59,7 +59,7 @@ public class TypicalDoctors {
             .build();
     public static final Doctor ELLE = new DoctorBuilder()
             .withName("Elle Meyer")
-            .withPhone("9482224")
+            .withPhone("94822244")
             .withEmail("werner@example.com")
             .withGender("F")
             .withAge(32)
@@ -67,7 +67,7 @@ public class TypicalDoctors {
             .build();
     public static final Doctor FIONA = new DoctorBuilder()
             .withName("Fiona Kunz")
-            .withPhone("9482427")
+            .withPhone("94824277")
             .withEmail("lydia@example.com")
             .withGender("F")
             .withAge(20)
@@ -75,7 +75,7 @@ public class TypicalDoctors {
             .build();
     public static final Doctor GEORGE = new DoctorBuilder()
             .withName("George Best")
-            .withPhone("9482442")
+            .withPhone("94824422")
             .withEmail("anna@example.com")
             .withGender("M")
             .withAge(100)
@@ -85,7 +85,7 @@ public class TypicalDoctors {
     // Manually added
     public static final Doctor HOON = new DoctorBuilder()
             .withName("Hoon Meier")
-            .withPhone("8482424")
+            .withPhone("84824244")
             .withEmail("stefan@example.com")
             .withGender("F")
             .withAge(0)
@@ -93,7 +93,7 @@ public class TypicalDoctors {
             .build();
     public static final Doctor IDA = new DoctorBuilder()
             .withName("Ida Mueller")
-            .withPhone("8482131")
+            .withPhone("84821311")
             .withEmail("hans@example.com")
             .withGender("F")
             .withAge(12)
@@ -126,7 +126,6 @@ public class TypicalDoctors {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static ClinicAssistant getTypicalAddressBook() {
-        System.out.print("success");
         ClinicAssistant ab = new ClinicAssistant();
         for (Doctor doctor : getTypicalDoctors()) {
             ab.addDoctor(doctor);
@@ -135,7 +134,6 @@ public class TypicalDoctors {
     }
 
     public static List<Doctor> getTypicalDoctors() {
-        System.out.print("success");
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

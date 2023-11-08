@@ -10,6 +10,7 @@ public class Age {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Age should be an integer between 0 and 150 inclusive";
+
     public final int age;
 
     /**

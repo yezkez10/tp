@@ -42,7 +42,7 @@
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "phone" : "9482224",
+    "phone" : "94822244",
     "email" : "werner@example.com",
     "gender": "F",
     "age": 32,
@@ -52,7 +52,7 @@
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "phone" : "9482427",
+    "phone" : "94824277",
     "email" : "lydia@example.com",
     "gender": "F",
     "age": 120,
@@ -62,7 +62,7 @@
     "tags" : [ ]
   }, {
     "name" : "George Best",
-    "phone" : "9482442",
+    "phone" : "94824422",
     "email" : "anna@example.com",
     "gender": "M",
     "age": 100,

@@ -29,7 +29,7 @@ public class DeleteAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s of %2$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment |%1$s";
 
     private final Index appointmentIndex;
 
@@ -50,7 +50,7 @@ public class DeleteAppointmentCommand extends Command {
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
 
         if (zeroBasedAppointmentIndex >= lastShownAppointmentList.size() || zeroBasedAppointmentIndex < 0) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
         // Delete appointment from model patient and doctor
@@ -67,8 +67,8 @@ public class DeleteAppointmentCommand extends Command {
                 appointmentToDelete.getDateTime().getHour());
         model.addAvailableTimeSlot(timeslotToAdd);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete,
-                Messages.format(patient)));
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
+                Messages.formatAppointment(appointmentToDelete)));
     }
 
     public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {

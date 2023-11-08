@@ -2,6 +2,7 @@ package seedu.address.model.doctor;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -92,7 +93,12 @@ public class Doctor {
         }
 
         return otherDoctor != null
-                && otherDoctor.getName().equals(getName());
+                && otherDoctor.getName().equals(getName())
+                && otherDoctor.getPhone().equals(phone)
+                && otherDoctor.getEmail().equals(email)
+                && otherDoctor.getAddress().equals(address)
+                && otherDoctor.getAge().equals(age)
+                && otherDoctor.getGender().equals(gender);
     }
 
 
@@ -112,10 +118,7 @@ public class Doctor {
         }
 
         Doctor otherDoctor = (Doctor) other;
-        return isSameDoctor(otherDoctor)
-                && phone.equals(otherDoctor.phone)
-                && email.equals(otherDoctor.email)
-                && address.equals(otherDoctor.address);
+        return isSameDoctor(otherDoctor);
     }
 
     @Override
@@ -139,7 +142,7 @@ public class Doctor {
 
 
     /**
-     * Returns true if patient already has this sa,e Appointment
+     * Returns true if patient already has this same Appointment
      * @param otherAppointment Appointment to check if it exists
      * @return if patient has this Appointment
      */
@@ -151,6 +154,20 @@ public class Doctor {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns true if doctor has an appointment on the input dateTime
+     * @param dateTime LocalDateTime to check if doctor has an appointment on this time
+     * @return true if this doctor has an appointment on the given timeslot
+     */
+    public boolean hasAppointmentOnTimeslot(LocalDateTime dateTime) {
+        for (Appointment appointment : appointments) {
+            if (appointment.getDateTime().equals(dateTime)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -186,10 +203,11 @@ public class Doctor {
 
     /**
      * Edits the appointment at the input index with the updated Appointment
-     * @param index Index of the appointment to edit
-     * @param updatedAppointment the updated Appointment
+     * @param old the old Appointment to replace
+     * @param editedAppointment the updated Appointment
      */
-    public void editAppointment(int index, Appointment updatedAppointment) {
-        this.appointments.set(index, updatedAppointment);
+    public void editAppointment(Appointment old, Appointment editedAppointment) {
+        int index = appointments.indexOf(old);
+        appointments.set(index, editedAppointment);
     }
 }
