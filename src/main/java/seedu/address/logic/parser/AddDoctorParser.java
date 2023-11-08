@@ -60,6 +60,11 @@ public class AddDoctorParser implements Parser<AddDoctorCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDoctorCommand.MESSAGE_USAGE));
         }
 
+        // Check if phone is valid
+        if (!Phone.isValidPhone(argMultimap.getValue(PREFIX_PHONE).get())) {
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        }
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
