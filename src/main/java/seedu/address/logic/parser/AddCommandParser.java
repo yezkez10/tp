@@ -51,6 +51,30 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        // If any compulsory fields are empty
+        if (argMultimap.getValue(PREFIX_NAME).isEmpty()
+            || argMultimap.getValue(PREFIX_ADDRESS).isEmpty()
+            || argMultimap.getValue(PREFIX_PHONE).isEmpty()
+            || argMultimap.getValue(PREFIX_EMAIL).isEmpty()
+            || argMultimap.getValue(PREFIX_GENDER).isEmpty()
+            || argMultimap.getValue(PREFIX_AGE).isEmpty()
+            || argMultimap.getValue(PREFIX_ETHNIC).isEmpty()
+            || argMultimap.getValue(PREFIX_NRIC).isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        // If any compulsory fields are empty strings
+        if (argMultimap.getValue(PREFIX_NAME).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_ADDRESS).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_PHONE).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_EMAIL).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_GENDER).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_AGE).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_ETHNIC).get().trim().isEmpty()
+                || argMultimap.getValue(PREFIX_NRIC).get().trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
