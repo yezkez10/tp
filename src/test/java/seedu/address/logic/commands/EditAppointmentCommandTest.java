@@ -46,7 +46,7 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(validAppointment, editedAppointment);
 
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                editedAppointment, Messages.format(validPerson));
+                Messages.formatAppointment(editedAppointment), Messages.format(validPerson));
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
@@ -68,7 +68,7 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(validAppointment, editedAppointment);
 
         String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                editedAppointment, Messages.format(validPerson));
+                Messages.formatAppointment(editedAppointment), Messages.format(validPerson));
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }

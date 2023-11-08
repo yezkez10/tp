@@ -384,9 +384,9 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
 
 #### Implementation
 
-This enhancements will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
+This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
 
-This edit command will take in a parameter INDEX whic is a positive integer which references to the index of doctors shown on the screen.
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
 
 Furthermore it will take in information that the specified doctor's information will be changed to.
 This will create a new Doctor Object and transfer over all the information that isnt specified in the edit command to be the same as the original doctor.
@@ -399,6 +399,24 @@ This will create a new Doctor Object and transfer over all the information that 
     * Pros: save space and improve space and time complexity
     * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
 
+### Edit Appointment to include editing of Doctor details
+
+#### Implementation
+
+This enhancement will let the user edit the appointments associated doctor.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore it will take in information that the specified doctor's information will be changed to.
+This will then change the doctor associated with the appointment the user is editing.
+
+#### Design consideration:
+
+**Aspect: How the doctor is going to be edited:**
+
+* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
+    * Pros: Intuitive for clinic assistants to use
+    * Cons: Might be difficult to implement
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 

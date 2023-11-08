@@ -31,12 +31,12 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
    * `list` : Lists all patients in the ClinicAssistant.
 
-   * `add /n John Doe /p 98765432 /ejohnd@example.com /g M /age 22 /eth Chinese /ic T1234567E a/John street, block 123, #01-01 /t allergy` :
+   * `add /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /eth Chinese /ic T1234567E /a 311, Clementi Ave 2, #02-25 /t allergic to the sun /t history of knee problems` :
    Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
 
    * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
    
-   * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
+   * `appt /for 1 /doc 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified Doctor index, description and time to the patient identified with `INDEX` 1 in the list.
 
    * `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
 
@@ -85,20 +85,6 @@ Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic 
 Examples:
 * `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi /t allergic to pollen`
 
-### Adding an appointment: `appt`
-
-Adds a new appointment for a specific patient at index.
-
-Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
-
-**Note:**
-* Upcoming date of this new appointment must be included.
-* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
-* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
-
-Examples:
-* `appt /for 6 /d Blood test /on 01-01-2024 12:00`
-
 ### Adding a doctor: `add_doctor`
 
 **Note:**
@@ -112,6 +98,23 @@ Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRE
 
 Examples:
 * `add_doctor /n Dr. Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+
+### Adding an appointment: `appt`
+
+Adds a new appointment for a specific patient at index.
+
+Format: `appt /for INDEX /doc INDEX /d DESCRIPTION /on DATETIME`
+
+**Note:**
+* Doctor index must be valid, i.e. there must also be a doctor added first before an Appointment can be made
+* Upcoming date of this new appointment must be included.
+* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
+* `DATETIME` must be a date after the **current** time
+* There can only be 1 appointment per timeslot, regardless of which doctor the appointment is associated to. i.e. 2 doctors cannot have appointments on the same timeslot. This is a known issue and is included in our future implementations
+* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
+
+Examples:
+* `appt /for 6 /doc 1 /d Blood test /on 01-01-2024 12:00`
 
 ### Listing all patients : `list`
 
@@ -144,11 +147,13 @@ Examples:
 
 Edits an existing appointment from the Clinic Records.
 
-Format: `edit_appt [/d DESCRIPTION] [/on DATETIME]`
+Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATETIME]`
 
 * Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+
+**Note** Currently does **not** support editing of Doctors, planned for future implementations
 
 Examples:
 * `edit_appt 1 /d changed to x-ray scan` edits the description of the appointment of 1st appointment.

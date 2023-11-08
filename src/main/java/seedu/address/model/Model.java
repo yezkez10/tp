@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -147,6 +148,8 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
 
+    void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace);
+
     /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the address book.
      *
@@ -191,8 +194,4 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered doctor list */
     ObservableList<Doctor> getFilteredDoctorList();
-
-    ObservableList<Timeslot> getFilteredTimeslotsList();
-
-    Predicate<Timeslot> getCurrentPredicate();
 }
