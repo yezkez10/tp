@@ -44,8 +44,8 @@ public class AddCommand extends Command {
             + PREFIX_ETHNIC + "Chinese "
             + PREFIX_NRIC + "T1234567E "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "allergic to the sun "
-            + PREFIX_TAG + "history of knee problems";
+            + PREFIX_TAG + " allergic to the sun "
+            + PREFIX_TAG + " history of knee problems";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
