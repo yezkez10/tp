@@ -121,7 +121,6 @@ public class ParserUtil {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
         int ageInt = Integer.parseInt(trimmedAge);
-      
         if (!Age.isValidAge(ageInt)) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
