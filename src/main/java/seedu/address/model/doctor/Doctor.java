@@ -95,7 +95,9 @@ public class Doctor {
                 && otherDoctor.getName().equals(getName())
                 && otherDoctor.getPhone().equals(phone)
                 && otherDoctor.getEmail().equals(email)
-                && otherDoctor.getAddress().equals(address);
+                && otherDoctor.getAddress().equals(address)
+                && otherDoctor.getAge().equals(age)
+                && otherDoctor.getGender().equals(gender);
     }
 
 
