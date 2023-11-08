@@ -1,12 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddDoctorCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.doctor.Doctor;
@@ -38,31 +41,6 @@ public class AddDoctorParser implements Parser<AddDoctorCommand> {
                 PREFIX_GENDER, PREFIX_AGE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDoctorCommand.MESSAGE_USAGE));
-        }
-
-        // If any compulsory fields are empty
-        if (argMultimap.getValue(PREFIX_NAME).isEmpty()
-                || argMultimap.getValue(PREFIX_ADDRESS).isEmpty()
-                || argMultimap.getValue(PREFIX_PHONE).isEmpty()
-                || argMultimap.getValue(PREFIX_EMAIL).isEmpty()
-                || argMultimap.getValue(PREFIX_GENDER).isEmpty()
-                || argMultimap.getValue(PREFIX_AGE).isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDoctorCommand.MESSAGE_USAGE));
-        }
-
-        // If any compulsory fields are empty strings
-        if (argMultimap.getValue(PREFIX_NAME).get().trim().isEmpty()
-                || argMultimap.getValue(PREFIX_ADDRESS).get().trim().isEmpty()
-                || argMultimap.getValue(PREFIX_PHONE).get().trim().isEmpty()
-                || argMultimap.getValue(PREFIX_EMAIL).get().trim().isEmpty()
-                || argMultimap.getValue(PREFIX_GENDER).get().trim().isEmpty()
-                || argMultimap.getValue(PREFIX_AGE).get().trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDoctorCommand.MESSAGE_USAGE));
-        }
-
-        // Check if phone is valid
-        if (!Phone.isValidPhone(argMultimap.getValue(PREFIX_PHONE).get())) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
