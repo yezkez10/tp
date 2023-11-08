@@ -121,7 +121,6 @@ public class ParserUtil {
         }
         return new Age(ageInt);
     }
-
     /**
      * Parses a {@code String ethnic} into a {@code Ethnicity}.
      * @param ethnic The input string that represents ethnic group of patient

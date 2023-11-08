@@ -309,7 +309,7 @@ We will compare each patient's NRIC to this given NRIC and return the patient wi
 **The Specifics**
 
 The job of the `FindByNricCommandParser` is to create a `FindByNricCommand` command object,
-with a `NricContainsKeywordPredicate` object passed in as a parameter. 
+with a `NricContainsKeywordPredicate` object passed in as a parameter.
 
 The `updateFilteredPersonList` method in the `Model` class is called,
 which then calls the `setPredicate` method in the `FilteredList` class,
