@@ -36,6 +36,7 @@ public class Messages {
     public static final String MESSAGE_DATE_DOES_NOT_EXIST = "DATE must be a valid date (correct date and month) "
             + "that exists on the calendar!";
     public static final String MESSAGE_DATE_TOO_SHORT = "DATE entered is too short";
+    public static final String MESSAGE_PAST_DATE = "DATE entered has past already!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

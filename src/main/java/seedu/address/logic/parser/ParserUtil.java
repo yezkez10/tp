@@ -248,9 +248,8 @@ public class ParserUtil {
     public static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate parsedDate = LocalDate.parse(date, formatter);
-            LocalDate currentDate = LocalDate.now();
-            return parsedDate.isAfter(currentDate);
+            LocalDate.parse(date, formatter);
+            return true;
         } catch (DateTimeParseException e) {
             return false;
         }
@@ -272,5 +271,16 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    /**
+     * Checks if a given string is a past date.
+     *
+     * @param date LocalDate to be checked.
+     * @return True if the date is a past date, false otherwise.
+     */
+    public static boolean isPastDate(LocalDate date) {
+        LocalDate currentDate = LocalDate.now();
+        return date.isBefore(currentDate);
     }
 }
