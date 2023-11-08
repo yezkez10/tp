@@ -115,6 +115,10 @@ public class ParserUtil {
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
         String trimmedAge = age.trim();
+        // Check if trimmedAge is a valid integer
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedAge)) {
+            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+        }
         int ageInt = Integer.parseInt(trimmedAge);
         if (!Age.isValidAge(ageInt)) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
