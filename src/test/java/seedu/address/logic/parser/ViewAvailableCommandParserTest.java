@@ -73,14 +73,21 @@ public class ViewAvailableCommandParserTest {
 
     @Test
     public void parse_shortenedYear_throwsParseException() { //alphabet
-        assertParseFailure(parser, "view /on 20-12-23",
+        assertParseFailure(parser, "view /on 20-12-24",
                 MESSAGE_DATE_TOO_SHORT + "\n" + "Please insert in the following format: " + "\n"
                 + ViewAvailableCommand.MESSAGE_USAGE);
     }
 
     @Test
     public void parse_withDateTime_throwsParseException() { //dateTime
-        assertParseFailure(parser, "view /on 02-02-2023 18:00",
+        assertParseFailure(parser, "view /on 02-02-2024 18:00",
+                MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
+                        + ViewAvailableCommand.MESSAGE_USAGE);
+    }
+
+    @Test
+    public void parse_withPastDate_throwsParseException() { //past date
+        assertParseFailure(parser, "view /on 02-02-2023",
                 MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
                         + ViewAvailableCommand.MESSAGE_USAGE);
     }

@@ -248,8 +248,9 @@ public class ParserUtil {
     public static boolean isValidDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate.parse(date, formatter);
-            return true;
+            LocalDate parsedDate = LocalDate.parse(date, formatter);
+            LocalDate currentDate = LocalDate.now();
+            return parsedDate.isAfter(currentDate);
         } catch (DateTimeParseException e) {
             return false;
         }
