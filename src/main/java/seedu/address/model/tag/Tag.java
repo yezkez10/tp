@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Tags should not be empty";
-    public static final String VALIDATION_REGEX = ".+";
+    public static final String VALIDATION_REGEX = ".*";
 
     public final String tagName;
 
