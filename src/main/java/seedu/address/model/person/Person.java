@@ -171,9 +171,19 @@ public class Person {
     public boolean haveSameAppointments(Person otherPerson) {
         return this.appointments.equals(otherPerson.getAppointments());
     }
+    /**
+     * Checks if a patient already has an appointment on the same timeslot as the given appointment.
+     *
+     * @param otherAppointment The appointment to compare against existing appointments.
+     * @return true if the patient has an appointment with the same timeslot; false otherwise.
+     */
+    public boolean hasAppointmentOnTimeslot(Appointment otherAppointment) {
+        return this.appointments.stream()
+                .anyMatch(appointment -> appointment.getDateTime().equals(otherAppointment.getDateTime()));
+    }
 
     /**
-     * Returns true if patient already has this sa,e Appointment
+     * Returns true if patient already has this same Appointment
      * @param otherAppointment Appointment to check if it exists
      * @return if patient has this Appointment
      */

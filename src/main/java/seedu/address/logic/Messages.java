@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -94,20 +96,22 @@ public class Messages {
     }
     /**
      * Formats the {@code address of the patient} for display to the user.
-     * @param person Patient we are interested in
      * @param appointment Appointment of the patient
      * @return
      */
-    public static String formatAppointment(Person person, Appointment appointment) {
+    public static String formatAppointment(Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nPatient: ")
-                .append(person.getName())
-                .append("\n")
-                .append("Description: ")
+
+        LocalDateTime dateTime = appointment.getDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu hh.mm a");
+        String formattedDateTime = dateTime.format(formatter);
+
+        builder.append(" Patient: ")
+                .append(appointment.getPatientName())
+                .append(" | Description: ")
                 .append(appointment.getDescription())
-                .append("\n")
-                .append("Date: ")
-                .append(appointment.getDateTime());
+                .append(" | Date: ")
+                .append(formattedDateTime);
         return builder.toString();
     }
 }
