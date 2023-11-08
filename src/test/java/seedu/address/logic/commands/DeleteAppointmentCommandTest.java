@@ -37,7 +37,7 @@ public class DeleteAppointmentCommandTest {
         expectedModel.deleteAppointment(validAppointment);
 
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-               validAppointment, Messages.format(validPerson));
+               Messages.formatAppointment(validAppointment), Messages.format(validPerson));
 
         assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
     }

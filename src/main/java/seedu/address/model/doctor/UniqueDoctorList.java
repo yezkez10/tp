@@ -45,7 +45,6 @@ public class UniqueDoctorList implements Iterable<Doctor> {
             throw new DuplicateDoctorException();
         }
         internalList.add(toAdd);
-        System.out.print("1");
     }
 
     /**

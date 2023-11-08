@@ -203,13 +203,11 @@ public class ParserUtil {
     public static LocalDateTime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         if (!Appointment.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(Appointment.MESSAGE_INVALID_DATE_TIME);
         }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime parsedDateTime = LocalDateTime.parse(trimmedDateTime, formatter);
-
         return parsedDateTime;
     }
 
