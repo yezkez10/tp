@@ -39,7 +39,6 @@ public class EditAppointmentCommand extends Command {
             + "by the index number used in the displayed appointments list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[APPOINTMENT INDEX]"
             + "[" + PREFIX_DESCRIPTION + "]"
             + "[" + PREFIX_DATE + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
