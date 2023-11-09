@@ -41,7 +41,7 @@ public class DeleteDoctorCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Doctor> doctorList = model.getFilteredDoctorList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= doctorList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
         }
 
@@ -53,6 +53,7 @@ public class DeleteDoctorCommand extends Command {
             model.deleteAppointment(appointment);
             Person patient = appointment.getPatient();
             int appointmentIndex = patient.getAppointments().indexOf(appointment);
+            assert appointmentIndex >= 0 : "Index needs to be a positive interger";
             patient.deleteAppointment(appointmentIndex);
 
             Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
