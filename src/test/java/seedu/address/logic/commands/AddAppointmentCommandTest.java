@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalDoctors.BENSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DOCTOR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
@@ -17,12 +19,14 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
@@ -30,29 +34,42 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void constructor_validAppointment_success() {
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2021, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON, INDEX_FIRST_DOCTOR,
+                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
         assert(addAppointmentCommand != null);
     }
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(null,
-                null, null));
+                null, null, null));
+        assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(null,
+                INDEX_FIRST_DOCTOR, "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0)));
+        assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(INDEX_FIRST_PERSON,
+                null, "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0)));
+        assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR, null,
+                LocalDateTime.of(2024, 1, 1, 12, 0)));
+        assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR, "Health check up",
+                null));
     }
 
     @Test
     public void execute_appointmentAcceptedByModel_addSuccessful() {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON,
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON, INDEX_FIRST_DOCTOR,
                 "Health check up", LocalDateTime.of(2024, 1, 20, 12, 0));
         try {
             CommandResult commandResult = addAppointmentCommand.execute(modelStub);
             Appointment newAppointment = new Appointment("Health check up",
                     LocalDateTime.of(2024, 1, 20, 12, 0),
-                    modelStub.getFilteredPersonList().get(0));
+                    modelStub.getFilteredPersonList().get(0),
+                    modelStub.getFilteredDoctorList().get(0).getName().toString());
             assertEquals(String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                    newAppointment.toString()),
+                    Messages.formatAppointment(newAppointment)),
                     commandResult.getFeedbackToUser());
             // Remove the appointment from the model
             modelStub.deleteAppointment(newAppointment);
@@ -64,7 +81,7 @@ public class AddAppointmentCommandTest {
     @Test
     public void execute_appointmentIndexZero_throwsIndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, ()
-                -> new AddAppointmentCommand(Index.fromOneBased(0),
+                -> new AddAppointmentCommand(Index.fromOneBased(0), INDEX_FIRST_DOCTOR,
                 "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0)));
     }
 
@@ -72,7 +89,9 @@ public class AddAppointmentCommandTest {
     public void execute_appointmentIndexOutOfBounds_throwsCommandException() {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(Index.fromOneBased(3),
-                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
         assertThrows(CommandException.class, ()
                 -> addAppointmentCommand.execute(modelStub));
     }
@@ -81,14 +100,18 @@ public class AddAppointmentCommandTest {
     public void execute_appointmentIndexLessThanZero_throwsIndexOutOfBoundsException() {
         assertThrows(IndexOutOfBoundsException.class, ()
                 -> new AddAppointmentCommand(Index.fromOneBased(-5),
-                        "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0)));
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0)));
     }
 
     @Test
     public void execute_duplicateAppointment_throwsCommandException() {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(Index.fromOneBased(3),
-                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
         try {
             addAppointmentCommand.execute(modelStub);
             assertThrows(CommandException.class, ()
@@ -100,22 +123,47 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void equals() {
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
-        AddAppointmentCommand addAppointmentCommandCopy = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
-        AddAppointmentCommand addAppointmentCommandDifferentIndex = new AddAppointmentCommand(Index.fromOneBased(2),
-                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
-        AddAppointmentCommand addAppointmentCommandDifferentDescription = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Blood test", LocalDateTime.of(2024, 1, 1, 12, 0));
-        AddAppointmentCommand addAppointmentCommandDifferentDateTime = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2025, 1, 1, 12, 0));
-        AddAppointmentCommand addAppointmentCommandDifferentDateTime2 = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2024, 2, 1, 12, 0));
-        AddAppointmentCommand addAppointmentCommandDifferentDateTime3 = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2024, 1, 2, 12, 0));
-        AddAppointmentCommand addAppointmentCommandDifferentDateTime4 = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2024, 1, 1, 13, 10));
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommandCopy = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommandDifferentIndex = new AddAppointmentCommand(
+                Index.fromOneBased(2),
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommandDifferentDescription = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Blood test",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommandDifferentDateTime = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2025, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommandDifferentDateTime2 = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 2, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommandDifferentDateTime3 = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 2, 12, 0));
+        AddAppointmentCommand addAppointmentCommandDifferentDateTime4 = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 13, 10));
+
         assert(addAppointmentCommand.equals(addAppointmentCommandCopy));
         assert(!addAppointmentCommand.equals(addAppointmentCommandDifferentIndex));
         assert(!addAppointmentCommand.equals(addAppointmentCommandDifferentDescription));
@@ -127,8 +175,11 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void toStringMethod() {
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                "Health check up", LocalDateTime.of(2024, 1, 1, 12, 0));
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                INDEX_FIRST_PERSON,
+                INDEX_FIRST_DOCTOR,
+                "Health check up",
+                LocalDateTime.of(2024, 1, 1, 12, 0));
         String expected = AddAppointmentCommand.class.getCanonicalName() + "{targetIndex=" + INDEX_FIRST_PERSON
                 + ", description=Health check up, dateTime=2024-01-01T12:00}";
         assertEquals(expected, addAppointmentCommand.toString());
@@ -217,14 +268,6 @@ public class AddAppointmentCommandTest {
         public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-        @Override
-        public Predicate<Timeslot> getCurrentPredicate() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public ObservableList<Timeslot> getFilteredTimeslotsList() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void addAppointment(Appointment appointment) {
@@ -242,9 +285,45 @@ public class AddAppointmentCommandTest {
         }
 
         @Override
+        public void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasAppointment(Appointment appointment) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDoctor(Doctor toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDoctor(Doctor appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDoctor(Doctor target, Doctor editedDoctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDoctor(Doctor editedDoctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Doctor> getFilteredDoctorList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addAvailableTimeSlot(Timeslot timeslot) {
             throw new AssertionError("This method should not be called.");
@@ -252,6 +331,11 @@ public class AddAppointmentCommandTest {
 
         @Override
         public void removeAvailableTimeSlot(Timeslot timeslot) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetAvailableTimeSlot() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -295,6 +379,15 @@ public class AddAppointmentCommandTest {
             personList.add(ALICE);
             clinicAssistant.setPersons(personList);
             return clinicAssistant.getPersonList();
+        }
+
+        @Override
+        public ObservableList<Doctor> getFilteredDoctorList() {
+            ClinicAssistant clinicAssistant = new ClinicAssistant();
+            List<Doctor> doctorList = new ArrayList<>();
+            doctorList.add(BENSON);
+            clinicAssistant.setDoctors(doctorList);
+            return clinicAssistant.getDoctorList();
         }
 
         @Override
