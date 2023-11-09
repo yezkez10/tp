@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOR;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -107,8 +108,15 @@ public class AddAppointmentCommand extends Command {
         targetDoctor.addAppointment(toAdd);
 
         model.addAppointment(toAdd);
-        Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
-        model.removeAvailableTimeSlot(timeslotToRemove);
+        if (model.getAvailableTimeSlotList().size() > 0) {
+            LocalDate apptDate = toAdd.getDateTime().toLocalDate();
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            if (apptDate.equals(currDate)) {
+                Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(),
+                        toAdd.getDateTime().getHour());
+                model.removeAvailableTimeSlot(timeslotToRemove);
+            }
+        }
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, Messages.formatAppointment(toAdd)));
     }
 
