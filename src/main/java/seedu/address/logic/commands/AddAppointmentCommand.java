@@ -64,6 +64,7 @@ public class AddAppointmentCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Doctor> lastDoctorList = model.getFilteredDoctorList();
+
         if (lastDoctorList.size() == 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
         }
@@ -80,6 +81,7 @@ public class AddAppointmentCommand extends Command {
         Doctor targetDoctor = lastDoctorList.get(doctorIndex.getZeroBased());
         String name = targetDoctor.getName().toString();
         Appointment toAdd = new Appointment(description, dateTime, targetPatient, name);
+
         if (targetPatient.hasAppointmentOnTimeslot(toAdd)) {
             throw new CommandException(MESSAGE_SAME_APPOINTMENT_TIME);
         }
@@ -103,6 +105,7 @@ public class AddAppointmentCommand extends Command {
         targetPatient.addAppointment(toAdd);
 
         targetDoctor.addAppointment(toAdd);
+
         model.addAppointment(toAdd);
         Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(), toAdd.getDateTime().getHour());
         model.removeAvailableTimeSlot(timeslotToRemove);

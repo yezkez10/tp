@@ -46,6 +46,7 @@ public class DeleteDoctorCommand extends Command {
         }
 
         Doctor doctorToDelete = doctorList.get(targetIndex.getZeroBased());
+        model.deleteDoctor(doctorToDelete);
 
         ArrayList<Appointment> doctorAppointments = doctorToDelete.getAppointments();
         for (Appointment appointment : doctorAppointments) {
