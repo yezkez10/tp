@@ -13,7 +13,7 @@ pageNav: 3
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+Base code adapted from [AY23/24 CS2103T Github](https://github.com/nus-cs2103-AY2324S1/tp)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -439,7 +439,7 @@ This will then change the doctor associated with the appointment the user is edi
 * can type fast
 * prefers typing to mouse interactions
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage contacts faster than traditional pen-and-paper record taking
 
 
 ### User stories

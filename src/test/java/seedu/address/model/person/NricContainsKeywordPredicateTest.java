@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.PersonBuilder;
 
 public class NricContainsKeywordPredicateTest {
-    //todo
     @Test
     public void equals() {
         String firstPredicateKeyword = "first";

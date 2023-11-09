@@ -13,28 +13,52 @@ ClinicAssistant is a desktop application used by General Practitioner clinics' a
 
 Given below are my contributions to the project.
 
-**Code contributed**: [RepoSense link]()
+**Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=yezkez10&breakdown=true)
 
-**Project management**:
-- to be added soon
+**New Feature:** Added the NRIC field to Patient (Pull request [#39](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/39))
+- What it does: attributes a unique NRIC to every patient
+- Justification: This allows the user to identify each patient by their unique NRIC.
+This is a better mode of identification than name since patients can have the same name, 
+but no two patients can have the same NRIC.
+- Highlights: The implementation of this enhancement affected existing commands and components. 
+Its implementation required changes to other commands, parsers, testcases and the GUI.
+This process required an in-depth understanding of the architecture and design.
 
+
+**New Feature:** Added Find By NRIC feature (Pull request [#93](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/93))
+  - What it does: Allows user to find patient details just by keying in their NRIC.
+  - Justification: Every patient has a unique NRIC, hence this command will return at most 1 patient's details.
+This is more helpful than the find by name feature since the latter could return more than 1 patient's details. 
 
 **Enhancements implemented:**
-- to be added soon
+- Updated GUI formatting (Pull request [#111](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/111))
+  - Updated layout of interface 
+  - Compartmentalised Patients, Doctors, Appointments and Timeslots into individual tabs
+  - Polished styling and GUI appearance
+- Contributed to resolving bugs found in PED (Pull request [#171](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/171))
 
 **Enhancements to existing features:**
-- to be added soon
+- Updated test cases to increase coverage for existing features (Pull requests [#39](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/39),
+  [#93](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/93), 
+  [#174](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/174))
+- Wrote additional tests for existing features to increase coverage
 
 **Contributions to Documentation:**
 * User Guide:
-  * Added documentation for the features `add`
+  * Added and updated documentation for the features `add`, `find_nric`, `edit`.
+    (Pull request [#31](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/31), 
+    [#113](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/113))
 * Developer Guide:
-  - to be added soon
+  - Updated documentation for `add` feature.
+  - Added documentation and sequence diagram for `find_nric` feature. (Pull request [#100](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/100))
 
 **Community**:
-* PRs reviewed to be added soon
-* Contributed to forum discussions (examples: to be added soon)
+* Reviewed and merged teammates' PRs.
 * Reported bugs and suggestions for other teams in the class (examples: to be added soon)
 
+**Project management**:
+- Managed release [v1.3](https://github.com/AY2324S1-CS2103T-W09-3/tp/releases/tag/v1.3) on Github
+
 **Contributions beyond the project scope:**
-- to be added soon
+- Worked with the team to come up with an 18-minute product pitch, 
+to market our product to a targeted audience. 
