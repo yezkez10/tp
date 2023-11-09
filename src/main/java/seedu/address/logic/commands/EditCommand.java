@@ -27,6 +27,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
@@ -85,6 +86,7 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor>  doctorList = model.getFilteredDoctorList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -107,6 +109,19 @@ public class EditCommand extends Command {
                     editedPerson, // Use the edited person here
                     appointment.getName()
             );
+            Doctor targetDoctor = getDoctor(doctorList, new Name(appointment.getName()));
+            ArrayList<Appointment> updatedDoctorAppointments = new ArrayList<>();
+            int count = 0;
+            for (Appointment doctorAppointment : targetDoctor.getAppointments()) {
+                if (appointment.equals(doctorAppointment)) {
+                    updatedDoctorAppointments.add(editedAppointment);
+                    count ++;
+                } else {
+                    updatedDoctorAppointments.add(doctorAppointment);
+                }
+            }
+            assert count == 1 : "There is a duplicate appointment";
+            targetDoctor.setAppointments(updatedDoctorAppointments);
             updatedAppointments.add(editedAppointment);
         }
 
@@ -139,6 +154,20 @@ public class EditCommand extends Command {
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedGender, updatedAge, updatedEthnic,
                 updatedNric, updatedAddress, updatedTags);
+    }
+
+    public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.getName().equals(doctorName)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return targetDoctor;
     }
 
     @Override

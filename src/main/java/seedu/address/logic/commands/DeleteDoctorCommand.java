@@ -55,7 +55,6 @@ public class DeleteDoctorCommand extends Command {
             int appointmentIndex = patient.getAppointments().indexOf(appointment);
             assert appointmentIndex >= 0 : "Index needs to be a positive interger";
             patient.deleteAppointment(appointmentIndex);
-
             Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
                     appointment.getDateTime().getHour());
             model.addAvailableTimeSlot(timeslotToAdd);
