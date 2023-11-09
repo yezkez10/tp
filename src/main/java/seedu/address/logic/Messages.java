@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,8 +22,8 @@ public class Messages {
     public static final String MESSAGE_PATIENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_PATIENT_FOUND_OVERVIEW = "1 patient found!";
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
-    public static final String MESSAGE_APPOINTMENTS_FOUND_OVERVIEW = "%1$d patients found!";
-    public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 patients found!";
+    public static final String MESSAGE_APPOINTMENTS_FOUND_OVERVIEW = "%1$d appointments found!";
+    public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 appointment found!";
     public static final String MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW = "No appointments found!";
     public static final String MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW =
             "All Available Timeslot(s) on %tb %td, %tY Listed!";
@@ -94,20 +96,22 @@ public class Messages {
     }
     /**
      * Formats the {@code address of the patient} for display to the user.
-     * @param person Patient we are interested in
      * @param appointment Appointment of the patient
      * @return
      */
-    public static String formatAppointment(Person person, Appointment appointment) {
+    public static String formatAppointment(Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nPatient: ")
-                .append(person.getName())
-                .append("\n")
-                .append("Description: ")
+
+        LocalDateTime dateTime = appointment.getDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu hh.mm a");
+        String formattedDateTime = dateTime.format(formatter);
+
+        builder.append(" Patient: ")
+                .append(appointment.getPatientName())
+                .append(" | Description: ")
                 .append(appointment.getDescription())
-                .append("\n")
-                .append("Date: ")
-                .append(appointment.getDateTime());
+                .append(" | Date: ")
+                .append(formattedDateTime);
         return builder.toString();
     }
 }
