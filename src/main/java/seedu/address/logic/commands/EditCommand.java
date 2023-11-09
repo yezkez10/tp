@@ -202,7 +202,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, age, gender, ethnic, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, age, gender, ethnic, address, nric, tags);
         }
 
         public void setName(Name name) {
@@ -266,7 +266,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : tags;
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         /**

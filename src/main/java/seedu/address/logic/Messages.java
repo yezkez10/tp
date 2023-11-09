@@ -22,8 +22,8 @@ public class Messages {
     public static final String MESSAGE_PATIENTS_FOUND_OVERVIEW = "%1$d patients found!";
     public static final String MESSAGE_ONE_PATIENT_FOUND_OVERVIEW = "1 patient found!";
     public static final String MESSAGE_NO_PATIENT_FOUND_OVERVIEW = "No patients found!";
-    public static final String MESSAGE_APPOINTMENTS_FOUND_OVERVIEW = "%1$d patients found!";
-    public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 patients found!";
+    public static final String MESSAGE_APPOINTMENTS_FOUND_OVERVIEW = "%1$d appointments found!";
+    public static final String MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW = "1 appointment found!";
     public static final String MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW = "No appointments found!";
     public static final String MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW =
             "All Available Timeslot(s) on %tb %td, %tY Listed!";

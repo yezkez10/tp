@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_FOUND_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalAppointments.ALICE_WITH_APPOINTMENT;
@@ -77,7 +77,7 @@ public class FindAppointmentCommandTest {
 
     @Test
     public void execute_nameAndDate_appointmentsFound() {
-        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW, 1);
         NameContainsKeywordsApptPredicate namePredicate = preparePredicate("Alice");
         OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
                 ALICE_WITH_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
@@ -92,7 +92,7 @@ public class FindAppointmentCommandTest {
 
     @Test
     public void execute_dateSearch_appointmentsFound() {
-        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW, 1);
         OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
                 ALICE_WITH_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
         FindAppointmentsCommand command = new FindAppointmentsCommand(datePredicate);
