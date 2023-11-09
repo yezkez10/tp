@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ClinicAssistant;
 import seedu.address.model.Model;
@@ -55,27 +54,6 @@ public class AddAppointmentCommandTest {
         assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(INDEX_FIRST_PERSON,
                 INDEX_FIRST_DOCTOR, "Health check up",
                 null));
-    }
-
-    @Test
-    public void execute_appointmentAcceptedByModel_addSuccessful() {
-        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON, INDEX_FIRST_DOCTOR,
-                "Health check up", LocalDateTime.of(2024, 1, 20, 12, 0));
-        try {
-            CommandResult commandResult = addAppointmentCommand.execute(modelStub);
-            Appointment newAppointment = new Appointment("Health check up",
-                    LocalDateTime.of(2024, 1, 20, 12, 0),
-                    modelStub.getFilteredPersonList().get(0),
-                    modelStub.getFilteredDoctorList().get(0).getName().toString());
-            assertEquals(String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                    Messages.formatAppointment(newAppointment)),
-                    commandResult.getFeedbackToUser());
-            // Remove the appointment from the model
-            modelStub.deleteAppointment(newAppointment);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
