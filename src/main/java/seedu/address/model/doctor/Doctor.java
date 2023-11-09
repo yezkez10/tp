@@ -92,7 +92,7 @@ public class Doctor {
         }
 
         return otherDoctor != null
-                && otherDoctor.getName().equals(getName());
+                && otherDoctor.getName().equals(getName()) && otherDoctor.getAddress().equals(getAddress());
     }
 
 
