@@ -56,8 +56,7 @@ public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> 
             //passes as long as it is a valid date on calender
             //02-01-2024 18:00 will pass but will be caught later
             if (!isValidDateOnCalendar(dateStr)) {
-                throw new ParseException(MESSAGE_DATE_DOES_NOT_EXIST + "\n" + "Please insert in the following format: "
-                        + "\n" + ViewAvailableCommand.MESSAGE_USAGE);
+                throw new ParseException(MESSAGE_DATE_DOES_NOT_EXIST);
             }
 
             try {
@@ -68,8 +67,7 @@ public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> 
             }
 
             if (isPastDate(date)) {
-                throw new ParseException(MESSAGE_PAST_DATE + "\n" + "Please insert in the following format: " + "\n"
-                        + ViewAvailableCommand.MESSAGE_USAGE);
+                throw new ParseException(MESSAGE_PAST_DATE);
             }
 
             predicate = new OnDateTimeSlotPredicate(date);
@@ -91,13 +89,11 @@ public class ViewAvailableCommandParser implements Parser<ViewAvailableCommand> 
         }
         //check if dd/MM/yyyy or has any alphabet
         if (dateStr.contains("/") || dateStr.matches(".*[a-zA-Z]+.*")) {
-            throw new ParseException(MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
-                    + ViewAvailableCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_DATE);
         }
 
         if (dateStr.length() < 10) {
-            throw new ParseException(MESSAGE_DATE_TOO_SHORT + "\n" + "Please insert in the following format: "
-                    + "\n" + ViewAvailableCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_DATE_TOO_SHORT);
         }
     }
 }
