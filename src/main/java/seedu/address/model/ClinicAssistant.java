@@ -2,16 +2,19 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.doctor.UniqueDoctorList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.timeslots.Timeslot;
-import seedu.address.model.timeslots.UniqueTimeSlotList;
+import seedu.address.model.timeslots.UniqueTimeslotList;
 
 /**
  * Wraps all data at the address-book level
@@ -21,7 +24,11 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     private final UniquePersonList persons;
     private final UniqueAppointmentList allAppointments;
-    private final UniqueTimeSlotList allTimeSlots;
+
+    private final UniqueDoctorList doctors;
+
+    private final UniqueTimeslotList allTimeSlots;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -32,7 +39,8 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     {
         persons = new UniquePersonList();
         allAppointments = new UniqueAppointmentList();
-        allTimeSlots = new UniqueTimeSlotList();
+        doctors = new UniqueDoctorList();
+        allTimeSlots = new UniqueTimeslotList();
     }
 
     public ClinicAssistant() {}
@@ -63,6 +71,7 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
         setPersons(newData.getPersonList());
         setAppointments(newData.getAppointmentList());
+        setDoctors(newData.getDoctorList());
         setTimeslots(newData.getTimeSlotList());
     }
 
@@ -85,6 +94,14 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     /**
+     * Adds a doctor to clinic assistant.
+     * The doctor must not already exist in clinic assistant.
+     */
+    public void addDoctor(Doctor d) {
+        doctors.add(d);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -96,11 +113,38 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     }
 
     /**
+     * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
+     * {@code target} must exist in clinic asisstant.
+     * The person identity of {@code editedDoctor} must not be the same as another existing person in the address book.
+     */
+    public void setDoctor(Doctor target, Doctor editedDoctor) {
+        requireNonNull(editedDoctor);
+
+        doctors.setDoctor(target, editedDoctor);
+    }
+
+    /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in clinic assistant.
+     */
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return doctors.contains(doctor);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeDoctor(Doctor key) {
+        doctors.remove(key);
     }
 
     //// util methods
@@ -115,6 +159,11 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
     }
 
     @Override
@@ -157,7 +206,9 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
      * @param timeslot Timeslot instance to be added
      */
     public void addAvailableTimeSlot(Timeslot timeslot) {
-        allTimeSlots.add(timeslot);
+        if (!allTimeSlots.contains(timeslot)) {
+            allTimeSlots.add(timeslot);
+        }
     }
 
     /**
@@ -170,6 +221,14 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
             allTimeSlots.remove(timeslot);
         }
     }
+
+    /**
+     * Clears the list
+     */
+    public void resetTimeslots() {
+        allTimeSlots.clear();
+    }
+
 
     @Override
     public boolean hasAppointment(Appointment appointment) {
@@ -200,6 +259,13 @@ public class ClinicAssistant implements ReadOnlyClinicAssistant {
 
     public void setAppointments(List<Appointment> appointments) {
         this.allAppointments.setAppointments(appointments);
+    }
+
+    public void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+        this.allAppointments.editPersonAppointments(oldAppointments, toReplace);
+    }
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors.setDoctors(doctors);
     }
 
     public void deleteAppointment(Appointment appointment) {

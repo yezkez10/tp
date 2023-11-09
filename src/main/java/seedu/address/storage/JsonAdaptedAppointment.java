@@ -17,16 +17,18 @@ class JsonAdaptedAppointment {
 
     private final String description;
     private final LocalDateTime dateTime;
+    private final String doctorName;
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
      */
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("description") String description,
                                   @JsonProperty("dateTime") String dateTime,
-                                  @JsonProperty("patient") JsonAdaptedPerson person) {
+                                  @JsonProperty("patient") JsonAdaptedPerson person) throws IllegalValueException {
         this.description = description;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         this.dateTime = LocalDateTime.parse(dateTime, formatter);
+        this.doctorName = "test";
     }
 
     /**
@@ -35,6 +37,7 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source) {
         description = source.getDescription();
         dateTime = source.getDateTime();
+        doctorName = source.getName();
     }
 
     @JsonProperty("description")
@@ -54,6 +57,6 @@ class JsonAdaptedAppointment {
      */
     public Appointment toModelType(Person patient) {
         // Left patient as null for now
-        return new Appointment(description, dateTime, patient);
+        return new Appointment(description, dateTime, patient, doctorName);
     }
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
@@ -24,6 +26,7 @@ public class ModelManager implements Model {
     private final ClinicAssistant clinicAssistant;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Doctor> filteredDoctor;
     private final FilteredList<Appointment> filteredAppointments;
     private FilteredList<Timeslot> filteredTimeSlots;
 
@@ -38,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.clinicAssistant.getPersonList());
         filteredAppointments = new FilteredList<>(this.clinicAssistant.getAppointmentList());
+        filteredDoctor = new FilteredList<>(this.clinicAssistant.getDoctorList());
         filteredTimeSlots = new FilteredList<>(this.clinicAssistant.getTimeSlotList());
     }
 
@@ -136,10 +140,40 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+        requireAllNonNull(oldAppointments, toReplace);
+        clinicAssistant.editedPersonAppointments(oldAppointments, toReplace);
+    }
+    @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return clinicAssistant.hasAppointment(appointment);
     }
+
+    @Override
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return clinicAssistant.hasDoctor(doctor);
+    }
+
+    @Override
+    public void deleteDoctor(Doctor target) {
+        clinicAssistant.removeDoctor(target);
+    }
+
+    @Override
+    public void addDoctor(Doctor doctor) {
+        clinicAssistant.addDoctor(doctor);
+        updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+    }
+
+    @Override
+    public void setDoctor(Doctor target, Doctor editedDoctor) {
+        requireAllNonNull(target, editedDoctor);
+
+        clinicAssistant.setDoctor(target, editedDoctor);
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -175,6 +209,23 @@ public class ModelManager implements Model {
         filteredAppointments.setPredicate(predicate);
     }
 
+    //=========== Filtered Doctors List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return filteredDoctor;
+    }
+
+    @Override
+    public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        requireNonNull(predicate);
+        filteredDoctor.setPredicate(predicate);
+    }
+
     @Override
     public void addAvailableTimeSlot(Timeslot timeslot) {
         clinicAssistant.addAvailableTimeSlot(timeslot);
@@ -186,6 +237,14 @@ public class ModelManager implements Model {
         updateFilteredAvailableTimeslot(PREDICATE_SHOW_ALL_TIMESLOTS);
     }
 
+    /**
+     * Resets the list of available timeslots
+     */
+    @Override
+    public void resetAvailableTimeSlot() {
+        clinicAssistant.resetTimeslots();
+    }
+
     @Override
     public void updateFilteredAvailableTimeslot(Predicate<Timeslot> predicate) {
         requireNonNull(predicate);
@@ -194,15 +253,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Timeslot> getAvailableTimeSlotList() {
         return this.clinicAssistant.getTimeSlotList();
-    }
-    @Override
-    public ObservableList<Timeslot> getFilteredTimeslotsList() {
-        return filteredTimeSlots;
-    }
-
-    @Override
-    public Predicate<Timeslot> getCurrentPredicate() {
-        return (Predicate<Timeslot>) this.filteredTimeSlots.getPredicate();
     }
 
     @Override

@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR;
+import static seedu.address.logic.commands.AddAppointmentCommand.MESSAGE_SAME_APPOINTMENT_TIME;
+import static seedu.address.logic.commands.AddAppointmentCommand.MESSAGE_TIMESLOT_TAKEN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPTS;
@@ -17,6 +20,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
@@ -35,11 +40,11 @@ public class EditAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[APPOINTMENT INDEX]"
             + "[" + PREFIX_DESCRIPTION + "]"
-            + "[" + PREFIX_DATE + "]...\n"
+            + "[" + PREFIX_DATE + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DATE + "01-01-2024 00:00";
+            + PREFIX_DATE + "01-01-2024 09:00";
 
-    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited Appointment %1$s of %2$s";
+    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited Appointment |%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided: "
             + "[" + PREFIX_DESCRIPTION + "]"
             + "[" + PREFIX_DATE + "]\n"
@@ -64,26 +69,52 @@ public class EditAppointmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
 
         int zeroBasedAppointmentIndex = appointmentIndex.getZeroBased();
-
         if (zeroBasedAppointmentIndex >= appointmentList.size() || zeroBasedAppointmentIndex < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
-
         // Create edited appointment
         Appointment appointmentToEdit = appointmentList.get(zeroBasedAppointmentIndex);
         Person patient = appointmentToEdit.getPerson();
-        Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor,
-                patient);
+        Doctor targetDoctor = getDoctor(doctorList, new Name(appointmentToEdit.getName()));
 
+        Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor,
+                patient, targetDoctor.getName().toString());
+
+        for (Doctor doctor : doctorList) {
+            if (doctor.equals(targetDoctor)) {
+                // skip if current doctor is target doctor
+                continue;
+            }
+            // checks if a doctor has an appointment on that timeslot already
+            if (doctor.hasAppointmentOnTimeslot(editedAppointment.getDateTime())) {
+                throw new CommandException(String.format(MESSAGE_TIMESLOT_TAKEN, doctor.getName()));
+            }
+        }
+        // if you are editing JUST time
+        if (patient.hasAppointmentOnTimeslot(editedAppointment)
+                && editAppointmentDescriptor.getDescription().isEmpty()) {
+            throw new CommandException(MESSAGE_SAME_APPOINTMENT_TIME);
+        }
         if (appointmentToEdit.isSameAppointment(editedAppointment) && model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+        // JUST editing time of appointment
+        if (targetDoctor.hasAppointment(editedAppointment) && editAppointmentDescriptor.getDescription().isEmpty()) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
+        }
+        if (!editAppointmentDescriptor.getDescription().isEmpty() && targetDoctor.hasAppointment(editedAppointment)
+                && !editAppointmentDescriptor.getDateTime().isEmpty()) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT_DOCTOR);
         }
 
         // Update appointment in patient
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointmentToEdit);
         patient.editAppointment(appointmentIndexInPatient, editedAppointment);
+        // update appointment in Doctor
+        targetDoctor.editAppointment(appointmentToEdit, editedAppointment);
         // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
         if (!(model.getAvailableTimeSlotList().size() == 0)) {
             Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
@@ -96,7 +127,24 @@ public class EditAppointmentCommand extends Command {
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                editedAppointment, Messages.format(patient)));
+                Messages.formatAppointment(editedAppointment)));
+    }
+
+    /**
+     * Returns Doctor of the doctorList by the name of the doctor.
+     */
+    public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.getName().equals(doctorName)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return targetDoctor;
     }
 
     /**
@@ -104,13 +152,13 @@ public class EditAppointmentCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static Appointment createEditedAppointment(Appointment apptToEdit, EditAppointmentDescriptor editApptDesc,
-                                                       Person editedPerson) {
+                                                       Person editedPerson, String doctorName) {
         assert apptToEdit != null;
 
         String updatedDescription = editApptDesc.getDescription().orElse(apptToEdit.getDescription());
         LocalDateTime updatedDateTime = editApptDesc.getDateTime().orElse(apptToEdit.getDateTime());
 
-        return new Appointment(updatedDescription, updatedDateTime, editedPerson);
+        return new Appointment(updatedDescription, updatedDateTime, editedPerson, doctorName);
     }
 
     @Override

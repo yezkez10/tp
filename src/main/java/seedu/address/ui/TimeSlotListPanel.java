@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -19,6 +20,9 @@ public class TimeSlotListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Timeslot> timeslotsListView;
+
+    @FXML
+    private Label date;
 
     /**
      * Creates a {@code AppointmentListPanel} with the given {@code ObservableList}.
@@ -41,7 +45,8 @@ public class TimeSlotListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new TimeSlotCard(timeslot, getIndex() + 1).getRoot());
+                setGraphic(new TimeSlotCard(timeslot).getRoot());
+                date.setText("Available slots on " + timeslot.getDate().toString());
             }
         }
     }

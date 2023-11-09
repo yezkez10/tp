@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_FOUND_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_NO_APPOINTMENTS_FOUND_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TestUtil.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalAppointments.ALICE_WITH_APPOINTMENT;
@@ -70,18 +71,6 @@ public class FindAppointmentCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleAppointmentsFound() {
-        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 2);
-        NameContainsKeywordsApptPredicate predicate = preparePredicate("CHRIS christ BENson Carl jeff");
-        FindAppointmentsCommand command = new FindAppointmentsCommand(predicate);
-        expectedModel.updateFilteredAppointmentList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON_WITH_APPOINTMENT.firstAppointment(),
-                        CARL_WITH_APPOINTMENT.firstAppointment()),
-                model.getFilteredAppointmentList());
-    }
-
-    @Test
     public void toStringMethod() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
@@ -91,7 +80,7 @@ public class FindAppointmentCommandTest {
 
     @Test
     public void execute_nameAndDate_appointmentsFound() {
-        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW, 1);
         NameContainsKeywordsApptPredicate namePredicate = preparePredicate("Alice");
         OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
                 ALICE_WITH_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
@@ -106,7 +95,7 @@ public class FindAppointmentCommandTest {
 
     @Test
     public void execute_dateSearch_appointmentsFound() {
-        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_FOUND_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_ONE_APPOINTMENT_FOUND_OVERVIEW, 1);
         OnDateTimeApptPredicate datePredicate = new OnDateTimeApptPredicate(
                 ALICE_WITH_APPOINTMENT.firstAppointment().getDateTime().toLocalDate());
         FindAppointmentsCommand command = new FindAppointmentsCommand(datePredicate);

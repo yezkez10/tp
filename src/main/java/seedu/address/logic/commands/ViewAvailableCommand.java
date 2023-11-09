@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -24,6 +26,7 @@ public class ViewAvailableCommand extends Command {
             + ": Displays all the available timeslot on given DATE.\n"
             + "Parameters: DATE (must be given in dd-MM-yyyy exactly).\n"
             + "Example: " + COMMAND_WORD + " /on 01-02-2024";
+    private static Logger logger = Logger.getLogger("ViewAvailableCommandLogger");
     private Predicate<Timeslot> predicate;
     private Predicate<Appointment> apptPredicate;
     private LocalDate dateEntered;
@@ -44,16 +47,48 @@ public class ViewAvailableCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.resetAvailableTimeSlot();
         model.updateFilteredAppointmentList(apptPredicate);
         ObservableList<Appointment> appointmentList = model.getFilteredAppointmentList();
+        requireNonNull(appointmentList);
+        Set<Integer> unavailableTimeslots = populateUnavailableTimeslot(appointmentList);
+        addAvailableTimeslotsToModel(unavailableTimeslots, model);
+        logger.log(Level.INFO,
+                "ViewAvailableCommand:: current available timeslots: " + model.getAvailableTimeSlotList());
+
+        int sizeOfAvailableTimeslotList = model.getAvailableTimeSlotList().size();
+
+        if (sizeOfAvailableTimeslotList == 0) {
+            logger.log(Level.WARNING, "No available timeslots!");
+            return new CommandResult(String.format(Messages.MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW,
+                    dateEntered, dateEntered, dateEntered));
+        }
+        // Return success command in command prompt
+        return new CommandResult(String.format(Messages.MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW,
+                dateEntered, dateEntered, dateEntered));
+    }
+
+    /**
+     * Adds unavailable timeslots to the empty hashset based on present appointments
+     * @param appointmentList ObservableList of all appointments already made
+     * @return Set of Integer of unavailable timings
+     */
+    public Set<Integer> populateUnavailableTimeslot(ObservableList<Appointment> appointmentList) {
         Set<Integer> unavailableTimeslots = new HashSet<>();
-        // populate unavailableTimeslots
         for (int i = 0; i < appointmentList.size(); i++) {
             Appointment currAppt = appointmentList.get(i);
             unavailableTimeslots.add(currAppt.getDateTime().getHour());
         }
+        logger.log(Level.INFO, "Finished populating unavailable timeslots!");
+        return unavailableTimeslots;
+    }
 
-        //creates a list of timeslot from 9am to 5pm
+    /**
+     * Adds available timeslots to the model
+     * @param unavailableTimeslots Set of unavailable timings from previous method
+     * @param model Current model we have
+     */
+    public void addAvailableTimeslotsToModel(Set<Integer> unavailableTimeslots, Model model) {
         for (int i = 9; i < 18; i++) {
             if (unavailableTimeslots.contains(i)) {
                 continue;
@@ -61,15 +96,6 @@ public class ViewAvailableCommand extends Command {
             Timeslot timeslot = new Timeslot(dateEntered, i);
             model.addAvailableTimeSlot(timeslot);
         }
-        int sizeOfAvailableTimeslotList = model.getAvailableTimeSlotList().size();
-        assert sizeOfAvailableTimeslotList >= 0;
-        if (sizeOfAvailableTimeslotList == 0) {
-            return new CommandResult(String.format(Messages.MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW,
-                    dateEntered, dateEntered, dateEntered));
-        }
-        // Return success command in command prompt
-        return new CommandResult(String.format(Messages.MESSAGE_AVAILABLE_TIMESLOTS_FOUND_OVERVIEW,
-                dateEntered, dateEntered, dateEntered));
     }
 
     @Override
@@ -79,7 +105,7 @@ public class ViewAvailableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindAppointmentsCommand)) {
+        if (!(other instanceof ViewAvailableCommand)) {
             return false;
         }
         ViewAvailableCommand otherViewCommand = (ViewAvailableCommand) other;

@@ -95,16 +95,11 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
-        Collection<String> tagSet;
+
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        if (tags.size() == 1 && tags.contains("")) {
-            tagSet = Collections.emptySet();
-            throw new ParseException(String.format(Tag.MESSAGE_CONSTRAINTS));
-        } else {
-            tagSet = tags;
-        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 

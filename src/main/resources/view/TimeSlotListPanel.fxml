@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="timeslotsListView" VBox.vgrow="ALWAYS" />
+<VBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="date" alignment="CENTER_LEFT" contentDisplay="LEFT" prefHeight="57.0" prefWidth="246.0" styleClass="label-timeslot-header" stylesheets="@DarkTheme.css" />
+    <ListView fx:id="timeslotsListView" prefWidth="247.0" VBox.vgrow="ALWAYS" />
 </VBox>
