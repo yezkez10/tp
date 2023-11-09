@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -63,9 +64,14 @@ public class DeleteAppointmentCommand extends Command {
         patient.deleteAppointment(appointmentIndexInPatient);
         model.deleteAppointment(appointmentToDelete);
         //adding available timeslot back to list
-        Timeslot timeslotToAdd = new Timeslot(appointmentToDelete.getDateTime().toLocalDate(),
-                appointmentToDelete.getDateTime().getHour());
-        model.addAvailableTimeSlot(timeslotToAdd);
+        if (model.getAvailableTimeSlotList().size() > 0) {
+            LocalDate apptDate = appointmentToDelete.getDateTime().toLocalDate();
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            if (apptDate == currDate) {
+                Timeslot timeslotToAdd = new Timeslot(apptDate, appointmentToDelete.getDateTime().getHour());
+                model.addAvailableTimeSlot(timeslotToAdd);
+            }
+        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 Messages.formatAppointment(appointmentToDelete)));
