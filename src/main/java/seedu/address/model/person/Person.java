@@ -109,6 +109,15 @@ public class Person {
         return appointments;
     }
 
+    public int getIndex(Appointment otherAppointment) {
+        for (Appointment appointment: appointments) {
+            if (otherAppointment.equals(appointment)) {
+                return appointments.indexOf(appointment);
+            }
+        }
+        throw new RuntimeException();
+    }
+
     /**
      * returns First Appointment of the Patient
      *
