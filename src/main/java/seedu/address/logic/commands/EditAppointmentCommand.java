@@ -120,7 +120,7 @@ public class EditAppointmentCommand extends Command {
         if (!(model.getAvailableTimeSlotList().size() == 0)) {
             LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
             LocalDate apptDate = appointmentToEdit.getDateTime().toLocalDate();
-            if (currDate == apptDate) {
+            if (apptDate.equals(currDate)) {
                 Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
                         appointmentToEdit.getDateTime().getHour());
                 model.addAvailableTimeSlot(timeslotToAdd);

@@ -111,7 +111,7 @@ public class AddAppointmentCommand extends Command {
         if (model.getAvailableTimeSlotList().size() > 0) {
             LocalDate apptDate = toAdd.getDateTime().toLocalDate();
             LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
-            if (apptDate == currDate) {
+            if (apptDate.equals(currDate)) {
                 Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(),
                         toAdd.getDateTime().getHour());
                 model.removeAvailableTimeSlot(timeslotToRemove);

@@ -67,7 +67,7 @@ public class DeleteAppointmentCommand extends Command {
         if (model.getAvailableTimeSlotList().size() > 0) {
             LocalDate apptDate = appointmentToDelete.getDateTime().toLocalDate();
             LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
-            if (apptDate == currDate) {
+            if (apptDate.equals(currDate)) {
                 Timeslot timeslotToAdd = new Timeslot(apptDate, appointmentToDelete.getDateTime().getHour());
                 model.addAvailableTimeSlot(timeslotToAdd);
             }

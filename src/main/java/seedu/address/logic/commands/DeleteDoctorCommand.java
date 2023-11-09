@@ -60,7 +60,7 @@ public class DeleteDoctorCommand extends Command {
             if (model.getAvailableTimeSlotList().size() > 0) {
                 LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
                 LocalDate apptDate = appointment.getDateTime().toLocalDate();
-                if (currDate == apptDate) { // only add if same date
+                if (apptDate.equals(currDate)) { // only add if same date
                     Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
                     model.addAvailableTimeSlot(timeslotToAdd);
                 }
