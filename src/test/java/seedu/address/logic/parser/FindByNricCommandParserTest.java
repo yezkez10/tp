@@ -42,4 +42,13 @@ public class FindByNricCommandParserTest {
         assertParseFailure(parser, " S12345N67 ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Nric.MESSAGE_CONSTRAINTS));
     }
+
+
+    @Test
+    public void parse_multipleArgs_throwsParseException() {
+        // more than one nric
+        assertParseFailure(parser, " S1234567N T9876543E ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Nric.MESSAGE_CONSTRAINTS));
+    }
+
 }

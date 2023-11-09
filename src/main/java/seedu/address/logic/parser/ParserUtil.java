@@ -88,7 +88,7 @@ public class ParserUtil {
         if (allCapsNric.equals("") || !Nric.isValidNric(allCapsNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
-        return new Nric(trimmedNric);
+        return new Nric(allCapsNric);
     }
 
     /**
@@ -100,7 +100,7 @@ public class ParserUtil {
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
         String trimmedGender = gender.trim();
-        if (trimmedGender.equals("") || !Gender.isValidGender(gender)) {
+        if (trimmedGender.equals("") || !Gender.isValidGender(trimmedGender)) {
             throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
         }
         return new Gender(trimmedGender);
