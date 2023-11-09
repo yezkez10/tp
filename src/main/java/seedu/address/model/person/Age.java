@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Age {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Age should be <150 and >= 0";
+            "Age should be a number less than 150 and equals to or more than 0.";
     public final int age;
 
     /**
