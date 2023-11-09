@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,9 +33,10 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
             "The Appointment index provided is invalid";
-    public static final String MESSAGE_INVALID_DATE = "Date must be in dd-MM-yyyy";
-    public static final String MESSAGE_DATE_DOES_NOT_EXIST = "Date must be a valid date that exists on the calendar!";
-
+    public static final String MESSAGE_INVALID_DATE = "DATE must be in format dd-MM-yyyy";
+    public static final String MESSAGE_DATE_DOES_NOT_EXIST = "DATE must be a valid date (correct date and month) "
+            + "that exists on the calendar!";
+    public static final String MESSAGE_DATE_TOO_SHORT = "DATE entered is too short";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -93,20 +96,22 @@ public class Messages {
     }
     /**
      * Formats the {@code address of the patient} for display to the user.
-     * @param person Patient we are interested in
      * @param appointment Appointment of the patient
      * @return
      */
-    public static String formatAppointment(Person person, Appointment appointment) {
+    public static String formatAppointment(Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nPatient: ")
-                .append(person.getName())
-                .append("\n")
-                .append("Description: ")
+
+        LocalDateTime dateTime = appointment.getDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM uuuu hh.mm a");
+        String formattedDateTime = dateTime.format(formatter);
+
+        builder.append(" Patient: ")
+                .append(appointment.getPatientName())
+                .append(" | Description: ")
                 .append(appointment.getDescription())
-                .append("\n")
-                .append("Date: ")
-                .append(appointment.getDateTime());
+                .append(" | Date: ")
+                .append(formattedDateTime);
         return builder.toString();
     }
 }

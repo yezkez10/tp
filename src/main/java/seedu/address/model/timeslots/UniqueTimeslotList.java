@@ -15,9 +15,9 @@ import seedu.address.model.timeslots.exceptions.DuplicateTimeslotException;
 import seedu.address.model.timeslots.exceptions.TimeSlotNotFoundException;
 
 /**
- * A UniqueTimeSlotList class that is used for JavaFX FrontEnd
+ * A UniqueTimeslotList class that is used for JavaFX FrontEnd
  */
-public class UniqueTimeSlotList implements Iterable<Timeslot> {
+public class UniqueTimeslotList implements Iterable<Timeslot> {
 
     private final ObservableList<Timeslot> internalList = FXCollections.observableArrayList();
     private final ObservableList<Timeslot> internalUnmodifiableList =
@@ -58,32 +58,18 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
      */
     public void remove(Timeslot toRemove) {
         requireNonNull(toRemove);
-        System.out.println(internalList);
         if (!internalList.remove(toRemove)) {
             throw new TimeSlotNotFoundException();
         }
     }
 
     /**
-     * Sets the UniqueTimeSlotList from current to the replacement given
-     * @param replacement UniqueTimeSlotList we want to set current List to
+     * Sets the UniqueTimeslotList from current to the replacement given
+     * @param replacement UniqueTimeslotList we want to set current List to
      */
-    public void setTimeslots(UniqueTimeSlotList replacement) {
+    public void setTimeslots(UniqueTimeslotList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code timeslot}.
-     * {@code timeslot} must not contain duplicate Timeslot.
-     */
-    public void setTimeslots(List<Timeslot> timeSlotsList) {
-        requireAllNonNull(timeSlotsList);
-        if (!timeSlotsAreUnique(timeSlotsList)) {
-            throw new DuplicateTimeslotException();
-        }
-
-        internalList.setAll(timeSlotsList);
     }
 
     /**
@@ -107,10 +93,11 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
     }
 
     public void setTimeslotsList(List<Timeslot> timeslotsList) {
-        requireNonNull(timeslotsList);
+        requireAllNonNull(timeslotsList);
         if (!timeSlotsAreUnique(timeslotsList)) {
             throw new DuplicateTimeslotException();
         }
+        internalList.setAll(timeslotsList);
     }
 
     @Override
@@ -125,12 +112,12 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UniqueTimeSlotList)) {
+        if (!(other instanceof UniqueTimeslotList)) {
             return false;
         }
 
-        UniqueTimeSlotList otherUniqueTimeSlotList = (UniqueTimeSlotList) other;
-        return internalList.equals(otherUniqueTimeSlotList.internalList);
+        UniqueTimeslotList otherUniqueTimeslotList = (UniqueTimeslotList) other;
+        return internalList.equals(otherUniqueTimeslotList.internalList);
     }
 
     @Override
@@ -144,7 +131,7 @@ public class UniqueTimeSlotList implements Iterable<Timeslot> {
     }
 
     /**
-     * Returns the size of the UniqueTimeSlotList
+     * Returns the size of the UniqueTimeslotList
      * @return Size of the internalList instance
      */
     public int size() {

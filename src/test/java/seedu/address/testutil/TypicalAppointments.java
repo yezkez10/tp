@@ -20,29 +20,29 @@ public class TypicalAppointments {
 
     public static final Person ALICE_WITH_APPOINTMENT = new AppointmentBuilder(ALICE)
             .withDescription("See the doctor")
-            .withDateTme("01-01-2024 00:00").build();
+            .withDateTme("01-01-2024 09:00").build();
     public static final Person BENSON_WITH_APPOINTMENT = new AppointmentBuilder(BENSON)
             .withDescription("Urine Exam")
-            .withDateTme("01-11-2023 00:00").build();
+            .withDateTme("01-11-2023 11:00").build();
 
     public static final Person CARL_WITH_APPOINTMENT = new AppointmentBuilder(CARL)
             .withDescription("x-ray appointment")
-            .withDateTme("05-02-2024 00:00").build();
+            .withDateTme("05-02-2024 13:00").build();
     public static final Person DANIEL_WITH_APPOINTMENT = new AppointmentBuilder(DANIEL)
             .withDescription("z-ray appointment")
-            .withDateTme("05-02-2024 00:00").build();
+            .withDateTme("05-02-2024 15:00").build();
 
     public static final Person ELLE_WITH_APPOINTMENT = new AppointmentBuilder(ELLE)
             .withDescription("y-ray appointment")
-            .withDateTme("05-02-2024 00:00").build();
+            .withDateTme("05-02-2024 12:00").build();
 
     public static final Person FIONA_WITH_APPOINTMENT = new AppointmentBuilder(FIONA)
             .withDescription("a-ray appointment")
-            .withDateTme("05-02-2024 00:00").build();
+            .withDateTme("05-02-2024 11:00").build();
 
     public static final Person GEORGE_WITH_APPOINTMENT = new AppointmentBuilder(GEORGE)
             .withDescription("x-ray appointment")
-            .withDateTme("05-02-2024 00:00").build();
+            .withDateTme("05-02-2024 17:00").build();
 
     private TypicalAppointments() {} // prevents instantiation
 

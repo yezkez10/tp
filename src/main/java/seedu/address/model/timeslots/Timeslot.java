@@ -25,19 +25,11 @@ public class Timeslot {
         this.hour = hour;
     }
 
-    /**
-     * Gets the LocalDate of this Timeslot instance
-     * @return LocalDate instance of the date of Timeslot
-     */
-    public LocalDate getDate() {
-        return this.date;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("date", this.date)
-                .add("time", this.hour)
+                .add("hour", this.hour)
                 .toString();
     }
 
@@ -78,7 +70,19 @@ public class Timeslot {
                 && otherTimeSlot.getHour() == getHour();
     }
 
+    /**
+     * Gets the Hour of this Timeslot instance
+     * @return int instance of hour of Timeslot
+     */
     public int getHour() {
         return this.hour;
+    }
+
+    /**
+     * Gets the LocalDate of this Timeslot instance
+     * @return LocalDate instance of the date of Timeslot
+     */
+    public LocalDate getDate() {
+        return this.date;
     }
 }

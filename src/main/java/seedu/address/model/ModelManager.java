@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -139,6 +140,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+        requireAllNonNull(oldAppointments, toReplace);
+        clinicAssistant.editedPersonAppointments(oldAppointments, toReplace);
+    }
+    @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return clinicAssistant.hasAppointment(appointment);
@@ -247,15 +253,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Timeslot> getAvailableTimeSlotList() {
         return this.clinicAssistant.getTimeSlotList();
-    }
-    @Override
-    public ObservableList<Timeslot> getFilteredTimeslotsList() {
-        return filteredTimeSlots;
-    }
-
-    @Override
-    public Predicate<Timeslot> getCurrentPredicate() {
-        return (Predicate<Timeslot>) this.filteredTimeSlots.getPredicate();
     }
 
     @Override

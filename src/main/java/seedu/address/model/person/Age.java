@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -10,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Age {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Age should be <150 and >= 0";
+            "Age should be a number less than 150 and equals to or more than 0.";
     public final int age;
 
     /**
@@ -19,7 +18,6 @@ public class Age {
      * @param age A valid Age.
      */
     public Age(int age) {
-        requireNonNull(age);
         checkArgument(isValidAge(age), MESSAGE_CONSTRAINTS);
         this.age = age;
     }
