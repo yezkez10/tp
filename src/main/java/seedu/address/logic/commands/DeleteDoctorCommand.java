@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +56,15 @@ public class DeleteDoctorCommand extends Command {
             int appointmentIndex = patient.getAppointments().indexOf(appointment);
             patient.deleteAppointment(appointmentIndex);
 
-            Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
-                    appointment.getDateTime().getHour());
-            model.addAvailableTimeSlot(timeslotToAdd);
+            //only add to availableTimeslotList if list is present
+            if (model.getAvailableTimeSlotList().size() > 0) {
+                LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+                LocalDate apptDate = appointment.getDateTime().toLocalDate();
+                if (currDate == apptDate) { // only add if same date
+                    Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
+                    model.addAvailableTimeSlot(timeslotToAdd);
+                }
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, Messages.formatDoctor(doctorToDelete)));
