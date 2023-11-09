@@ -50,7 +50,6 @@ public class Messages {
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
     }
 
-    //TODO: change this to own format
     /**
      * Formats the {@code person} for display to the user.
      */

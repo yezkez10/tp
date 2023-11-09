@@ -22,14 +22,14 @@ public class Nric {
     public Nric(String nric) {
         requireNonNull(nric);
         checkArgument(isValidNric(nric.toUpperCase()), MESSAGE_CONSTRAINTS);
-        value = nric.toUpperCase();
+        value = nric.trim().toUpperCase();
     }
 
     /**
      * Returns true if a given string is a valid Nric.
      */
     public static boolean isValidNric(String test) {
-        return test.toUpperCase().matches(VALIDATION_REGEX);
+        return test.trim().toUpperCase().matches(VALIDATION_REGEX);
     }
 
     @Override
