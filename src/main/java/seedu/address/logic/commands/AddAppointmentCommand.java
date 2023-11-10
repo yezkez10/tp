@@ -28,12 +28,12 @@ public class AddAppointmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a appointment to the patient identified by the index number used in the displayed patient list.\n"
-            + "Parameters: INDEX (must be a positive integer), "
-            + "DESCRIPTION, DATE_TIME (must be a valid date in the future)\n"
+            + "Parameters: /for PATIENT_INDEX /doc DOCTOR_INDEX "
+            + "/d DESCRIPTION /on DATE_TIME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOR + "1 "
             + PREFIX_DOC + "1 "
-            + PREFIX_DESCRIPTION + "description details "
+            + PREFIX_DESCRIPTION + "x-ray scan "
             + PREFIX_DATE + "02-01-2024 12:00";
 
     public static final String MESSAGE_SAME_APPOINTMENT_TIME = "This patient already has "

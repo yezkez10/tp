@@ -91,15 +91,7 @@ Adds a doctor to the database. A doctor has a name, phone number, email, gender,
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
-* A doctor  has a name, phone number, email, gender, age, address and they are all mandatory.
-
-<box type="warning" seamless>
-
-**Warning:**
-* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet. 
-* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time.
-* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well.
-</box>
+* A doctor has a name, phone number, email, gender, age, address and they are all mandatory.
 
 <box type="info" seamless>
 
@@ -107,6 +99,14 @@ Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRE
 * You can not add a Doctor with the same name and this is case-sensitive <br>
 * Adding two doctors with the names John Doe and John doe is allowed
 * Adding two doctors with the names John Doe and John Doe is not allowed
+</box>
+
+<box type="warning" seamless>
+
+**Warning:**
+* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet.
+* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time.
+* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well.
 </box>
 
 Examples:
@@ -119,22 +119,47 @@ Examples:
     `add_doctor: Adds a Doctor to clinic assistant.` <br>
     `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
     `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
+
 ### Adding an appointment: `appt`
 
-Adds a new appointment for a specific patient at index.
+Adds a new appointment for the specified patient. An appointment requires the patient's index, the doctor's index, a description, and the appointment date and time.
 
-Format: `appt /for INDEX /doc INDEX /d DESCRIPTION /on DATETIME`
+Format: `appt /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME`
+
+* PATIENT_INDEX: Index of the patient for whom the appointment is being made.
+* DOCTOR_INDEX: Index of the doctor who will handle the appointment.
+* DESCRIPTION: Brief description of the appointment.
+* DATE_TIME: Date and time of the appointment in the format dd-MM-yyyy HH:mm (e.g., 01-01-2024 12:00).
+
+<box type="info" seamless>
 
 **Note:**
-* Doctor index must be valid, i.e. there must also be a doctor added first before an Appointment can be made
-* Upcoming date of this new appointment must be included.
-* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
-* `DATETIME` must be a date after the **current** time
-* There can only be 1 appointment per timeslot, regardless of which doctor the appointment is associated to. i.e. 2 doctors cannot have appointments on the same timeslot. This is a known issue and is included in our future implementations
-* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
+* The doctor's index must correspond to a valid doctor previously added to the system.
+* The appointment's date and time must be in the future.
+* All fields (patient index, doctor index, description, and date/time) are mandatory.
+</box>
+
+<box type="warning" seamless>
+
+**Warning:**
+* Only one appointment is allowed per timeslot. i.e. 2 doctors cannot have appointments on the same timeslot. This is a current limitation that we are working as part of our future implementations.
+</box>
 
 Examples:
-* `appt /for 6 /doc 1 /d Blood test /on 01-01-2024 12:00`
+* Valid input: `appt /for 1 /doc 2 /d Blood test /on 01-01-2024 12:00`
+    * Output (success): <br>
+      `New appointment added | Patient: Alex Yeoh | Description: Blood test | Date: 01 Jan 2024 12.00 PM`
+* Invalid input 1 (no description provided): `appt /for 1 /doc 2 /on 01-01-2024 12:00`
+    * Output (failure): <br>
+      `Invalid command format! ` <br>
+      `appt: Adds a appointment to the patient identified by the index number used in the displayed patient list.` <br>
+      `Parameters: /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME` <br>
+      `Example: appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
+* Invalid input 2 (invalid DATE_TIME): `appt /for 1 /doc 2 /d Blood test /on tuesday`
+    * Output (failure): <br>
+      `Date must be in dd-MM-yyyy HH:mm format.` <br>
+      `Date & time must be after the current time.` <br>
+      `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
 
 ### Listing all patients : `list`
 
