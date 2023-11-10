@@ -6,9 +6,10 @@
 
 # ClinicAssistant User Guide
 
-ClinicAssistant is a **desktop app for managing patients' records, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
-ClinicAssistant requires a lot of typing of various prefixes to add, list or store patients or appointments accordingly.
-
+ClinicAssistant is a desktop app that offers seamless patient contact management for GP clinics’ admin staff who are familiar with Command Line Interface (CLI), 
+optimized for use via a CLI while still having the benefits of a Graphical User Interface (GUI). 
+If you can type fast, ClinicAssistant can get your patient record management tasks done faster than traditional pen-and-paper methods. 
+It ensures efficient adding, editing and finding of patient information, optimising clinic operations.
 <!-- * Table of Contents -->
 <page-nav-print />
 
