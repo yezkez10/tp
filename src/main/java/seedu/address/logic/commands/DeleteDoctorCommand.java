@@ -63,6 +63,11 @@ public class DeleteDoctorCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, Messages.formatDoctor(doctorToDelete)));
     }
 
+    /**
+     * Updates the Model timeslot list if it is initialised and date is same
+     * @param model Model we are executing on
+     * @param appointment Appointment we are updating with
+     */
     public void updateModelTimeslotList(Model model, Appointment appointment) {
         if (model.getAvailableTimeSlotList().size() > 0) {
             LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
