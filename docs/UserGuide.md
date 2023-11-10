@@ -201,8 +201,8 @@ Examples:
 * `delete_doctor 2` deletes the 2nd doctor in ClinicAssistant.
 
 Examples:
-*  `delete_doctor 4` Deletes the fourth appointment of the appointment list shown
-*  `delete_doctor 1` Deletes the first appointment of the appointment list shown
+*  `delete_doctor 4` Deletes the fourth doctor of the list shown
+*  `delete_doctor 1` Deletes the first doctor of the list shown
 
 ### Finding patient details by name: `find`
 
