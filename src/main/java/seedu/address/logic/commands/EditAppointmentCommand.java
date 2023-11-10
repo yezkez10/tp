@@ -115,7 +115,8 @@ public class EditAppointmentCommand extends Command {
         patient.editAppointment(appointmentIndexInPatient, editedAppointment);
         // update appointment in Doctor
         targetDoctor.editAppointment(appointmentToEdit, editedAppointment);
-        // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
+
+        // Add available timeslot and remove previous timeslot IF model list same date
         updateModelTimeslotList(model, appointmentToEdit, editedAppointment);
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);

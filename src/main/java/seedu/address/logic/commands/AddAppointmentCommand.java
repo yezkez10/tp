@@ -111,18 +111,22 @@ public class AddAppointmentCommand extends Command {
         targetDoctor.addAppointment(toAdd);
 
         model.addAppointment(toAdd);
-        if (model.getAvailableTimeSlotList().size() > 0) {
-            LocalDate apptDate = toAdd.getDateTime().toLocalDate();
-            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
-            if (apptDate.equals(currDate)) {
-                Timeslot timeslotToRemove = new Timeslot(toAdd.getDateTime().toLocalDate(),
-                        toAdd.getDateTime().getHour());
-                model.removeAvailableTimeSlot(timeslotToRemove);
-            }
-        }
+        updateModelTimeslotList(model, toAdd);
+
         return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, Messages.formatAppointment(toAdd)));
     }
 
+    private void updateModelTimeslotList(Model model, Appointment appointmentToAdd) {
+        if (model.getAvailableTimeSlotList().size() > 0) {
+            LocalDate apptDate = appointmentToAdd.getDateTime().toLocalDate();
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            if (apptDate.equals(currDate)) {
+                Timeslot timeslotToRemove = new Timeslot(appointmentToAdd.getDateTime().toLocalDate(),
+                        appointmentToAdd.getDateTime().getHour());
+                model.removeAvailableTimeSlot(timeslotToRemove);
+            }
+        }
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
