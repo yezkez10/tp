@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Ethnicity {
     public static final String MESSAGE_CONSTRAINTS =
-            "Ethnic should be 'Chinese'/ 'Malay'/ 'Indian'/ 'Eurasian' or 'Others' ";
+            "Ethnic should be 'Chinese'/ 'Malay'/ 'Indian'/ 'Eurasian' or 'Others' exactly";
     private static final Set<String> VALID_ETHNICITIES =
             Set.of("Chinese", "Malay", "Indian", "Eurasian", "Others");
     public final String ethnic;

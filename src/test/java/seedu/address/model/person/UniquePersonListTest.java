@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -41,10 +42,20 @@ public class UniquePersonListTest {
 
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+        // same nric identity field
         uniquePersonList.add(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
+    }
+
+    @Test
+    public void contains_personWithDifferentIdentityFieldsNotInList_returnsTrue() {
+        // different nric identity field
+        uniquePersonList.add(ALICE);
+        Person editedAlice = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertFalse(uniquePersonList.contains(editedAlice));
     }
 
     @Test
@@ -56,6 +67,13 @@ public class UniquePersonListTest {
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
         assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+    }
+
+    @Test
+    public void add_personWithDuplicateNric_throwsDuplicatePersonException() {
+        uniquePersonList.add(BOB);
+        Person editedBob = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(editedBob));
     }
 
     @Test

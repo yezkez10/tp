@@ -26,27 +26,27 @@ public class SampleDataUtil {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                     new Gender("M"), new Age(21), new Ethnicity("Chinese"),
                         new Nric("T1341367E"), new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
+                getTagSet()),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                     new Gender("F"), new Age(16), new Ethnicity("Chinese"),
                         new Nric("T1231437E"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("throat infection", "on antibiotics")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                     new Gender("F"), new Age(60), new Ethnicity("Eurasian"),
                         new Nric("T5443267E"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
+                getTagSet("smoker")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                     new Gender("M"), new Age(55), new Ethnicity("Chinese"),
                         new Nric("T1290127E"), new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
+                getTagSet("vapes")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                     new Gender("M"), new Age(42), new Ethnicity("Malay"),
                         new Nric("T1432567E"), new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
+                getTagSet("blood type: A")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                     new Gender("M"), new Age(33), new Ethnicity("Indian"),
                         new Nric("T1236312E"), new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+                getTagSet("just had hand surgery"))
         };
     }
 
