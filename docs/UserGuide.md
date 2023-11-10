@@ -87,18 +87,38 @@ Examples:
 
 ### Adding a doctor: `add_doctor`
 
-**Note:**
-* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet
-* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time
-* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well
-
-Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
+Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and address.
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
-Examples:
-* `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+* A doctor  has a name, phone number, email, gender, age, address and they are all mandatory.
 
+<box type="warning" seamless>
+
+**Warning:**
+* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet. 
+* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time.
+* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well.
+</box>
+
+<box type="info" seamless>
+
+**Note:**
+* You can not add a Doctor with the same name and this is case-sensitive <br>
+* Adding two doctors with the names John Doe and John doe is allowed
+* Adding two doctors with the names John Doe and John Doe is not allowed
+</box>
+
+Examples:
+* Valid input: `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+  * Output (success): <br>
+  `New Doctor added: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive`
+* Invalid input: `add_doctor /n Dr Lee`
+  * Output (failure): <br>
+  `Invalid command format!` <br>
+    `add_doctor: Adds a Doctor to clinic assistant.` <br>
+    `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
+    `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
 ### Adding an appointment: `appt`
 
 Adds a new appointment for a specific patient at index.
@@ -172,37 +192,80 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd patient in ClinicAssistant.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-### Deleting an appointment : `delete_appt`
-
-Deletes the appointment at the specified index of the appointment shown on the list.
-
-Format: `delete_appt INDEX`
-
-* The command is case-sensitive. E.g. Delete_appt INDEX will not work
-* INDEX must be a positive integer, starting from 1
-* Acceptable values for INDEX is a single integer that is within the number of appointments
-
 ### Deleting a doctor : `delete_doctor`
-
-**Note:**
-* Make sure that the doctor you are about to delete does not have any appointments
-* This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost
 
 Deletes the specified doctor from the Clinic Records.
 
 Format: `delete_doctor INDEX`
 
 * Deletes the doctor at the specified `INDEX`.
-* The index refers to the index number shown in the displayed doctor list.
-* The index **must be a positive integer** 1, 2, 3, 4, …​
+* Index refers to the index number shown on the displayed doctor list.
+* User could use click on the doctor tab to show the doctor list.
+  
+<box type="warning" seamless>
 
-Examples:
-* `delete_doctor 2` deletes the 2nd doctor in ClinicAssistant.
+ **Warning:**
+ * Make sure that the doctor you are about to delete does not have any appointments.
+ * This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost.
+</box>
 
-Examples:
-*  `delete_doctor 4` Deletes the fourth doctor of the list shown
-*  `delete_doctor 1` Deletes the first doctor of the list shown
+<box type="info" seamless>
+
+**Note:** <br>
+* The command is case-sensitive. E.g. `Delete_doctor INDEX` will not work
+* INDEX must be a positive integer, starting from 1
+  </box>
+
+
+
+Examples:<br>
+initial Doctor list:
+![Add_Doctor](images/Add_Doctor.png)
+* Valid input: `delete_doctor 1`
+    * Output (success): <br>
+      `Deleted Doctor: John Doe | Phone: 98765432 | Email: johnd@example.com | Gender: M | Age: 22 | Address: 311, Clementi Ave 2, #02-25 from clinic records`
+* Invalid input: `delete_doctor 0` for non positive integers or no input
+    * Output (failure): <br>
+      `Invalid command format!`<br>
+      `delete_doctor: Deletes the doctor with the index number used in the clinic records.`<br>
+      `Parameters: INDEX (must be a positive integer in the list)`<br>
+      `Example: delete_doctor 1`<br>
+* Invalid input: `delete_doctor 2` for positive integers out of bounds
+    * Output (failure): <br>
+      `The doctor index provided is invalid`
+
+
+### Deleting an appointment : `delete_appt`
+
+Deletes an appointment from the clinic’s registra via the specified index.
+
+Format: `delete_appt INDEX`
+* Deletes the appointment at the specified `INDEX`
+* Index refers to the index number shown on the displayed appointment list.
+* User could use `list_appt` to display all the appointments in the registra first
+
+<box type="info" seamless>
+
+**Note:** <br>
+* The command is case-sensitive. E.g. `Delete_appt INDEX` will not work
+* INDEX must be a positive integer, starting from 1
+</box>
+
+Examples:<br>
+initial Appointment list:
+![Add_Appointment](images/Add_Appointment.png)
+* Valid input: `delete_appt 1`
+  * Output (success): <br>
+  `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
+* Invalid input: `delete_appt 0` for non positive integers or no input
+  * Output (failure): <br>
+    `Invalid command format:` <br>
+    `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
+    `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
+* Invalid input: `delete_appt 2` for positive integers out of bounds
+  * Output (failure): <br>
+  `The patient index provided is invalid`
+
 
 ### Finding patient details by name: `find`
 
@@ -307,12 +370,14 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho /p22224444 /ejamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Doctor**  | `add_doctor /n NAME /P PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` <br> e.g, `add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25`
 **Add Appointment**  | `appt /for INDEX /d details /on DATE & TIME` <br> e.g., `appt /for 1 /d orthopaedic /on 02-01-2024 12:00`
 **Edit**   | `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​` <br> e.g., `edit 1 /a 3 NUS Computing Drive`
 **Edit Appointment** | `edit_appt [/d DESCRIPTION] [/on DATETIME]` <br> e.g., `edit_appt 1 /d changed to X-ray scan`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Doctor** | `delete_doctor INDEX`<br> e.g, `delete_doctor 3`
 **Delete Appointment** | `delete_appt INDEX` <br> e.g., `delete_appt 3`
 **Find**   | `find KEYWORD`<br> e.g., `find john`
 **Find by NRIC**   | `find_nric NRIC` <br> e.g., `find_nric T1234567E`
