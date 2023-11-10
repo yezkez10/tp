@@ -56,9 +56,8 @@ public class ViewAvailableCommand extends Command {
         logger.log(Level.INFO,
                 "ViewAvailableCommand:: current available timeslots: " + model.getAvailableTimeSlotList());
 
-        int sizeOfAvailableTimeslotList = model.getAvailableTimeSlotList().size();
-
-        if (sizeOfAvailableTimeslotList == 0) {
+        boolean emptyList = model.getAvailableTimeSlotList().size() == 0;
+        if (emptyList) {
             logger.log(Level.WARNING, "No available timeslots!");
             return new CommandResult(String.format(Messages.MESSAGE_NO_AVAILABLE_TIMESLOTS_OVERVIEW,
                     dateEntered, dateEntered, dateEntered));
@@ -96,6 +95,7 @@ public class ViewAvailableCommand extends Command {
             Timeslot timeslot = new Timeslot(dateEntered, i);
             model.addAvailableTimeSlot(timeslot);
         }
+        logger.log(Level.INFO, "Finished adding available timeslots to model!");
     }
 
     @Override
