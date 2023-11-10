@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 
@@ -38,6 +40,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -49,12 +52,40 @@ public class DeleteCommand extends Command {
         ArrayList<Appointment> patientAppointments = personToDelete.getAppointments();
         for (Appointment appointment : patientAppointments) {
             model.deleteAppointment(appointment);
-            Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
-                    appointment.getDateTime().getHour());
-            model.addAvailableTimeSlot(timeslotToAdd);
+
+            Doctor targetDoctor = targetDoctor(doctorList, appointment);
+            int appointmentIndex = targetDoctor.getAppointments().indexOf(appointment);
+            targetDoctor.deleteAppointment(appointmentIndex);
+
+            if (model.getAvailableTimeSlotList().size() > 0) {
+                LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+                LocalDate apptDate = appointment.getDateTime().toLocalDate();
+
+                if (apptDate.equals(currDate)) {
+                    Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
+                    model.addAvailableTimeSlot(timeslotToAdd);
+                }
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.format(personToDelete)));
+    }
+
+    /**
+     * Returns the doctor that contains the given appointment.
+     */
+    public Doctor targetDoctor(List<Doctor> doctorList, Appointment appointment) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.hasAppointment(appointment)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return targetDoctor;
     }
 
     @Override

@@ -26,6 +26,7 @@
                 </Label>
                 <Label fx:id="patient" text="\$patient" styleClass="cell_big_label" />
             </HBox>
+            <Label fx:id="doctor" styleClass="cell_small_label" text="\$doctor" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
             <Label fx:id="dateTime" styleClass="cell_small_label" text="\$dateTime" />
         </VBox>

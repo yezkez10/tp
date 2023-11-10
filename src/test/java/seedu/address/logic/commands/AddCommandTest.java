@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyClinicAssistant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.timeslots.Timeslot;
 import seedu.address.testutil.PersonBuilder;
@@ -170,15 +171,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public Predicate<Timeslot> getCurrentPredicate() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public ObservableList<Timeslot> getFilteredTimeslotsList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addAppointment(Appointment appointment) {
             throw new AssertionError("This method should not be called.");
         }
@@ -194,7 +186,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void editedPersonAppointments(ArrayList<Appointment> oldAppointments, ArrayList<Appointment> toReplace) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasAppointment(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Doctor> getFilteredDoctorList() {
             throw new AssertionError("This method should not be called.");
         }
         @Override
@@ -203,7 +205,36 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
         public void removeAvailableTimeSlot(Timeslot timeslot) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDoctor(Doctor target, Doctor editedDoctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDoctor(Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetAvailableTimeSlot() {
             throw new AssertionError("This method should not be called.");
         }
 

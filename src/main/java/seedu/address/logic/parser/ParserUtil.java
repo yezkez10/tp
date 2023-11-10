@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_AGE_SHOULD_BE_INTEGER;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,7 +55,7 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        if (trimmedName.equals("") || !Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
@@ -69,7 +70,7 @@ public class ParserUtil {
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
+        if (trimmedPhone.equals("") || !Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
@@ -85,10 +86,10 @@ public class ParserUtil {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
         String allCapsNric = trimmedNric.toUpperCase();
-        if (!Nric.isValidNric(allCapsNric)) {
+        if (allCapsNric.equals("") || !Nric.isValidNric(allCapsNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
-        return new Nric(trimmedNric);
+        return new Nric(allCapsNric);
     }
 
     /**
@@ -100,7 +101,7 @@ public class ParserUtil {
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
         String trimmedGender = gender.trim();
-        if (!Gender.isValidGender(gender)) {
+        if (trimmedGender.equals("") || !Gender.isValidGender(trimmedGender)) {
             throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
         }
         return new Gender(trimmedGender);
@@ -115,13 +116,22 @@ public class ParserUtil {
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
         String trimmedAge = age.trim();
-        int ageInt = Integer.parseInt(trimmedAge);
+        int ageInt;
+        // Check if trimmedAge is an empty string
+        if (trimmedAge.equals("")) {
+            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            ageInt = Integer.parseInt(trimmedAge);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_AGE_SHOULD_BE_INTEGER);
+        }
+
         if (!Age.isValidAge(ageInt)) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
         return new Age(ageInt);
     }
-
     /**
      * Parses a {@code String ethnic} into a {@code Ethnicity}.
      * @param ethnic The input string that represents ethnic group of patient
@@ -131,7 +141,7 @@ public class ParserUtil {
     public static Ethnicity parseEthnic(String ethnic) throws ParseException {
         requireNonNull(ethnic);
         String trimmedEthnic = ethnic.trim();
-        if (!Ethnicity.isValidEthnic(trimmedEthnic)) {
+        if (trimmedEthnic.equals("") || !Ethnicity.isValidEthnic(trimmedEthnic)) {
             throw new ParseException(Ethnicity.MESSAGE_CONSTRAINTS);
         }
         return new Ethnicity(trimmedEthnic);
@@ -146,7 +156,7 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
+        if (trimmedAddress.equals("") || !Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
@@ -161,7 +171,7 @@ public class ParserUtil {
     public static Email parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
+        if (trimmedEmail.equals("") || !Email.isValidEmail(trimmedEmail)) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
@@ -194,6 +204,7 @@ public class ParserUtil {
         return tagSet;
     }
 
+
     /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
@@ -203,13 +214,11 @@ public class ParserUtil {
     public static LocalDateTime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         if (!Appointment.isValidDateTime(trimmedDateTime)) {
             throw new ParseException(Appointment.MESSAGE_INVALID_DATE_TIME);
         }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime parsedDateTime = LocalDateTime.parse(trimmedDateTime, formatter);
-
         return parsedDateTime;
     }
 
@@ -266,5 +275,16 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    /**
+     * Checks if a given string is a past date.
+     *
+     * @param date LocalDate to be checked.
+     * @return True if the date is a past date, false otherwise.
+     */
+    public static boolean isPastDate(LocalDate date) {
+        LocalDate currentDate = LocalDate.now();
+        return date.isBefore(currentDate);
     }
 }

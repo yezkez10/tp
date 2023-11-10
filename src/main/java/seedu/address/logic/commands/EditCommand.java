@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +26,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
@@ -83,6 +86,7 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -91,13 +95,53 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
+        // Retrieve appointments associated with the person
+        ArrayList<Appointment> personAppointments = personToEdit.getAppointments();
+
+        // Create a list to store edited appointments
+        ArrayList<Appointment> updatedAppointments = new ArrayList<>();
+        updateAppointment(personAppointments, editedPerson, doctorList, updatedAppointments);
+
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
+        editedPerson.setAppointments(updatedAppointments);
+        model.editedPersonAppointments(personAppointments, updatedAppointments);
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+    }
+
+    /**
+     * Updates the appointments inside patient and appointments inside doctors.
+     */
+    public void updateAppointment(ArrayList<Appointment> personAppointments, Person editedPerson,
+                                  List<Doctor> doctorList, ArrayList<Appointment> updatedAppointments) {
+        for (Appointment appointment : personAppointments) {
+            // Create a new appointment with the edited person details
+            Appointment editedAppointment = new Appointment(appointment.getDescription(), appointment.getDateTime(),
+                    editedPerson, appointment.getName());
+            updateDoctorAppointment(doctorList, appointment, editedAppointment);
+            updatedAppointments.add(editedAppointment);
+        }
+    }
+    /**
+     * Updates the appointment inside a doctor.
+     */
+    public void updateDoctorAppointment(List<Doctor> doctorList, Appointment appointment,
+                                        Appointment editedAppointment) {
+        Doctor targetDoctor = getDoctor(doctorList, new Name(appointment.getName()));
+        ArrayList<Appointment> updatedDoctorAppointments = new ArrayList<>();
+        int count = 0;
+        for (Appointment doctorAppointment : targetDoctor.getAppointments()) {
+            if (appointment.equals(doctorAppointment)) {
+                updatedDoctorAppointments.add(editedAppointment);
+                count++;
+            } else {
+                updatedDoctorAppointments.add(doctorAppointment);
+            }
+        }
+        targetDoctor.setAppointments(updatedDoctorAppointments);
     }
 
     /**
@@ -119,6 +163,20 @@ public class EditCommand extends Command {
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedGender, updatedAge, updatedEthnic,
                 updatedNric, updatedAddress, updatedTags);
+    }
+
+    public Doctor getDoctor(List<Doctor> doctorList, Name doctorName) {
+        Doctor targetDoctor = null;
+        for (Doctor doctor : doctorList) {
+            if (doctor.getName().equals(doctorName)) {
+                targetDoctor = doctor;
+                break;
+            }
+        }
+        if (targetDoctor == null) {
+            throw new RuntimeException();
+        }
+        return targetDoctor;
     }
 
     @Override
@@ -182,7 +240,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, age, gender, ethnic, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, age, gender, ethnic, address, nric, tags);
         }
 
         public void setName(Name name) {
@@ -246,7 +304,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : tags;
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         /**

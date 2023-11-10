@@ -83,13 +83,13 @@ Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /eth ETHNICITY /i
 
 > Note:
 A patient must have all parameters to be valid. <br>
-e.g. `add /n Drizzy`, `add Drizzy /p 999` or any inputs with missing parameters will not work.
+e.g. `add /n Drizzy`, `add Drizzy /p 99090909` or any inputs with missing parameters will not work.
 
 
 Examples:
-* Valid input: `add /n Drizzy /p 999 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr`
+* Valid input: `add /n Drizzy /p 99090909 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr`
   * Output (success): <br>
-  `New person added: Drizzy | Phone: 999 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:`
+    `New person added: Drizzy | Phone: 99090909 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:` 
 * Invalid input: `add /n Drizzy`
   * Output (failure): <br>
   `Invalid command format!` <br>
@@ -159,7 +159,8 @@ Examples:
   `Edited Person: Alex Yeoh | Phone: 91234567 | Email: johndoe@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags:`
 
 * Valid input: `edit 2 /n Betsy Crower /t`
-  * Output (success):
+  * Output (success): <br>
+  `Edited Person: Betsy Crower | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: `
 
 ### Editing an appointment: `edit_appt`
 

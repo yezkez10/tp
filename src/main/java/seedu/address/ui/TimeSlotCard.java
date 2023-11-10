@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -28,18 +31,17 @@ public class TimeSlotCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label date;
-    @FXML
     private Label hour;
 
     /**
      * Creates a {@code AppointmentCode} with the given {@code Appointment} and index to display.
      */
-    public TimeSlotCard(Timeslot timeslot, int displayedIndex) {
+    public TimeSlotCard(Timeslot timeslot) {
         super(FXML);
         this.timeslot = timeslot;
-        id.setText(displayedIndex + ". ");
-        date.setText(timeslot.getDate().toString());
-        hour.setText(String.valueOf(timeslot.getHour()));
+        int hour24 = timeslot.getHour();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("h a");
+        String hour12 = dateFormat.format(new Date(0, 0, 0, hour24, 0));
+        hour.setText(hour12);
     }
 }
