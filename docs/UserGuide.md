@@ -89,8 +89,8 @@ Examples:
 
 Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and address.
 
-Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` 
-all the inputs are mandatory
+Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
+
 * A doctor  has a name, phone number, email, gender, age, address and they are all mandatory.
 
 <box type="warning" seamless>
@@ -105,8 +105,8 @@ all the inputs are mandatory
 
 **Note:**
 * You can not add a Doctor with the same name and this is case-sensitive <br>
-* Allowed: John Doe and John doe are allowed
-* Not Allowed: John Doe and John Doe are not allowed
+* Adding two doctors with the names John Doe and John doe is allowed
+* Adding two doctors with the names John Doe and John Doe is not allowed
 </box>
 
 Examples:
@@ -212,7 +212,7 @@ Format: `delete_doctor INDEX`
 <box type="info" seamless>
 
 **Note:** <br>
-* The command is case-sensitive. E.g. Delete_doctor INDEX will not work
+* The command is case-sensitive. E.g. `Delete_doctor INDEX` will not work
 * INDEX must be a positive integer, starting from 1
   </box>
 
@@ -242,12 +242,12 @@ Deletes an appointment from the clinic’s registra via the specified index.
 Format: `delete_appt INDEX`
 * Deletes the appointment at the specified `INDEX`
 * Index refers to the index number shown on the displayed appointment list.
-* User could use list_appt to display all the appointments in the registra first
+* User could use `list_appt` to display all the appointments in the registra first
 
 <box type="info" seamless>
 
 **Note:** <br>
-* The command is case-sensitive. E.g. Delete_appt INDEX will not work
+* The command is case-sensitive. E.g. `Delete_appt INDEX` will not work
 * INDEX must be a positive integer, starting from 1
 </box>
 
