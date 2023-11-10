@@ -192,17 +192,31 @@ Examples:
 
 Edits an existing appointment from the Clinic Records.
 
-Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATETIME]`
+Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATE_TIME]`
 
 * Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
+* **At least** one field must be edited.
 * Existing values will be updated to the input values.
 
-**Note** Currently does **not** support editing of Doctors, planned for future implementations
+<box type="info" seamless>
+
+**Note**
+* Doctors of the appointment cannot be edited, planned addition in future implementations.
+</box>
 
 Examples:
-* `edit_appt 1 /d changed to x-ray scan` edits the description of the appointment of 1st appointment.
-* `edit_appt 2 /on 05-02-2024 12:00` edits the date of the 2nd appointment to be on 05-02-2024 12:00.
+* Valid input: `edit_appt 1 /d changed to x-ray scan /on 01-01-2024 09:00`
+    * Output (success): <br>
+      `Newly edited appointment | Patient: Alex Yeoh | Description: changed to x-ray scan | Date: 01 Jan 2024 09.00 AM`
+* Invalid input 1 (no fields provided): `edit_appt 1`
+    * Output (failure): <br>
+      `At least one of the optional fields must be edited: [/d DESCRIPTION][/on DATE_TIME]` <br>
+      `Example: edit_appt 1 /on 01-01-2024 00:00` <br>
+* Invalid input 2 (invalid date & time): `edit_appt 1 /on tuesday`
+    * Output (failure): <br>
+      `Date must be in dd-MM-yyyy HH:mm format.` <br>
+      `Date & time must be after the current time.` <br>
+      `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
 
 ### Deleting a patient : `delete`
 
