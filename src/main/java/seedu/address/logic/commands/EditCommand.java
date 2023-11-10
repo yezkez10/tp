@@ -86,7 +86,7 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Doctor>  doctorList = model.getFilteredDoctorList();
+        List<Doctor> doctorList = model.getFilteredDoctorList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -100,30 +100,7 @@ public class EditCommand extends Command {
 
         // Create a list to store edited appointments
         ArrayList<Appointment> updatedAppointments = new ArrayList<>();
-
-        for (Appointment appointment : personAppointments) {
-            // Create a new appointment with the edited person details
-            Appointment editedAppointment = new Appointment(
-                    appointment.getDescription(),
-                    appointment.getDateTime(),
-                    editedPerson, // Use the edited person here
-                    appointment.getName()
-            );
-            Doctor targetDoctor = getDoctor(doctorList, new Name(appointment.getName()));
-            ArrayList<Appointment> updatedDoctorAppointments = new ArrayList<>();
-            int count = 0;
-            for (Appointment doctorAppointment : targetDoctor.getAppointments()) {
-                if (appointment.equals(doctorAppointment)) {
-                    updatedDoctorAppointments.add(editedAppointment);
-                    count ++;
-                } else {
-                    updatedDoctorAppointments.add(doctorAppointment);
-                }
-            }
-            assert count == 1 : "There is a duplicate appointment";
-            targetDoctor.setAppointments(updatedDoctorAppointments);
-            updatedAppointments.add(editedAppointment);
-        }
+        updateAppointment(personAppointments, editedPerson, doctorList, updatedAppointments);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -133,6 +110,38 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+    }
+
+    /**
+     * Updates the appointments inside patient and appointments inside doctors.
+     */
+    public void updateAppointment(ArrayList<Appointment> personAppointments, Person editedPerson,
+                                  List<Doctor> doctorList, ArrayList<Appointment> updatedAppointments) {
+        for (Appointment appointment : personAppointments) {
+            // Create a new appointment with the edited person details
+            Appointment editedAppointment = new Appointment(appointment.getDescription(), appointment.getDateTime(),
+                    editedPerson, appointment.getName());
+            updateDoctorAppointment(doctorList, appointment, editedAppointment);
+            updatedAppointments.add(editedAppointment);
+        }
+    }
+    /**
+     * Updates the appointment inside a doctor.
+     */
+    public void updateDoctorAppointment(List<Doctor> doctorList, Appointment appointment,
+                                        Appointment editedAppointment) {
+        Doctor targetDoctor = getDoctor(doctorList, new Name(appointment.getName()));
+        ArrayList<Appointment> updatedDoctorAppointments = new ArrayList<>();
+        int count = 0;
+        for (Appointment doctorAppointment : targetDoctor.getAppointments()) {
+            if (appointment.equals(doctorAppointment)) {
+                updatedDoctorAppointments.add(editedAppointment);
+                count++;
+            } else {
+                updatedDoctorAppointments.add(doctorAppointment);
+            }
+        }
+        targetDoctor.setAppointments(updatedDoctorAppointments);
     }
 
     /**

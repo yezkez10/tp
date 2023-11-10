@@ -21,8 +21,6 @@ import seedu.address.model.timeslots.Timeslot;
  * Deletes the appointment of an existing person in the address book.
  */
 public class DeleteAppointmentCommand extends Command {
-    private static Logger logger = Logger.getLogger("delete_appt");
-
     public static final String COMMAND_WORD = "delete_appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -31,8 +29,8 @@ public class DeleteAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s";
-
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment %1$s of %2$s";
+    private static Logger logger = Logger.getLogger("delete_appt");
     private final Index appointmentIndex;
 
     /**
@@ -74,12 +72,20 @@ public class DeleteAppointmentCommand extends Command {
         return new CommandResult(String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 Messages.formatAppointment(appointmentToDelete), Messages.format(patient)));
     }
+
+    /**
+     * Deletes the specified appointment inside patient.
+     */
     public void deletePatientAppointment(Person patient, Appointment appointment) {
         int appointmentIndexInPatient = patient.getAppointments().indexOf(appointment);
         assert appointmentIndexInPatient > -1 : "index of patient should be positive integer";
         patient.deleteAppointment(appointmentIndexInPatient);
 
     }
+
+    /**
+     * Deletes appointments that is inside the Doctor object.
+     */
     public void deleteDoctorAppointment(Doctor doctor, Appointment appointment) {
         int appointmentIndexInDoctor = doctor.getAppointments().indexOf(appointment);
         assert appointmentIndexInDoctor > -1 : "index of doctor should be positive integer";
