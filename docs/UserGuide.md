@@ -109,10 +109,15 @@ all the inputs are mandatory
 </box>
 
 Examples:
-* `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive` is a valid Doctor and a Doctor will be added to the Doctor list just like this:
-  ![Doctor1](images/addDoctorValid1.png)
-* `add_doctor /n Dr Lee ` is not a valid Doctor as this doctor is missing mandatory inputs  phone number, email, gender, age, and address:
-  ![Doctor2](images/addDoctorInvalid1.png)
+* Valid inpput: `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+  * Output (success): <br>
+  * `New Doctor added: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive`
+* Invalid input: `add_doctor /n Dr Lee`
+  * Output (failure): <br>
+  * Invalid command format! <br>
+    add_doctor: Adds a Doctor to clinic assistant. <br>
+    Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS <br>
+    Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25 <br>
 ### Adding an appointment: `appt`
 
 Adds a new appointment for a specific patient at index.
@@ -189,18 +194,21 @@ Examples:
 
 ### Deleting an appointment : `delete_appt`
 
-Deletes the appointment at the specified index of the appointment shown on the list.
+Deletes an appointment from the clinic’s registra via the specified index.
 
 Format: `delete_appt INDEX`
 
-* The command is case-sensitive. E.g. Delete_appt INDEX will not work
-* INDEX must be a positive integer, starting from 1
-* Acceptable values for INDEX is a single integer that is within the number of appointments
+* Deletes the appointment at the specified `INDEX`
+* Index refers to the index number shown on the displayed appointment list.
+* User could use list_appt to display all the appointments in the registra first
+
+> Note: <br>
+>The command is case-sensitive. E.g. Delete_appt INDEX will not work
+>INDEX must be a positive integer, starting from 1
 
 ### Deleting a doctor : `delete_doctor`
 
-
-> [!WARNING] <br>
+ [!WARNING] <br>
 > <li> Make sure that the doctor you are about to delete does not have any appointments. </li>
 > <li> This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost. </li>
 
