@@ -87,10 +87,16 @@ Examples:
 
 ### Adding a doctor: `add_doctor`
 
-**Note:**
+**WARNING:**
 * Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet
 * If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time
 * If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well
+
+**Note:**
+* Note that you can not add a Doctor with the same name but this is case sensitive
+* Example: 
+* Allowed: John Doe and John doe are allowed
+* Not Allowed: John Doe and John Doe are not allowed
 
 Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
 
@@ -185,7 +191,7 @@ Format: `delete_appt INDEX`
 
 ### Deleting a doctor : `delete_doctor`
 
-**Note:**
+**WARNING:**
 * Make sure that the doctor you are about to delete does not have any appointments
 * This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost
 
