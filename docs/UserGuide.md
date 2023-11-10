@@ -52,7 +52,7 @@ It ensures efficient adding, editing and finding of patient information, optimis
 
 **Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+* Words in `UPPER_CASE` are the compulsory parameters to be supplied by the user.<br>
   e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add /n John Doe`.
 
 * Items in square brackets are optional.<br>
@@ -81,7 +81,7 @@ Adds a patient to the database.
 Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /eth ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
 * A patient has a name, phone number, email, gender, age, ethnicity, NRIC, address and optional tags.
 
-Note:
+> Note:
 A patient must have all parameters to be valid. <br>
 e.g. `add /n Drizzy`, `add Drizzy /p 999` or any inputs with missing parameters will not work.
 
@@ -111,10 +111,10 @@ Adds a new appointment for a specific patient at index.
 
 Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
 
-**Note:**
-* Upcoming date of this new appointment must be included.
-* `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00.
-* An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
+> Note: <br>
+> Upcoming date of this new appointment must be included. <br>
+> `DATETIME` is in the format dd-MM-yyyy HH:mm e.g. 01-01-2024 12:00. <br>
+> An appointment must have all fields to work. For example, `add appt`, `add appt /for 3`, `add appt /on 2023-09-17` will not work as they have missing fields.
 
 Examples:
 * `appt /for 6 /d Blood test /on 01-01-2024 12:00`
@@ -145,11 +145,13 @@ Format: `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth
 
 * Edits the patient at the specified INDEX. 
 The index refers to the index number shown in the displayed patient list. 
-The index must be a positive integer 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags will be removed ie adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `/t` without specifying any tags after it.
+
+> Note: <br> 
+> The index **must be a positive integer** 1, 2, 3, …​ <br>
+> At least one of the optional fields must be provided. <br>
+> Existing values will be updated to the input values. <br>
+> When editing tags, the existing tags will be removed ie adding of tags is not cumulative. <br>
+> You can remove all the person’s tags by typing `/t` without specifying any tags after it. <br>
 
 Examples:
 * Valid input: `edit 1 /p 91234567 /e johndoe@example.com`
@@ -181,8 +183,8 @@ Format: `delete INDEX`
 * Index refers to the index number shown on the displayed person list. 
 * User could use list to display all the patients in the registra first
 
-Note
-The index **must be a positive integer** 1, 2, 3, …​
+> Note: <br>
+> The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * Valid input: `delete 2`
@@ -227,8 +229,8 @@ Finds patients whose name contains the given keyword.
 Format: `find KEYWORD`
 * Only the name is searched for
 
-Note: <br>
-The search is case-insensitive. e.g `hans` will match `Hans`
+> Note: <br>
+> The search is case-insensitive. e.g `hans` will match `Hans`
 
 Examples:
 * Valid input: `find Alex`
@@ -245,9 +247,9 @@ Finds the patient who has the given NRIC.
 
 Format: `find_nric NRIC`
 
-Note: <br>
-The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`. <br>
-The inputted NRIC must be valid. The NRIC must start with 'S' or 'T' and contain 7 digits between the 2 alphabets.
+> Note: <br>
+> The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`. <br>
+> The inputted NRIC must be valid. The NRIC must start with 'S' or 'T' and contain 7 digits between the 2 alphabets.
 ie v1234567e and s123456e are invalid NRICs
 
 Examples:
@@ -282,8 +284,9 @@ Examples:
 Finds time slots that are available on a given date.
 
 Format: `view /on DATE`
-* 
-* Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+
+> Note: <br>
+> Date must be inputted in the format dd-MM-yyyy e.g. 01-01-2024.
 
 Examples:
 * `view /on 01-01-2024 ` returns time slots for appointments that can be booked (not booked yet) on 1 Jan 2024 from 9am to 5pm.
