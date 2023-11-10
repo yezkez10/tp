@@ -197,14 +197,23 @@ Examples:
 Deletes an appointment from the clinic’s registra via the specified index.
 
 Format: `delete_appt INDEX`
-
 * Deletes the appointment at the specified `INDEX`
 * Index refers to the index number shown on the displayed appointment list.
 * User could use list_appt to display all the appointments in the registra first
 
-> Note: <br>
->The command is case-sensitive. E.g. Delete_appt INDEX will not work
->INDEX must be a positive integer, starting from 1
+<box type="info" seamless>
+
+**Note:** <br>
+* The command is case-sensitive. E.g. Delete_appt INDEX will not work
+* INDEX must be a positive integer, starting from 1
+</box>
+
+Examples:<br>
+initial Appointment list:
+![Add_Appointment](images/Add_Appointment.png)
+* Valid input: `delete_appt 1`
+  * Output (success): <br>
+  * `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
 
 ### Deleting a doctor : `delete_doctor`
 
