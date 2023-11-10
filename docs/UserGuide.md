@@ -56,13 +56,13 @@ It ensures efficient adding, editing and finding of patient information, optimis
   e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add /n John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t friend` or as `/n John Doe`.
+  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t smoker` or as `/n John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[/t TAG]…​` can be used as ` ` (i.e. 0 times), `/t smoker`, `/t torn ACL /t diabetes` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `/n NAME /p PHONE_NUMBER`, `/p PHONE_NUMBER /n NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -70,18 +70,40 @@ It ensures efficient adding, editing and finding of patient information, optimis
 * All commands are case-sensitive. <br>
   e.g. `delete 1` will work, but `Delete 1` or `DELETE 1` will not work.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* **If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.**
 </box>
 
 
 ### Adding a person: `add`
 
-Adds a patient to the database. A patient has a **name, phone number, email, gender, age, ethnicity, IC** and **address**.
+Adds a patient to the database.
 
-Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
+Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /eth ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
+* A patient has a name, phone number, email, gender, age, ethnicity, NRIC, address and optional tags.
+
+Note:
+A patient must have all parameters to be valid. <br>
+e.g. `add /n Drizzy`, `add Drizzy /p 999` or any inputs with missing parameters will not work.
+
 
 Examples:
-* `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi /t allergic to pollen`
+* Valid input: `add /n Drizzy /p 999 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr`
+  * Output (success): <br>
+  `New person added: Drizzy | Phone: 999 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:`
+* Invalid input: `add /n Drizzy`
+  * Output (failure): <br>
+  `Invalid command format!
+  add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
+
+### Adding a doctor: `add_doctor`
+
+Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
+
+Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
+
+Examples:
+* `add_doctor /n Dr. Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+
 
 ### Adding an appointment: `appt`
 
@@ -97,20 +119,17 @@ Format: `appt /for INDEX /d DESCRIPTION /on DATETIME`
 Examples:
 * `appt /for 6 /d Blood test /on 01-01-2024 12:00`
 
-### Adding a doctor: `add_doctor`
-
-Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
-
-Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
-
-Examples:
-* `add_doctor /n Dr. Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
-
 ### Listing all patients : `list`
 
-Shows a list of all patients in Clinic Assistant.
+Shows a list of all people in the database.
 
 Format: `list`
+
+Examples:
+* Valid input: list
+  * Output (success): <br>
+  `Listed all patients`
+
 
 ### Listing all patients : `list_appt`
 
@@ -124,14 +143,20 @@ Edits an existing patient from the Clinic Records.
 
 Format: `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​`
 
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the patient at the specified INDEX. 
+The index refers to the index number shown in the displayed patient list. 
+The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags will be removed ie adding of tags is not cumulative.
+* You can remove all the person’s tags by typing `/t` without specifying any tags after it.
 
 Examples:
-* `edit 1 /p 91234567 /e johndoe@example.com` edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
-* `edit 2 /n Betsy Crower` edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
+* Valid input: `edit 1 /p 91234567 /e johndoe@example.com`
+    * Output (success):
+
+* Valid input: `edit 2 /n Betsy Crower /t`
+  * Output (success):
 
 ### Editing an appointment: `edit_appt`
 
@@ -149,27 +174,24 @@ Examples:
 
 ### Deleting a patient : `delete`
 
-Deletes the specified patient from the Clinic Records.
+Deletes a patient from the clinic’s registra via the specified index.
 
 Format: `delete INDEX`
+* Deletes the person at the specified `INDEX`
+* Index refers to the index number shown on the displayed person list. 
+* User could use list to display all the patients in the registra first
 
-* Deletes the patient at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, 4, …​
+Note
+The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd patient in ClinicAssistant.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* Valid input: `delete 2`
+  * Output (success): <br>
+  `Deleted Person: Bernice Yu | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: [throat infection][on antibiotics] from clinic records`
+* Invalid input: `delete 0`
+  * Output (failure): <br>
+  `Invalid command format!`
 
-### Deleting an appointment : `delete_appt`
-
-Deletes the appointment at the specified index of the specified patient.
-
-Format: `delete_appt INDEX`
-
-* The command is case-sensitive. E.g. Delete_appt INDEX will not work
-* INDEX must be a positive integer, starting from 1
-* Acceptable values for INDEX is a single integer that is within the number of appointments
 
 ### Deleting a doctor : `delete_doctor`
 
@@ -188,17 +210,34 @@ Examples:
 *  `delete_appt 4` Deletes the fourth appointment of the appointment list shown
 *  `delete_appt 1` Deletes the first appointment of the appointment list shown
 
+### Deleting an appointment : `delete_appt`
+
+Deletes the appointment at the specified index of the specified patient.
+
+Format: `delete_appt INDEX`
+
+* The command is case-sensitive. E.g. Delete_appt INDEX will not work
+* INDEX must be a positive integer, starting from 1
+* Acceptable values for INDEX is a single integer that is within the number of appointments
+
 ### Finding patient details by name: `find`
 
 Finds patients whose name contains the given keyword.
 
 Format: `find KEYWORD`
+* Only the name is searched for
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* Only the name is searched.
+Note: <br>
+The search is case-insensitive. e.g `hans` will match `Hans`
 
 Examples:
-* `find John` returns `john` and `John Doe`
+* Valid input: `find Alex`
+    * Output (success): <br>
+    `1 patient found!`
+* Invalid input: `find 123`
+    * Output (failure): <br>
+    `No patients found!`
+
 
 ### Finding patient details by nric: `find_nric`
 
@@ -206,13 +245,22 @@ Finds the patient who has the given NRIC.
 
 Format: `find_nric NRIC`
 
-* The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`.
-* The inputted NRIC must be valid. The NRIC must start with 'S' or 'T', and contain 7 digits between the 2 alphabets.
-  * ie v1234567e and s123456e are invalid NRICs
+Note: <br>
+The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`. <br>
+The inputted NRIC must be valid. The NRIC must start with 'S' or 'T' and contain 7 digits between the 2 alphabets.
+ie v1234567e and s123456e are invalid NRICs
 
 Examples:
-* `find_nric T0123456G` returns the patient with NRIC `T0123456G`
-* `find_nric s0123456h` returns the patient with NRIC `S0123456H`
+* Valid Input: `find_nric S0123456N`
+    * Output (success): <br>
+    `1 patient found!`
+* Valid input: `find_nric t1234567e`
+    * Output (failure, if no patient with this NRIC exists in the list): <br>
+  `No patients found!`
+* Invalid input: `find_nric S123v456X`
+    * Output (failure, wrong NRIC format): <br>
+    `Invalid command format!
+    NRICs should contain 7 digits, with S or T at the beginning and a letter at the end`
 
 ### Finding appointment by patient name or date: `find_appt`
 
