@@ -92,8 +92,8 @@ Examples:
   `New person added: Drizzy | Phone: 999 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:`
 * Invalid input: `add /n Drizzy`
   * Output (failure): <br>
-  `Invalid command format!
-  add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
+  `Invalid command format!` <br>
+  `add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
 
 ### Adding a doctor: `add_doctor`
 
@@ -155,7 +155,8 @@ The index refers to the index number shown in the displayed patient list.
 
 Examples:
 * Valid input: `edit 1 /p 91234567 /e johndoe@example.com`
-    * Output (success):
+    * Output (success): <br>
+  `Edited Person: Alex Yeoh | Phone: 91234567 | Email: johndoe@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags:`
 
 * Valid input: `edit 2 /n Betsy Crower /t`
   * Output (success):
@@ -192,8 +193,10 @@ Examples:
   `Deleted Person: Bernice Yu | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: [throat infection][on antibiotics] from clinic records`
 * Invalid input: `delete 0`
   * Output (failure): <br>
-  `Invalid command format!`
-
+  `Invalid command format!` <br>
+`delete: Deletes the patient with the index number used in the clinic records.` <br>
+    `Parameters: INDEX (must be a positive integer in the list)` <br>
+    `Example: delete 1`
 
 ### Deleting a doctor : `delete_doctor`
 
@@ -250,7 +253,7 @@ Format: `find_nric NRIC`
 > Note: <br>
 > The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`. <br>
 > The inputted NRIC must be valid. The NRIC must start with 'S' or 'T' and contain 7 digits between the 2 alphabets.
-ie v1234567e and s123456e are invalid NRICs
+ie `V1234567E` and `S123456eE are invalid NRICs
 
 Examples:
 * Valid Input: `find_nric S0123456N`
@@ -261,8 +264,8 @@ Examples:
   `No patients found!`
 * Invalid input: `find_nric S123v456X`
     * Output (failure, wrong NRIC format): <br>
-    `Invalid command format!
-    NRICs should contain 7 digits, with S or T at the beginning and a letter at the end`
+    `Invalid command format!` <br>
+    `NRICs should contain 7 digits, with S or T at the beginning and a letter at the end`
 
 ### Finding appointment by patient name or date: `find_appt`
 
@@ -334,7 +337,7 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/90898703 e/jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/diabetic t/smoker`
 **Add Appointment**  | `appt /for INDEX /d details /on DATE & TIME` <br> e.g., `appt /for 1 /d orthopaedic /on 02-01-2024 12:00`
 **Edit**   | `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​` <br> e.g., `edit 1 /a 3 NUS Computing Drive`
 **Edit Appointment** | `edit_appt [/d DESCRIPTION] [/on DATETIME]` <br> e.g., `edit_appt 1 /d changed to X-ray scan`
