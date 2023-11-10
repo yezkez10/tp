@@ -87,25 +87,32 @@ Examples:
 
 ### Adding a doctor: `add_doctor`
 
-**WARNING:**
-* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet
-* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time
-* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well
+Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and address.
+
+Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` 
+all the inputs are mandatory
+
+
+<box type="warning" seamless>
+
+**Warning:**
+* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet. 
+* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time.
+* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well.
+</box>
+<box type="info" seamless>
 
 **Note:**
-* Note that you can not add a Doctor with the same name and this is case sensitive
-
-**Example:**
+* You can not add a Doctor with the same name and this is case-sensitive <br>
 * Allowed: John Doe and John doe are allowed
 * Not Allowed: John Doe and John Doe are not allowed
-
-Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and **address**.
-
-Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
+</box>
 
 Examples:
-* `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
-
+* `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive` is a valid Doctor and a Doctor will be added to the Doctor list just like this:
+  ![Doctor1](images/addDoctorValid1.png)
+* `add_doctor /n Dr Lee ` is not a valid Doctor as this doctor is missing mandatory inputs  phone number, email, gender, age, and address:
+  ![Doctor2](images/addDoctorInvalid1.png)
 ### Adding an appointment: `appt`
 
 Adds a new appointment for a specific patient at index.
@@ -192,9 +199,10 @@ Format: `delete_appt INDEX`
 
 ### Deleting a doctor : `delete_doctor`
 
-**WARNING:**
-* Make sure that the doctor you are about to delete does not have any appointments
-* This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost
+
+> [!WARNING] <br>
+> <li> Make sure that the doctor you are about to delete does not have any appointments. </li>
+> <li> This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost. </li>
 
 Deletes the specified doctor from the Clinic Records.
 
@@ -315,7 +323,7 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho /p22224444 /ejamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Add Doctor**  | `add_doctor /n NAME /P PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` <br> e.g, e.g, `add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25`
+**Add Doctor**  | `add_doctor /n NAME /P PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` <br> e.g, `add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25`
 **Add Appointment**  | `appt /for INDEX /d details /on DATE & TIME` <br> e.g., `appt /for 1 /d orthopaedic /on 02-01-2024 12:00`
 **Edit**   | `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​` <br> e.g., `edit 1 /a 3 NUS Computing Drive`
 **Edit Appointment** | `edit_appt [/d DESCRIPTION] [/on DATETIME]` <br> e.g., `edit_appt 1 /d changed to X-ray scan`
