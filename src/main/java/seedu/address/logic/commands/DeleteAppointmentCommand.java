@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -24,12 +25,12 @@ public class DeleteAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "delete_appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the Appointment identified "
+            + ": Deletes the appointment identified "
             + "by the index number used in the displayed appointments list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment |%1$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted appointment |%1$s";
 
     private final Index appointmentIndex;
 
@@ -63,9 +64,14 @@ public class DeleteAppointmentCommand extends Command {
         patient.deleteAppointment(appointmentIndexInPatient);
         model.deleteAppointment(appointmentToDelete);
         //adding available timeslot back to list
-        Timeslot timeslotToAdd = new Timeslot(appointmentToDelete.getDateTime().toLocalDate(),
-                appointmentToDelete.getDateTime().getHour());
-        model.addAvailableTimeSlot(timeslotToAdd);
+        if (model.getAvailableTimeSlotList().size() > 0) {
+            LocalDate apptDate = appointmentToDelete.getDateTime().toLocalDate();
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            if (apptDate.equals(currDate)) {
+                Timeslot timeslotToAdd = new Timeslot(apptDate, appointmentToDelete.getDateTime().getHour());
+                model.addAvailableTimeSlot(timeslotToAdd);
+            }
+        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 Messages.formatAppointment(appointmentToDelete)));

@@ -4,11 +4,13 @@ import static seedu.address.logic.Messages.MESSAGE_DATE_DOES_NOT_EXIST;
 import static seedu.address.logic.Messages.MESSAGE_DATE_TOO_SHORT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.logic.Messages.MESSAGE_PAST_DATE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalTimeslots.DEFAULT_TIMESLOT;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,9 +44,7 @@ public class ViewAvailableCommandParserTest {
 
     @Test
     public void parse_wrongArg_throwsParseException() { //wrong date separators
-        assertParseFailure(parser, "view /on 20/12/2024",
-                MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
-                + ViewAvailableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "view /on 20/12/2024", MESSAGE_INVALID_DATE);
     }
 
     @Test
@@ -59,30 +59,50 @@ public class ViewAvailableCommandParserTest {
 
     @Test
     public void parse_alphabet_throwsParseException() { //alphabet
-        assertParseFailure(parser, "view /on twenty december 20",
-                MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
-                + ViewAvailableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "view /on twenty december 20", MESSAGE_INVALID_DATE);
     }
 
     @Test
     public void parse_invalidDateFormat_throwsParseException() { //wrong date format
-        assertParseFailure(parser, "view /on 20th Dec",
-                MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
-                + ViewAvailableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "view /on 20th Dec", MESSAGE_INVALID_DATE);
     }
 
     @Test
     public void parse_shortenedYear_throwsParseException() { //alphabet
-        assertParseFailure(parser, "view /on 20-12-23",
-                MESSAGE_DATE_TOO_SHORT + "\n" + "Please insert in the following format: " + "\n"
-                + ViewAvailableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "view /on 20-12-24", MESSAGE_DATE_TOO_SHORT);
     }
 
     @Test
     public void parse_withDateTime_throwsParseException() { //dateTime
-        assertParseFailure(parser, "view /on 02-02-2023 18:00",
+        assertParseFailure(parser, "view /on 02-02-2024 18:00",
                 MESSAGE_INVALID_DATE + "\n" + "Please insert in the following format: " + "\n"
                         + ViewAvailableCommand.MESSAGE_USAGE);
+    }
+
+    @Test
+    public void parse_withPastDate_throwsParseException() { //past date
+        assertParseFailure(parser, "view /on 02-02-2023", MESSAGE_PAST_DATE);
+    }
+
+    @Test
+    public void parse_withYesterday_throwsParseException() { //Boundary Value Analysis: Yesterday
+        LocalDate yesterdayDate = LocalDate.now().minusDays(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String dateStr = yesterdayDate.format(formatter);
+        assertParseFailure(parser, "view /on " + dateStr, MESSAGE_PAST_DATE);
+    }
+
+    @Test
+    public void parse_withToday_success() { //BVA: same date as today
+        LocalDate currDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String dateStr = currDate.format(formatter);
+        OnDateTimeSlotPredicate timeslotPredicate = new OnDateTimeSlotPredicate(currDate);
+        OnDateTimeApptPredicate apptPredicate = new OnDateTimeApptPredicate(currDate);
+        ViewAvailableCommand expectedViewAvailableCommand =
+                new ViewAvailableCommand(timeslotPredicate, apptPredicate, currDate);
+        assertParseSuccess(parser, "view /on " + dateStr,
+                expectedViewAvailableCommand);
     }
 
     @Test

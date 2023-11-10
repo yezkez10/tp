@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPTS;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -38,13 +39,12 @@ public class EditAppointmentCommand extends Command {
             + "by the index number used in the displayed appointments list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[APPOINTMENT INDEX]"
             + "[" + PREFIX_DESCRIPTION + "]"
             + "[" + PREFIX_DATE + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 09:00";
 
-    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited Appointment |%1$s";
+    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited appointment |%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided: "
             + "[" + PREFIX_DESCRIPTION + "]"
             + "[" + PREFIX_DATE + "]\n"
@@ -117,12 +117,16 @@ public class EditAppointmentCommand extends Command {
         targetDoctor.editAppointment(appointmentToEdit, editedAppointment);
         // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
         if (!(model.getAvailableTimeSlotList().size() == 0)) {
-            Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
-                    appointmentToEdit.getDateTime().getHour());
-            model.addAvailableTimeSlot(timeslotToAdd);
-            Timeslot timeslotToRemove = new Timeslot(editedAppointment.getDateTime().toLocalDate(),
-                    editedAppointment.getDateTime().getHour());
-            model.removeAvailableTimeSlot(timeslotToRemove);
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            LocalDate apptDate = appointmentToEdit.getDateTime().toLocalDate();
+            if (apptDate.equals(currDate)) {
+                Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
+                        appointmentToEdit.getDateTime().getHour());
+                model.addAvailableTimeSlot(timeslotToAdd);
+                Timeslot timeslotToRemove = new Timeslot(editedAppointment.getDateTime().toLocalDate(),
+                        editedAppointment.getDateTime().getHour());
+                model.removeAvailableTimeSlot(timeslotToRemove);
+            }
         }
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);

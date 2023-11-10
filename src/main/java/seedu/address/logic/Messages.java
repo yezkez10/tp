@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_AGE_SHOULD_BE_INTEGER = "Age entered should be an integer!";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The patient index provided is invalid";
     public static final String MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX = "The doctor index provided is invalid";
     public static final String MESSAGE_PATIENTS_FOUND_OVERVIEW = "%1$d patients found!";
@@ -32,11 +33,12 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
-            "The Appointment index provided is invalid";
+            "The appointment index provided is invalid";
     public static final String MESSAGE_INVALID_DATE = "DATE must be in format dd-MM-yyyy";
     public static final String MESSAGE_DATE_DOES_NOT_EXIST = "DATE must be a valid date (correct date and month) "
             + "that exists on the calendar!";
     public static final String MESSAGE_DATE_TOO_SHORT = "DATE entered is too short";
+    public static final String MESSAGE_PAST_DATE = "DATE entered has past already!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -50,7 +52,6 @@ public class Messages {
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
     }
 
-    //TODO: change this to own format
     /**
      * Formats the {@code person} for display to the user.
      */

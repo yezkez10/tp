@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +39,9 @@ public class DeleteDoctorCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
         List<Doctor> doctorList = model.getFilteredDoctorList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= doctorList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
         }
 
@@ -55,9 +55,15 @@ public class DeleteDoctorCommand extends Command {
             int appointmentIndex = patient.getAppointments().indexOf(appointment);
             patient.deleteAppointment(appointmentIndex);
 
-            Timeslot timeslotToAdd = new Timeslot(appointment.getDateTime().toLocalDate(),
-                    appointment.getDateTime().getHour());
-            model.addAvailableTimeSlot(timeslotToAdd);
+            //only add to availableTimeslotList if list is present
+            if (model.getAvailableTimeSlotList().size() > 0) {
+                LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+                LocalDate apptDate = appointment.getDateTime().toLocalDate();
+                if (apptDate.equals(currDate)) { // only add if same date
+                    Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
+                    model.addAvailableTimeSlot(timeslotToAdd);
+                }
+            }
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, Messages.formatDoctor(doctorToDelete)));

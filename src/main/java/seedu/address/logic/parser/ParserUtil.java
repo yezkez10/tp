@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_AGE_SHOULD_BE_INTEGER;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -88,7 +89,7 @@ public class ParserUtil {
         if (allCapsNric.equals("") || !Nric.isValidNric(allCapsNric)) {
             throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
         }
-        return new Nric(trimmedNric);
+        return new Nric(allCapsNric);
     }
 
     /**
@@ -100,7 +101,7 @@ public class ParserUtil {
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
         String trimmedGender = gender.trim();
-        if (trimmedGender.equals("") || !Gender.isValidGender(gender)) {
+        if (trimmedGender.equals("") || !Gender.isValidGender(trimmedGender)) {
             throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
         }
         return new Gender(trimmedGender);
@@ -115,17 +116,22 @@ public class ParserUtil {
     public static Age parseAge(String age) throws ParseException {
         requireNonNull(age);
         String trimmedAge = age.trim();
-        // Check if trimmedAge is a valid integer
-        if (trimmedAge.equals("") || !StringUtil.isNonZeroUnsignedInteger(trimmedAge)) {
+        int ageInt;
+        // Check if trimmedAge is an empty string
+        if (trimmedAge.equals("")) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
-        int ageInt = Integer.parseInt(trimmedAge);
+        try {
+            ageInt = Integer.parseInt(trimmedAge);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_AGE_SHOULD_BE_INTEGER);
+        }
+
         if (!Age.isValidAge(ageInt)) {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
         return new Age(ageInt);
     }
-
     /**
      * Parses a {@code String ethnic} into a {@code Ethnicity}.
      * @param ethnic The input string that represents ethnic group of patient
@@ -269,5 +275,16 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    /**
+     * Checks if a given string is a past date.
+     *
+     * @param date LocalDate to be checked.
+     * @return True if the date is a past date, false otherwise.
+     */
+    public static boolean isPastDate(LocalDate date) {
+        LocalDate currentDate = LocalDate.now();
+        return date.isBefore(currentDate);
     }
 }
