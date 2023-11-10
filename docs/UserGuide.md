@@ -93,12 +93,13 @@ Examples:
 * If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well
 
 **Note:**
-* Note that you can not add a Doctor with the same name but this is case sensitive
-* Example: 
+* Note that you can not add a Doctor with the same name and this is case sensitive
+
+**Example:**
 * Allowed: John Doe and John doe are allowed
 * Not Allowed: John Doe and John Doe are not allowed
 
-Adds a doctor to the database. A doctor has a **name, phone number, email, gender, age, and **address**.
+Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and **address**.
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
@@ -313,12 +314,14 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic IC /a ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho /p22224444 /ejamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add Doctor**  | `add_doctor /n NAME /P PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` <br> e.g, e.g, `add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25`
 **Add Appointment**  | `appt /for INDEX /d details /on DATE & TIME` <br> e.g., `appt /for 1 /d orthopaedic /on 02-01-2024 12:00`
 **Edit**   | `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​` <br> e.g., `edit 1 /a 3 NUS Computing Drive`
 **Edit Appointment** | `edit_appt [/d DESCRIPTION] [/on DATETIME]` <br> e.g., `edit_appt 1 /d changed to X-ray scan`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Doctor** | `delete_doctor INDEX`<br> e.g, `delete_doctor 3`
 **Delete Appointment** | `delete_appt INDEX` <br> e.g., `delete_appt 3`
 **Find**   | `find KEYWORD`<br> e.g., `find john`
 **Find by NRIC**   | `find_nric NRIC` <br> e.g., `find_nric T1234567E`
