@@ -53,6 +53,7 @@ public class DeleteDoctorCommand extends Command {
             model.deleteAppointment(appointment);
             Person patient = appointment.getPatient();
             int appointmentIndex = patient.getAppointments().indexOf(appointment);
+            assert appointmentIndex >= 0 : "Index needs to be a positive interger";
             patient.deleteAppointment(appointmentIndex);
 
             //only add to availableTimeslotList if list is same

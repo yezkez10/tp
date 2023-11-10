@@ -97,7 +97,7 @@ Adds a doctor to the database. A doctor has a **name, phone number, email, gende
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
 Examples:
-* `add_doctor /n Dr. Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
+* `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
 
 ### Adding an appointment: `appt`
 
@@ -201,8 +201,8 @@ Examples:
 * `delete_doctor 2` deletes the 2nd doctor in ClinicAssistant.
 
 Examples:
-*  `delete_appt 4` Deletes the fourth appointment of the appointment list shown
-*  `delete_appt 1` Deletes the first appointment of the appointment list shown
+*  `delete_doctor 4` Deletes the fourth doctor of the list shown
+*  `delete_doctor 1` Deletes the first doctor of the list shown
 
 ### Finding patient details by name: `find`
 
