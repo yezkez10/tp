@@ -45,7 +45,7 @@ public class EditAppointmentCommand extends Command {
             + PREFIX_DATE + "01-01-2024 09:00";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited appointment |%1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one of the optional fields must be edited: "
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided: "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
             + "[" + PREFIX_DATE + "DATE_TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "

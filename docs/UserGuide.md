@@ -210,7 +210,7 @@ Examples:
       `Newly edited appointment | Patient: Alex Yeoh | Description: changed to x-ray scan | Date: 01 Jan 2024 09.00 AM`
 * Invalid input 1 (no fields provided): `edit_appt 1`
     * Output (failure): <br>
-      `At least one of the optional fields must be edited: [/d DESCRIPTION][/on DATE_TIME]` <br>
+      `At least one field to edit must be provided: [/d DESCRIPTION][/on DATE_TIME]` <br>
       `Example: edit_appt 1 /on 01-01-2024 00:00` <br>
 * Invalid input 2 (invalid date & time): `edit_appt 1 /on tuesday`
     * Output (failure): <br>
