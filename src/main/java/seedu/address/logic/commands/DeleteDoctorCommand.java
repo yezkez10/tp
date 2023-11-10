@@ -56,20 +56,28 @@ public class DeleteDoctorCommand extends Command {
             assert appointmentIndex >= 0 : "Index needs to be a positive interger";
             patient.deleteAppointment(appointmentIndex);
 
-            //only add to availableTimeslotList if list is present
-            if (model.getAvailableTimeSlotList().size() > 0) {
-                LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
-                LocalDate apptDate = appointment.getDateTime().toLocalDate();
-                if (apptDate.equals(currDate)) { // only add if same date
-                    Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
-                    model.addAvailableTimeSlot(timeslotToAdd);
-                }
-            }
+            //only add to availableTimeslotList if list is same
+            updateModelTimeslotList(model, appointment);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, Messages.formatDoctor(doctorToDelete)));
     }
 
+    /**
+     * Updates the Model timeslot list if it is initialised and date is same
+     * @param model Model we are executing on
+     * @param appointment Appointment we are updating with
+     */
+    public void updateModelTimeslotList(Model model, Appointment appointment) {
+        if (model.getAvailableTimeSlotList().size() > 0) {
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            LocalDate apptDate = appointment.getDateTime().toLocalDate();
+            if (apptDate.equals(currDate)) { // only add if same date
+                Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
+                model.addAvailableTimeSlot(timeslotToAdd);
+            }
+        }
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
