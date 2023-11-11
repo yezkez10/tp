@@ -12,30 +12,29 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 <!-- * Table of Contents -->
 - **Introduction**
     - [Target Audience](#target-audience)
-    - [How to Use the Guide](#how-to-use-the-guide)
-
+    - [How to Use the Guide](#how-to-use-the-guide)<br>
 - **Getting Started**
-    - [Quick start](#quick-start)
+    - [Quick start](#quick-start)<br>
 
 - **Features and Commands**
-    - [Adding a person: `add`](#adding-a-person--add)
-    - [Adding a doctor: `add_doctor`](#adding-a-doctor--adddoctor)
-    - [Adding an appointment: `appt`](#adding-an-appointment--appt)
-    - [Listing all patients : `list`](#listing-all-patients--list)
-    - [Listing all appointments : `list_appt`](#listing-all-appointments--listappt)
-    - [Editing a patient: `edit`](#editing-a-patient--edit)
-    - [Editing an appointment: `edit_appt`](#editing-an-appointment--editappt)
-    - [Deleting a patient : `delete`](#deleting-a-patient--delete)
-    - [Deleting a doctor : `delete_doctor`](#deleting-a-doctor--deletedoctor)
-    - [Deleting an appointment : `delete_appt`](#deleting-an-appointment--deleteappt)
-    - [Finding patient details by name: `find`](#finding-patient-details-by-name--find)
-    - [Finding patient details by nric: `find_nric`](#finding-patient-details-by-nric--findnric)
-    - [Finding appointment by patient name or date: `find_appt`](#finding-appointment-by-patient-name-or-date--findappt)
-    - [Viewing available timeslots : `view`](#viewing-available-timeslots--view)
-    - [Clearing all patients : `clear`](#clearing-all-patients--clear)
-    - [Exiting the program : `exit`](#exiting-the-program--exit)
+    - [Adding a person: `add`](#adding-a-person-add)
+    - [Adding a doctor: `add_doctor`](#adding-a-doctor-adddoctor)
+    - [Adding an appointment: `appt`](#adding-an-appointment-appt)
+    - [Listing all patients : `list`](#listing-all-patients-list)
+    - [Listing all appointments : `list_appt`](#listing-all-appointments-listappt)
+    - [Editing a patient: `edit`](#editing-a-patient-edit)
+    - [Editing an appointment: `edit_appt`](#editing-an-appointment-editappt)
+    - [Deleting a patient : `delete`](#deleting-a-patient-delete)
+    - [Deleting a doctor : `delete_doctor`](#deleting-a-doctor-deletedoctor)
+    - [Deleting an appointment : `delete_appt`](#deleting-an-appointment-deleteappt)
+    - [Finding patient details by name: `find`](#finding-patient-details-by-name-find)
+    - [Finding patient details by nric: `find_nric`](#finding-patient-details-by-nric-findnric)
+    - [Finding appointment by patient name or date: `find_appt`](#finding-appointment-by-patient-name-or-date-findappt)
+    - [Viewing available timeslots : `view`](#viewing-available-timeslots-view)
+    - [Clearing all patients : `clear`](#clearing-all-patients-clear)
+    - [Exiting the program : `exit`](#exiting-the-program-exit)
     - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
+    - [Editing the data file](#editing-the-data-file)<br>
 
 - **Additional Information**
     - [FAQ](#faq)
@@ -469,3 +468,5 @@ Action     | Format, Examples
 **List**   | `list`
 **View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
+
+[Back to top](#clinicassistant-user-guide)
