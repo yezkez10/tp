@@ -121,7 +121,7 @@ It ensures efficient adding, editing and finding of patient information, optimis
 
 ### Adding a person: `add`
 
-Adds a patient to the database.
+Adds a patient to the clinic records.
 
 Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /eth ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
 * A patient has a name, phone number, email, gender, age, ethnicity, NRIC, address and optional tags.
@@ -144,7 +144,7 @@ Examples:
 
 ### Adding a doctor: `add_doctor`
 
-Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and address.
+Adds a doctor to the clinic records. A doctor has a name, phone number, email, gender, age, and address.
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
@@ -222,7 +222,7 @@ Examples:
 
 ### Listing all patients : `list`
 
-Shows a list of all people in the database.
+Shows a list of all people in the clinic records.
 
 Format: `list`
 
@@ -234,13 +234,13 @@ Examples:
 
 ### Listing all patients : `list_appt`
 
-Shows a list of all appointments in Clinic Assistant.
+Shows a list of all appointments in the clinic records.
 
 Format: `list_appt`
 
 ### Editing a patient: `edit`
 
-Edits an existing patient from the Clinic Records.
+Edits an existing patient from the clinic records.
 
 Format: `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​`
 
@@ -268,7 +268,7 @@ Examples:
 
 ### Editing an appointment: `edit_appt`
 
-Edits an existing appointment from the Clinic Records.
+Edits an existing appointment from the clinic records.
 
 Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATE_TIME]`
 
@@ -299,7 +299,7 @@ Examples:
 
 ### Deleting a patient : `delete`
 
-Deletes a patient from the clinic’s registra via the specified index.
+Deletes a patient from the clinic records via the specified index.
 
 Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`
@@ -325,7 +325,7 @@ Examples:
 
 ### Deleting a doctor : `delete_doctor`
 
-Deletes the specified doctor from the Clinic Records.
+Deletes the specified doctor from the clinic records.
 
 Format: `delete_doctor INDEX`
 
@@ -370,7 +370,7 @@ initial Doctor list:
 
 ### Deleting an appointment : `delete_appt`
 
-Deletes an appointment from the clinic’s registra via the specified index.
+Deletes an appointment from the the clinic records via the specified index.
 
 Format: `delete_appt INDEX`
 * Deletes the appointment at the specified `INDEX`
