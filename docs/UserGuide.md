@@ -75,20 +75,20 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `list` : Lists all patients in the ClinicAssistant.
+* `list` : Lists all patients in the ClinicAssistant.
 
-    * `add /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /eth Chinese /ic T1234567E /a 311, Clementi Ave 2, #02-25 /t allergic to the sun /t history of knee problems` :
-      Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
+* `add /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /eth Chinese /ic T1234567E /a 311, Clementi Ave 2, #02-25 /t allergic to the sun /t history of knee problems` :
+  Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
 
-    * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
+* `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
 
-    * `appt /for 1 /doc 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified Doctor index, description and time to the patient identified with `INDEX` 1 in the list.
+* `appt /for 1 /doc 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified Doctor index, description and time to the patient identified with `INDEX` 1 in the list.
 
-    * `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
+* `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
 
-    * `clear` : Deletes all patients.
+* `clear` : Deletes all patients.
 
-    * `exit` : Exits the app.
+* `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -119,7 +119,7 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
   e.g. `delete 1` will work, but `Delete 1` or `DELETE 1` will not work.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-  </box>
+</box>
 
 
 ### Adding a person: `add`
@@ -153,7 +153,7 @@ Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRE
 * Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet.
 * If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time.
 * If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well.
-  </box>
+</box>
 
 Examples:
 * Valid input: `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
@@ -318,7 +318,7 @@ Examples:
 * Invalid input 3 (`INDEX` provided as word): `delete one`
     * Output (failure): <br>
       `INDEX entered must be an integer!.` <br>
-    * **To fix**: Enter an `DATE` that that is an **Integer** `delete 1`
+    * **To fix**: Enter an `INDEX` that that is an **Integer** such as `delete 1`
 
 ### Deleting a doctor : `delete_doctor`
 
@@ -483,7 +483,7 @@ Format: `view /on DATE`
 <box type="warning" seamless>
 
 **Warning:**
-* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again.
+* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again after there is at least 1 timeslot.
   </box>
 
 Examples:
@@ -493,7 +493,7 @@ Examples:
 * Invalid input 1 (invalid `DATE` format): `view /on 02/01/2024`
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
-    * **To fix**: Type `view /on 02-01-2024` instead (Using `-` as date separator)
+    * **To fix**: Use `-` as date separator such as `view /on 02-01-2024`
 * Invalid input 2 (`DATE` has past): `view /on 02-01-1999`
     * Output (failure): <br>
       `DATE entered has past already!` <br>
