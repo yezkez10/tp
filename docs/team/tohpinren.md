@@ -15,27 +15,49 @@ Given below are my contributions to the project.
 Code contributed: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=tohpinren&breakdown=true)
 
 ### Enhancements implemented
-A summary of the enhancements you implemented.
+
+**New Feature:** Implemented the `list_appt` command and created frontend for appointment list
+- What it does: Enables users to see appointment list on the interface and list all appointments in the database through the `list_appt` command.
+- Justification: The new frontend improves the user experience by allowing users to see the appointment list on the interface. The `list_appt` command allows users to list all appointments in the database easily.
+
+**New Feature:** Implemented `find_appt` command by date or patient name
+- What it does: Add on to the `find_appt` command to allow users to find appointments by date or patient name or both by adding parameters.
+- Justification: This feature brings about enhanced user visibility, by providing a targeted way to view appointments associated with a specific person or date. Users can easily focus on the relevant information, streamlining their interaction with the application.
+
+**New Feature:** Make appointment list always sorted by date
+- What it does: Sorts the appointment list by date whenever the appointment list is displayed.
+- Justification: This feature makes the interface more intuitive and user-friendly by always displaying the appointment list sorted by date which makes more sense to the user.
+
+**New Feature:** Make `edit_appt` and `delete_appt` by index only
+- What it does: Makes the `edit_appt` and `delete_appt` easier to use by only taking in the index of the appointment to be edited or deleted.
+- Justification: This feature makes the commands more intuitive and user-friendly by making the `edit_appt` and `delete_appt` commands easier to use and less confusing for the user.
+
 <br>
-`to be added soon`
 
 ### Contributions to the UG
-Which sections did you contribute to the UG?
-<br>
+- Adding pictures for examples of commands in the UG
+- Steps for using the `list_appt` command
+- Steps for using the `find_appt` command
 `to be added soon`
+<br>
+
 ### Contributions to the DG
-Which sections did you contribute to the DG? Which UML diagrams did you add/updated?
+- Implementation of list_appt command and alternatives considered
+- Implementation of find_appt command and alternatives considered
 <br>
 `to be added soon`
 
 ### Contributions to team-based tasks
-`to be added soon`
+- Set up GitHub organisation and tP repo.
+- Set up GitHub Actions and codecov for continuous integration.
+- Set up original version of the team website.
+<br>
+
 ### Review/mentoring contributions
-Links to PRs reviewed, instances of helping team members in other ways.
+- Regularly reviewed teammates PR's, as well as highlighting of bugs and its appropriate fixes.
+- Pull Requests reviewed: 18 [(Github)](https://github.com/AY2324S1-CS2103T-W09-3/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Atohpinren)
 <br>
-`to be added soon`
+
 ### Contributions beyond the project team
-- Evidence of helping others e.g. responses you posted in our forum, bugs you reported in other team's products,
-- Evidence of technical leadership e.g. sharing useful information in the forum
+- Found and reported bugs for [CS2103T-W13-4](https://github.com/AY2324S1-CS2103T-W13-4/tp/issues) during PE-D
 <br>
-`to be added soon`

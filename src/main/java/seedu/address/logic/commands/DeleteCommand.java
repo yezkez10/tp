@@ -57,18 +57,22 @@ public class DeleteCommand extends Command {
             int appointmentIndex = targetDoctor.getAppointments().indexOf(appointment);
             targetDoctor.deleteAppointment(appointmentIndex);
 
-            if (model.getAvailableTimeSlotList().size() > 0) {
-                LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
-                LocalDate apptDate = appointment.getDateTime().toLocalDate();
-
-                if (apptDate.equals(currDate)) {
-                    Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
-                    model.addAvailableTimeSlot(timeslotToAdd);
-                }
-            }
+            updateModelTimeslotList(model, appointment);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.format(personToDelete)));
+    }
+
+    private void updateModelTimeslotList(Model model, Appointment appointment) {
+        if (model.getAvailableTimeSlotList().size() > 0) {
+            LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
+            LocalDate apptDate = appointment.getDateTime().toLocalDate();
+
+            if (apptDate.equals(currDate)) {
+                Timeslot timeslotToAdd = new Timeslot(apptDate, appointment.getDateTime().getHour());
+                model.addAvailableTimeSlot(timeslotToAdd);
+            }
+        }
     }
 
     /**
