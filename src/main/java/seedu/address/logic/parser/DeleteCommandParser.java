@@ -22,7 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             //throws ParseException if it is a non-positive number
             return new DeleteCommand(index);
         } catch (ParseException e) {
-            if (e.getMessage().isEmpty()) {
+            if (e.getMessage().equals("String is empty!")) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
             throw new ParseException(e.getMessage());
