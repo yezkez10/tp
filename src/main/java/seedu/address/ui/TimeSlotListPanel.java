@@ -41,6 +41,9 @@ public class TimeSlotListPanel extends UiPart<Region> {
         protected void updateItem(Timeslot timeslot, boolean empty) {
             super.updateItem(timeslot, empty);
 
+            if (empty) {
+                date.setText("Timeslot tab deactivated");
+            }
             if (empty || timeslot == null) {
                 setGraphic(null);
                 setText(null);
