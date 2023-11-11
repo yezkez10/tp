@@ -66,6 +66,13 @@ public class DeleteAppointmentCommand extends Command {
         deleteDoctorAppointment(targetDoctor, appointmentToDelete);
 
         //adding available timeslot back to list
+        updateModelTimeslotList(model, appointmentToDelete);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
+                Messages.formatAppointment(appointmentToDelete), Messages.format(patient)));
+    }
+
+    private void updateModelTimeslotList(Model model, Appointment appointmentToDelete) {
         if (model.getAvailableTimeSlotList().size() > 0) {
             LocalDate apptDate = appointmentToDelete.getDateTime().toLocalDate();
             LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
@@ -74,9 +81,6 @@ public class DeleteAppointmentCommand extends Command {
                 model.addAvailableTimeSlot(timeslotToAdd);
             }
         }
-
-        return new CommandResult(String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-                Messages.formatAppointment(appointmentToDelete), Messages.format(patient)));
     }
 
     /**

@@ -35,19 +35,19 @@ public class EditAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "edit_appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the specified Appointment identified "
+            + ": Edits the specified appointment identified "
             + "by the index number used in the displayed appointments list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DESCRIPTION + "]"
-            + "[" + PREFIX_DATE + "]\n"
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
+            + "[" + PREFIX_DATE + "DATE_TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 09:00";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited appointment |%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided: "
-            + "[" + PREFIX_DESCRIPTION + "]"
-            + "[" + PREFIX_DATE + "]\n"
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
+            + "[" + PREFIX_DATE + "DATE_TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 00:00";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";
@@ -115,23 +115,36 @@ public class EditAppointmentCommand extends Command {
         patient.editAppointment(appointmentIndexInPatient, editedAppointment);
         // update appointment in Doctor
         targetDoctor.editAppointment(appointmentToEdit, editedAppointment);
-        // Add available timeslot from appointmentToEdit and Remove available timeslot from editedAppointment
+
+        // Add available timeslot and remove previous timeslot IF model list same date
+        updateModelTimeslotList(model, appointmentToEdit, editedAppointment);
+        model.setAppointment(appointmentToEdit, editedAppointment);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
+        return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
+                Messages.formatAppointment(editedAppointment)));
+    }
+
+    /**
+     * Updates the Timeslot list currently displayed in the model
+     * @param model The model we are facing
+     * @param appointmentToEdit Appointment instance we are editing from
+     * @param editedAppointment Appointment instance we want to edit to
+     */
+    public void updateModelTimeslotList(Model model, Appointment appointmentToEdit, Appointment editedAppointment) {
         if (!(model.getAvailableTimeSlotList().size() == 0)) {
             LocalDate currDate = model.getAvailableTimeSlotList().get(0).getDate();
-            LocalDate apptDate = appointmentToEdit.getDateTime().toLocalDate();
-            if (apptDate.equals(currDate)) {
-                Timeslot timeslotToAdd = new Timeslot(appointmentToEdit.getDateTime().toLocalDate(),
-                        appointmentToEdit.getDateTime().getHour());
+            LocalDate prevApptDate = appointmentToEdit.getDateTime().toLocalDate();
+            LocalDate apptDate = editedAppointment.getDateTime().toLocalDate();
+            if (prevApptDate.equals(currDate)) {
+                Timeslot timeslotToAdd = new Timeslot(prevApptDate, appointmentToEdit.getDateTime().getHour());
                 model.addAvailableTimeSlot(timeslotToAdd);
+            }
+            if (apptDate.equals(currDate)) {
                 Timeslot timeslotToRemove = new Timeslot(editedAppointment.getDateTime().toLocalDate(),
                         editedAppointment.getDateTime().getHour());
                 model.removeAvailableTimeSlot(timeslotToRemove);
             }
         }
-        model.setAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                Messages.formatAppointment(editedAppointment)));
     }
 
     /**
