@@ -32,7 +32,7 @@ public class AddCommand extends Command {
             + PREFIX_GENDER + "GENDER "
             + PREFIX_AGE + "AGE "
             + PREFIX_ETHNIC + "ETHNICITY "
-            + PREFIX_NRIC + "NRIC NO. "
+            + PREFIX_NRIC + "NRIC "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
