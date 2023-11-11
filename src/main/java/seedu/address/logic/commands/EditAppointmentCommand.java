@@ -35,19 +35,19 @@ public class EditAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "edit_appt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the specified Appointment identified "
+            + ": Edits the specified appointment identified "
             + "by the index number used in the displayed appointments list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DESCRIPTION + "]"
-            + "[" + PREFIX_DATE + "]\n"
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
+            + "[" + PREFIX_DATE + "DATE_TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 09:00";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Newly edited appointment |%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided: "
-            + "[" + PREFIX_DESCRIPTION + "]"
-            + "[" + PREFIX_DATE + "]\n"
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
+            + "[" + PREFIX_DATE + "DATE_TIME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "01-01-2024 00:00";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists for the patient.";

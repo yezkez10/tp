@@ -19,7 +19,7 @@ public class FindAppointmentsCommand extends Command {
 
     public static final String COMMAND_WORD = "find_appt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all Appointments "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all appointments"
             + " with patient name by keywords (case-insensitive) or date and displays them as a list with index "
             + "numbers.\n"
             + "Parameters: ["
@@ -27,7 +27,7 @@ public class FindAppointmentsCommand extends Command {
             + "KEYWORD [MORE_KEYWORDS]...]"
             + "["
             + PREFIX_DATE
-            + "DATETIME]\n"
+            + "DATE]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie " + PREFIX_DATE + "01-01-2024";
 
     private final Predicate<Appointment> predicate;
