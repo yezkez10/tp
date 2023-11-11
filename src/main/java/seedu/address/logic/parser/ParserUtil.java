@@ -55,7 +55,7 @@ public class ParserUtil {
     public static Index parseDeleteIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (trimmedIndex.isEmpty()) {
-                throw new ParseException("String is empty!");
+            throw new ParseException("String is empty!");
         }
         int index;
         try {
