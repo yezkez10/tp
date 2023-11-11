@@ -48,7 +48,9 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
 ### Target Audience
 
-// to fill in
+ClinicAssistant is for **general practitioner (GP) clinics' staff** who want to keep track of their patients' records and appointments.
+Clinic staff often have to manage a large number of patients and appointments, and ClinicAssistant helps them to do so more efficiently.
+ClinicAssistant allows clinic staff to add, edit, delete, find and list patients and appointments. It also allows viewing of available timeslots for appointments for a given date to allow for easy booking of appointments.
 
 ### How to use the guide
 
