@@ -318,7 +318,7 @@ Examples:
 * Invalid input 3 (`INDEX` provided as word): `delete one`
     * Output (failure): <br>
       `INDEX entered must be an integer!.` <br>
-    * **To fix**: Enter an `DATE` that that is an **Integer** `delete 1`
+    * **To fix**: Enter an `INDEX` that that is an **Integer** such as `delete 1`
 
 ### Deleting a doctor : `delete_doctor`
 
@@ -483,7 +483,7 @@ Format: `view /on DATE`
 <box type="warning" seamless>
 
 **Warning:**
-* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again.
+* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again after there is at least 1 timeslot.
   </box>
 
 Examples:
@@ -493,7 +493,7 @@ Examples:
 * Invalid input 1 (invalid `DATE` format): `view /on 02/01/2024`
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
-    * **To fix**: Type `view /on 02-01-2024` instead (Using `-` as date separator)
+    * **To fix**: Use `-` as date separator such as `view /on 02-01-2024`
 * Invalid input 2 (`DATE` has past): `view /on 02-01-1999`
     * Output (failure): <br>
       `DATE entered has past already!` <br>
