@@ -216,9 +216,22 @@ Format: `list`
 
 ### Listing all appointments : `list_appt`
 
-Shows a list of all appointments in Clinic Assistant.
+Removes all conditions previously applied to the appointments list and shows all appointments in Clinic Assistant.
 
 Format: `list_appt`
+
+<box type="info" seamless>
+
+**Note:**
+* Additional text after `list_appt` will be ignored and not affect the output.
+  * E.g. `list_appt 1` will still show all appointments in Clinic Assistant.
+
+</box>
+
+Example:
+* Valid input: `list_appt`
+    * Output (success): `Listed all appointments` <br>
+        All conditions are removed and all appointments are showed.
 
 ### Editing a patient: `edit`
 
@@ -381,18 +394,48 @@ Examples:
 
 ### Finding appointment by patient name or date: `find_appt`
 
-Finds appointments of a patient whose name contains the given keyword and/or appointment falls on the date given.
+Filters appointments by one or more fields using their prefixes, and their corresponding inputs (name and date).
 
-Format: `find_appt [/n KEYWORDS] [/on DATE]`
+Format: `find_appt [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+* NAME: One or more keywords to filter by the patient's name (e.g. `John Simba` will search for appointments of patients whose name contains `John` or `Simba`). It must be non-empty alphanumeric characters and spaces.
+* DATE: Date of the appointment to filter by in the format dd-MM-yyyy (e.g. `01-01-2024`).
+
+<box type="info" seamless>
 
 **Note:**
-Although both fields are optional, at least 1 must be given. e.g. `find_appt` with no field inputs will not work
+* The prefixes that can be used are listed in the parameter list above.
+* The name filter is case-insensitive, e.g. `han` will match `Han`.
+* The user can filter using one field or both fields at once.
+  * e.g. `find_appt /n John /on 01-01-2024` will return appointments of patients with name `John` that falls on 1 Jan 2024.
+* If there are no prefixes keyed in, an error message will be shown with the correct command format.
+* If the input after a prefix is empty/invalid, an error message with the constraint of the field will be shown.
+
+</box>
+
+<box type="warning" seamless>
+
+**Warning:**
+* The name filter must be full words, e.g. `han` will not match `Hannah`.
+* Date parameter must be in the format dd-MM-yyyy e.g. `01-01-2024`.
+* Both fields are optional, but at least 1 must be given. e.g. `find_appt` with no field inputs will not work. 
+* One filter can only be used once in a single command. e.g. `find_appt /n John /n Simba` will not work.
+  
+</box>
 
 Examples:
-* `find_appt /n John /on 01-01-2024 ` returns appointments of patient with name `John` that falls on 1 Jan 2024.
+* Valid input: `find_appt /n John /on 01-01-2024`
+    * Output (success): `1 appointment found!` <br>
+      Appointments of patients with name `John` that falls on 1 Jan 2024 is shown.
+* Invalid input 1 (no prefixes provided): `find_appt`
+    * Output (failure): <br>
+      `Invalid command format!` <br>
+      `find_appt: Finds all appointments with patient name by keywords (case-insensitive) or date and displays them as a list with index numbers.` <br>
+      `Parameters: [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
+      `Example: find_appt /n alice bob charlie /on 01-01-2024`
+* Invalid input 2 (invalid DATE): `find_appt /n John /on 1 Jan 2024`
+    * Output (failure): <br>
+      `DATE must be in format dd-MM-yyyy` <br>
 
 ### Viewing available timeslots : `view`
 
