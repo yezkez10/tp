@@ -209,29 +209,30 @@ The delete Doctor command does the opposite — it calls deleteDoctor(INDEX)
     * Pros: Will be easier to implement and much simpler.
     * Cons: Going to be harder for future developer to update the Doctor Class.
 
-### \[Proposed\] Delete Patient
+### Delete Patient
 
-#### \[Proposed\] Implementation
+#### Implementation
 
-The proposed delete mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
-Clinic staff can enter `delete 3` which deletes all information of the person in the list, including their details and appointment.
+Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
+User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
 <puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML" />
 
-**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then deleteCommand is going to fail.
+**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then DeleteCommand is going to fail.
 
 #### Design considerations:
 
 **Aspect: How convenient it is for clinic staff to delete:**
 
-* **Alternative 1 (current choice):** Delete based on INDEX shown on the present list
+* **Alternative 1 (current choice):** Delete based on `INDEX` shown on the present list
     * Pros: Intuitive and easy for nurse to delete
     * Cons: Needs to use zero-based indexing since lists are zero-indexed but the view of clinic staff is one-indexed.
 
-* **Alternative 2:** Delete based on name of patient
+* **Alternative 2:** Delete based on `name` of patient
     * Pros: Will be more accurate when deleting a patient
     * Cons: Takes more time as need to type out names of patient when deleting and length of names may vary from person to person
+    * Cons: User will face issues when trying to delete patients with the same name
 
 ### List feature
 
@@ -378,6 +379,30 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
     * Pros: Appointment to be edited is specified to the specific Patient index input
     * Cons: Harder for the user to visualise which Appointment he is going to edit
 
+### View Available Timeslots feature
+
+#### Implementation
+
+The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
+A `view` command input takes in a date and displays all available timeslots for that date. This is mainly used by users
+to identify available timeslots in an instant which they can use to book appointments on.
+
+After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
+
+**Note:** If the date provided is invalid (non-existent date (eg 31-02-2024), or any date that has past)), the command will fail.
+
+#### Design considerations:
+
+**Aspect: What Timeslots will be added:**
+
+* **Alternative 1 (current choice):** Loop through all appointments in the appointment list and only add timeslots which are available
+    * Pros: Allows to retrieve the latest appointments and add available timeslots accurately
+    * Cons: Increased coupling between timeslots and appointment
+
+* **Alternative 2:** Add the time from appointments directly without any timeslot
+    * Pros: Easier to implement as we only need to get time from appointment directly
+    * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
+
 ## **Planned enhancements**
 
 ### Edit Doctor
@@ -499,34 +524,55 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. Clinic staff inserts the patient's details
 4. ClinicRecords retrieves the patient's information for the clinic staff
 
+   Use case ends.
+
 **Extensions**
 
 * 3a. The patient cannot be found
     * 3a1. ClinicRecords shows an error message.
-        Use Case resumes at step 3
+      Use Case resumes at step 3
 
 **Use case 4: Delete a patient**
 
 **MSS**
 
-1.  User requests to list patients
-2.  ClinicRecords shows a list of patients
-3.  User requests to delete a specific person in the list
-4.  ClinicRecords deletes the person
+1.  	User requests to list all patients.
+2.  	ClinicAssistant returns a list of all patients from the database.
+3.  	User requests to delete a specific person in the list with his index.
+4.  	ClinicAssistant deletes the person from the database.
 
-    Use case ends.
+      Use case ends.
 
 **Extensions**
+* 3a. The input index is invalid.
+    * 3a1. ClinicAssistant shows an error message.
+    * 3a2. User enters new index.
+      Steps 3a1-3a2 repeated until the index entered is correct.
+      Use case resumes at step 4.
 
-* 2a. The list is empty.
+**Use case 5: Viewing available timeslots**
 
-  Use case ends.
+**MSS**
 
-* 3a. The given input is invalid.
+1.  	User needs to book an appointment for a patient.
+2.  	User chooses a date and enters it.
+3.  	ClinicAssistant returns a list of available timeslots on that date.
+4.  	User finds an available timeslot from the given list.
+5.      User proceeds proceed to book an appointment for the patient on that specific date and timeslot
 
-    * 3a1. ClinicRecords shows an error message.
+   Use case ends.
 
-      Use case resumes at step 2.
+**Extensions**
+* 2b. Date entered is invalid
+    * 2b1. ClinicAssistant shows an error message and requests for correct date.
+    * 2b2. User enters a new date.
+      Steps 2b1 - 2b2 are repeated until date entered is correct
+      Use case resumes at step 3.
+
+* 3a. ClinicAssistant returns an empty list of available timeslots
+    * 3a1. User now has to enter a new date
+      Step 3a1 is repeated until date entered has list of at least 1 available timeslot
+      Use case resumes at step 4.
 
 *{More to be added}*
 
