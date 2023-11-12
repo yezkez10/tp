@@ -191,7 +191,8 @@ Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicMan
 User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
-<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML"/>
+<img src="images/DeleteCommandSequenceDiagram.png" width="1000px">
+The above shows the sequence diagram of the feature of Delete Patient.
 
 <box type="info" seamless>
 
@@ -204,7 +205,7 @@ The following sequence diagram shows how the DeleteCommand class works.
 
 **Aspect: How convenient it is for clinic staff to delete:**
 
-* **Alternative 1 (current choice):** Delete based on `INDEX` shown on the present list
+* **Alternative 1 (current choice):** Delete based on `index` shown on the present list
     * Pros: Intuitive and easy for nurse to delete
     * Cons: Needs to use zero-based indexing since lists are zero-indexed but the view of clinic staff is one-indexed.
 
@@ -387,12 +388,12 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
 #### Implementation
 
 The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
-A `view` command input takes in a date and displays all available timeslots for that date. This is mainly used by users
+A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
 to identify available timeslots in an instant which they can use to book appointments on.
 
 After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
 
-**Note:** If the date provided is invalid (**non-existent** date (eg 31-02-2024), or any date that has **past**)), the command will fail.
+**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **past** (eg 01-01-1900)), the command will fail.
 
 #### Design considerations:
 
@@ -504,10 +505,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  New patient visits the clinic
-2.  Patient is not in ClinicRecords
-3.  Clinic staff adds this new patient into the ClinicRecords
-4.  ClinicAssistant shows a confirmation message
+1.  New patient visits the clinic.
+2.  Patient is not in ClinicRecords.
+3.  Clinic staff adds this new patient into the ClinicRecords.
+4.  ClinicAssistant shows a confirmation message.
 
     Use case ends.
 
@@ -523,9 +524,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Clinic staff wants to see all patient records
-2.  Clinic staff requests to list patients
-3.  ClinicAssistant shows a list of patients
+1.  Clinic staff wants to see all patient records.
+2.  Clinic staff requests to list patients.
+3.  ClinicAssistant shows a list of patients.
 
     Use case ends.
 
@@ -533,21 +534,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Patient visits the clinic
-2. Clinic staff needs the information of this specific patient
-3. Clinic staff inserts the patient's details
-4. ClinicAssistant retrieves the patient's information for the clinic staff
+1. Patient visits the clinic.
+2. Clinic staff needs the information of this specific patient.
+3. Clinic staff inserts the patient's details.
+4. ClinicAssistant retrieves the patient's information for the clinic staff.
 
    Use case ends.
 
 **Extensions**
 
-* 3a. The patient cannot be found
+* 3a. The patient cannot be found.
     * 3a1. ClinicAssistant shows an error message.
 
       Use case resumes at step 3.
 
-**Use case 4: Delete a patient**
+**Use case 4: Edit details of a specific patient**
+
+**MSS**
+
+1. Patient visits the clinic.
+2. Patient informs clinic staff of changes to his/her details.
+3. Clinic staff searches for the patient in Clinic Assistant (by name or NRIC).
+4. Clinic staff edits the patient's details in Clinic Assistant.
+5. ClinicAssistant shows a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. The patient cannot be found.
+    * 3a1. ClinicAssistant shows an error message.
+    * 3a2. Clinic staff checks if the name or NRIC is correct.
+    * 3a3. Clinic staff searches for the patient again.
+
+      Use case resumes at step 4.
+
+* 4a. The given input to edit the patient's details is invalid.
+    * 4a1. ClinicAssistant shows an error message.
+    * 4a2. Clinic staff checks and enters the correct input.
+
+      Use case resumes at step 5.
+
+**Use case 5: Delete a patient**
 
 **MSS**
 
@@ -566,7 +594,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
 
-**Use case 5: Viewing available timeslots to book appointment**
+**Use case 6: Viewing available timeslots to book appointment**
 
 **MSS**
 
@@ -579,16 +607,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2b. Date entered is invalid
+* 2b. Date entered is invalid.
     * 2b1. ClinicAssistant shows an error message and requests for correct date.
     * 2b2. User enters a new date. 
-    * Steps 2b1 - 2b2 are repeated until date entered is correct
+    * Steps 2b1 - 2b2 are repeated until date entered is correct.
 
       Use case resumes at step 3.
 
-* 3a. ClinicAssistant returns an empty list of available timeslots
-    * 3a1. User now has to enter a new date 
-    * Step 3a1 is repeated until date entered has list of at least 1 available timeslot
+* 3a. ClinicAssistant returns an empty list of available timeslots.
+    * 3a1. User now has to enter a new date .
+    * Step 3a1 is repeated until date entered has list of at least 1 available timeslot.
 
       Use case resumes at step 4.
 
@@ -713,6 +741,24 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Editing a Patient
+
+1. Editing a patient's details in the `Patients` list
+
+    1. Prerequisites: At least 1 patient in the `Patients` list by listing all patients using the `list` command or find specific patients by name using the `find` command or by NRIC using the `find_nric` command. If there are currently no patients in Clinic Assistant, use `add` command to add a patient into the list.
+
+    2. Test case: `edit 1 /p 91234567 /e johndoe@example.com`<br>
+       Expected: The phone number and email of the first person in the `Patients` list is updated to the new values. Details of the updated patient is shown in the status message.
+
+    3. Test case: `edit 0`<br>
+       Expected: No patient's details is updated. Error details shown in the status message for invalid command format.
+    
+    4. Test case: `edit 1 /p 12345678`<br>
+       Expected: The phone number of the first person in the `Patients` list is not updated. Error details shown in the status message for valid phone number inputs.
+
+    5. Other incorrect edit commands to try: `edit`, `edit x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to test case in step 3.
+
 ### Deleting a Patient
 
 1. Deleting a patient from `Patients` list
@@ -730,7 +776,7 @@ testers are expected to do more *exploratory* testing.
 
 ### View Available Timeslots
 
-2. Viewing available timeslots on a given `DATE`
+1. Viewing available timeslots on a given `DATE`
 
     1. Prerequisites: None but good to have some appointments made using `appt`
 
@@ -801,6 +847,96 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+## **Appendix: Planned Enhancements**
+In the near future, we hope to be able to enhance our application as stated below.
+
+### Allow different doctors to have appointment slots at the same timing
+
+#### Implementation
+
+Currently, different doctors cannot have the appointment slots at the same timing. This is done with the assumption that the GP clinic will only have one doctor and one room at any one time.
+However, in the future, we hope to be able to allow different doctors to have appointment slots at the same timing. This will allow the clinic to have multiple doctors and rooms at the same time.
+
+This enhancement will allow the user to add appointments with the same timing as long as the doctor is different.
+
+The `view` Timeslots command will also be updated to show the available timeslots for all doctors.
+
+To implement this, there has to be a check to ensure that the appointment timing does not clash with any other appointments for the same doctor when adding/editing appointments.
+
+#### Design consideration:
+
+**Aspect: How to ensure each doctor can only have 1 appointment for timeslot:**
+
+* When a new appointment is added or edited, check if the appointment timing clashes with any other appointments for the same doctor.
+    * Pros: Easy to implement.
+    * Cons: Additional check required when adding/editing appointments.
+
+
+### Change the tab to the corresponding tab of the command
+
+#### Implementation
+
+Currently, when a command is used, the tab the user is on will not switch to the corresponding tab of the command. E.g. if the user is on the `Doctors` tab, entering the `list` command
+will not switch the user to the `Patients` tab. In the future, we hope to be able to implement this feature such that the user will be switched to the corresponding tab of the command.
+
+This applies for all commands such as `list_appt`, `add`, `add_doctor`, `edit`, `edit_appt`, `delete`, `delete_doctor`, `delete_appt`, `find`, `find_nric`, `find_appt`, `view`, `appt`, `edit_appt` and `delete_appt`.
+
+This enhancement will allow the user to be switched to the corresponding tab of the command.
+
+This enhancement will improve the user experience as the user will not have to manually switch to the corresponding tab of the command.
+
+#### Design consideration:
+
+**Aspect: How to implement changing of tabs:**
+
+* Create a method to switch to the corresponding tab of the command and call this method whenever a command is used.
+    * Pros: Easy to implement.
+    * Cons: Additional method required to switch tabs.
+
+
+### Edit Appointment to include editing of Doctor details
+
+#### Implementation
+
+This enhancement will let the user edit the appointments associated doctor.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore, it will take in information that the specified doctor's information will be changed to.
+This will then change the doctor associated with the appointment the user is editing.
+
+#### Design consideration:
+
+**Aspect: How the doctor is going to be edited:**
+
+* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
+    * Pros: Intuitive for clinic assistants to use
+    * Cons: Might be difficult to implement
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Future Features**
+
+### Edit Doctor
+
+#### Implementation
+
+This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore, it will take in information that the specified doctor's information will be changed to.
+This will create a new Doctor Object and transfer over all the information that isnt specified in the edit command to be the same as the original doctor.
+
+#### Design consideration:
+
+**Aspect: How the doctor object is going to be edited:**
+
+* You can make it so that you change the value of the variables inside the original doctor
+    * Pros: save space and improve space and time complexity
+    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
 
 --------------------------------------------------------------------------------------------------------------------
 
