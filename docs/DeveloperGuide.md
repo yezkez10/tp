@@ -209,29 +209,36 @@ The delete Doctor command does the opposite — it calls deleteDoctor(INDEX)
     * Pros: Will be easier to implement and much simpler.
     * Cons: Going to be harder for future developer to update the Doctor Class.
 
-### \[Proposed\] Delete Patient
+### Delete Patient
 
-#### \[Proposed\] Implementation
+#### Implementation
 
-The proposed delete mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
-Clinic staff can enter `delete 3` which deletes all information of the person in the list, including their details and appointment.
+Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
+User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
-<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML" />
+<img src="images/DeleteCommandSequenceDiagram.png" width="1000px">
+The above shows the sequence diagram of the feature of Delete Patient.
 
-**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then deleteCommand is going to fail.
+<box type="info" seamless>
+
+**Note:** 
+* The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* If the index of patient to be deleted is **less than 1** or **exceeds the number of patients in the List** then DeleteCommand is going to fail.
+</box>
 
 #### Design considerations:
 
 **Aspect: How convenient it is for clinic staff to delete:**
 
-* **Alternative 1 (current choice):** Delete based on INDEX shown on the present list
+* **Alternative 1 (current choice):** Delete based on `index` shown on the present list
     * Pros: Intuitive and easy for nurse to delete
     * Cons: Needs to use zero-based indexing since lists are zero-indexed but the view of clinic staff is one-indexed.
 
-* **Alternative 2:** Delete based on name of patient
+* **Alternative 2:** Delete based on `name` of patient
     * Pros: Will be more accurate when deleting a patient
     * Cons: Takes more time as need to type out names of patient when deleting and length of names may vary from person to person
+    * Cons: User will face issues when trying to delete patients with the same name
 
 ### List feature
 
@@ -378,6 +385,30 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
     * Pros: Appointment to be edited is specified to the specific Patient index input
     * Cons: Harder for the user to visualise which Appointment he is going to edit
 
+### View Available Timeslots feature
+
+#### Implementation
+
+The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
+A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
+to identify available timeslots in an instant which they can use to book appointments on.
+
+After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
+
+**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **past** (eg 01-01-1900)), the command will fail.
+
+#### Design considerations:
+
+**Aspect: What Timeslots will be added:**
+
+* **Alternative 1 (current choice):** Loop through all appointments in the appointment list and only add timeslots which are available
+    * Pros: Allows to retrieve the latest appointments and add available timeslots accurately
+    * Cons: Increased coupling between timeslots and appointment
+
+* **Alternative 2:** Add the time from appointments directly without any timeslot
+    * Pros: Easier to implement as we only need to get time from appointment directly
+    * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
+
 ## **Planned enhancements**
 
 ### Edit Doctor
@@ -432,7 +463,7 @@ This will then change the doctor associated with the appointment the user is edi
 
 ### Product scope
 
-**Target user profile: Clinic Staff**
+**Target user profile: Clinic Assistants**
 
 * has a need to manage a significant number of patients
 * prefer desktop apps over other types
@@ -446,20 +477,27 @@ This will then change the doctor associated with the appointment the user is edi
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                              | I want to …​                              | So that I can…​                                        |
-|----------|--------------------------------------|-------------------------------------------|--------------------------------------------------------|
-| `* * *`  | clinic assistant                     | register new patients to the database     | reduce the use of physical documents and storage costs |
-| `* * *`  | clinic admin staff                   | delete patient records                    | keep our records up-to-date                            |
-| `* * *`  | clinic assistant                     | add new appointments to specific patients | keep track of their appointments                       |
-| `* * *`  | clinic admin staff                   | delete appointments of patients           | update cancellations of no-shows                       |
-| `* * *`  | overwhelmed healthcare professional  | view all the patient records              | not memorise all the patients of the clinic            |
-| `* * *`  | overwhelmed healthcare professional  | view a specific patient's details         | save time                                              |
+| Priority | As a …​                      | I want to …​                                | So that I can…​                                        |
+|----------|------------------------------|---------------------------------------------|--------------------------------------------------------|
+| `* * *`  | busy clinic assistant        | register new patients to the database       | reduce the use of physical documents and storage costs |
+| `* *`    | clinic assistant             | delete patient records                      | keep our records up-to-date                            |
+| `* * *`  | clinic assistant             | add new appointments to specific patients   | keep track of their appointments                       |
+| `* * *`  | busy clinic assistant        | delete a specific appointment               | update frequent cancellations of appointments          |
+| `* *`    | clinic assistant             | view all the patient records                | not need to memorise all the patients of the clinic    |
+| `* * *`  | overwhelmed clinic assistant | view a specific patient's details           | save time                                              |
+| `* *`    | clinic assistant             | edit an appointment                         | adjust changes to appointments                         |
+| `* * *`  | clinic assistant             | keep track of a patient's medical history   | be more conscious of patients' conditions              |
+| `* * *`  | stressed clinic assistant    | register new doctors to the database easily | reduce workload whenever a new doctor joins the clinic |
+| `* *`    | clinic assistant             | delete a specific doctor                    | keep the doctor list up to date                        |
+| `* *`    | busy clinic assistant        | view all available timeslots on a date      | easily filter for available time to book appointments  |
+| `*`      | clinic assistant             | edit a doctor's information                 | update any changes to doctors in the clinic            |
+| `* *`    | clinic assistant             | edit a patient's information                | update any changes to patients in the clinic           |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `ClinicRecords` and the **Actor** is the `Clinic staff`, unless specified otherwise)
+(For all use cases below, the **System** is the `ClinicAssistant` and the **Actor** is the `Clinic assistant`, unless specified otherwise)
 
 **Use case 1: Add a patient**
 
@@ -468,7 +506,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  New patient visits the clinic
 2.  Patient is not in ClinicRecords
 3.  Clinic staff adds this new patient into the ClinicRecords
-4.  ClinicRecords shows a confirmation message
+4.  ClinicAssistant shows a confirmation message
 
     Use case ends.
 
@@ -476,7 +514,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given input is invalid.
 
-    * 3a1. ClinicRecords shows an error message.
+    * 3a1. ClinicAssistant shows an error message.
 
       Use case resumes at step 3.
 
@@ -486,7 +524,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Clinic staff wants to see all patient records
 2.  Clinic staff requests to list patients
-3.  ClinicRecords shows a list of patients
+3.  ClinicAssistant shows a list of patients
 
     Use case ends.
 
@@ -497,52 +535,82 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Patient visits the clinic
 2. Clinic staff needs the information of this specific patient
 3. Clinic staff inserts the patient's details
-4. ClinicRecords retrieves the patient's information for the clinic staff
+4. ClinicAssistant retrieves the patient's information for the clinic staff
+
+   Use case ends.
 
 **Extensions**
 
 * 3a. The patient cannot be found
-    * 3a1. ClinicRecords shows an error message.
-        Use Case resumes at step 3
+    * 3a1. ClinicAssistant shows an error message.
+
+      Use case resumes at step 3.
 
 **Use case 4: Delete a patient**
 
 **MSS**
 
-1.  User requests to list patients
-2.  ClinicRecords shows a list of patients
-3.  User requests to delete a specific person in the list
-4.  ClinicRecords deletes the person
+1. User requests to list all patients.
+2. ClinicAssistant returns a list of all patients from the database.
+3. User requests to delete a specific person in the list with his index.
+4. ClinicAssistant deletes the person from the database.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
+* 3a. The input index is invalid.
+    * 3a1. ClinicAssistant shows an error message.
+    * 3a2. User enters new index.
+    * Steps 3a1-3a2 repeated until the index entered is correct.
 
-* 2a. The list is empty.
+      Use case resumes at step 4.
 
-  Use case ends.
+**Use case 5: Viewing available timeslots to book appointment**
 
-* 3a. The given input is invalid.
+**MSS**
 
-    * 3a1. ClinicRecords shows an error message.
+1. User needs to book an appointment for a patient.
+2. User chooses a date and enters it.
+3. ClinicAssistant returns a list of available timeslots on that date.
+4. User finds an available timeslot from the given list. 
+5. User proceeds to book an appointment for the patient on that specific date and timeslot
 
-      Use case resumes at step 2.
+   Use case ends.
+
+**Extensions**
+* 2b. Date entered is invalid
+    * 2b1. ClinicAssistant shows an error message and requests for correct date.
+    * 2b2. User enters a new date. 
+    * Steps 2b1 - 2b2 are repeated until date entered is correct
+
+      Use case resumes at step 3.
+
+* 3a. ClinicAssistant returns an empty list of available timeslots
+    * 3a1. User now has to enter a new date 
+    * Step 3a1 is repeated until date entered has list of at least 1 available timeslot
+
+      Use case resumes at step 4.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should be able to find a patient's information in less than 2 seconds
-2.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
-3.  Should be able to load all patient's information in about 3 seconds.
+1.  System should be able to find a patient's information in less than 2 seconds
+2.  System should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage
+3.  System should be able to view available timeslots on a valid date in about 2 seconds
+4.  User-friendly and easy to use without much guidance
+5.  System works on both 32-bit and 64-bit environments
+6.  System should be usable by a beginner with basic computer knowledge
+7.  System uses extremely secure security software to keep patient data safe and secure
+8.  System supports the use of English in both UK and US languages
 
 *{More to be added}*
 
 ### Glossary
+* **GUI**: Graphical User Interface, a visual display which the user sees and interacts with
+* **API**: Application Programming Interface, functions that allow created applications to access the features of an operating system, application or other service
 
-* **ClinicRecords**: The record book we use to store information of patients
-* **Private patient record**: Details that are not meant to be shared with others
-* **Clinic Staff**: Any healthcare professional at the clinics including doctors/nurses/staff
+*{More to be added}*
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -574,22 +642,36 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a Patient
 
-1. Deleting a person while all persons are being shown
+1. Deleting a patient from `Patients` list
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all patients using the `list` command. At least 1 patient in the list. Use `add` to add a patient into the list. 
+   
+    2. Test case: `delete 1`<br>
+        Expected: First patient is deleted from the list. Details of the deleted contact shown in the status message.
+   
+    3. Test case: `delete 0`<br>
+    Expected: No patient is deleted. Error details shown in the status message.
 
-    1. Test case: `delete 1`<br>
-       Expected: First Patient is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### View Available Timeslots
+
+2. Viewing available timeslots on a given `DATE`
+
+    1. Prerequisites: None but good to have some appointments made using `appt`
+
+    2. Test case: `view /on 02-01-2024`<br>
+       Expected: Displays all available timeslots under the timeslot tab. Success message and `DATE` shown in the status message.
+
+    3. Test case: `view /on 02/02/2024`<br>
+       Expected: No timeslots will be displayed. Error details shown in the status message.
+
+    4. Other incorrect view commands to try: `view`, `view /on x`, `...` (where x is past date)<br>
+       Expected: Similar to previous.
+
 
 ### Saving data
 

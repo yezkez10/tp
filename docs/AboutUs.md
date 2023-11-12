@@ -57,7 +57,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/simbayippy.png" width="200px">
 
 [[github](http://github.com/simbayippy)]
-[[portfolio](team/yezkez10.md)]
+[[portfolio](team/simbayippy.md)]
 
 * Role: Developer
-* Responsibilities: Add Appointments
+* Responsibilities: Everything related to Appointments
