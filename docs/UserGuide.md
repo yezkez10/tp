@@ -43,7 +43,7 @@ ClinicAssistant requires a lot of typing of various prefixes to add, list or sto
 
 <page-nav-print />
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ### Target Audience
 
@@ -58,14 +58,14 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
 |   a new user   | proceed to our [quick start](#quick-start) section to set up the necessary details and try our features |
 | returning user |      skip to our [command summary](#command-summary) for an in-depth summary of all our features!       |
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
+
 ## GUI explanation
 
 In order to have a better experience in using **ClinicAssistant**, please take a look at this explanation of the GUI.
 ### Main Window
 ![GUI1](images/GUI1.png)
 ![GUI2](images/GUI3.png)
-
 
 | GUI element (red) |                                            Description                                            |
 |:-----------------:|:-------------------------------------------------------------------------------------------------:|
@@ -78,7 +78,6 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |   Timeslots Tab   |                 A tab that shows the Timeslot List Panel on screen when clicked.                  |
 | Appointments Tab  |                A tab that shows the Appointment List Panel on screen when clicked.                |
 
-
 |  GUI element (green)   |                                               Description                                               |
 |:----------------------:|:-------------------------------------------------------------------------------------------------------:|
 |   Patient List Panel   |                       A Panel that contains a list of Patients inside the system.                       |
@@ -90,13 +89,14 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |  Timeslot List Panel   |                   A Panel that contains a list of empty Timeslots inside the system.                    |
 |     Timeslot Card      |                                A card that shows what timeslot is free.                                 |
 
-Patient Card
+### Patient Card
 ![GUI3](images/PatientGUI2.png)
-Doctor Card
+### Doctor Card
 ![GUI4](images/DoctorGUI.png)
-Appointment Card
+### Appointment Card
 ![GUI5](images/AppointmentGUI.png)
---------------------------------------------------------------------------------------------------------------------
+
+<hr style="border:1px solid gray">
 
 ## Quick start
 
@@ -130,7 +130,7 @@ Appointment Card
 
 1. Refer to the [Features](#features) below for details of each command.
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ## Features
 
@@ -159,6 +159,7 @@ Appointment Card
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Adding a person: `add`
 
@@ -168,6 +169,8 @@ Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic 
 
 Examples:
 * `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi /t allergic to pollen`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Adding a doctor: `add_doctor`
 
@@ -203,6 +206,8 @@ Examples:
       `add_doctor: Adds a Doctor to clinic assistant.` <br>
       `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
       `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Adding an appointment: `appt`
 
@@ -245,11 +250,15 @@ Examples:
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Listing all patients : `list`
 
 Shows a list of all patients in Clinic Assistant.
 
 Format: `list`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Listing all appointments : `list_appt`
 
@@ -270,6 +279,8 @@ Example:
     * Output (success): `Listed all appointments` <br>
         All conditions are removed and all appointments are showed.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Editing a patient: `edit`
 
 Edits an existing patient from the Clinic Records.
@@ -284,6 +295,8 @@ Format: `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth
 Examples:
 * `edit 1 /p 91234567 /e johndoe@example.com` edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
 * `edit 2 /n Betsy Crower` edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Editing an appointment: `edit_appt`
 
@@ -314,6 +327,8 @@ Examples:
       `Date must be in dd-MM-yyyy HH:mm format.` <br>
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Deleting a patient : `delete`
 
@@ -358,6 +373,8 @@ Examples:
       `INDEX entered must be an integer!.` <br>
     * **To fix**: Enter an `INDEX` that that is an **Integer** such as `delete 1`
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Deleting a doctor : `delete_doctor`
 
 Deletes the specified doctor from the Clinic Records.
@@ -398,6 +415,7 @@ initial Doctor list:
     * Output (failure): <br>
       `The doctor index provided is invalid`
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Deleting an appointment : `delete_appt`
 
@@ -430,6 +448,7 @@ initial Appointment list:
     * Output (failure): <br>
       `The patient index provided is invalid`
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Finding patient details by name: `find`
 
@@ -442,6 +461,8 @@ Format: `find KEYWORD`
 
 Examples:
 * `find John` returns `john` and `John Doe`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Finding patient details by nric: `find_nric`
 
@@ -456,6 +477,8 @@ Format: `find_nric NRIC`
 Examples:
 * `find_nric T0123456G` returns the patient with NRIC `T0123456G`
 * `find_nric s0123456h` returns the patient with NRIC `S0123456H`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Finding appointment by patient name or date: `find_appt`
 
@@ -502,6 +525,8 @@ Examples:
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Viewing available timeslots : `view`
 
 Displays all **available** timeslots on the specified date by the user.
@@ -537,11 +562,15 @@ Examples:
       `DATE entered has past already!` <br>
     * **To fix**: Enter a `DATE` that has not past such as `view /on 01-10-2103`
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Clearing all patients : `clear`
 
 Clears all patients from ClinicAssistant.
 
 Format: `clear`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Exiting the program : `exit`
 
@@ -549,9 +578,13 @@ Exits ClinicAssistant.
 
 Format: `exit`
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Saving the data
 
 ClinicAssistant data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Editing the data file
 
@@ -561,7 +594,7 @@ ClinicAssistant data are saved automatically as a JSON file `[JAR file location]
 If your changes to the data file makes its format invalid, ClinicAssistant will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
 </box>
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ## FAQ
 
@@ -574,7 +607,7 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ## Command summary
 
