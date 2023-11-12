@@ -481,7 +481,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | busy clinic assistant        | register new patients to the database       | reduce the use of physical documents and storage costs |
 | `* *`    | clinic assistant             | delete patient records                      | keep our records up-to-date                            |
 | `* * *`  | clinic assistant             | add new appointments to specific patients   | keep track of their appointments                       |
-| `* * *`  | hectic clinic assistant      | delete a specific appointment               | update frequent cancellations of appointments          |
+| `* * *`  | busy clinic assistant        | delete a specific appointment               | update frequent cancellations of appointments          |
 | `* *`    | clinic assistant             | view all the patient records                | not need to memorise all the patients of the clinic    |
 | `* * *`  | overwhelmed clinic assistant | view a specific patient's details           | save time                                              |
 | `* *`    | clinic assistant             | edit an appointment                         | adjust changes to appointments                         |
