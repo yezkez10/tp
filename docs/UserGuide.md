@@ -44,7 +44,7 @@ It ensures efficient adding, editing and finding of patient information, optimis
 
 <page-nav-print />
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ### Target Audience
 
@@ -59,14 +59,14 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
 |   a new user   | proceed to our [quick start](#quick-start) section to set up the necessary details and try our features |
 | returning user |      skip to our [command summary](#command-summary) for an in-depth summary of all our features!       |
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
+
 ## GUI explanation
 
 In order to have a better experience in using **ClinicAssistant**, please take a look at this explanation of the GUI.
 ### Main Window
 ![GUI1](images/GUI1.png)
 ![GUI2](images/GUI3.png)
-
 
 | GUI element (red) |                                            Description                                            |
 |:-----------------:|:-------------------------------------------------------------------------------------------------:|
@@ -79,7 +79,6 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |   Timeslots Tab   |                 A tab that shows the Timeslot List Panel on screen when clicked.                  |
 | Appointments Tab  |                A tab that shows the Appointment List Panel on screen when clicked.                |
 
-
 |  GUI element (green)   |                                               Description                                               |
 |:----------------------:|:-------------------------------------------------------------------------------------------------------:|
 |   Patient List Panel   |                       A Panel that contains a list of Patients inside the system.                       |
@@ -91,13 +90,22 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |  Timeslot List Panel   |                   A Panel that contains a list of empty Timeslots inside the system.                    |
 |     Timeslot Card      |                                A card that shows what timeslot is free.                                 |
 
-Patient Card
-![GUI3](images/PatientGUI2.png)
-Doctor Card
-![GUI4](images/DoctorGUI.png)
-Appointment Card
-![GUI5](images/AppointmentGUI.png)
 --------------------------------------------------------------------------------------------------------------------
+
+### Patient Card
+![GUI3](images/PatientGUI2.png)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Doctor Card
+![GUI4](images/DoctorGUI.png)
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Appointment Card
+![GUI5](images/AppointmentGUI.png)
+
+<hr style="border:1px solid gray">
 
 ## Quick start
 
@@ -131,7 +139,7 @@ Appointment Card
 
 1. Refer to the [Features](#features) below for details of each command.
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ## Features
 
@@ -160,6 +168,7 @@ Appointment Card
 * **If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.**
 </box>
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Adding a person: `add`
 
@@ -183,6 +192,8 @@ Examples:
   * Output (failure): <br>
   `Invalid command format!` <br>
   `add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Adding a doctor: `add_doctor`
 
@@ -220,6 +231,8 @@ Examples:
       `add_doctor: Adds a Doctor to clinic assistant.` <br>
       `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
       `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Adding an appointment: `appt`
 
@@ -262,6 +275,8 @@ Examples:
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Listing all patients : `list`
 
 Shows a list of all people in the clinic records.
@@ -273,6 +288,9 @@ Examples:
   * Output (success): <br>
   `Listed all patients`
 
+--------------------------------------------------------------------------------------------------------------------
+
+### Listing all appointments : `list_appt`
 
 Removes all conditions previously applied to the appointments list and shows all appointments in Clinic Assistant.
 
@@ -290,6 +308,8 @@ Example:
 * Valid input: `list_appt`
     * Output (success): `Listed all appointments` <br>
         All conditions are removed and all appointments are showed.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Editing a patient: `edit`
 
@@ -318,6 +338,8 @@ Examples:
 * Valid input: `edit 2 /n Betsy Crower /t`
   * Output (success): <br>
   `Edited Person: Betsy Crower | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: `
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Editing an appointment: `edit_appt`
 
@@ -349,6 +371,8 @@ Examples:
       `Date must be in dd-MM-yyyy HH:mm format.` <br>
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Deleting a patient : `delete`
 
@@ -393,6 +417,8 @@ Examples:
       `INDEX entered must be an integer!.` <br>
     * **To fix**: Enter an `INDEX` that that is an **Integer** such as `delete 1`
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Deleting a doctor : `delete_doctor`
 
 Deletes the specified doctor from the clinic records.
@@ -434,6 +460,7 @@ initial Doctor list:
     * Output (failure): <br>
       `The doctor index provided is invalid`
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Deleting an appointment : `delete_appt`
 
@@ -466,6 +493,7 @@ initial Appointment list:
     * Output (failure): <br>
       `The patient index provided is invalid`
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Finding patient details by name: `find`
 
@@ -488,6 +516,8 @@ Examples:
     * Output (failure): <br>
     `No patients found!`
 
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Finding patient details by nric: `find_nric`
 
@@ -514,6 +544,8 @@ Examples:
     * Output (failure, wrong NRIC format): <br>
     `Invalid command format!` <br>
     `NRICs should contain 7 digits, with S or T at the beginning and a letter at the end`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Finding appointment by patient name or date: `find_appt`
 
@@ -560,6 +592,8 @@ Examples:
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Viewing available timeslots : `view`
 
 Displays all **available** timeslots on the specified date by the user.
@@ -569,20 +603,25 @@ Format: `view /on DATE`
 * Displays all available timeslots that can be booked on the `DATE` under the `Timeslots` tab.
 * Any Timeslot displayed under the `Timeslot` tab can be used to book an appointment.
 
+After calling the command, click on the timeslot tab to see a similar picture:
+![View_Available_Timeslots](images/View_Available.png)
+
 <box type="info" seamless>
 
 **Note:**
 * The `DATE` **must be a valid date** on the calendar in the format `dd-MM-yyyy` **exactly**
 * Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
+* The **very first time** this command is called, the date will **not** be shown (refer to known issues).
+* Date will be shown for every subsequent view command
   </box>
 
 <box type="warning" seamless>
 
 **Warning:**
-* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again after there is at least 1 timeslot.
+* The `Timeslot` tab will be **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again when there is at least 1 timeslot.
   </box>
 
-Examples:
+Examples:<br>
 * Valid input: `view /on 02-01-2024`
     * Output (success): <br>
       `All Available Timeslot(s) on Jan 02, 2024 Listed!`
@@ -595,11 +634,15 @@ Examples:
       `DATE entered has past already!` <br>
     * **To fix**: Enter a `DATE` that has not past such as `view /on 01-10-2103`
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Clearing all patients : `clear`
 
 Clears all patients from ClinicAssistant.
 
 Format: `clear`
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Exiting the program : `exit`
 
@@ -607,9 +650,13 @@ Exits ClinicAssistant.
 
 Format: `exit`
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Saving the data
 
 ClinicAssistant data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Editing the data file
 
@@ -619,7 +666,7 @@ ClinicAssistant data are saved automatically as a JSON file `[JAR file location]
 If your changes to the data file makes its format invalid, ClinicAssistant will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.
 </box>
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ## FAQ
 
@@ -631,8 +678,9 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **When calling ViewAvailable Command for the very first time**, date will not be shown in the timeslot tab as there is no ambiguity. Subsequent ViewAvailable Command calls will cause the date to be shown.
 
---------------------------------------------------------------------------------------------------------------------
+<hr style="border:1px solid gray">
 
 ## Command summary
 
