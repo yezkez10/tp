@@ -89,10 +89,18 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |  Timeslot List Panel   |                   A Panel that contains a list of empty Timeslots inside the system.                    |
 |     Timeslot Card      |                                A card that shows what timeslot is free.                                 |
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Patient Card
 ![GUI3](images/PatientGUI2.png)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Doctor Card
 ![GUI4](images/DoctorGUI.png)
+
+--------------------------------------------------------------------------------------------------------------------
+
 ### Appointment Card
 ![GUI5](images/AppointmentGUI.png)
 
