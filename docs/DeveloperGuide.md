@@ -389,7 +389,7 @@ to identify available timeslots in an instant which they can use to book appoint
 
 After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
 
-**Note:** If the date provided is invalid (non-existent date (eg 31-02-2024), or any date that has past)), the command will fail.
+**Note:** If the date provided is invalid (**non-existent** date (eg 31-02-2024), or any date that has **past**)), the command will fail.
 
 #### Design considerations:
 
@@ -457,7 +457,7 @@ This will then change the doctor associated with the appointment the user is edi
 
 ### Product scope
 
-**Target user profile: Clinic Staff**
+**Target user profile: Clinic Assistants**
 
 * has a need to manage a significant number of patients
 * prefer desktop apps over other types
@@ -484,7 +484,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `ClinicRecords` and the **Actor** is the `Clinic staff`, unless specified otherwise)
+(For all use cases below, the **System** is the `ClinicAssistant` and the **Actor** is the `Clinic assistant`, unless specified otherwise)
 
 **Use case 1: Add a patient**
 
@@ -493,7 +493,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  New patient visits the clinic
 2.  Patient is not in ClinicRecords
 3.  Clinic staff adds this new patient into the ClinicRecords
-4.  ClinicRecords shows a confirmation message
+4.  ClinicAssistant shows a confirmation message
 
     Use case ends.
 
@@ -501,7 +501,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given input is invalid.
 
-    * 3a1. ClinicRecords shows an error message.
+    * 3a1. ClinicAssistant shows an error message.
 
       Use case resumes at step 3.
 
@@ -511,7 +511,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Clinic staff wants to see all patient records
 2.  Clinic staff requests to list patients
-3.  ClinicRecords shows a list of patients
+3.  ClinicAssistant shows a list of patients
 
     Use case ends.
 
@@ -522,73 +522,75 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Patient visits the clinic
 2. Clinic staff needs the information of this specific patient
 3. Clinic staff inserts the patient's details
-4. ClinicRecords retrieves the patient's information for the clinic staff
+4. ClinicAssistant retrieves the patient's information for the clinic staff
 
    Use case ends.
 
 **Extensions**
 
 * 3a. The patient cannot be found
-    * 3a1. ClinicRecords shows an error message.
-      Use Case resumes at step 3
+    * 3a1. ClinicAssistant shows an error message.
+
+      Use case resumes at step 3.
 
 **Use case 4: Delete a patient**
 
 **MSS**
 
-1.  	User requests to list all patients.
-2.  	ClinicAssistant returns a list of all patients from the database.
-3.  	User requests to delete a specific person in the list with his index.
-4.  	ClinicAssistant deletes the person from the database.
+1. User requests to list all patients.
+2. ClinicAssistant returns a list of all patients from the database.
+3. User requests to delete a specific person in the list with his index.
+4. ClinicAssistant deletes the person from the database.
 
-      Use case ends.
+   Use case ends.
 
 **Extensions**
 * 3a. The input index is invalid.
     * 3a1. ClinicAssistant shows an error message.
     * 3a2. User enters new index.
-      Steps 3a1-3a2 repeated until the index entered is correct.
+    * Steps 3a1-3a2 repeated until the index entered is correct.
+
       Use case resumes at step 4.
 
 **Use case 5: Viewing available timeslots**
 
 **MSS**
 
-1.  	User needs to book an appointment for a patient.
-2.  	User chooses a date and enters it.
-3.  	ClinicAssistant returns a list of available timeslots on that date.
-4.  	User finds an available timeslot from the given list.
-5.      User proceeds proceed to book an appointment for the patient on that specific date and timeslot
+1. User needs to book an appointment for a patient.
+2. User chooses a date and enters it.
+3. ClinicAssistant returns a list of available timeslots on that date.
+4. User finds an available timeslot from the given list. 
+5. User proceeds to book an appointment for the patient on that specific date and timeslot
 
    Use case ends.
 
 **Extensions**
 * 2b. Date entered is invalid
     * 2b1. ClinicAssistant shows an error message and requests for correct date.
-    * 2b2. User enters a new date.
-      Steps 2b1 - 2b2 are repeated until date entered is correct
+    * 2b2. User enters a new date. 
+    * Steps 2b1 - 2b2 are repeated until date entered is correct
+
       Use case resumes at step 3.
 
 * 3a. ClinicAssistant returns an empty list of available timeslots
-    * 3a1. User now has to enter a new date
-      Step 3a1 is repeated until date entered has list of at least 1 available timeslot
+    * 3a1. User now has to enter a new date 
+    * Step 3a1 is repeated until date entered has list of at least 1 available timeslot
+
       Use case resumes at step 4.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should be able to find a patient's information in less than 2 seconds
-2.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
-3.  Should be able to load all patient's information in about 3 seconds.
+1.  System should be able to find a patient's information in less than 2 seconds
+2.  System should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage
+3.  System should be able to view available timeslots on a valid date in about 2 seconds
+4.  User-friendly and easy to use without much guidance
+5.  System works on both 32-bit and 64-bit environments
+6.  System should be usable by a beginner with basic computer knowledge
+7.  System uses extremely secure security software to keep patient data safe and secure
 
 *{More to be added}*
-
-### Glossary
-
-* **ClinicRecords**: The record book we use to store information of patients
-* **Private patient record**: Details that are not meant to be shared with others
-* **Clinic Staff**: Any healthcare professional at the clinics including doctors/nurses/staff
 
 --------------------------------------------------------------------------------------------------------------------
 
