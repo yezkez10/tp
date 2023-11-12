@@ -188,11 +188,12 @@ Examples:
 * Valid input: `add /n Drizzy /p 99090909 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr`
   * Output (success): <br>
     `New person added: Drizzy | Phone: 99090909 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:` 
-* Invalid input: `add /n Drizzy`
+* Invalid input (missing fields): `add /n Drizzy`
   * Output (failure): <br>
   `Invalid command format!` <br>
   `add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
-
+  * **To fix:** Add in the missing mandatory fields.
+  
 --------------------------------------------------------------------------------------------------------------------
 
 ### Adding a doctor: `add_doctor`
@@ -225,12 +226,13 @@ Examples:
 * Valid input: `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
     * Output (success): <br>
       `New Doctor added: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive`
-* Invalid input: `add_doctor /n Dr Lee`
+* Invalid input (missing fields): `add_doctor /n Dr Lee`
     * Output (failure): <br>
       `Invalid command format!` <br>
       `add_doctor: Adds a Doctor to clinic assistant.` <br>
       `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
       `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
+    * **To fix:** Add in the missing mandatory fields.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -264,17 +266,20 @@ Examples:
 * Valid input: `appt /for 1 /doc 2 /d Blood test /on 01-01-2024 12:00`
     * Output (success): <br>
       `New appointment added | Patient: Alex Yeoh | Description: Blood test | Date: 01 Jan 2024 12.00 PM`
-* Invalid input 1 (no description provided): `appt /for 1 /doc 2 /on 01-01-2024 12:00`
+* Invalid input 1 (`DESCRIPTION` not provided): `appt /for 1 /doc 2 /on 01-01-2024 12:00`
     * Output (failure): <br>
       `Invalid command format! ` <br>
       `appt: Adds a appointment to the patient identified by the index number used in the displayed patient list.` <br>
       `Parameters: /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME` <br>
       `Example: appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
-* Invalid input 2 (invalid DATE_TIME): `appt /for 1 /doc 2 /d Blood test /on tuesday`
+    * **To fix:** Add in the missing description field.
+
+* Invalid input 2 (invalid `DATE_TIME`): `appt /for 1 /doc 2 /d Blood test /on tuesday`
     * Output (failure): <br>
       `Date must be in dd-MM-yyyy HH:mm format.` <br>
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
+    * **To fix:** Enter a valid `DATE_TIME` in dd-MM-yyy HH:mm format.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -332,11 +337,10 @@ The index refers to the index number shown in the displayed patient list.
 </box>
 
 Examples:
-* Valid input: `edit 1 /p 91234567 /e johndoe@example.com`
+* Valid input 1: `edit 1 /p 91234567 /e johndoe@example.com`
     * Output (success): <br>
   `Edited Person: Alex Yeoh | Phone: 91234567 | Email: johndoe@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags:`
-
-* Valid input: `edit 2 /n Betsy Crower /t`
+* Valid input 2: `edit 2 /n Betsy Crower /t`
   * Output (success): <br>
   `Edited Person: Betsy Crower | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: `
 
@@ -363,15 +367,17 @@ Examples:
 * Valid input: `edit_appt 1 /d changed to x-ray scan /on 01-01-2024 09:00`
     * Output (success): <br>
       `Newly edited appointment | Patient: Alex Yeoh | Description: changed to x-ray scan | Date: 01 Jan 2024 09.00 AM`
-* Invalid input 1 (no fields provided): `edit_appt 1`
+* Invalid input 1 (no fields edited): `edit_appt 1`
     * Output (failure): <br>
       `At least one field to edit must be provided: [/d DESCRIPTION][/on DATE_TIME]` <br>
       `Example: edit_appt 1 /on 01-01-2024 00:00` <br>
-* Invalid input 2 (invalid date & time): `edit_appt 1 /on tuesday`
+    * **To fix:** Edit at least one of the fields.
+* Invalid input 2 (invalid `DATE_TIME`): `edit_appt 1 /on tuesday`
     * Output (failure): <br>
       `Date must be in dd-MM-yyyy HH:mm format.` <br>
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
+    * **To fix:** Enter a valid `DATE_TIME` in dd-MM-yyy HH:mm format.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -409,14 +415,14 @@ Examples:
       `Parameters: INDEX (must be a positive integer in the list)` <br>
       `Example: delete 1`<br>
     * **To fix**: Enter an `INDEX` such as `delete 2`
-* Invalid input 2 (`INDEX` too large): `delete 10000`
+* Invalid input 2 (`INDEX` out-of-bounds): `delete 10000`
     * Output (failure): <br>
       `The patient index provided is invalid` <br>
-    * **To fix**: Enter an `INDEX` present in `Patients` tab such as `delete 3`
+    * **To fix**: Enter an `INDEX` displayed in `Patients` tab.
 * Invalid input 3 (`INDEX` provided as word): `delete one`
     * Output (failure): <br>
       `INDEX entered must be an integer!.` <br>
-    * **To fix**: Enter an `INDEX` that that is an **Integer** such as `delete 1`
+    * **To fix**: Enter an `INDEX` that that is an integer.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -451,15 +457,17 @@ initial Doctor list:
 * Valid input: `delete_doctor 1`
     * Output (success): <br>
       `Deleted Doctor: John Doe | Phone: 98765432 | Email: johnd@example.com | Gender: M | Age: 22 | Address: 311, Clementi Ave 2, #02-25 from clinic records`
-* Invalid input: `delete_doctor 0` for non positive integers or no input
+* Invalid input 1 (non-positive integer): `delete_doctor 0`
     * Output (failure): <br>
       `Invalid command format!`<br>
       `delete_doctor: Deletes the doctor with the index number used in the clinic records.`<br>
       `Parameters: INDEX (must be a positive integer in the list)`<br>
       `Example: delete_doctor 1`<br>
-* Invalid input: `delete_doctor 2` for positive integers out of bounds
+    * **To fix**: Enter an `INDEX` displayed in `Doctors` tab.
+* Invalid input (`INDEX` out-of-bounds): `delete_doctor 2`
     * Output (failure): <br>
-      `The doctor index provided is invalid`
+      `The doctor index provided is invalid`<br>
+    * **To fix**: Enter an `INDEX` displayed in `Doctors` tab.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -485,14 +493,17 @@ initial Appointment list:
 * Valid input: `delete_appt 1`
     * Output (success): <br>
       `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
-* Invalid input: `delete_appt 0` for non positive integers or no input
+* Invalid input 1 (non-positive integer): `delete_appt 0`
     * Output (failure): <br>
       `Invalid command format:` <br>
       `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
       `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
-* Invalid input: `delete_appt 2` for positive integers out of bounds
+   * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
+* Invalid input (`INDEX` out-of-bounds): `delete_appt 2`
     * Output (failure): <br>
-      `The patient index provided is invalid`
+      `The patient index provided is invalid`<br>
+    * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -513,10 +524,6 @@ Examples:
 * Valid input: `find Alex`
     * Output (success): <br>
     `1 patient found!`
-* Invalid input: `find 123`
-    * Output (failure): <br>
-    `No patients found!`
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -535,16 +542,17 @@ ie `V1234567E` and `S123456eE` are invalid NRICs
 </box>
 
 Examples:
-* Valid Input: `find_nric S0123456N`
+* Valid Input 1: `find_nric S0123456N`
     * Output (success): <br>
     `1 patient found!`
-* Valid input: `find_nric t1234567e`
+* Valid input 2: `find_nric t1234567e`
     * Output (failure, if no patient with this NRIC exists in the list): <br>
   `No patients found!`
-* Invalid input: `find_nric S123v456X`
-    * Output (failure, wrong NRIC format): <br>
+* Invalid input (wrong `NRIC` format): `find_nric S123v456X`
+    * Output (failure): <br>
     `Invalid command format!` <br>
     `NRICs should contain 7 digits, with S or T at the beginning and a letter at the end`
+    * **To fix**: Enter a valid NRIC format.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -587,11 +595,13 @@ Examples:
     * Output (failure): <br>
       `Invalid command format!` <br>
       `find_appt: Finds all appointments with patient name by keywords (case-insensitive) or date and displays them as a list with index numbers.` <br>
-      `Parameters: [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
-      `Example: find_appt /n alice bob charlie /on 01-01-2024`
-* Invalid input 2 (invalid DATE): `find_appt /n John /on 1 Jan 2024`
+      `Parameters: [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`<br>
+      `Example: find_appt /n alice bob charlie /on 01-01-2024`<br>
+    * **To fix**: Enter at least 1 field to find.
+* Invalid input 2 (invalid `DATE`): `find_appt /n John /on 1 Jan 2024`
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
+    * **To fix:** Enter a valid `DATE` in dd-MM-yyy format.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -626,7 +636,7 @@ Examples:<br>
 * Valid input: `view /on 02-01-2024`
     * Output (success): <br>
       `All Available Timeslot(s) on Jan 02, 2024 Listed!`
-* Invalid input 1 (invalid `DATE` format): `view /on 02/01/2024`
+* Invalid input 1 (invalid `DATE`): `view /on 02/01/2024`
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
     * **To fix**: Use `-` as date separator such as `view /on 02-01-2024`
