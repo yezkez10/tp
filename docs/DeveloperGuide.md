@@ -217,7 +217,8 @@ Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicMan
 User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
-<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML"/>
+<img src="images/DeleteCommandSequenceDiagram.png" width="1000px">
+The above shows the sequence diagram of the feature of Delete Patient.
 
 <box type="info" seamless>
 
@@ -230,7 +231,7 @@ The following sequence diagram shows how the DeleteCommand class works.
 
 **Aspect: How convenient it is for clinic staff to delete:**
 
-* **Alternative 1 (current choice):** Delete based on `INDEX` shown on the present list
+* **Alternative 1 (current choice):** Delete based on `index` shown on the present list
     * Pros: Intuitive and easy for nurse to delete
     * Cons: Needs to use zero-based indexing since lists are zero-indexed but the view of clinic staff is one-indexed.
 
@@ -389,12 +390,12 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
 #### Implementation
 
 The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
-A `view` command input takes in a date and displays all available timeslots for that date. This is mainly used by users
+A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
 to identify available timeslots in an instant which they can use to book appointments on.
 
 After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
 
-**Note:** If the date provided is invalid (**non-existent** date (eg 31-02-2024), or any date that has **past**)), the command will fail.
+**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **past** (eg 01-01-1900)), the command will fail.
 
 #### Design considerations:
 
