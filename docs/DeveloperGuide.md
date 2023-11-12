@@ -743,6 +743,56 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect view commands to try: `view`, `view /on x`, `...` (where x is past date)<br>
        Expected: Similar to previous.
 
+### Adding a Doctor
+3. Adding a Doctor to the `Doctor` List.
+
+   1. Prerequisites: Make sure to have the Doctor List Panel on the screen by clicking the Doctors Tab.
+   
+   2. Test case: `add_doctor /n Dr Lee /p 91236789 /e lee@gmail.com /g M /age 30 /a Prince Gearge Park ` <br>
+      Expected: The Doctor will show in the Doctor List in the order of first added to last added. Success message will be shown in the output display.
+   
+   3. Test case: `add_doctor`
+      Expected: No Doctor will be added and a error message will be shown at the output display.
+
+   4. Other incorrect add_doctor commands to try: `add_doctor /n John `, `add_doctor /age 100 `, `...` (where you are missing one of the syntax)<br>
+      Expected: Similar to previous.
+
+### Deleting a Doctor
+
+4. Deleting a doctor from `Doctor` list
+
+    1. Prerequisites: List all doctors by clicking on the Doctors tab. At least 1 doctor in the list. Use `add_doctor` to add a doctor into the list.
+
+    2. Test case: `delete_doctor 1`<br>
+       Expected: First doctor is deleted from the list. Details of the deleted doctor is shown in the output display.
+
+    3. Test case: `delete_doctor INDEX` (where INDEX is larger than the number of doctors in the list)<br>
+       Expected: No doctor is deleted. Error message `The doctor index provided is invalid` will be shown in the output display. 
+   
+    4. Test case: `delete_doctor 0`<br>
+       Expected: No doctor is deleted. Error details shown in the output display.
+   
+    5. Other incorrect delete commands to try: `delete_doctor`, `delete_doctor x`, `...` (where x is not a positive integer)<br>
+       Expected: Similar to previous.
+
+
+### Deleting an Appointment
+
+5. Deleting an appointment from `Appointment` list
+
+    1. Prerequisites: List all appointments by clicking on the Appointments tab and use the `list_appt` command. At least 1 appointment in the list. Use `appt` to add an appointment into the list.
+
+    2. Test case: `delete_appt 1`<br>
+       Expected: First appointment is deleted from the list. Details of the deleted appointment is shown in the output display.
+   
+    3. Test case: `delete_appt INDEX` (where INDEX is larger than the number of appointments in the list)<br>
+       Expected: No appointment is deleted. Error message `The appointment index provided is invalid` will be shown in the output display. 
+   
+    4. Test case: `delete_appt 0`<br>
+       Expected: No appointment is deleted. Error details shown in the output display.
+
+    5. Other incorrect delete commands to try: `delete_appt`, `delete_appt x`, `...` (where x is not a positive integer)<br>
+       Expected: Similar to previous.
 
 ### Saving data
 
