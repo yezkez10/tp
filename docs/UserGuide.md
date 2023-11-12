@@ -6,9 +6,10 @@ pageNav: 3
 
 # ClinicAssistant User Guide
 
-ClinicAssistant is a **desktop app for managing patients' records, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
-ClinicAssistant requires a lot of typing of various prefixes to add, list or store patients or appointments accordingly.
-
+ClinicAssistant is a desktop app that offers seamless patient contact management for GP clinics’ admin staff who are familiar with Command Line Interface (CLI), 
+optimized for use via a CLI while still having the benefits of a Graphical User Interface (GUI). 
+If you can type fast, ClinicAssistant can get your patient record management tasks done faster than traditional pen-and-paper methods. 
+It ensures efficient adding, editing and finding of patient information, optimising clinic operations.
 <!-- * Table of Contents -->
 - **Introduction**
     - [Target Audience](#target-audience)
@@ -146,17 +147,17 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 
 **Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+* Words in `UPPER_CASE` are the compulsory parameters to be supplied by the user.<br>
   e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add /n John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t friend` or as `/n John Doe`.
+  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t smoker` or as `/n John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[/t TAG]…​` can be used as ` ` (i.e. 0 times), `/t smoker`, `/t torn ACL /t diabetes` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `/n NAME /p PHONE_NUMBER`, `/p PHONE_NUMBER /n NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -164,25 +165,39 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 * All commands are case-sensitive. <br>
   e.g. `delete 1` will work, but `Delete 1` or `DELETE 1` will not work.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* **If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.**
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ### Adding a person: `add`
 
-Adds a patient to the database. A patient has a **name, phone number, email, gender, age, ethnicity, IC** and **address**.
+Adds a patient to the clinic records.
 
-Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /e ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
+Format: `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /a AGE /eth ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​`
+* A patient has a name, phone number, email, gender, age, ethnicity, NRIC, address and optional tags.
+
+<box type="info" seamless>
+
+**Note:**
+* A patient must have all parameters to be valid. <br>
+e.g. `add /n Drizzy`, `add Drizzy /p 99090909` or any inputs with missing parameters will not work.
+  </box>
 
 Examples:
-* `add /n John Doe /p 91234567 /e john@gmail.com /g M /a 22 /e Chinese /ic T1234567G /a Clementi /t allergic to pollen`
+* Valid input: `add /n Drizzy /p 99090909 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr`
+  * Output (success): <br>
+    `New person added: Drizzy | Phone: 99090909 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:` 
+* Invalid input: `add /n Drizzy`
+  * Output (failure): <br>
+  `Invalid command format!` <br>
+  `add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
 
 --------------------------------------------------------------------------------------------------------------------
 
 ### Adding a doctor: `add_doctor`
 
-Adds a doctor to the database. A doctor has a name, phone number, email, gender, age, and address.
+Adds a doctor to the clinic records. A doctor has a name, phone number, email, gender, age, and address.
 
 Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS`
 
@@ -191,17 +206,19 @@ Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRE
 <box type="info" seamless>
 
 **Note:**
-* You can not add a Doctor with the same name and this is case-sensitive <br>
-* Adding two doctors with the names John Doe and John doe is allowed
-* Adding two doctors with the names John Doe and John Doe is not allowed
-  </box>
+* Doctor's names are case-sensitive.
+* You cannot add two Doctors with the same name.
+  * Adding two doctors with the names `John Doe` and `John doe` is allowed.
+  * Adding two doctors with the names `John Doe` and `John Doe` is not allowed.
+</box>
 
 <box type="warning" seamless>
 
 **Warning:**
-* Make sure the details of the doctor is correct as there is a limitation where you can not edit the details of a doctor yet.
-* If you happen to add a Doctor with the wrong information do not worry as you can just delete the doctor by its index and add it again with the correct information this time.
-* If you want to edit a doctor's details but that doctor already has appointment you need to make sure that the doctor has no more appointment this is because if you delete a doctor with appointments those appointments will deleted as well.
+* Make sure the details of the doctor is correct. As of now, you cannot edit a doctor's details yet.
+* To change a doctor's details, you have to first delete the doctor, then re-enter his/her details.
+    * Before deleting a doctor, you must make sure he/she does not have any pre-existing appointments. 
+  Deleting a doctor deletes his/her appointments too.
 </box>
 
 Examples:
@@ -223,10 +240,10 @@ Adds a new appointment for the specified patient. An appointment requires the pa
 
 Format: `appt /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME`
 
-* PATIENT_INDEX: Index of the patient for whom the appointment is being made.
-* DOCTOR_INDEX: Index of the doctor who will handle the appointment.
-* DESCRIPTION: Brief description of the appointment.
-* DATE_TIME: Date and time of the appointment in the format dd-MM-yyyy HH:mm (e.g., 01-01-2024 12:00).
+* `PATIENT_INDEX`: Index of the patient for whom the appointment is being made.
+* `DOCTOR_INDEX`: Index of the doctor who will handle the appointment.
+* `DESCRIPTION`: Brief description of the appointment.
+* `DATE_TIME`: Date and time of the appointment in the format dd-MM-yyyy HH:mm (e.g., 01-01-2024 12:00).
 
 <box type="info" seamless>
 
@@ -262,9 +279,14 @@ Examples:
 
 ### Listing all patients : `list`
 
-Shows a list of all patients in Clinic Assistant.
+Shows a list of all people in the clinic records.
 
 Format: `list`
+
+Examples:
+* Valid input: list
+  * Output (success): <br>
+  `Listed all patients`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -291,34 +313,48 @@ Example:
 
 ### Editing a patient: `edit`
 
-Edits an existing patient from the Clinic Records.
+Edits an existing patient from the clinic records.
 
 Format: `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [t/TAG]…​`
 
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* Edits the patient at the specified INDEX. 
+The index refers to the index number shown in the displayed patient list. 
+
+<box type="info" seamless>
+
+**Note:**
+* The index **must be a positive integer** 1, 2, 3, …​ 
+* At least one of the optional fields must be provided. 
+* Existing values will be updated to the input values. 
+* When editing tags, the existing tags will be removed ie adding of tags is not cumulative. 
+* You can remove all the person’s tags by typing `/t` without specifying any tags after it. 
+</box>
 
 Examples:
-* `edit 1 /p 91234567 /e johndoe@example.com` edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
-* `edit 2 /n Betsy Crower` edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
+* Valid input: `edit 1 /p 91234567 /e johndoe@example.com`
+    * Output (success): <br>
+  `Edited Person: Alex Yeoh | Phone: 91234567 | Email: johndoe@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags:`
+
+* Valid input: `edit 2 /n Betsy Crower /t`
+  * Output (success): <br>
+  `Edited Person: Betsy Crower | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: `
 
 --------------------------------------------------------------------------------------------------------------------
 
 ### Editing an appointment: `edit_appt`
 
-Edits an existing appointment from the Clinic Records.
+Edits an existing appointment from the clinic records.
 
 Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATE_TIME]`
 
-* Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
-* **At least** one field must be edited.
+* Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list.
+* **At least one** field must be edited.
 * Existing values will be updated to the input values.
 
 <box type="info" seamless>
 
 **Note:**
+* The index **must be a positive integer** 1, 2, 3, …​
 * Doctors of the appointment cannot be edited, planned addition in future implementations.
   </box>
 
@@ -340,7 +376,7 @@ Examples:
 
 ### Deleting a patient : `delete`
 
-Deletes the specified patient from the Clinic Records.
+Deletes a patient from the clinic records via the specified index.
 
 Format: `delete INDEX`
 
@@ -385,27 +421,28 @@ Examples:
 
 ### Deleting a doctor : `delete_doctor`
 
-Deletes the specified doctor from the Clinic Records.
+Deletes the specified doctor from the clinic records.
 
 Format: `delete_doctor INDEX`
 
 * Deletes the doctor at the specified `INDEX`.
-* Index refers to the index number shown on the displayed doctor list.
-* User could use click on the doctor tab to show the doctor list.
+* `INDEX` refers to the index number shown on the displayed doctor list.
+* User could first click on the doctor tab to show the doctor list.
 
 <box type="info" seamless>
 
-**Note:** <br>
+**Note:**
 * The command is case-sensitive. E.g. `Delete_doctor INDEX` will not work
-* INDEX must be a positive integer, starting from 1
+* The index **must be a positive integer** 1, 2, 3, …​
   </box>
 
 <box type="warning" seamless>
 
 **Warning:**
-* Make sure that the doctor you are about to delete does not have any appointments.
-* This is because if you delete a doctor that has appointments those appointments will be deleted from clinic assistant as well and all data will be lost.
-  </box>
+* Before deleting a doctor, you must make sure he/she does not have any pre-existing appointments.
+Deleting a doctor deletes his/her appointments too.
+</box>
+
 
 Examples:<br>
 initial Doctor list:
@@ -427,19 +464,19 @@ initial Doctor list:
 
 ### Deleting an appointment : `delete_appt`
 
-Deletes an appointment from the clinic’s registra via the specified index.
+Deletes an appointment from the the clinic records via the specified index.
 
 Format: `delete_appt INDEX`
 * Deletes the appointment at the specified `INDEX`
-* Index refers to the index number shown on the displayed appointment list.
+* `INDEX` refers to the index number shown on the displayed appointment list.
 * User could use `list_appt` to display all the appointments in the registra first
 
 <box type="info" seamless>
 
 **Note:** <br>
 * The command is case-sensitive. E.g. `Delete_appt INDEX` will not work
-* INDEX must be a positive integer, starting from 1
-  </box>
+* The index **must be a positive integer** 1, 2, 3, …​
+</box>
 
 Examples:<br>
 initial Appointment list:
@@ -463,12 +500,22 @@ initial Appointment list:
 Finds patients whose name contains the given keyword.
 
 Format: `find KEYWORD`
+* Only the name is searched for.
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* Only the name is searched.
+<box type="info" seamless>
+
+**Note:**
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+</box>
 
 Examples:
-* `find John` returns `john` and `John Doe`
+* Valid input: `find Alex`
+    * Output (success): <br>
+    `1 patient found!`
+* Invalid input: `find 123`
+    * Output (failure): <br>
+    `No patients found!`
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -478,13 +525,25 @@ Finds the patient who has the given NRIC.
 
 Format: `find_nric NRIC`
 
-* The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`.
-* The inputted NRIC must be valid. The NRIC must start with 'S' or 'T', and contain 7 digits between the 2 alphabets.
-    * ie v1234567e and s123456e are invalid NRICs
+<box type="info" seamless>
+
+**Note:**
+* The search is not case-sensitive. ie the NRIC `T1234567E` is equivalent to the NRIC `t1234567e`. <br>
+* The inputted NRIC must be valid. The NRIC must start with 'S' or 'T' and contain 7 digits between the 2 alphabets.
+ie `V1234567E` and `S123456eE` are invalid NRICs
+</box>
 
 Examples:
-* `find_nric T0123456G` returns the patient with NRIC `T0123456G`
-* `find_nric s0123456h` returns the patient with NRIC `S0123456H`
+* Valid Input: `find_nric S0123456N`
+    * Output (success): <br>
+    `1 patient found!`
+* Valid input: `find_nric t1234567e`
+    * Output (failure, if no patient with this NRIC exists in the list): <br>
+  `No patients found!`
+* Invalid input: `find_nric S123v456X`
+    * Output (failure, wrong NRIC format): <br>
+    `Invalid command format!` <br>
+    `NRICs should contain 7 digits, with S or T at the beginning and a letter at the end`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -628,7 +687,7 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC /a ADDRESS [/t TAG]…​` <br> e.g., `add /n James Ho /p 81808888 /e jamesho@example.com /g M /age 22 /eth Chinese /ic T1234567E /a 123, Clementi Rd, 1234665 /t allergic to dust`
-**Add Doctor**  | `add_doctor /n NAME /P PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` <br> e.g, `add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25`
+**Add Doctor**  | `add_doctor /n NAME /P PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRESS` <br> e.g., `add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25`
 **Add Appointment**  | `appt /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME` <br> e.g., `appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`
 **Edit**   | `edit INDEX [/n NAME] [/p PHONE] [/e EMAIL] [/g GENDER] [/age AGE] [/eth ETHNIC] [/ic NRIC] [/a ADDRESS] [/t TAG]…​` <br> e.g., `edit 1 /a 3 NUS Computing Drive`
 **Edit Appointment** | `edit_appt INDEX [/d DESCRIPTION] [/on DATE_TIME]` <br> e.g., `edit_appt 1 /d changed to x-ray scan`
