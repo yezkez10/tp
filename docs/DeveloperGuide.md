@@ -217,7 +217,7 @@ Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicMan
 User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
-<img src="images/DeleteCommandSequenceDiagram.png" width="1000px">
+<img src="images/DeleteSequenceDiagram.png" width="1000px">
 The above shows the sequence diagram of the feature of Delete Patient.
 
 <box type="info" seamless>
