@@ -217,9 +217,14 @@ Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicMan
 User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
-<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML" />
+<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML"/>
 
-**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then DeleteCommand is going to fail.
+<box type="info" seamless>
+
+**Note:** 
+* The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* If the index of patient to be deleted is **less than 1** or **exceeds the number of patients in the List** then DeleteCommand is going to fail.
+</box>
 
 #### Design considerations:
 
@@ -471,14 +476,21 @@ This will then change the doctor associated with the appointment the user is edi
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                              | I want to …​                              | So that I can…​                                        |
-|----------|--------------------------------------|-------------------------------------------|--------------------------------------------------------|
-| `* * *`  | clinic assistant                     | register new patients to the database     | reduce the use of physical documents and storage costs |
-| `* * *`  | clinic admin staff                   | delete patient records                    | keep our records up-to-date                            |
-| `* * *`  | clinic assistant                     | add new appointments to specific patients | keep track of their appointments                       |
-| `* * *`  | clinic admin staff                   | delete appointments of patients           | update cancellations of no-shows                       |
-| `* * *`  | overwhelmed healthcare professional  | view all the patient records              | not memorise all the patients of the clinic            |
-| `* * *`  | overwhelmed healthcare professional  | view a specific patient's details         | save time                                              |
+| Priority | As a …​                      | I want to …​                                | So that I can…​                                        |
+|----------|------------------------------|---------------------------------------------|--------------------------------------------------------|
+| `* * *`  | busy clinic assistant        | register new patients to the database       | reduce the use of physical documents and storage costs |
+| `* *`    | clinic assistant             | delete patient records                      | keep our records up-to-date                            |
+| `* * *`  | clinic assistant             | add new appointments to specific patients   | keep track of their appointments                       |
+| `* * *`  | hectic clinic assistant      | delete a specific appointment               | update frequent cancellations of appointments          |
+| `* *`    | clinic assistant             | view all the patient records                | not need to memorise all the patients of the clinic    |
+| `* * *`  | overwhelmed clinic assistant | view a specific patient's details           | save time                                              |
+| `* *`    | clinic assistant             | edit an appointment                         | adjust changes to appointments                         |
+| `* * *`  | clinic assistant             | keep track of a patient's medical history   | be more conscious of patients' conditions              |
+| `* * *`  | stressed clinic assistant    | register new doctors to the database easily | reduce workload whenever a new doctor joins the clinic |
+| `* *`    | clinic assistant             | delete a specific doctor                    | keep the doctor list up to date                        |
+| `* *`    | busy clinic assistant        | view all available timeslots on a date      | easily filter for available time to book appointments  |
+| `*`      | clinic assistant             | edit a doctor's information                 | update any changes to doctors in the clinic            |
+| `* *`    | clinic assistant             | edit a patient's information                | update any changes to patients in the clinic           |
 
 *{More to be added}*
 
@@ -552,7 +564,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
 
-**Use case 5: Viewing available timeslots**
+**Use case 5: Viewing available timeslots to book appointment**
 
 **MSS**
 
@@ -654,7 +666,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Displays all available timeslots under the timeslot tab. Success message and `DATE` shown in the status message.
 
     3. Test case: `view /on 02/02/2024`<br>
-       Expected: No Timeslots will be displayed. Error details shown in the status message.
+       Expected: No timeslots will be displayed. Error details shown in the status message.
 
     4. Other incorrect view commands to try: `view`, `view /on x`, `...` (where x is past date)<br>
        Expected: Similar to previous.
