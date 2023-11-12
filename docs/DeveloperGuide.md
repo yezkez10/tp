@@ -157,31 +157,39 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Add patient feature
+### Add feature
 
 #### Implementation
 
-This feature deals with adding a patient to the health records database.
+The add feature allows users to add a patient, doctor or appointment to the clinic records.
 
-The fields required when adding a patient are the patient's
-* `Name`
-* `Age`
-* `Gender`
-* `Ethnicity`
-* `Nric`
-* `Phone`
-* `Email`
-* `Address`
+This addition is done using `AddCommand`, `AddDoctorCommand` and `AddAppointmentCommand`.
 
-This feature is facilitated by the `Person` class and the `UniquePersonList`, which extends Iterable<Person>
-and ensures all the Persons in this list is unique.
-The `Person` class stores the required fields of the patient.
+Given below is an example usage scenario for `AddCommand` and how the mechanism behaves at each step.
 
-**The Specifics**
+Step 1. The user launches the application. All patients, doctors, appointments and available timeslots are shown on different tabs of the application as indexed lists. <br>
+Step 2. The user executes `add n/David …` to add a new patient. <br>
+Step 3. The `AddCommandParser` checks if the fields are valid, and creates an `AddCommand` object. <br>
+Step 4. This `AddCommand` checks if adding the new Patient will cause duplicate Patients. <br>
+Step 5. The `AddCommand` calls `Model#addPerson()`, which adds the patient to the UniquePersonList in ModelManager. <br>
+Step 6. The application will then save the patient into the `UniquePersonList` and display the patient added. <br>
 
-`AddCommandParser` parses the user-inputted command and creates a `Person` object
-with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
-This `Person` is added into the `UniquePersonList`.
+The sequence diagram below shows how the add command works: <br>
+<puml src="diagrams/AddCommand.puml" alt="AddCommand" />
+
+### Design considerations:
+**Aspect: How a Patient is going to be saved:**
+
+**Alternative 1 (current choice)**: Patient is its own class containing detailed patient information.
+
+Pros: Organised using Object-Oriented Paradigms.
+Cons: Bugs may be tedious to trace.
+
+**Alternative 2:** Patient is just a String with his/her name saved inside an ArrayList.
+
+Pros: Will be much simpler to implement and maintain. <br>
+Cons: Does not mirror real-life scenarios where patients are identified by their unique NRICs, 
+or when patient information needs to be searched for.
 
 ### Add/delete Doctor feature
 
