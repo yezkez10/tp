@@ -185,28 +185,14 @@ This `Person` is added into the `UniquePersonList`.
 
 ### Add Doctor feature
 
-This feature deals with adding a doctor to the health records database.
-
-The fields required when adding a doctor are the doctor's
-* `Name`
-* `Age`
-* `Gender`
-* `Phone`
-* `Email`
-* `Address`
-
-
 #### Implementation
 
  The add Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
  The Doctor class stores the relevant data of the Doctor such as name and gender.
  The following sequence diagram shows how the add Doctor operation works.
 
-<puml src="diagrams/AddDoctor.puml" alt="AddDoctor" />
 
-The delete Doctor command does the opposite — it calls deleteDoctor(INDEX), which deletes the Doctor from the system by their Index.
 
-**Note:** If the index of either add or delete is less than 1 or exceeds the number of Doctors in the List then the command is going to fail.
 
 #### Design considerations:
 
@@ -365,6 +351,30 @@ The delete Appointment command does the opposite — it calls deleteAppointm
 * **Alternative 2:** Appointments are just a String and is going to be saved inside an ArrayList.
     * Pros: Will be easier to implement and much simpler.
     * Cons: Going to be harder for future developers to update the Appointment Class.
+
+### Delete Appointment feature
+
+#### Implementation
+
+The delete appointment mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
+Clinic staff can enter `delete_appt 3` which deletes the appointment at index 3 and the appointment that is stored inside the Patient and Doctor Class.
+The following sequence diagram shows how the DeleteAppointmentCommand class works.
+
+**Note:** If the index is not a positive integer and less than the amount of appointments the command will fail.
+
+<puml src="diagrams/DeleteAppointment.puml" alt="DeleteAppointment" />
+
+#### Design considerations:
+
+**Aspect: How Appointments are being deleted:**
+
+* **Alternative 1 (current choice):** Appointment is being stored in 3 different places inside a patient object, a doctor object, and the `UniqueAppointmentList` and are being deleted once at each object.
+    * Pros: Easy to understand
+    * Cons: Can be easily filled with bugs and takes a lot of effort to implement.
+
+* **Alternative 2:** have only one List of Appointments and by deleting it there everywhere else appointment will be deleted.
+    * Pros: Will be harder for bugs to happen.
+    * Cons: Will be harder to implement.
 
 ### Edit Appointment feature
 
