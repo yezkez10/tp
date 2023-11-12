@@ -589,6 +589,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5.  System works on both 32-bit and 64-bit environments
 6.  System should be usable by a beginner with basic computer knowledge
 7.  System uses extremely secure security software to keep patient data safe and secure
+8.  System supports the use of English in both UK and US languages
+
+*{More to be added}*
+
+### Glossary
+* **GUI**: Graphical User Interface, a visual display which the user sees and interacts with
+* **API**: Application Programming Interface, functions that allow created applications to access the features of an operating system, application or other service
 
 *{More to be added}*
 
@@ -622,22 +629,36 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a Patient
 
-1. Deleting a person while all persons are being shown
+1. Deleting a patient from `Patients` list
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all patients using the `list` command. At least 1 patient in the list. Use `add` to add a patient into the list. 
+   
+    2. Test case: `delete 1`<br>
+        Expected: First patient is deleted from the list. Details of the deleted contact shown in the status message.
+   
+    3. Test case: `delete 0`<br>
+    Expected: No patient is deleted. Error details shown in the status message.
 
-    1. Test case: `delete 1`<br>
-       Expected: First Patient is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### View Available Timeslots
+
+2. Viewing available timeslots on a given `DATE`
+
+    1. Prerequisites: None but good to have some appointments made using `appt`
+
+    2. Test case: `view /on 02-01-2024`<br>
+       Expected: Displays all available timeslots under the timeslot tab. Success message and `DATE` shown in the status message.
+
+    3. Test case: `view /on 02/02/2024`<br>
+       Expected: No Timeslots will be displayed. Error details shown in the status message.
+
+    4. Other incorrect view commands to try: `view`, `view /on x`, `...` (where x is past date)<br>
+       Expected: Similar to previous.
+
 
 ### Saving data
 
