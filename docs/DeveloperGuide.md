@@ -725,3 +725,14 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+## **Appendix: Planned Enhancements**
+In the near future, we hope to be able to enhance our application as stated below.
+
+1. Currently, different doctors cannot have the appointment slots at the same timing. This is done with the assumption that the GP clinic will only have one doctor and one room at any one time.
+However, in the future, we hope to be able to allow different doctors to have appointment slots at the same timing. This will allow the clinic to have multiple doctors and rooms at the same time.
+
+2. Currently, when a command is used, the tab the user is on will not switch to the corresponding tab of the command. E.g. if the user is on the `Doctors` tab, entering the `list` command
+will not switch the user to the `Patients` tab. In the future, we hope to be able to implement this feature such that the user will be switched to the corresponding tab of the command. This applies
+for all commands such as `list_appt`, `add`, `add_doctor`, `edit`, `edit_appt`, `delete`, `delete_doctor`, `delete_appt`, `find`, `find_nric`, `find_appt`, `view`, `appt`, `edit_appt` and `delete_appt`.
