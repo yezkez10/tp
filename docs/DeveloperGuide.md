@@ -183,11 +183,22 @@ The `Person` class stores the required fields of the patient.
 with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
 This `Person` is added into the `UniquePersonList`.
 
-### Add/delete Doctor feature
+### Add Doctor feature
+
+This feature deals with adding a doctor to the health records database.
+
+The fields required when adding a doctor are the doctor's
+* `Name`
+* `Age`
+* `Gender`
+* `Phone`
+* `Email`
+* `Address`
+
 
 #### Implementation
 
- The proposed add/delete Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
+ The add Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
  The Doctor class stores the relevant data of the Doctor such as name and gender.
  The following sequence diagram shows how the add Doctor operation works.
 
@@ -199,7 +210,7 @@ The delete Doctor command does the opposite — it calls deleteDoctor(INDEX)
 
 #### Design considerations:
 
-**Aspect: How Doctor is going to be saved:**
+**Aspect: The implementation of the Doctor object:**
 
 * **Alternative 1 (current choice):** Doctor is its own class containing detailed information on the doctor.
     * Pros: Similar to Person
