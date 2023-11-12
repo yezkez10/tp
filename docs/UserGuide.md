@@ -71,7 +71,7 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |:-----------------:|:-------------------------------------------------------------------------------------------------:|
 |    Help Button    |                                A button that opens the help menu.                                 |
 |    File Button    |                         A button that allows you to exit the application.                         |
-|    Command Box    |              A text field that allows you to enter a command that CookHub executes.               |
+|    Command Box    |                  A text field that allows you to enter a command to be executed.                  |
 |  Output Display   | A text display that displays any information regarding command inputs, such as success or errors. |
 |   Patients Tab    |                  A tab that shows the Patient List Panel on screen when clicked.                  |
 |    Doctors Tab    |                  A tab that shows the Doctor List Panel on screen when clicked.                   |
