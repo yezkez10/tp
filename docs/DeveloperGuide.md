@@ -183,29 +183,6 @@ The `Person` class stores the required fields of the patient.
 with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
 This `Person` is added into the `UniquePersonList`.
 
-### Add Doctor feature
-
-#### Implementation
-
- The add Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
- The Doctor class stores the relevant data of the Doctor such as name and gender.
- The following sequence diagram shows how the add Doctor operation works.
-
-
-
-
-#### Design considerations:
-
-**Aspect: The implementation of the Doctor object:**
-
-* **Alternative 1 (current choice):** Doctor is its own class containing detailed information on the doctor.
-    * Pros: Similar to Person
-    * Cons: May introduce new bugs and is generally going to take up a lot of lines of code.
-
-* **Alternative 2:** Doctor is just a String and is going to be saved inside an ArrayList since the most important part is just the name.
-    * Pros: Will be easier to implement and much simpler.
-    * Cons: Going to be harder for future developer to update the Doctor Class.
-
 ### Delete Patient
 
 #### Implementation
@@ -368,7 +345,7 @@ The following sequence diagram shows how the DeleteAppointmentCommand class work
 
 **Note:** If the index is not a positive integer and less than the amount of appointments the command will fail.
 
-<puml src="diagrams/DeleteAppointment.puml" alt="DeleteAppointment" />
+<puml src="diagrams/DeleteAppointments.puml" alt="DeleteAppointment" />
 
 #### Design considerations:
 
@@ -429,7 +406,8 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Pros: Easier to implement as we only need to get time from appointment directly
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
 
-## **Planned enhancements**
+## **Future Features**
+
 
 ### Edit Doctor
 
@@ -440,7 +418,7 @@ This enhancement will let the user edit details of the doctor inside the clinic 
 This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
 
 Furthermore it will take in information that the specified doctor's information will be changed to.
-This will create a new Doctor Object and transfer over all the information that isnt specified in the edit command to be the same as the original doctor.
+This will create a new Doctor Object and transfer over all the information that isn't specified in the edit command to be the same as the original doctor.
 
 #### Design consideration:
 
@@ -449,6 +427,9 @@ This will create a new Doctor Object and transfer over all the information that 
 * You can make it so that you change the value of the variables inside the original doctor
     * Pros: save space and improve space and time complexity
     * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
+
+
+## **Planned enhancements**
 
 ### Edit Appointment to include editing of Doctor details
 
@@ -517,7 +498,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `ClinicAssistant` and the **Actor** is the `Clinic assistant`, unless specified otherwise)
+(For all use cases below, the **System** is the `ClinicAssistant` and the **Actor** is the `Clinic staff`, unless specified otherwise)
 
 **Use case 1: Add a patient**
 
@@ -611,6 +592,52 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
 
+**Use case 6: Add a doctor**
+**Actor:** Clinic staff, Doctor
+**Preconditions:** there is no doctor with the exact same name already in the system.
+**MSS**
+
+1. A doctor joins the clinic.
+2. Doctor is not in ClinicRecords.
+3. Clinic staff asks the doctor for the required information.
+4. Clinic staff enters the add doctor command with the information.
+5. ClinicAssistant adds this new doctor into the ClinicRecords.
+6. ClinicAssistant shows a confirmation message.
+
+    Use case ends.
+
+**Extensions:**
+* 4a. ClinicAssistant detects an error in the entered information.
+    * 4a1. ClinicAssistant shows error message.
+    * 4a2. Clinic staff enters new information to the add doctor command.
+    * Steps 4a1 and 4a2 are repeated until the information required is entered correctly.
+    
+      Use Case resumes at step 5.
+
+**Use case 7: Delete a doctor**
+**Actor:** Clinic staff, Doctor(multiple doctors)
+**Preconditions:** at least one Doctor is in the system.
+
+**MSS**
+
+1. A doctor chooses to leave the clinic.
+2. Clinic staff asks the doctor's required information.
+3. Clinic staff lists all the doctor in the system.
+4. Clinic staff searches for the correct index of the doctor.
+5. Clinic staff enter the delete doctor command.
+6. ClinicAssistant deletes the doctor from the system and shows the success message.
+
+   Use case ends.
+
+**Extensions:**
+* 5a. ClinicAssistant detects an error in the entered index.
+    * 5a1. ClinicAssistant shows error message.
+    * 5a2. Clinic staff enters a new delete doctor command with a different index.
+    * Steps 5a1 and 5a2 are repeated until the index entered is correct.
+  
+      Use Case resumes at step 6.
+
+   Use case ends.
 *{More to be added}*
 
 ### Non-Functional Requirements
