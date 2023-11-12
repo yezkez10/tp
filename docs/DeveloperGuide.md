@@ -753,6 +753,24 @@ This will then change the doctor associated with the appointment the user is edi
     * Pros: Intuitive for clinic assistants to use
     * Cons: Might be difficult to implement
 
+### Display date in Timeslot tab even on first view call
+
+#### Implementation
+
+Currently, the date in the timeslot tab only appears after calling view command more than once. This is done in our previous release under the assumption that the first call of the command is not ambiguous.
+However, in the future, we will change it to instantly display the date whenever we call the view command. This will help to improve user experience, increasing their confidence since date is always displayed.
+
+This enhancement will enhance the user experience when using the view command and the timeslots tab.
+
+To implement this, there needs to be a logic change in the front end of the view available command.
+
+#### Design consideration:
+
+**Aspect: How to ensure user is certain of the date of the available timeslots they are viewing:**
+
+* Whenever a view command is called, display the date at the top of the timeslot tab, even for the first call.
+    * Pros: Helps to make the user experience more smooth.
+    * Cons: Difficult to implement.
 
 ## **Appendix: Future Features**
 
