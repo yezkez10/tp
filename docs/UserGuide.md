@@ -59,6 +59,44 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
 | returning user |      skip to our [command summary](#command-summary) for an in-depth summary of all our features!       |
 
 --------------------------------------------------------------------------------------------------------------------
+## GUI explanation
+
+In order to have a better experience in using **ClinicAssistant**, please take a look at this explanation of the GUI.
+### Main Window
+![GUI1](images/GUI1.png)
+![GUI2](images/GUI3.png)
+
+
+| GUI element (red) |                                            Description                                            |
+|:-----------------:|:-------------------------------------------------------------------------------------------------:|
+|    Help Button    |                                A button that opens the help menu.                                 |
+|    File Button    |                         A button that allows you to exit the application.                         |
+|    Command Box    |              A text field that allows you to enter a command that CookHub executes.               |
+|  Output Display   | A text display that displays any information regarding command inputs, such as success or errors. |
+|   Patients Tab    |                  A tab that shows the Patient List Panel on screen when clicked.                  |
+|    Doctors Tab    |                  A tab that shows the Doctor List Panel on screen when clicked.                   |
+|   Timeslots Tab   |                 A tab that shows the Timeslot List Panel on screen when clicked.                  |
+| Appointments Tab  |                A tab that shows the Appointment List Panel on screen when clicked.                |
+
+
+|  GUI element (green)   |                                               Description                                               |
+|:----------------------:|:-------------------------------------------------------------------------------------------------------:|
+|   Patient List Panel   |                       A Panel that contains a list of Patients inside the system.                       |
+|      Patient Card      |               A card that shows the details of the Patient such as name, age, gender, etc               |
+| Appointment List Panel |                     A Panel that contains a list of Appointments inside the system.                     |
+|    Appointment Card    | A card that shows information on Appointments such as name of Patient, name of doctor, and date & time. |
+|   Doctor List Panel    |                       A Panel that contains a list of Doctors inside the system.                        |
+|      Doctor Card       | A card that shows information on doctors such as name, gender, email, age, address, and contact number. |
+|  Timeslot List Panel   |                   A Panel that contains a list of empty Timeslots inside the system.                    |
+|     Timeslot Card      |                                A card that shows what timeslot is free.                                 |
+
+Patient
+![GUI3](images/PatientGUI.png)
+Doctor
+![GUI4](images/DoctorGUI.png)
+Appointment
+![GUI5](images/AppointmentGUI.png)
+--------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
