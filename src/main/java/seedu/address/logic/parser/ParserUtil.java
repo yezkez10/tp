@@ -31,7 +31,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "INDEX entered must be an integer!.";
+    public static final String MESSAGE_INDEX_TOO_SMALL = "INDEX should be a positive integer!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -44,6 +45,28 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed. This is specifically used for DeleteCommand.
+     * @throws ParseException if the specified index is invalid (less than 1 or not an integer).
+     */
+    public static Index parseDeleteIndex(String oneBasedIndex) throws ParseException {
+        String trimmedIndex = oneBasedIndex.trim();
+        if (trimmedIndex.isEmpty()) {
+            throw new ParseException("String is empty!");
+        }
+        int index;
+        try {
+            index = Integer.parseInt(trimmedIndex);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        if (index < 1) {
+            throw new ParseException(MESSAGE_INDEX_TOO_SMALL);
+        }
+        return Index.fromOneBased(index);
     }
 
     /**
