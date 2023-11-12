@@ -64,7 +64,7 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
 In order to have a better experience in using **ClinicAssistant**, please take a look at this explanation of the GUI.
 
 ![GUI1](images/GUI1.png)
-![GUI2](images/GUI2.png)
+![GUI2](images/GUI3.png)
 
 
 | GUI element (red) |                                            Description                                            |
