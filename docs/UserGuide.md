@@ -250,8 +250,9 @@ Format: `appt /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME`
 **Note:**
 * The doctor's index must correspond to a valid doctor previously added to the system.
 * The appointment's date and time must be in the future.
+* Time of the appointment must only be from 9am - 5pm inclusive, on the hour.
 * All fields (patient index, doctor index, description, and date/time) are mandatory.
-  </box>
+</box>
 
 <box type="warning" seamless>
 
