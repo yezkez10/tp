@@ -117,7 +117,7 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinicassistant.jar` command to run the application.
    A GUI similar to the below should appear in a few seconds. <br>
-   ![Ui](images/Ui.png)
+   ![Ui]()
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -407,7 +407,7 @@ Format: `delete INDEX`
 Examples:
 * Valid input: `delete 1`
     * Output (success): <br>
-      `Deleted Person: John Doe | Phone: 98765432 | Email: johnd@example.com | Gender: M | Age: 22 | Ethnic: Chinese | NRIC: T1334567E | Address: 311, Clementi Ave 2, #02-25 | Tags: [history of knee problems][allergic to the sun] from clinic records`
+      `Deleted Person: Alex Yeoh | Phone: 91234567 | Email: johndoe@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [on antibiotics] from clinic records`
 * Invalid input 1 (no `INDEX` provided): `delete `
     * Output (failure): <br>
       `Invalid command format! ` <br>
@@ -453,10 +453,10 @@ Deleting a doctor deletes his/her appointments too.
 
 Examples:<br>
 initial Doctor list:
-![Add_Doctor](images/Add_Doctor.png)
+![Add_Doctor]()
 * Valid input: `delete_doctor 1`
     * Output (success): <br>
-      `Deleted Doctor: John Doe | Phone: 98765432 | Email: johnd@example.com | Gender: M | Age: 22 | Address: 311, Clementi Ave 2, #02-25 from clinic records`
+      `Deleted Doctor: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive from clinic records`
 * Invalid input 1 (non-positive integer): `delete_doctor 0`
     * Output (failure): <br>
       `Invalid command format!`<br>
@@ -521,7 +521,7 @@ Format: `find KEYWORD`
 </box>
 
 Examples:
-* Valid input: `find Alex`
+* Valid input: `find Bernice`
     * Output (success): <br>
     `1 patient found!`
 
@@ -542,7 +542,7 @@ ie `V1234567E` and `S123456eE` are invalid NRICs
 </box>
 
 Examples:
-* Valid Input 1: `find_nric S0123456N`
+* Valid Input 1: `find_nric T1231437E`
     * Output (success): <br>
     `1 patient found!`
 * Valid input 2: `find_nric t1234567e`
@@ -562,8 +562,8 @@ Filters appointments by one or more fields using their prefixes, and their corre
 
 Format: `find_appt [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
 
-* NAME: One or more keywords to filter by the patient's name (e.g. `John Simba` will search for appointments of patients whose name contains `John` or `Simba`). It must be non-empty alphanumeric characters and spaces.
-* DATE: Date of the appointment to filter by in the format dd-MM-yyyy (e.g. `01-01-2024`).
+* `NAME`: One or more keywords to filter by the patient's name (e.g. `John Simba` will search for appointments of patients whose name contains `John` or `Simba`). It must be non-empty alphanumeric characters and spaces.
+* `DATE`: Date of the appointment to filter by in the format dd-MM-yyyy (e.g. `01-01-2024`).
 
 <box type="info" seamless>
 
@@ -588,7 +588,7 @@ Format: `find_appt [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
 </box>
 
 Examples:
-* Valid input: `find_appt /n John /on 01-01-2024`
+* Valid input: `find_appt /n Bernice /on 01-01-2024`
     * Output (success): `1 appointment found!` <br>
       Appointments of patients with name `John` that falls on 1 Jan 2024 is shown.
 * Invalid input 1 (no prefixes provided): `find_appt`
@@ -615,27 +615,28 @@ Format: `view /on DATE`
 * Any Timeslot displayed under the `Timeslot` tab can be used to book an appointment.
 
 After calling the command, click on the timeslot tab to see a similar picture:
-![View_Available_Timeslots](images/View_Available.png)
+![View_Available_Timeslots]()
 
 <box type="info" seamless>
 
 **Note:**
-* The `DATE` **must be a valid date** on the calendar in the format `dd-MM-yyyy` **exactly**
-* Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
-* The **very first time** this command is called, the date will **not** be shown (refer to known issues).
-* Date will be shown for every subsequent view command
+* The `DATE` **must be a valid date** on the calendar in the **exact** format `dd-MM-yyyy`.
+* Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**.
+* The **very first time** this command is called, the header showing the date will **not** be shown (refer to known issues).
+* Header will be shown for every subsequent view command.
   </box>
 
 <box type="warning" seamless>
 
 **Warning:**
+* Clearing all patients will clear the available timeslots too.
 * The `Timeslot` tab will be **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again when there is at least 1 timeslot.
   </box>
 
 Examples:<br>
-* Valid input: `view /on 02-01-2024`
+* Valid input: `view /on 01-01-2024`
     * Output (success): <br>
-      `All Available Timeslot(s) on Jan 02, 2024 Listed!`
+      `All Available Timeslot(s) on Jan 01, 2024 Listed!`
 * Invalid input 1 (invalid `DATE`): `view /on 02/01/2024`
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
@@ -643,7 +644,7 @@ Examples:<br>
 * Invalid input 2 (`DATE` has past): `view /on 02-01-1999`
     * Output (failure): <br>
       `DATE entered has past already!` <br>
-    * **To fix**: Enter a `DATE` that has not past such as `view /on 01-10-2103`
+    * **To fix**: Enter a `DATE` that has not passed such as `view /on 01-10-2030`.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -683,13 +684,16 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicAssistant home folder.
+**Q**: How do I know why my input is invalid? <br>
+**A**: Ouput messages explaining the reason for error will be shown in the output display box. Otherwise, our user guide has some examples of invalid inputs and possible reasons these inputs may be erratic.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **When calling ViewAvailable Command for the very first time**, date will not be shown in the timeslot tab as there is no ambiguity. Subsequent ViewAvailable Command calls will cause the date to be shown.
+2. **When calling `view` command for the very first time**, there will be no header showing the specified date as there is no ambiguity as to which date the user is searching for. Only on subsequent calls will the header be shown.
 
 <hr style="border:1px solid gray">
 
