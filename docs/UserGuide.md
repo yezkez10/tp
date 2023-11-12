@@ -71,7 +71,7 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |:-----------------:|:-------------------------------------------------------------------------------------------------:|
 |    Help Button    |                                A button that opens the help menu.                                 |
 |    File Button    |                         A button that allows you to exit the application.                         |
-|    Command Box    |              A text field that allows you to enter a command that CookHub executes.               |
+|    Command Box    |                  A text field that allows you to enter a command to be executed.                  |
 |  Output Display   | A text display that displays any information regarding command inputs, such as success or errors. |
 |   Patients Tab    |                  A tab that shows the Patient List Panel on screen when clicked.                  |
 |    Doctors Tab    |                  A tab that shows the Doctor List Panel on screen when clicked.                   |
@@ -106,8 +106,8 @@ Appointment Card
 
 1. Copy the file to the folder you want to use as the _home folder_ for your ClinicAssistant.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinicassistant.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinicassistant.jar` command to run the application.
+   A GUI similar to the below should appear in a few seconds. <br>
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
