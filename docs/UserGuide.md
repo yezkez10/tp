@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
 # ClinicAssistant User Guide
@@ -13,30 +13,29 @@ It ensures efficient adding, editing and finding of patient information, optimis
 <!-- * Table of Contents -->
 - **Introduction**
     - [Target Audience](#target-audience)
-    - [How to Use the Guide](#how-to-use-the-guide)
-
+    - [How to Use the Guide](#how-to-use-the-guide)<br>
 - **Getting Started**
-    - [Quick start](#quick-start)
+    - [Quick start](#quick-start)<br>
 
 - **Features and Commands**
-    - [Adding a person: `add`](#adding-a-person--add)
-    - [Adding a doctor: `add_doctor`](#adding-a-doctor--adddoctor)
-    - [Adding an appointment: `appt`](#adding-an-appointment--appt)
-    - [Listing all patients : `list`](#listing-all-patients--list)
-    - [Listing all appointments : `list_appt`](#listing-all-appointments--listappt)
-    - [Editing a patient: `edit`](#editing-a-patient--edit)
-    - [Editing an appointment: `edit_appt`](#editing-an-appointment--editappt)
-    - [Deleting a patient : `delete`](#deleting-a-patient--delete)
-    - [Deleting a doctor : `delete_doctor`](#deleting-a-doctor--deletedoctor)
-    - [Deleting an appointment : `delete_appt`](#deleting-an-appointment--deleteappt)
-    - [Finding patient details by name: `find`](#finding-patient-details-by-name--find)
-    - [Finding patient details by nric: `find_nric`](#finding-patient-details-by-nric--findnric)
-    - [Finding appointment by patient name or date: `find_appt`](#finding-appointment-by-patient-name-or-date--findappt)
-    - [Viewing available timeslots : `view`](#viewing-available-timeslots--view)
-    - [Clearing all patients : `clear`](#clearing-all-patients--clear)
-    - [Exiting the program : `exit`](#exiting-the-program--exit)
+    - [Adding a person: `add`](#adding-a-person-add)
+    - [Adding a doctor: `add_doctor`](#adding-a-doctor-add-doctor)
+    - [Adding an appointment: `appt`](#adding-an-appointment-appt)
+    - [Listing all patients : `list`](#listing-all-patients-list)
+    - [Listing all appointments : `list_appt`](#listing-all-appointments-list-appt)
+    - [Editing a patient: `edit`](#editing-a-patient-edit)
+    - [Editing an appointment: `edit_appt`](#editing-an-appointment-edit-appt)
+    - [Deleting a patient : `delete`](#deleting-a-patient-delete)
+    - [Deleting a doctor : `delete_doctor`](#deleting-a-doctor-delete-doctor)
+    - [Deleting an appointment : `delete_appt`](#deleting-an-appointment-delete-appt)
+    - [Finding patient details by name: `find`](#finding-patient-details-by-name-find)
+    - [Finding patient details by nric: `find_nric`](#finding-patient-details-by-nric-find-nric)
+    - [Finding appointment by patient name or date: `find_appt`](#finding-appointment-by-patient-name-or-date-find-appt)
+    - [Viewing available timeslots : `view`](#viewing-available-timeslots-view)
+    - [Clearing all patients : `clear`](#clearing-all-patients-clear)
+    - [Exiting the program : `exit`](#exiting-the-program-exit)
     - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
+    - [Editing the data file](#editing-the-data-file)<br>
 
 - **Additional Information**
     - [FAQ](#faq)
@@ -49,7 +48,9 @@ It ensures efficient adding, editing and finding of patient information, optimis
 
 ### Target Audience
 
-// to fill in
+ClinicAssistant is for **general practitioner (GP) clinics' staff** who want to keep track of their patients' records and appointments.
+Clinic staff often have to manage a large number of patients and appointments, and ClinicAssistant helps them to do so more efficiently.
+ClinicAssistant allows clinic staff to add, edit, delete, find and list patients and appointments. It also allows viewing of available timeslots for appointments for a given date to allow for easy booking of appointments.
 
 ### How to use the guide
 
@@ -58,6 +59,44 @@ It ensures efficient adding, editing and finding of patient information, optimis
 |   a new user   | proceed to our [quick start](#quick-start) section to set up the necessary details and try our features |
 | returning user |      skip to our [command summary](#command-summary) for an in-depth summary of all our features!       |
 
+--------------------------------------------------------------------------------------------------------------------
+## GUI explanation
+
+In order to have a better experience in using **ClinicAssistant**, please take a look at this explanation of the GUI.
+### Main Window
+![GUI1](images/GUI1.png)
+![GUI2](images/GUI3.png)
+
+
+| GUI element (red) |                                            Description                                            |
+|:-----------------:|:-------------------------------------------------------------------------------------------------:|
+|    Help Button    |                                A button that opens the help menu.                                 |
+|    File Button    |                         A button that allows you to exit the application.                         |
+|    Command Box    |                  A text field that allows you to enter a command to be executed.                  |
+|  Output Display   | A text display that displays any information regarding command inputs, such as success or errors. |
+|   Patients Tab    |                  A tab that shows the Patient List Panel on screen when clicked.                  |
+|    Doctors Tab    |                  A tab that shows the Doctor List Panel on screen when clicked.                   |
+|   Timeslots Tab   |                 A tab that shows the Timeslot List Panel on screen when clicked.                  |
+| Appointments Tab  |                A tab that shows the Appointment List Panel on screen when clicked.                |
+
+
+|  GUI element (green)   |                                               Description                                               |
+|:----------------------:|:-------------------------------------------------------------------------------------------------------:|
+|   Patient List Panel   |                       A Panel that contains a list of Patients inside the system.                       |
+|      Patient Card      |               A card that shows the details of the Patient such as name, age, gender, etc               |
+| Appointment List Panel |                     A Panel that contains a list of Appointments inside the system.                     |
+|    Appointment Card    | A card that shows information on Appointments such as name of Patient, name of doctor, and date & time. |
+|   Doctor List Panel    |                       A Panel that contains a list of Doctors inside the system.                        |
+|      Doctor Card       | A card that shows information on doctors such as name, gender, email, age, address, and contact number. |
+|  Timeslot List Panel   |                   A Panel that contains a list of empty Timeslots inside the system.                    |
+|     Timeslot Card      |                                A card that shows what timeslot is free.                                 |
+
+Patient Card
+![GUI3](images/PatientGUI2.png)
+Doctor Card
+![GUI4](images/DoctorGUI.png)
+Appointment Card
+![GUI5](images/AppointmentGUI.png)
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -68,24 +107,27 @@ It ensures efficient adding, editing and finding of patient information, optimis
 
 1. Copy the file to the folder you want to use as the _home folder_ for your ClinicAssistant.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinicassistant.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinicassistant.jar` command to run the application.
+   A GUI similar to the below should appear in a few seconds. <br>
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all patients in the ClinicAssistant.
+* `list` : Lists all patients in the ClinicAssistant.
 
-   * `add /n John Doe /p 98765432 /ejohnd@example.com /g M /age 22 /eth Chinese /ic T1234567E a/John street, block 123, #01-01 /t allergy` :
-   Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
+* `add /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /eth Chinese /ic T1234567E /a 311, Clementi Ave 2, #02-25 /t allergic to the sun /t history of knee problems` :
+  Adds a patient named `John Doe` to ClinicAssistant the specified details such as male `M`, ethnicity `Chinese` and IC number `T1234567E`.
 
-   * `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
-   * `appt /for 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified time to the patient identified with `INDEX` 1 in the list.
+* `delete 3` : Deletes the 3rd patient shown in the current list of ClinicAssistant.
 
-   * `clear` : Deletes all patients.
+* `appt /for 1 /doc 1 /d description details /on 02-01-2024 12:00` : Adds an appointment with specified Doctor index, description and time to the patient identified with `INDEX` 1 in the list.
 
-   * `exit` : Exits the app.
+* `view /on 02-01-2024` : Displays all available timeslots that can be booked for an appointment on 02 Jan 2024.
+
+* `clear` : Deletes all patients.
+
+* `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -170,14 +212,14 @@ Format: `add_doctor /n NAME /p PHONE_NUMBER /e EMAIL /g GENDER /age AGE /a ADDRE
 
 Examples:
 * Valid input: `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
-  * Output (success): <br>
-  `New Doctor added: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive`
+    * Output (success): <br>
+      `New Doctor added: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive`
 * Invalid input: `add_doctor /n Dr Lee`
-  * Output (failure): <br>
-  `Invalid command format!` <br>
-    `add_doctor: Adds a Doctor to clinic assistant.` <br>
-    `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
-    `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
+    * Output (failure): <br>
+      `Invalid command format!` <br>
+      `add_doctor: Adds a Doctor to clinic assistant.` <br>
+      `Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /a ADDRESS` <br>
+      `Example: add_doctor /n John Doe /p 98765432 /e johnd@example.com /g M /age 22 /a 311, Clementi Ave 2, #02-25` <br>
 
 ### Adding an appointment: `appt`
 
@@ -196,13 +238,13 @@ Format: `appt /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME`
 * The doctor's index must correspond to a valid doctor previously added to the system.
 * The appointment's date and time must be in the future.
 * All fields (patient index, doctor index, description, and date/time) are mandatory.
-</box>
+  </box>
 
 <box type="warning" seamless>
 
 **Warning:**
-* Only one appointment is allowed per timeslot. i.e. 2 doctors cannot have appointments on the same timeslot. This is a current limitation that we are working on as part of our future implementations.
-</box>
+* Only one appointment is allowed per timeslot. i.e. 2 doctors cannot have appointments on the same timeslot. This is a current limitation that we are working as part of our future implementations.
+  </box>
 
 Examples:
 * Valid input: `appt /for 1 /doc 2 /d Blood test /on 01-01-2024 12:00`
@@ -232,11 +274,22 @@ Examples:
   `Listed all patients`
 
 
-### Listing all patients : `list_appt`
-
-Shows a list of all appointments in the clinic records.
+Removes all conditions previously applied to the appointments list and shows all appointments in Clinic Assistant.
 
 Format: `list_appt`
+
+<box type="info" seamless>
+
+**Note:**
+* Additional text after `list_appt` will be ignored and not affect the output.
+  * E.g. `list_appt 1` will still show all appointments in Clinic Assistant.
+
+</box>
+
+Example:
+* Valid input: `list_appt`
+    * Output (success): `Listed all appointments` <br>
+        All conditions are removed and all appointments are showed.
 
 ### Editing a patient: `edit`
 
@@ -281,7 +334,7 @@ Format: `edit_appt INDEX [/d DESCRIPTION] [/on DATE_TIME]`
 **Note:**
 * The index **must be a positive integer** 1, 2, 3, …​
 * Doctors of the appointment cannot be edited, planned addition in future implementations.
-</box>
+  </box>
 
 Examples:
 * Valid input: `edit_appt 1 /d changed to x-ray scan /on 01-01-2024 09:00`
@@ -302,26 +355,43 @@ Examples:
 Deletes a patient from the clinic records via the specified index.
 
 Format: `delete INDEX`
-* Deletes the person at the specified `INDEX`
-* Index refers to the index number shown on the displayed person list. 
-* User could use list to display all the patients in the registra first
+
+* Deletes the patient at the specified `INDEX` in the list under **Patients**.
+* The `INDEX` refers to the index number shown in the list in front of the name.
+* The `INDEX` **must be a positive integer** 1, 2, 3, 4, …​
 
 <box type="info" seamless>
 
 **Note:**
-* The index **must be a positive integer** 1, 2, 3, …​
-</box>
+* The command word `delete` is case-sensitive. E.g. `Delete INDEX` will not work
+* INDEX must be a positive integer in the patient list, starting from 1, with the last index as the limit.
+  </box>
+
+<box type="warning" seamless>
+
+**Warning:**
+* Deleting a patient will delete **all** their information and appointments and this is **UNRECOVERABLE**
+  </box>
 
 Examples:
-* Valid input: `delete 2`
-  * Output (success): <br>
-  `Deleted Person: Bernice Yu | Phone: 99272758 | Email: berniceyu@example.com | Gender: F | Age: 16 | Ethnic: Chinese | NRIC: T1231437E | Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18 | Tags: [throat infection][on antibiotics] from clinic records`
-* Invalid input: `delete 0`
-  * Output (failure): <br>
-  `Invalid command format!` <br>
-`delete: Deletes the patient with the index number used in the clinic records.` <br>
-    `Parameters: INDEX (must be a positive integer in the list)` <br>
-    `Example: delete 1`
+* Valid input: `delete 1`
+    * Output (success): <br>
+      `Deleted Person: John Doe | Phone: 98765432 | Email: johnd@example.com | Gender: M | Age: 22 | Ethnic: Chinese | NRIC: T1334567E | Address: 311, Clementi Ave 2, #02-25 | Tags: [history of knee problems][allergic to the sun] from clinic records`
+* Invalid input 1 (no `INDEX` provided): `delete `
+    * Output (failure): <br>
+      `Invalid command format! ` <br>
+      `delete: Deletes the patient with the index number used in the clinic records.` <br>
+      `Parameters: INDEX (must be a positive integer in the list)` <br>
+      `Example: delete 1`<br>
+    * **To fix**: Enter an `INDEX` such as `delete 2`
+* Invalid input 2 (`INDEX` too large): `delete 10000`
+    * Output (failure): <br>
+      `The patient index provided is invalid` <br>
+    * **To fix**: Enter an `INDEX` present in `Patients` tab such as `delete 3`
+* Invalid input 3 (`INDEX` provided as word): `delete one`
+    * Output (failure): <br>
+      `INDEX entered must be an integer!.` <br>
+    * **To fix**: Enter an `INDEX` that that is an **Integer** such as `delete 1`
 
 ### Deleting a doctor : `delete_doctor`
 
@@ -333,22 +403,19 @@ Format: `delete_doctor INDEX`
 * `INDEX` refers to the index number shown on the displayed doctor list.
 * User could first click on the doctor tab to show the doctor list.
 
-
 <box type="info" seamless>
 
 **Note:**
 * The command is case-sensitive. E.g. `Delete_doctor INDEX` will not work
 * The index **must be a positive integer** 1, 2, 3, …​
   </box>
- 
+
 <box type="warning" seamless>
 
- **Warning:**
- * Before deleting a doctor, you must make sure he/she does not have any pre-existing appointments.
+**Warning:**
+* Before deleting a doctor, you must make sure he/she does not have any pre-existing appointments.
 Deleting a doctor deletes his/her appointments too.
- </box>
-
-
+</box>
 
 
 Examples:<br>
@@ -379,7 +446,7 @@ Format: `delete_appt INDEX`
 
 <box type="info" seamless>
 
-**Note:**
+**Note:** <br>
 * The command is case-sensitive. E.g. `Delete_appt INDEX` will not work
 * The index **must be a positive integer** 1, 2, 3, …​
 </box>
@@ -388,16 +455,16 @@ Examples:<br>
 initial Appointment list:
 ![Add_Appointment](images/Add_Appointment.png)
 * Valid input: `delete_appt 1`
-  * Output (success): <br>
-  `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
-* Invalid input: `delete_appt 0` for non-positive integers or no input
-  * Output (failure): <br>
-    `Invalid command format:` <br>
-    `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
-    `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
+    * Output (success): <br>
+      `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
+* Invalid input: `delete_appt 0` for non positive integers or no input
+    * Output (failure): <br>
+      `Invalid command format:` <br>
+      `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
+      `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
 * Invalid input: `delete_appt 2` for positive integers out of bounds
-  * Output (failure): <br>
-  `The patient index provided is invalid`
+    * Output (failure): <br>
+      `The patient index provided is invalid`
 
 
 ### Finding patient details by name: `find`
@@ -450,18 +517,48 @@ Examples:
 
 ### Finding appointment by patient name or date: `find_appt`
 
-Finds appointments of a patient whose name contains the given keyword and/or appointment falls on the date given.
+Filters appointments by one or more fields using their prefixes, and their corresponding inputs (name and date).
 
-Format: `find_appt [/n KEYWORDS] [/on DATE]`
+Format: `find_appt [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* Date is in the format dd-MM-yyyy e.g. 01-01-2024.
+* NAME: One or more keywords to filter by the patient's name (e.g. `John Simba` will search for appointments of patients whose name contains `John` or `Simba`). It must be non-empty alphanumeric characters and spaces.
+* DATE: Date of the appointment to filter by in the format dd-MM-yyyy (e.g. `01-01-2024`).
+
+<box type="info" seamless>
 
 **Note:**
-Although both fields are optional, at least 1 must be given. e.g. `find_appt` with no field inputs will not work
+* The prefixes that can be used are listed in the parameter list above.
+* The name filter is case-insensitive, e.g. `han` will match `Han`.
+* The user can filter using one field or both fields at once.
+  * e.g. `find_appt /n John /on 01-01-2024` will return appointments of patients with name `John` that falls on 1 Jan 2024.
+* If there are no prefixes keyed in, an error message will be shown with the correct command format.
+* If the input after a prefix is empty/invalid, an error message with the constraint of the field will be shown.
+
+</box>
+
+<box type="warning" seamless>
+
+**Warning:**
+* The name filter must be full words, e.g. `han` will not match `Hannah`.
+* Date parameter must be in the format dd-MM-yyyy e.g. `01-01-2024`.
+* Both fields are optional, but at least 1 must be given. e.g. `find_appt` with no field inputs will not work. 
+* One filter can only be used once in a single command. e.g. `find_appt /n John /n Simba` will not work.
+  
+</box>
 
 Examples:
-* `find_appt /n John /on 01-01-2024 ` returns appointments of patient with name `John` that falls on 1 Jan 2024.
+* Valid input: `find_appt /n John /on 01-01-2024`
+    * Output (success): `1 appointment found!` <br>
+      Appointments of patients with name `John` that falls on 1 Jan 2024 is shown.
+* Invalid input 1 (no prefixes provided): `find_appt`
+    * Output (failure): <br>
+      `Invalid command format!` <br>
+      `find_appt: Finds all appointments with patient name by keywords (case-insensitive) or date and displays them as a list with index numbers.` <br>
+      `Parameters: [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
+      `Example: find_appt /n alice bob charlie /on 01-01-2024`
+* Invalid input 2 (invalid DATE): `find_appt /n John /on 1 Jan 2024`
+    * Output (failure): <br>
+      `DATE must be in format dd-MM-yyyy` <br>
 
 ### Viewing available timeslots : `view`
 
@@ -469,18 +566,34 @@ Displays all **available** timeslots on the specified date by the user.
 
 Format: `view /on DATE`
 
-* Displays all available timeslots that can be booked on the `DATE`.
-* The `DATE` **must be a valid date on the calendar in the form `dd-MM-yyyy` exactly**
-* Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
-* Any Timeslot that is displayed after calling `view /on DATE` can be booked
+* Displays all available timeslots that can be booked on the `DATE` under the `Timeslots` tab.
+* Any Timeslot displayed under the `Timeslot` tab can be used to book an appointment.
 
-Examples:
-* `view /on 02-01-2024` shows all available timeslots that can be booked on 02 Jan 2024.
-* If timeslot `10 AM` is displayed, one can proceed to book an appointment for that `DATE` at `10 AM`
+<box type="info" seamless>
 
 **Note:**
-* There should not be any timings after `DATE`. e.g. `dd-MM-yyyy 18:00` will return an error.
-* The `DATE` should be entered in exactly `dd-MM-yyyy` format separated by a `-` and not anything else such as `/`…​
+* The `DATE` **must be a valid date** on the calendar in the format `dd-MM-yyyy` **exactly**
+* Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
+  </box>
+
+<box type="warning" seamless>
+
+**Warning:**
+* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again after there is at least 1 timeslot.
+  </box>
+
+Examples:
+* Valid input: `view /on 02-01-2024`
+    * Output (success): <br>
+      `All Available Timeslot(s) on Jan 02, 2024 Listed!`
+* Invalid input 1 (invalid `DATE` format): `view /on 02/01/2024`
+    * Output (failure): <br>
+      `DATE must be in format dd-MM-yyyy` <br>
+    * **To fix**: Use `-` as date separator such as `view /on 02-01-2024`
+* Invalid input 2 (`DATE` has past): `view /on 02-01-1999`
+    * Output (failure): <br>
+      `DATE entered has past already!` <br>
+    * **To fix**: Enter a `DATE` that has not past such as `view /on 01-10-2103`
 
 ### Clearing all patients : `clear`
 
@@ -540,3 +653,5 @@ Action     | Format, Examples
 **List**   | `list`
 **View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
+
+[Back to top](#clinicassistant-user-guide)
