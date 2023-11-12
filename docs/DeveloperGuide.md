@@ -209,29 +209,30 @@ The delete Doctor command does the opposite — it calls deleteDoctor(INDEX)
     * Pros: Will be easier to implement and much simpler.
     * Cons: Going to be harder for future developer to update the Doctor Class.
 
-### \[Proposed\] Delete Patient
+### Delete Patient
 
-#### \[Proposed\] Implementation
+#### Implementation
 
-The proposed delete mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
+Our delete patient mechanism is facilitated by `DeleteCommand` and the `LogicManager` Class.
 User can enter `delete 3` which deletes all information, including appointments and details, of the person in the list.
 The following sequence diagram shows how the DeleteCommand class works.
 
-<diag src="diagrams/DeleteCommandDiagram" alt="DeleteCommand UML" />
+<puml src="diagrams/DeleteCommandDiagram.puml" alt="DeleteCommand UML" />
 
-**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then deleteCommand is going to fail.
+**Note:** If the index of patient to be deleted is less than 1 or exceeds the number of patients in the List then DeleteCommand is going to fail.
 
 #### Design considerations:
 
 **Aspect: How convenient it is for clinic staff to delete:**
 
-* **Alternative 1 (current choice):** Delete based on INDEX shown on the present list
+* **Alternative 1 (current choice):** Delete based on `INDEX` shown on the present list
     * Pros: Intuitive and easy for nurse to delete
     * Cons: Needs to use zero-based indexing since lists are zero-indexed but the view of clinic staff is one-indexed.
 
-* **Alternative 2:** Delete based on name of patient
+* **Alternative 2:** Delete based on `name` of patient
     * Pros: Will be more accurate when deleting a patient
     * Cons: Takes more time as need to type out names of patient when deleting and length of names may vary from person to person
+    * Cons: User will face issues when trying to delete patients with the same name
 
 ### List feature
 
