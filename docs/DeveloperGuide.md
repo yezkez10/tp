@@ -503,10 +503,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  New patient visits the clinic
-2.  Patient is not in ClinicRecords
-3.  Clinic staff adds this new patient into the ClinicRecords
-4.  ClinicAssistant shows a confirmation message
+1.  New patient visits the clinic.
+2.  Patient is not in ClinicRecords.
+3.  Clinic staff adds this new patient into the ClinicRecords.
+4.  ClinicAssistant shows a confirmation message.
 
     Use case ends.
 
@@ -522,9 +522,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Clinic staff wants to see all patient records
-2.  Clinic staff requests to list patients
-3.  ClinicAssistant shows a list of patients
+1.  Clinic staff wants to see all patient records.
+2.  Clinic staff requests to list patients.
+3.  ClinicAssistant shows a list of patients.
 
     Use case ends.
 
@@ -532,21 +532,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Patient visits the clinic
-2. Clinic staff needs the information of this specific patient
-3. Clinic staff inserts the patient's details
-4. ClinicAssistant retrieves the patient's information for the clinic staff
+1. Patient visits the clinic.
+2. Clinic staff needs the information of this specific patient.
+3. Clinic staff inserts the patient's details.
+4. ClinicAssistant retrieves the patient's information for the clinic staff.
 
    Use case ends.
 
 **Extensions**
 
-* 3a. The patient cannot be found
+* 3a. The patient cannot be found.
     * 3a1. ClinicAssistant shows an error message.
 
       Use case resumes at step 3.
 
-**Use case 4: Delete a patient**
+**Use case 4: Edit details of a specific patient**
+
+**MSS**
+
+1. Patient visits the clinic.
+2. Patient informs clinic staff of changes to his/her details.
+3. Clinic staff searches for the patient in Clinic Assistant (by name or NRIC).
+4. Clinic staff edits the patient's details in Clinic Assistant.
+5. ClinicAssistant shows a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. The patient cannot be found.
+    * 3a1. ClinicAssistant shows an error message.
+    * 3a2. Clinic staff checks if the name or NRIC is correct.
+    * 3a3. Clinic staff searches for the patient again.
+
+      Use case resumes at step 4.
+
+* 4a. The given input to edit the patient's details is invalid.
+    * 4a1. ClinicAssistant shows an error message.
+    * 4a2. Clinic staff checks and enters the correct input.
+
+      Use case resumes at step 5.
+
+**Use case 5: Delete a patient**
 
 **MSS**
 
@@ -565,7 +592,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
 
-**Use case 5: Viewing available timeslots to book appointment**
+**Use case 6: Viewing available timeslots to book appointment**
 
 **MSS**
 
@@ -578,16 +605,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2b. Date entered is invalid
+* 2b. Date entered is invalid.
     * 2b1. ClinicAssistant shows an error message and requests for correct date.
     * 2b2. User enters a new date. 
-    * Steps 2b1 - 2b2 are repeated until date entered is correct
+    * Steps 2b1 - 2b2 are repeated until date entered is correct.
 
       Use case resumes at step 3.
 
-* 3a. ClinicAssistant returns an empty list of available timeslots
-    * 3a1. User now has to enter a new date 
-    * Step 3a1 is repeated until date entered has list of at least 1 available timeslot
+* 3a. ClinicAssistant returns an empty list of available timeslots.
+    * 3a1. User now has to enter a new date .
+    * Step 3a1 is repeated until date entered has list of at least 1 available timeslot.
 
       Use case resumes at step 4.
 
