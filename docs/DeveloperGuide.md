@@ -409,46 +409,6 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Pros: Easier to implement as we only need to get time from appointment directly
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
 
-## **Planned enhancements**
-
-### Edit Doctor
-
-#### Implementation
-
-This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
-
-This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
-
-Furthermore it will take in information that the specified doctor's information will be changed to.
-This will create a new Doctor Object and transfer over all the information that isnt specified in the edit command to be the same as the original doctor.
-
-#### Design consideration:
-
-**Aspect: How the doctor object is going to be edited:**
-
-* You can make it so that you change the value of the variables inside the original doctor
-    * Pros: save space and improve space and time complexity
-    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
-
-### Edit Appointment to include editing of Doctor details
-
-#### Implementation
-
-This enhancement will let the user edit the appointments associated doctor.
-
-This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
-
-Furthermore it will take in information that the specified doctor's information will be changed to.
-This will then change the doctor associated with the appointment the user is editing.
-
-#### Design consideration:
-
-**Aspect: How the doctor is going to be edited:**
-
-* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
-    * Pros: Intuitive for clinic assistants to use
-    * Cons: Might be difficult to implement
-
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -730,9 +690,87 @@ testers are expected to do more *exploratory* testing.
 ## **Appendix: Planned Enhancements**
 In the near future, we hope to be able to enhance our application as stated below.
 
-1. Currently, different doctors cannot have the appointment slots at the same timing. This is done with the assumption that the GP clinic will only have one doctor and one room at any one time.
+### Allow different doctors to have appointment slots at the same timing
+
+#### Implementation
+
+Currently, different doctors cannot have the appointment slots at the same timing. This is done with the assumption that the GP clinic will only have one doctor and one room at any one time.
 However, in the future, we hope to be able to allow different doctors to have appointment slots at the same timing. This will allow the clinic to have multiple doctors and rooms at the same time.
 
-2. Currently, when a command is used, the tab the user is on will not switch to the corresponding tab of the command. E.g. if the user is on the `Doctors` tab, entering the `list` command
-will not switch the user to the `Patients` tab. In the future, we hope to be able to implement this feature such that the user will be switched to the corresponding tab of the command. This applies
-for all commands such as `list_appt`, `add`, `add_doctor`, `edit`, `edit_appt`, `delete`, `delete_doctor`, `delete_appt`, `find`, `find_nric`, `find_appt`, `view`, `appt`, `edit_appt` and `delete_appt`.
+This enhancement will allow the user to add appointments with the same timing as long as the doctor is different.
+
+The `view` Timeslots command will also be updated to show the available timeslots for all doctors.
+
+To implement this, there has to be a check to ensure that the appointment timing does not clash with any other appointments for the same doctor when adding/editing appointments.
+
+#### Design consideration:
+
+**Aspect: How to ensure each doctor can only have 1 appointment for timeslot:**
+
+* When a new appointment is added or edited, check if the appointment timing clashes with any other appointments for the same doctor.
+    * Pros: Easy to implement.
+    * Cons: Additional check required when adding/editing appointments.
+
+
+### Change the tab to the corresponding tab of the command
+
+#### Implementation
+
+Currently, when a command is used, the tab the user is on will not switch to the corresponding tab of the command. E.g. if the user is on the `Doctors` tab, entering the `list` command
+will not switch the user to the `Patients` tab. In the future, we hope to be able to implement this feature such that the user will be switched to the corresponding tab of the command.
+
+This applies for all commands such as `list_appt`, `add`, `add_doctor`, `edit`, `edit_appt`, `delete`, `delete_doctor`, `delete_appt`, `find`, `find_nric`, `find_appt`, `view`, `appt`, `edit_appt` and `delete_appt`.
+
+This enhancement will allow the user to be switched to the corresponding tab of the command.
+
+This enhancement will improve the user experience as the user will not have to manually switch to the corresponding tab of the command.
+
+#### Design consideration:
+
+**Aspect: How to implement changing of tabs:**
+
+* Create a method to switch to the corresponding tab of the command and call this method whenever a command is used.
+    * Pros: Easy to implement.
+    * Cons: Additional method required to switch tabs.
+
+
+### Edit Appointment to include editing of Doctor details
+
+#### Implementation
+
+This enhancement will let the user edit the appointments associated doctor.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore, it will take in information that the specified doctor's information will be changed to.
+This will then change the doctor associated with the appointment the user is editing.
+
+#### Design consideration:
+
+**Aspect: How the doctor is going to be edited:**
+
+* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
+    * Pros: Intuitive for clinic assistants to use
+    * Cons: Might be difficult to implement
+
+
+## **Appendix: Future Features**
+
+### Edit Doctor
+
+#### Implementation
+
+This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore, it will take in information that the specified doctor's information will be changed to.
+This will create a new Doctor Object and transfer over all the information that isnt specified in the edit command to be the same as the original doctor.
+
+#### Design consideration:
+
+**Aspect: How the doctor object is going to be edited:**
+
+* You can make it so that you change the value of the variables inside the original doctor
+    * Pros: save space and improve space and time complexity
+    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
