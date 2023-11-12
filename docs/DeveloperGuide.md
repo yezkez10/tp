@@ -758,6 +758,7 @@ This will then change the doctor associated with the appointment the user is edi
 #### Implementation
 
 Currently, the date in the timeslot tab only appears after calling view command more than once. This is done in our previous release under the assumption that the first call of the command is not ambiguous.
+
 However, in the future, we will change it to instantly display the date whenever we call the view command. This will help to improve user experience, increasing their confidence since date is always displayed.
 
 This enhancement will enhance the user experience when using the view command and the timeslots tab.
