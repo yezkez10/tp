@@ -805,3 +805,31 @@ testers are expected to do more *exploratory* testing.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Effort**
+
+The effort required for our team to finish this team project from start to finish was quite substantial. We faced many difficulties at every step and milestone, but in the end we overcame those challenges and prevailed.
+The difficulty of this team project was quite high as there are a lot of unexpected challenges that came up. In the first few weeks it was quite smooth as we only had to figure out what kind of product we wanted to make and who we wanted to make it for.
+Afterwards is where things get more challenging it turns out that refactoring existing code was more difficult than it seemed. An example, the Person Object needed to be changed to hold more information like nric.
+This causes many of the existing test cases from AB3 to break. Another challenge was when we added another entity type class called Appointment. At first, it may seem like it would not be that hard to implement Appointment by referencing the code for the Person Object.
+But when we arrived at the storage implementation we were stuck for quite a while. It was quite a challenge to figure out how we could store and reap the Appointment class reliably.
+
+<br>
+
+Although those experiences was frustrating at times, when we finally managed to finish a section, we felt a sense of achievement every single time.
+One of these moments is when we managed to figure out how to read and write from the json file whe we added Appointments to the project. This achievement was one of the bigger milestone that we crossed  that helped with the implementations of future features.
+For example, When the Doctor Object was added to the project it was definitely smoother as we already had experience before hand with appointments. This makes the implementation of Doctor slightly faster as we had overcame these challenges before.
+Although the Doctor Object also came with challenges that are unique. This is because the Doctor Object has a deep interaction with the Appointment Objects making it a three-way connection between the three classes. This causes a lot of problems and bugs that took a lot of effort and was very difficult to solve due to the increasingly complex code.
+
+<br>
+
+Another unique challenge was the GUI of the project. Most of us are not familiar with javafx outside of ip before this, therefore we encountered difficulties not only in coding the gui, but alos coming up with the design of it.
+We wanted to make it not too cluttered without sacrificing any of the feature we wanted to add. We then went through multiple iterations to figure out what was the best way to get the most out of the UI. We accomplished these eventually by using tab Panes that let
+us have a good amount of information stored in the project without sacrificing the readability of it.
+
+<br>
+
+Testing and Debugging was one of the biggest challenges we encountered throughout this project. Debugging was extremely time consuming and so were finding bugs. We learned that we had quite alot of rrom for improvement during the PE-D. Thia
+demo helped us realise things that we have overlooked before as a team. This was an extremely important experience for us as we were forced to not only fix the bugs each memeber is responsible for, but we also had to cooperate in debugging and testing each other's code. This
+part of the project might be the most difficult and time consuming one as it took a lot of hours to finish and not a lot of time to spare. The moment when we realise that we had fixed most of the issues found during and after the PE-D was one of the biggest achievement in this project, as it signifies the end of this team project.
+
+In conclusion, We learned a lot from this team project. Whether that was teamwork, coding, and time management. We struggled a lot at almost every step of the way, but we prevailed and came out of it as better programmers.
+We learned a lot about various programming and software engineering practices and techniques like, testing, uml diagrams, user stories, defensive coding. By using everything that we learned this past semester we are able to come up with a good product with important features that prioritized the user's needs first.
