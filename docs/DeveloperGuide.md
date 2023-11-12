@@ -637,7 +637,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
       Use Case resumes at step 6.
 
+**Use case 8: Delete an appointment**
+**Actor:** Clinic staff, Patient
+**Preconditions:** at least one Doctor is in the system, the Patient is already in the system, the appointment exists in the system.
+
+**MSS**
+
+1. A patient wants to cancel an appointment.
+2. Clinic staff asks for the patient's name and appointment date.
+3. Clinic staff <u>enters the find appointment command</u>.
+4. ClinicAssistant shows the list of appointments for the find appointment command.
+5. Clinic staff asks the patient for the time of appointment.
+6. Clinic staff searches for the right appointment.
+7. Clinic staff enters the delete appointment command.
+8. ClinicAssistant deletes the appointment and shows the success message.
+
    Use case ends.
+
+**Extensions:**
+* 7a. ClinicAssistant detects an error in the entered index.
+    * 7a1. ClinicAssistant shows error message.
+    * 7a2. Clinic staff enters a new delete appointment command with a different index.
+    * Steps 7a1 and 7a2 are repeated until the index entered is correct.
+
+      Use Case resumes at step 8.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
