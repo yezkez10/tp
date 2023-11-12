@@ -669,6 +669,24 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Editing a Patient
+
+1. Editing a patient's details in the `Patients` list
+
+    1. Prerequisites: At least 1 patient in the `Patients` list by listing all patients using the `list` command or find specific patients by name using the `find` command or by NRIC using the `find_nric` command. If there are currently no patients in Clinic Assistant, use `add` command to add a patient into the list.
+
+    2. Test case: `edit 1 /p 91234567 /e johndoe@example.com`<br>
+       Expected: The phone number and email of the first person in the `Patients` list is updated to the new values. Details of the updated patient is shown in the status message.
+
+    3. Test case: `edit 0`<br>
+       Expected: No patient's details is updated. Error details shown in the status message for invalid command format.
+    
+    4. Test case: `edit 1 /p 12345678`<br>
+       Expected: The phone number of the first person in the `Patients` list is not updated. Error details shown in the status message for valid phone number inputs.
+
+    5. Other incorrect edit commands to try: `edit`, `edit x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to test case in step 3.
+
 ### Deleting a Patient
 
 1. Deleting a patient from `Patients` list
@@ -686,7 +704,7 @@ testers are expected to do more *exploratory* testing.
 
 ### View Available Timeslots
 
-2. Viewing available timeslots on a given `DATE`
+1. Viewing available timeslots on a given `DATE`
 
     1. Prerequisites: None but good to have some appointments made using `appt`
 
