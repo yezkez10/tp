@@ -1,0 +1,56 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class "{abstract}\nUiPart" as UiPart
+
+Class MainWindow
+Class PersonListPanel
+Class PersonCard
+Class DoctorListPanel
+Class DoctorCard
+Class AppointmentListPanel
+Class AppointmentCard
+Class TimeSlotListPanel
+Class TimeSlotCard
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+
+
+
+MainWindow *-down-> "1" PersonListPanel
+MainWindow *-down-> "1" DoctorListPanel
+MainWindow *-down-> "1" AppointmentListPanel
+MainWindow *-down-> "1" TimeSlotListPanel
+
+PersonListPanel -down-> "*" PersonCard
+DoctorListPanel -down-> "*" DoctorCard
+AppointmentListPanel -down-> "*" AppointmentCard
+TimeSlotListPanel -down-> "*" TimeSlotCard
+
+
+
+
+PersonListPanel --|> UiPart
+PersonCard --|> UiPart
+DoctorListPanel --|> UiPart
+DoctorCard --|> UiPart
+AppointmentListPanel --|> UiPart
+AppointmentCard --|> UiPart
+TimeSlotListPanel --|> UiPart
+TimeSlotCard --|> UiPart
+
+PersonCard ..> Model
+DoctorCard ..> Model
+AppointmentCard ..> Model
+TimeSlotCard ..> Model
+
+MainWindow -[hidden]-|> UiPart
+@enduml
