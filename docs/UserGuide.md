@@ -511,20 +511,25 @@ Format: `view /on DATE`
 * Displays all available timeslots that can be booked on the `DATE` under the `Timeslots` tab.
 * Any Timeslot displayed under the `Timeslot` tab can be used to book an appointment.
 
+After calling the command, click on the timeslot tab to see a similar picture:
+![View_Available_Timeslots](images/View_Available.png)
+
 <box type="info" seamless>
 
 **Note:**
 * The `DATE` **must be a valid date** on the calendar in the format `dd-MM-yyyy` **exactly**
 * Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**
+* The **very first time** this command is called, the date will **not** be shown (refer to known issues).
+* Date will be shown for every subsequent view command
   </box>
 
 <box type="warning" seamless>
 
 **Warning:**
-* The `Timeslot` tab is **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again after there is at least 1 timeslot.
+* The `Timeslot` tab will be **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again when there is at least 1 timeslot.
   </box>
 
-Examples:
+Examples:<br>
 * Valid input: `view /on 02-01-2024`
     * Output (success): <br>
       `All Available Timeslot(s) on Jan 02, 2024 Listed!`
@@ -573,6 +578,7 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **When calling ViewAvailable Command for the very first time**, date will not be shown in the timeslot tab as there is no ambiguity. Subsequent ViewAvailable Command calls will cause the date to be shown.
 
 --------------------------------------------------------------------------------------------------------------------
 
