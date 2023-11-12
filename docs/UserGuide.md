@@ -263,10 +263,10 @@ Format: `appt /for PATIENT_INDEX /doc DOCTOR_INDEX /d DESCRIPTION /on DATE_TIME`
   </box>
 
 Examples:
-* Valid input: `appt /for 1 /doc 2 /d Blood test /on 01-01-2024 12:00`
+* Valid input: `appt /for 1 /doc 1 /d Blood test /on 01-01-2024 12:00`
     * Output (success): <br>
       `New appointment added | Patient: Alex Yeoh | Description: Blood test | Date: 01 Jan 2024 12.00 PM`
-* Invalid input 1 (`DESCRIPTION` not provided): `appt /for 1 /doc 2 /on 01-01-2024 12:00`
+* Invalid input 1 (`DESCRIPTION` not provided): `appt /for 1 /doc 1 /on 01-01-2024 12:00`
     * Output (failure): <br>
       `Invalid command format! ` <br>
       `appt: Adds a appointment to the patient identified by the index number used in the displayed patient list.` <br>
@@ -274,7 +274,7 @@ Examples:
       `Example: appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
     * **To fix:** Add in the missing description field.
 
-* Invalid input 2 (invalid `DATE_TIME`): `appt /for 1 /doc 2 /d Blood test /on tuesday`
+* Invalid input 2 (invalid `DATE_TIME`): `appt /for 1 /doc 1 /d Blood test /on tuesday`
     * Output (failure): <br>
       `Date must be in dd-MM-yyyy HH:mm format.` <br>
       `Date & time must be after the current time.` <br>
