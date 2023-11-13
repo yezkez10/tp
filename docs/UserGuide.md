@@ -739,4 +739,5 @@ Action     | Format, Examples
 **View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
 </hr>
+
 [Back to top](#clinicassistant-user-guide)
