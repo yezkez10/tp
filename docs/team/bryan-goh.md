@@ -71,7 +71,7 @@ request [#106](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/106))
 * added planned enhancements in the DG
 
 ### Review/mentoring contributions:
-* helped reviewed 11 PRs [PR](https://github.com/AY2324S1-CS2103T-W09-3/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me)
+* helped reviewed 12 PRs [PR](https://github.com/AY2324S1-CS2103T-W09-3/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me)
 
 ### Contributions beyond the project team:
 * found and reported critical and important bugs during the PE-D [PE-D](https://github.com/Bryan-Goh/ped/issues/created_by/Bryan-Goh)
