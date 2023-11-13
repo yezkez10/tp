@@ -257,7 +257,7 @@ to change the description and date of the first appointment on the list.
 
 #### Implementation
 
-The delete feature is now separated for patients, doctors and appointments. 
+The delete feature is now separated for patients, doctors and appointments.
 Deleting a patient and doctors delete their corresponding appointments.
 
 The delete command deletes a patient, doctor or appointment identified by their index in the displayed list.
@@ -265,7 +265,7 @@ The deletion is done through the `deletePerson`, `deleteDoctor` and `deleteAppoi
 
 Given below is an example usage scenario for `DeleteCommand` and how this delete mechanism behaves.
 
-Step 1. The user launches the application. All patients are shown on the application as an indexed list. 
+Step 1. The user launches the application. All patients are shown on the application as an indexed list.
 
 Step 2. The user executes `delete 3` command to delete the third patient in the displayed list.
 The `DeleteCommandParser` creates a `DeleteCommand`.
@@ -278,7 +278,7 @@ The following sequence diagram shows how the `DeleteCommand` class works.
 
 <box type="info" seamless>
 
-**Note:** 
+**Note:**
 * The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 * The command will not execute for any index that is **out-of-bounds**.
 </box>
@@ -295,7 +295,7 @@ The following sequence diagram shows how the `DeleteCommand` class works.
     * Pros: Will be more accurate when deleting a patient.
     * Cons: Typing out patient names has higher room for error and takes a longer time.
     * Cons: User will face issues when trying to delete patients with the same name.
-  
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Delete Appointment feature
@@ -305,7 +305,7 @@ The following sequence diagram shows how the `DeleteCommand` class works.
 This delete command deletes an appointment identified by its index in the displayed list.
 This deletion is done through the `deleteAppointment` function in `ModelManager`.
 Its mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
-This deletion mechanism is largely similar to the delete patient mechanism, 
+This deletion mechanism is largely similar to the delete patient mechanism,
 with the only difference being that the appointment is to be deleted from the Patient and Doctor classes.
 
 Given below is an example usage scenario for `DeleteAppointmentCommand` and how this delete mechanism behaves.
@@ -317,7 +317,7 @@ The `DeleteAppointmentCommandParser` creates a `DeleteAppointmentCommand`.
 
 Step 3. The execution of the `DeleteAppointmentCommand` retrieves the third appointment in the list of unique appointments.
 
-Step 4. The methods `deletePatientAppointment` and `deleteDoctorAppointment` in the `DeleteCommand` class are called. 
+Step 4. The methods `deletePatientAppointment` and `deleteDoctorAppointment` in the `DeleteCommand` class are called.
 The appointment linked to the corresponding doctor and patient is removed.
 
 Step 5. The execution of the `DeleteAppointmentCommand` calls `Model#deleteAppointment(appointmentToDelete)` to delete the person from the filtered list of patients.
