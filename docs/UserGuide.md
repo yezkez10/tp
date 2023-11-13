@@ -512,7 +512,7 @@ Examples:<br>
    * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 * Invalid input (`INDEX` out-of-bounds): `delete_appt 2`
     * Output (failure): <br>
-      `The patient index provided is invalid`<br>
+      `The appointment index provided is invalid`<br>
     * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 
 
