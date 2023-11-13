@@ -501,15 +501,14 @@ Format: `delete_appt INDEX`
 </box>
 
 Examples:<br>
-initial Appointment list:
 * Valid input: `delete_appt 1`
     * Output (success): <br>
-      `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
+      `Deleted Appointment  Patient: Charlotte Oliveiro | Description: x-ray scan | Date: 20 Jan 2024 12.00 PM of Charlotte Oliveiro | Phone: 93210283 | Email: charlotte@example.com | Gender: F | Age: 60 | Ethnic: Eurasian | NRIC: T5443267E | Address: Blk 11 Ang Mo Kio Street 74, #11-04 | Tags: [smoker]`
 * Invalid input 1 (non-positive integer): `delete_appt 0`
-    * Output (failure): <br>
-      `Invalid command format:` <br>
-      `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
-      `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
+  * Output (failure): <br>
+    `Invalid command format:` <br>
+    `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
+    `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
    * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 * Invalid input (`INDEX` out-of-bounds): `delete_appt 2`
     * Output (failure): <br>
