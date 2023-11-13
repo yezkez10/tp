@@ -465,8 +465,6 @@ Deleting a doctor deletes his/her appointments too.
 
 
 Examples:<br>
-initial Doctor list:
-![Add_Doctor]()
 * Valid input: `delete_doctor 1`
     * Output (success): <br>
       `Deleted Doctor: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive from clinic records`
