@@ -956,6 +956,22 @@ testers are expected to do more *exploratory* testing.
 ## **Appendix: Planned Enhancements**
 In the near future, we hope to be able to enhance our application as stated below.
 
+### Make the name of the Doctor not case sensitive
+
+#### Implementation
+
+Currently when the system receives an add_doctor command they only check whether the string of the name is exactly the same or not.<br>
+In the feature a good enhancement would be to make this check not case sensitive to follow the real world better.<br>
+This can be done by improving the isSameDoctor feature and replacing the current Name.equal method with a method that considers capital letter also.
+
+### Design consideration
+
+**Aspect: How to check without case sensitivity**
+
+* Create a method to check whether the letters are the same by checking both the letters lower case and upper case char value
+    * Pros: can make sure the letters are not affected by case sensiticity during checks
+    * Cons: will be slightly tedious to implement.
+  
 ### Allow different doctors to have appointment slots at the same timing
 
 #### Implementation
