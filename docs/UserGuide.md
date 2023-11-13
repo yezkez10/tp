@@ -467,11 +467,10 @@ Deleting a doctor deletes his/her appointments too.
 
 
 Examples:<br>
-initial Doctor list:
 * Valid input: `delete_doctor 1`
     * Output (success): <br>
       `Deleted Doctor: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive from clinic records`
-* Invalid input 1 (non-positive integer): `delete_doctor 0`
+* Invalid input 1 (non-positive integer, including strings): `delete_doctor 0`
     * Output (failure): <br>
       `Invalid command format!`<br>
       `delete_doctor: Deletes the doctor with the index number used in the clinic records.`<br>
@@ -502,19 +501,18 @@ Format: `delete_appt INDEX`
 </box>
 
 Examples:<br>
-initial Appointment list:
 * Valid input: `delete_appt 1`
     * Output (success): <br>
-      `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
-* Invalid input 1 (non-positive integer): `delete_appt 0`
-    * Output (failure): <br>
-      `Invalid command format:` <br>
-      `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
-      `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
+      `Deleted Appointment  Patient: Charlotte Oliveiro | Description: x-ray scan | Date: 20 Jan 2024 12.00 PM of Charlotte Oliveiro | Phone: 93210283 | Email: charlotte@example.com | Gender: F | Age: 60 | Ethnic: Eurasian | NRIC: T5443267E | Address: Blk 11 Ang Mo Kio Street 74, #11-04 | Tags: [smoker]`
+* Invalid input 1 (non-positive integer, including strings): `delete_appt 0`
+  * Output (failure): <br>
+    `Invalid command format:` <br>
+    `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
+    `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
    * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 * Invalid input (`INDEX` out-of-bounds): `delete_appt 2`
     * Output (failure): <br>
-      `The patient index provided is invalid`<br>
+      `The appointment index provided is invalid`<br>
     * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 
 
@@ -740,5 +738,5 @@ Action     | Format, Examples
 **List**   | `list`
 **View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
-
+</hr>
 [Back to top](#clinicassistant-user-guide)
