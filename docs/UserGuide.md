@@ -171,7 +171,7 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Adding a person: `add`
+### Adding a patient: `add`
 
 Adds a patient to the clinic records.
 
@@ -189,12 +189,17 @@ Examples:
 * Valid input: `add /n Drizzy /p 99090909 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr`
   * Output (success): <br>
     `New person added: Drizzy | Phone: 99090909 | Email: drake@gmail.com | Gender: F | Age: 18 | Ethnic: Chinese | NRIC: T0123456E | Address: 901 Shelby Dr | Tags:` 
+
+![patientsuccess](images/patient_success.png)
+
 * Invalid input (missing fields): `add /n Drizzy`
   * Output (failure): <br>
   `Invalid command format!` <br>
   `add: Adds a person to the address book. Parameters: /n NAME /p PHONE /e EMAIL /g GENDER /age AGE /eth ETHNICITY /ic NRIC NO. /a ADDRESS [/t TAG]...`
   * **To fix:** Add in the missing mandatory fields.
-  
+
+![patientfailure](images/patient_error.png)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Adding a doctor: `add_doctor`
@@ -227,6 +232,7 @@ Examples:
 * Valid input: `add_doctor /n Dr Lee /p 81824444 /e drlee@gmail.com /g M /age 30 /a 901 Shelby Drive`
     * Output (success): <br>
       `New Doctor added: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive`
+
 * Invalid input (missing fields): `add_doctor /n Dr Lee`
     * Output (failure): <br>
       `Invalid command format!` <br>
@@ -267,6 +273,8 @@ Examples:
 * Valid input: `appt /for 1 /doc 1 /d Blood test /on 01-01-2024 12:00`
     * Output (success): <br>
       `New appointment added | Patient: Alex Yeoh | Description: Blood test | Date: 01 Jan 2024 12.00 PM`
+
+![apptSuccess](images/appt_success.png)
 * Invalid input 1 (`DESCRIPTION` not provided): `appt /for 1 /doc 1 /on 01-01-2024 12:00`
     * Output (failure): <br>
       `Invalid command format! ` <br>
@@ -275,12 +283,16 @@ Examples:
       `Example: appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
     * **To fix:** Add in the missing description field.
 
+![apptFail](images/appt_error.png)
+
 * Invalid input 2 (invalid `DATE_TIME`): `appt /for 1 /doc 1 /d Blood test /on tuesday`
     * Output (failure): <br>
       `Date must be in dd-MM-yyyy HH:mm format.` <br>
       `Date & time must be after the current time.` <br>
       `Time of appointment must be on the hour, between 9 AM and 5 PM inclusive.` <br>
     * **To fix:** Enter a valid `DATE_TIME` in dd-MM-yyy HH:mm format.
+      
+![apptFail](images/appt_error2.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -490,7 +502,6 @@ Format: `delete_appt INDEX`
 
 Examples:<br>
 initial Appointment list:
-![Add_Appointment](images/Add_Appointment.png)
 * Valid input: `delete_appt 1`
     * Output (success): <br>
       `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
@@ -591,7 +602,9 @@ Format: `find_appt [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`
 Examples:
 * Valid input: `find_appt /n Bernice /on 01-01-2024`
     * Output (success): `1 appointment found!` <br>
-      Appointments of patients with name `John` that falls on 1 Jan 2024 is shown.
+
+![findapptSuccess](images/findappt_success.png)
+
 * Invalid input 1 (no prefixes provided): `find_appt`
     * Output (failure): <br>
       `Invalid command format!` <br>
@@ -599,10 +612,15 @@ Examples:
       `Parameters: [/n KEYWORD [MORE_KEYWORDS]...][/on DATE]`<br>
       `Example: find_appt /n alice bob charlie /on 01-01-2024`<br>
     * **To fix**: Enter at least 1 field to find.
+
+![findapptFailure](images/findappt_error.png)
+
 * Invalid input 2 (invalid `DATE`): `find_appt /n John /on 1 Jan 2024`
     * Output (failure): <br>
       `DATE must be in format dd-MM-yyyy` <br>
     * **To fix:** Enter a valid `DATE` in dd-MM-yyy format.
+
+![findapptFailure2](images/findappt_error2.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
