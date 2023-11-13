@@ -10,7 +10,7 @@ ClinicAssistant is a desktop app that offers seamless patient contact management
 optimized for use via a CLI while still having the benefits of a Graphical User Interface (GUI). 
 If you can type fast, ClinicAssistant can get your patient record management tasks done faster than traditional pen-and-paper methods. 
 It ensures efficient adding, editing and finding of patient information, optimising clinic operations.
-<!-- * Table of Contents -->
+
 - **Introduction**
     - [Target Audience](#target-audience)
     - [How to Use the Guide](#how-to-use-the-guide)<br>
@@ -41,8 +41,6 @@ It ensures efficient adding, editing and finding of patient information, optimis
     - [FAQ](#faq)
     - [Known issues](#known-issues)
     - [Command summary](#command-summary)
-
-<page-nav-print />
 
 <hr style="border:1px solid gray">
 
