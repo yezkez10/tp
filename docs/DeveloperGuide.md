@@ -456,8 +456,6 @@ The available timeslots not in the appointment list is added to the `UniqueTimes
 
 Step 5. The execution of the `ViewAvailableTimeslot` calls `Model#updateFilteredAvailableTimeslot` to update the new list of available timeslots in the Timeslots tab.
 
-**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **passed** (eg 01-01-1900)), the command will fail.
-
 #### Design considerations:
 
 **Aspect: What Timeslots will be added:**
