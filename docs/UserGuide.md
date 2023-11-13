@@ -118,7 +118,7 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar clinicassistant.jar` command to run the application.
    A GUI similar to the below should appear in a few seconds. <br>
-   ![Ui]()
+   ![Ui](docs/images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -474,7 +474,7 @@ initial Doctor list:
 
 ### Deleting an appointment : `delete_appt`
 
-Deletes an appointment from the the clinic records via the specified index.
+Deletes an appointment from the clinic records via the specified index.
 
 Format: `delete_appt INDEX`
 * Deletes the appointment at the specified `INDEX`
