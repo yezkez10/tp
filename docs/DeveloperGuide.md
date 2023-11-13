@@ -67,20 +67,20 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S1-CS2103T-W09-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
+<br>
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `DoctorlistPanel`, `AppointmentListPanel`, `TimeSlotListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
-
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S1-CS2103T-W09-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S1-CS2103T-W09-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person`, `Appointment`, `Doctor`, and `TimeSlot` object residing in the `Model`.
 
 ### Logic component
 
@@ -182,32 +182,6 @@ The `Person` class stores the required fields of the patient.
 `AddCommandParser` parses the user-inputted command and creates a `Person` object
 with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
 This `Person` is added into the `UniquePersonList`.
-
-### Add/delete Doctor feature
-
-#### Implementation
-
- The proposed add/delete Doctor mechanism is facilitated by `UniqueDoctorList` and a `Doctor` Class. `UniqueDoctorList` extends `Iterable<Doctor>` which stores and ensures all the Doctors in this list is unique. Additionally it implements the same operations as the `UniquePersonList`.
- The Doctor class stores the relevant data of the Doctor such as name and gender.
- The following sequence diagram shows how the add Doctor operation works.
-
-<puml src="diagrams/AddDoctor.puml" alt="AddDoctor" />
-
-The delete Doctor command does the opposite — it calls deleteDoctor(INDEX), which deletes the Doctor from the system by their Index.
-
-**Note:** If the index of either add or delete is less than 1 or exceeds the number of Doctors in the List then the command is going to fail.
-
-#### Design considerations:
-
-**Aspect: How Doctor is going to be saved:**
-
-* **Alternative 1 (current choice):** Doctor is its own class containing detailed information on the doctor.
-    * Pros: Similar to Person
-    * Cons: May introduce new bugs and is generally going to take up a lot of lines of code.
-
-* **Alternative 2:** Doctor is just a String and is going to be saved inside an ArrayList since the most important part is just the name.
-    * Pros: Will be easier to implement and much simpler.
-    * Cons: Going to be harder for future developer to update the Doctor Class.
 
 ### Delete Patient
 
@@ -362,6 +336,30 @@ The delete Appointment command does the opposite — it calls deleteAppointm
     * Pros: Will be easier to implement and much simpler.
     * Cons: Going to be harder for future developers to update the Appointment Class.
 
+### Delete Appointment feature
+
+#### Implementation
+
+The delete appointment mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
+Clinic staff can enter `delete_appt 3` which deletes the appointment at index 3 and the appointment that is stored inside the Patient and Doctor Class.
+The following sequence diagram shows how the DeleteAppointmentCommand class works.
+
+**Note:** If the index is not a positive integer and less than the amount of appointments the command will fail.
+
+<puml src="diagrams/DeleteAppointments.puml" alt="DeleteAppointment" />
+
+#### Design considerations:
+
+**Aspect: How Appointments are being deleted:**
+
+* **Alternative 1 (current choice):** Appointment is being stored in 3 different places inside a patient object, a doctor object, and the `UniqueAppointmentList` and are being deleted once at each object.
+    * Pros: Easy to understand
+    * Cons: Can be easily filled with bugs and takes a lot of effort to implement.
+
+* **Alternative 2:** have only one List of Appointments and by deleting it there everywhere else appointment will be deleted.
+    * Pros: Will be harder for bugs to happen.
+    * Cons: Will be harder to implement.
+
 ### Edit Appointment feature
 
 #### Implementation
@@ -408,6 +406,50 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
 * **Alternative 2:** Add the time from appointments directly without any timeslot
     * Pros: Easier to implement as we only need to get time from appointment directly
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
+
+## **Future Features**
+
+
+### Edit Doctor
+
+#### Implementation
+
+This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore it will take in information that the specified doctor's information will be changed to.
+This will create a new Doctor Object and transfer over all the information that isn't specified in the edit command to be the same as the original doctor.
+
+#### Design consideration:
+
+**Aspect: How the doctor object is going to be edited:**
+
+* You can make it so that you change the value of the variables inside the original doctor
+    * Pros: save space and improve space and time complexity
+    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
+
+
+## **Planned enhancements**
+
+### Edit Appointment to include editing of Doctor details
+
+#### Implementation
+
+This enhancement will let the user edit the appointments associated doctor.
+
+This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
+
+Furthermore it will take in information that the specified doctor's information will be changed to.
+This will then change the doctor associated with the appointment the user is editing.
+
+#### Design consideration:
+
+**Aspect: How the doctor is going to be edited:**
+
+* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
+    * Pros: Intuitive for clinic assistants to use
+    * Cons: Might be difficult to implement
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -457,7 +499,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `ClinicAssistant` and the **Actor** is the `Clinic assistant`, unless specified otherwise)
+(For all use cases below, the **System** is the `ClinicAssistant` and the **Actor** is the `Clinic staff`, unless specified otherwise)
 
 **Use case 1: Add a patient**
 
@@ -578,6 +620,76 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 4.
 
+**Use case 6: Add a doctor**
+**Actor:** Clinic staff, Doctor
+**Preconditions:** there is no doctor with the exact same name already in the system.
+**MSS**
+
+1. A doctor joins the clinic.
+2. Doctor is not in ClinicRecords.
+3. Clinic staff asks the doctor for the required information.
+4. Clinic staff enters the add doctor command with the information.
+5. ClinicAssistant adds this new doctor into the ClinicRecords.
+6. ClinicAssistant shows a confirmation message.
+
+    Use case ends.
+
+**Extensions:**
+* 4a. ClinicAssistant detects an error in the entered information.
+    * 4a1. ClinicAssistant shows error message.
+    * 4a2. Clinic staff enters new information to the add doctor command.
+    * Steps 4a1 and 4a2 are repeated until the information required is entered correctly.
+    
+      Use Case resumes at step 5.
+
+**Use case 7: Delete a doctor**
+**Actor:** Clinic staff, Doctor(multiple doctors)
+**Preconditions:** at least one Doctor is in the system.
+
+**MSS**
+
+1. A doctor chooses to leave the clinic.
+2. Clinic staff asks the doctor's required information.
+3. Clinic staff lists all the doctor in the system.
+4. Clinic staff searches for the correct index of the doctor.
+5. Clinic staff enter the delete doctor command.
+6. ClinicAssistant deletes the doctor from the system and shows the success message.
+
+   Use case ends.
+
+**Extensions:**
+* 5a. ClinicAssistant detects an error in the entered index.
+    * 5a1. ClinicAssistant shows error message.
+    * 5a2. Clinic staff enters a new delete doctor command with a different index.
+    * Steps 5a1 and 5a2 are repeated until the index entered is correct.
+  
+      Use Case resumes at step 6.
+
+**Use case 8: Delete an appointment**
+**Actor:** Clinic staff, Patient
+**Preconditions:** at least one Doctor is in the system, the Patient is already in the system, the appointment exists in the system.
+
+**MSS**
+
+1. A patient wants to cancel an appointment.
+2. Clinic staff asks for the patient's name and appointment date.
+3. Clinic staff <u>enters the find appointment command</u>.
+4. ClinicAssistant shows the list of appointments for the find appointment command.
+5. Clinic staff asks the patient for the time of appointment.
+6. Clinic staff searches for the right appointment.
+7. Clinic staff enters the delete appointment command.
+8. ClinicAssistant deletes the appointment and shows the success message.
+
+   Use case ends.
+
+**Extensions:**
+* 7a. ClinicAssistant detects an error in the entered index.
+    * 7a1. ClinicAssistant shows error message.
+    * 7a2. Clinic staff enters a new delete appointment command with a different index.
+    * Steps 7a1 and 7a2 are repeated until the index entered is correct.
+
+      Use Case resumes at step 8.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -677,6 +789,56 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect view commands to try: `view`, `view /on x`, `...` (where x is past date)<br>
        Expected: Similar to previous.
 
+### Adding a Doctor
+3. Adding a Doctor to the `Doctor` List.
+
+   1. Prerequisites: Make sure to have the Doctor List Panel on the screen by clicking the Doctors Tab.
+   
+   2. Test case: `add_doctor /n Dr Lee /p 91236789 /e lee@gmail.com /g M /age 30 /a Prince Gearge Park ` <br>
+      Expected: The Doctor will show in the Doctor List in the order of first added to last added. Success message will be shown in the output display.
+   
+   3. Test case: `add_doctor`
+      Expected: No Doctor will be added and a error message will be shown at the output display.
+
+   4. Other incorrect add_doctor commands to try: `add_doctor /n John `, `add_doctor /age 100 `, `...` (where you are missing one of the syntax)<br>
+      Expected: Similar to previous.
+
+### Deleting a Doctor
+
+4. Deleting a doctor from `Doctor` list
+
+    1. Prerequisites: List all doctors by clicking on the Doctors tab. At least 1 doctor in the list. Use `add_doctor` to add a doctor into the list.
+
+    2. Test case: `delete_doctor 1`<br>
+       Expected: First doctor is deleted from the list. Details of the deleted doctor is shown in the output display.
+
+    3. Test case: `delete_doctor INDEX` (where INDEX is larger than the number of doctors in the list)<br>
+       Expected: No doctor is deleted. Error message `The doctor index provided is invalid` will be shown in the output display. 
+   
+    4. Test case: `delete_doctor 0`<br>
+       Expected: No doctor is deleted. Error details shown in the output display.
+   
+    5. Other incorrect delete commands to try: `delete_doctor`, `delete_doctor x`, `...` (where x is not a positive integer)<br>
+       Expected: Similar to previous.
+
+
+### Deleting an Appointment
+
+5. Deleting an appointment from `Appointment` list
+
+    1. Prerequisites: List all appointments by clicking on the Appointments tab and use the `list_appt` command. At least 1 appointment in the list. Use `appt` to add an appointment into the list.
+
+    2. Test case: `delete_appt 1`<br>
+       Expected: First appointment is deleted from the list. Details of the deleted appointment is shown in the output display.
+   
+    3. Test case: `delete_appt INDEX` (where INDEX is larger than the number of appointments in the list)<br>
+       Expected: No appointment is deleted. Error message `The appointment index provided is invalid` will be shown in the output display. 
+   
+    4. Test case: `delete_appt 0`<br>
+       Expected: No appointment is deleted. Error details shown in the output display.
+
+    5. Other incorrect delete commands to try: `delete_appt`, `delete_appt x`, `...` (where x is not a positive integer)<br>
+       Expected: Similar to previous.
 
 ### Saving data
 
@@ -793,3 +955,35 @@ This will create a new Doctor Object and transfer over all the information that 
 * You can make it so that you change the value of the variables inside the original doctor
     * Pros: save space and improve space and time complexity
     * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+The effort required for our team to finish this team project from start to finish was quite substantial. We faced many difficulties at every step and milestone, but in the end we overcame those challenges and prevailed.
+The difficulty of this team project was quite high as there are a lot of unexpected challenges that came up. In the first few weeks it was quite smooth as we only had to figure out what kind of product we wanted to make and who we wanted to make it for.
+Afterwards is where things get more challenging it turns out that refactoring existing code was more difficult than it seemed. An example, the Person Object needed to be changed to hold more information like nric.
+This causes many of the existing test cases from AB3 to break. Another challenge was when we added another entity type class called Appointment. At first, it may seem like it would not be that hard to implement Appointment by referencing the code for the Person Object.
+But when we arrived at the storage implementation we were stuck for quite a while. It was quite a challenge to figure out how we could store and reap the Appointment class reliably.
+
+<br>
+
+Although those experiences was frustrating at times, when we finally managed to finish a section, we felt a sense of achievement every single time.
+One of these moments is when we managed to figure out how to read and write from the json file whe we added Appointments to the project. This achievement was one of the bigger milestone that we crossed  that helped with the implementations of future features.
+For example, When the Doctor Object was added to the project it was definitely smoother as we already had experience before hand with appointments. This makes the implementation of Doctor slightly faster as we had overcame these challenges before.
+Although the Doctor Object also came with challenges that are unique. This is because the Doctor Object has a deep interaction with the Appointment Objects making it a three-way connection between the three classes. This causes a lot of problems and bugs that took a lot of effort and was very difficult to solve due to the increasingly complex code.
+
+<br>
+
+Another unique challenge was the GUI of the project. Most of us are not familiar with javafx outside of ip before this, therefore we encountered difficulties not only in coding the gui, but alos coming up with the design of it.
+We wanted to make it not too cluttered without sacrificing any of the feature we wanted to add. We then went through multiple iterations to figure out what was the best way to get the most out of the UI. We accomplished these eventually by using tab Panes that let
+us have a good amount of information stored in the project without sacrificing the readability of it.
+
+<br>
+
+Testing and Debugging was one of the biggest challenges we encountered throughout this project. Debugging was extremely time consuming and so were finding bugs. We learned that we had quite alot of rrom for improvement during the PE-D. Thia
+demo helped us realise things that we have overlooked before as a team. This was an extremely important experience for us as we were forced to not only fix the bugs each memeber is responsible for, but we also had to cooperate in debugging and testing each other's code. This
+part of the project might be the most difficult and time consuming one as it took a lot of hours to finish and not a lot of time to spare. The moment when we realise that we had fixed most of the issues found during and after the PE-D was one of the biggest achievement in this project, as it signifies the end of this team project.
+
+In conclusion, We learned a lot from this team project. Whether that was teamwork, coding, and time management. We struggled a lot at almost every step of the way, but we prevailed and came out of it as better programmers.
+We learned a lot about various programming and software engineering practices and techniques like, testing, uml diagrams, user stories, defensive coding. By using everything that we learned this past semester we are able to come up with a good product with important features that prioritized the user's needs first.
