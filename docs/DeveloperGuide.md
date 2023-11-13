@@ -456,7 +456,7 @@ The available timeslots not in the appointment list is added to the `UniqueTimes
 
 Step 5. The execution of the `ViewAvailableTimeslot` calls `Model#updateFilteredAvailableTimeslot` to update the new list of available timeslots in the Timeslots tab.
 
-<puml src="diagrams/ViewAvailableDiagram.puml" alt="ViewAvailableCommand UML" width = "2000" />
+<puml src="diagrams/ViewAvailableDiagram.puml" alt="ViewAvailableCommand UML" width = "100000" />
 
 #### Design considerations:
 

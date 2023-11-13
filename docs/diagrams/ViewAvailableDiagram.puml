@@ -87,7 +87,7 @@ deactivate Timeslot
 ViewAvailableCommand -> ModelManager : addAvailableTimeslot(timeslot)
 activate ModelManager
 
-ModelManager -> ModelManager : update(predicate)
+ModelManager -> ModelManager : updateTimeslot(predicate)
 activate ModelManager
 
 ModelManager --> ModelManager
