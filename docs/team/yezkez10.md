@@ -51,6 +51,7 @@ This is more helpful than the find by name feature since the latter could return
 * User Guide: Added and updated documentation for the following (Pull request [#185](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/185))
     * Product overview.
     * The usage of features `add`, `list`, `edit`, `delete`, `find`, `find_nric`.
+    * Contributed to adding screenshots and graphics.
     * Overall quality of UG
       
 * Developer Guide: Added and updated documentation for the following (Pull request [#221](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/221))
