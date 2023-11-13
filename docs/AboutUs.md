@@ -37,10 +37,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/wj331.png" width="200px">
 
 [[github](http://github.com/wj331)]
-[[portfolio](team/yezkez10.md)]
+[[portfolio](team/wj331.md)]
 
 * Role: Developer
-* Responsibilities: Delete Patients
+* Responsibilities: Adding Fields to Patients, Delete Patients, Timeslots, View Available Command
 
 ### Toh Pin Ren
 
