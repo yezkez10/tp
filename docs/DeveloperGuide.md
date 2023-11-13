@@ -437,11 +437,24 @@ The user can also execute `find_appt /n Alex` to find all appointments for Alex.
 
 #### Implementation
 
-The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
+The view available timeslots feature displays all available timeslots on the specific date. 
+This mechanism is facilitated by the `UniqueTimeslotList` and `Timeslot` class.
 A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
-to identify available timeslots in an instant which they can use to book appointments on.
+to identify available timeslots instantly which they can use to book appointments on.
 
-After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
+Given below is an example usage scenario for `ViewAvailableCommand` and how view available timeslots mechanism behaves.
+
+Step 1. The user launches the application. Patients and appointments already exist in the database and shown on the indexed list.
+
+Step 2. The user executes `view /on 02-01-2024` command to view all available timeslots in the displayed list for 02 Jan 2024.
+The `ViewAvailableCommandParser` creates a `ViewAvailableCommand`.
+
+Step 3. The execution of the `ViewAvailableCommand` retrieves all available timeslots on 02 Jan 2024 in the Timeslots tab.
+
+Step 4. The methods `populateUnavailableTimeslot` and `addAvailableTimeslotsToModel` in the `ViewAvailableCommand` class are called.
+The available timeslots not in the appointment list is added to the `UniqueTimeslotList`.
+
+Step 5. The execution of the `ViewAvailableTimeslot` calls `Model#updateFilteredAvailableTimeslot` to update the new list of available timeslots in the Timeslots tab.
 
 **Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **passed** (eg 01-01-1900)), the command will fail.
 
@@ -453,8 +466,8 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Pros: Allows to retrieve the latest appointments and add available timeslots accurately.
     * Cons: Increased coupling between timeslots and appointment.
 
-* **Alternative 2:** Add the time from appointments directly without any timeslot
-    * Pros: Easier to implement as we only need to get time from appointment directly.
+* **Alternative 2:** Add the timeslots taken by appointments directly
+    * Pros: Easier to implement as we only need to get time from appointments.
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments.
 
 --------------------------------------------------------------------------------------------------------------------
