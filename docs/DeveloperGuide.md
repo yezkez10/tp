@@ -437,13 +437,26 @@ The user can also execute `find_appt /n Alex` to find all appointments for Alex.
 
 #### Implementation
 
-The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
+The view available timeslots feature displays all available timeslots on the specific date. 
+This mechanism is facilitated by the `UniqueTimeslotList` and `Timeslot` class.
 A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
-to identify available timeslots in an instant which they can use to book appointments on.
+to identify available timeslots instantly which they can use to book appointments on.
 
-After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
+Given below is an example usage scenario for `ViewAvailableCommand` and how view available timeslots mechanism behaves.
 
-**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **passed** (eg 01-01-1900)), the command will fail.
+Step 1. The user launches the application. Patients and appointments already exist in the database and shown on the indexed list.
+
+Step 2. The user executes `view /on 02-01-2024` command to view all available timeslots in the displayed list for 02 Jan 2024.
+The `ViewAvailableCommandParser` creates a `ViewAvailableCommand`.
+
+Step 3. The execution of the `ViewAvailableCommand` retrieves all available timeslots on 02 Jan 2024 in the Timeslots tab.
+
+Step 4. The methods `populateUnavailableTimeslot` and `addAvailableTimeslotsToModel` in the `ViewAvailableCommand` class are called.
+The available timeslots not in the appointment list is added to the `UniqueTimeslotList`.
+
+Step 5. The execution of the `ViewAvailableTimeslot` calls `Model#updateFilteredAvailableTimeslot` to update the new list of available timeslots in the Timeslots tab.
+
+<img src="images/ViewAvailableCommandSequenceDiagram.png" width="1000px">
 
 #### Design considerations:
 
@@ -453,55 +466,10 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Pros: Allows to retrieve the latest appointments and add available timeslots accurately.
     * Cons: Increased coupling between timeslots and appointment.
 
-* **Alternative 2:** Add the time from appointments directly without any timeslot
-    * Pros: Easier to implement as we only need to get time from appointment directly.
+* **Alternative 2:** Add the timeslots taken by appointments directly
+    * Pros: Easier to implement as we only need to get time from appointments.
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments.
 
---------------------------------------------------------------------------------------------------------------------
-
-## **Future Features**
-
-### Edit Doctor
-
-#### Implementation
-
-This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
-
-This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
-
-Furthermore it will take in information that the specified doctor's information will be changed to.
-This will create a new Doctor Object and transfer over all the information that isn't specified in the edit command to be the same as the original doctor.
-
-#### Design consideration:
-
-**Aspect: How the doctor object is going to be edited:**
-
-* You can make it so that you change the value of the variables inside the original doctor
-    * Pros: save space and improve space and time complexity
-    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Planned enhancements**
-
-### Edit Appointment to include editing of Doctor details
-
-#### Implementation
-
-This enhancement will let the user edit the appointments associated doctor.
-
-This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
-
-Furthermore it will take in information that the specified doctor's information will be changed to.
-This will then change the doctor associated with the appointment the user is editing.
-
-#### Design consideration:
-
-**Aspect: How the doctor is going to be edited:**
-
-* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
-    * Pros: Intuitive for clinic assistants to use
-    * Cons: Might be difficult to implement
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -1053,6 +1021,24 @@ To implement this, there needs to be a logic change in the front end of the view
 
 * Whenever a view command is called, display the date at the top of the timeslot tab, even for the first call.
     * Pros: Helps to make the user experience more smooth.
+    * Cons: Difficult to implement.
+
+### Change duration of each timeslot to smaller durations
+
+#### Implementation
+
+Currently, the duration of every timeslot is exactly 1 hour. This is done under the assumption that most appointments take 1 hour and to provide doctors with sufficient rest.
+
+However, in the future, we will change it to variable timeslots which clinic assistants can choose depending on the type of appointment. This will help to improve efficiency of the clinic to be able to treat more patients in a day.
+
+To implement this, there needs to be a back end change in the view available command where timeslots added will be in intervals of different durations.
+
+#### Design consideration:
+
+**Aspect: How to ensure clinic can cater to people of different appointment types:**
+
+* Whenever a view command is called, display all time intervals which the doctor is free.
+    * Pros: Clinic assistant can view the time interval and book the appointment as necessary.
     * Cons: Difficult to implement.
 
 ## **Appendix: Future Features**
