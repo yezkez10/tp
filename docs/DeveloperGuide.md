@@ -183,6 +183,29 @@ The `Person` class stores the required fields of the patient.
 with its required fields, as well as an `AddCommand` that adds this person into the `Model`.
 This `Person` is added into the `UniquePersonList`.
 
+### Add Appointment feature
+
+#### Implementation
+
+The system facilitates the add appointment mechanism through the `UniqueAppointmentList` and `Appointment` Class. `UniqueAppointmentList`, extending `Iterable<Appointment>`, ensures all appointments are unique, akin to the operations in `UniquePersonList`.
+The Appointment class encapsulates crucial appointment data: description, date (inclusive of time), associated doctor's name, and the patient.
+
+The delete Appointment command does the opposite — it calls deleteAppointment(INDEX), which deletes the Appointment from the system by their Index.
+
+**Note:** The command will fail if the `INDEX` provided is out of bounds, either less than 1 or exceeding the number of appointments in the list.
+
+#### Design considerations:
+
+**Aspect: storage of Appointments**
+
+* **Alternative 1 (current choice):** Appointment is its own class containing detailed information on the appointment.
+    * Pros: Aligned with the approach for patients. Easier to build upon for future implementations.
+    * Cons: May introduce complexities and higher lines of code.
+
+* **Alternative 2:** Appointments as strings in an ArrayList.
+    * Pros: Simpler implementation.
+    * Cons: Less adaptable for future developments involving the Appointment Class.
+
 ### Delete Patient
 
 #### Implementation
@@ -213,6 +236,30 @@ The above shows the sequence diagram of the feature of Delete Patient.
     * Pros: Will be more accurate when deleting a patient
     * Cons: Takes more time as need to type out names of patient when deleting and length of names may vary from person to person
     * Cons: User will face issues when trying to delete patients with the same name
+
+### Delete Appointment feature
+
+#### Implementation
+
+The delete appointment mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
+Clinic staff can enter `delete_appt 3` which deletes the appointment at index 3 and the appointment that is stored inside the Patient and Doctor Class.
+The following sequence diagram shows how the DeleteAppointmentCommand class works.
+
+**Note:** If the index is not a positive integer and less than the amount of appointments the command will fail.
+
+<puml src="diagrams/DeleteAppointments.puml" alt="DeleteAppointment" />
+
+#### Design considerations:
+
+**Aspect: How Appointments are being deleted:**
+
+* **Alternative 1 (current choice):** Appointment is being stored in 3 different places inside a patient object, a doctor object, and the `UniqueAppointmentList` and are being deleted once at each object.
+    * Pros: Easy to understand
+    * Cons: Can be easily filled with bugs and takes a lot of effort to implement.
+
+* **Alternative 2:** have only one List of Appointments and by deleting it there everywhere else appointment will be deleted.
+    * Pros: Will be harder for bugs to happen.
+    * Cons: Will be harder to implement.
 
 ### List feature
 
@@ -313,53 +360,6 @@ The above shows the sequence diagram of the find by NRIC feature.
   and receive a list of possible matching patients to choose from.
     * Cons: This is harder to implement as the FilteredList would have to take in more than 1 type of predicate.
 
-### Add/delete Appointment feature
-
-#### Implementation
-
-The add/delete Appointment mechanism is facilitated by `UniqueAppointmentList` and a `Appointment` Class. `UniqueAppointmentList` extends `Iterable<Appointment>` which stores and ensures all the Appointments in this list are unique. Additionally it implements the same operations as the `UniquePersonList`.
-The Appointment class stores the relevant data of the Appointment such as description, date (inclusive of time) as well as Patient it belongs to.
-
-The delete Appointment command does the opposite — it calls deleteAppointment(INDEX), which deletes the Appointment from the system by their Index.
-
-**Note:** If the index of either add or delete is less than 1 or exceeds the number of Appointments in the List then the command will fail.
-
-#### Design considerations:
-
-**Aspect: How Appointments are going to be saved:**
-
-* **Alternative 1 (current choice):** Appointment is its own class containing detailed information on the Appointment.
-    * Pros: Similar to Person
-    * Cons: May introduce new bugs and is generally going to take up a lot of lines of code.
-
-* **Alternative 2:** Appointments are just a String and is going to be saved inside an ArrayList.
-    * Pros: Will be easier to implement and much simpler.
-    * Cons: Going to be harder for future developers to update the Appointment Class.
-
-### Delete Appointment feature
-
-#### Implementation
-
-The delete appointment mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
-Clinic staff can enter `delete_appt 3` which deletes the appointment at index 3 and the appointment that is stored inside the Patient and Doctor Class.
-The following sequence diagram shows how the DeleteAppointmentCommand class works.
-
-**Note:** If the index is not a positive integer and less than the amount of appointments the command will fail.
-
-<puml src="diagrams/DeleteAppointments.puml" alt="DeleteAppointment" />
-
-#### Design considerations:
-
-**Aspect: How Appointments are being deleted:**
-
-* **Alternative 1 (current choice):** Appointment is being stored in 3 different places inside a patient object, a doctor object, and the `UniqueAppointmentList` and are being deleted once at each object.
-    * Pros: Easy to understand
-    * Cons: Can be easily filled with bugs and takes a lot of effort to implement.
-
-* **Alternative 2:** have only one List of Appointments and by deleting it there everywhere else appointment will be deleted.
-    * Pros: Will be harder for bugs to happen.
-    * Cons: Will be harder to implement.
-
 ### Edit Appointment feature
 
 #### Implementation
@@ -408,7 +408,6 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
 
 ## **Future Features**
-
 
 ### Edit Doctor
 
@@ -821,17 +820,34 @@ testers are expected to do more *exploratory* testing.
     5. Other incorrect delete commands to try: `delete_doctor`, `delete_doctor x`, `...` (where x is not a positive integer)<br>
        Expected: Similar to previous.
 
+### Adding an Appointment
+
+5. Deleting an appointment from `Appointment` list
+
+    1. Prerequisites: At least 1 Doctor and 1 Patient must be present in the clinic records. Use `add_doctor` & `add` to add a Doctor and Patient respectively into the clinic records.
+
+    2. Test case: `appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
+       Expected: An appointment is added to the list. Details of the added appointment is shown in the output display.
+
+    3. Test case: `appt /for 1 /doc 1 /d x-ray scan /on tuesday` (where `DATE_TIME` is invalid)<br>
+       Expected: No appointment is added and an error message will be shown in the output display.
+
+    4. Test case: `appt`<br>
+       Expected: No appointment is added. Error details shown in the output display.
+
+    5. Other incorrect delete commands to try: `appt /for 0`, `appt /for 1 /on 01-01-2024 12:00`<br>
+       Expected: Similar to previous invalid cases.
 
 ### Deleting an Appointment
 
-5. Deleting an appointment from `Appointment` list
+6. Deleting an appointment from `Appointment` list
 
     1. Prerequisites: List all appointments by clicking on the Appointments tab and use the `list_appt` command. At least 1 appointment in the list. Use `appt` to add an appointment into the list.
 
     2. Test case: `delete_appt 1`<br>
        Expected: First appointment is deleted from the list. Details of the deleted appointment is shown in the output display.
    
-    3. Test case: `delete_appt INDEX` (where INDEX is larger than the number of appointments in the list)<br>
+    3. Test case: `delete_appt INDEX` (where `INDEX` is larger than the number of appointments in the list)<br>
        Expected: No appointment is deleted. Error message `The appointment index provided is invalid` will be shown in the output display. 
    
     4. Test case: `delete_appt 0`<br>
