@@ -387,9 +387,9 @@ After receiving the users input, the `EditAppointmentCommandParser` parses the g
 
 #### Implementation
 
-The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
+The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` and `Timeslot` class.
 A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
-to identify available timeslots in an instant which they can use to book appointments on.
+to identify available timeslots instantly which they can use to book appointments on.
 
 After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
 
@@ -403,8 +403,8 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Pros: Allows to retrieve the latest appointments and add available timeslots accurately
     * Cons: Increased coupling between timeslots and appointment
 
-* **Alternative 2:** Add the time from appointments directly without any timeslot
-    * Pros: Easier to implement as we only need to get time from appointment directly
+* **Alternative 2:** Add the timeslots taken by appointments directly
+    * Pros: Easier to implement as we only need to get time from appointments
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
 
 ## **Future Features**
@@ -949,6 +949,24 @@ To implement this, there needs to be a logic change in the front end of the view
 
 * Whenever a view command is called, display the date at the top of the timeslot tab, even for the first call.
     * Pros: Helps to make the user experience more smooth.
+    * Cons: Difficult to implement.
+
+### Change duration of each timeslot to smaller durations
+
+#### Implementation
+
+Currently, the duration of every timeslot is exactly 1 hour. This is done under the assumption that most appointments take 1 hour and to provide doctors with sufficient rest.
+
+However, in the future, we will change it to variable timeslots which clinic assistants can choose depending on the type of appointment. This will help to improve efficiency of the clinic to be able to treat more patients in a day.
+
+To implement this, there needs to be a back end change in the view available command where timeslots added will be in intervals of different durations.
+
+#### Design consideration:
+
+**Aspect: How to ensure clinic can cater to people of different appointment types:**
+
+* Whenever a view command is called, display all time intervals which the doctor is free.
+    * Pros: Clinic assistant can view the time interval and book the appointment as necessary.
     * Cons: Difficult to implement.
 
 ## **Appendix: Future Features**
