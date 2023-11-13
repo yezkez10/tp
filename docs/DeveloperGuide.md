@@ -189,7 +189,7 @@ The sequence diagram below shows how the add command works: <br>
 * Cons: Does not mirror real-life scenarios where patients are identified by their unique NRICs,
   or when patient information needs to be searched for.
 
-**Aspect: storage of Appointments**
+**Aspect: Storage of Appointments**
 
 **Alternative 1 (current choice):** Appointment is its own class containing detailed information on the appointment.
 * Pros: Aligned with the approach for patients. Easier to build upon for future implementations.
@@ -199,7 +199,61 @@ The sequence diagram below shows how the add command works: <br>
 * Pros: Simpler implementation.
 * Cons: Less adaptable for future developments involving the Appointment Class.
 
-### Delete Patient
+--------------------------------------------------------------------------------------------------------------------
+
+### Edit feature
+
+#### Implementation
+
+The edit feature allows users to edit a patient or appointment.
+The edit commands make use of the given index identify the patient or appointment to be edited.
+The editing is done through `EditCommand` and `EditAppointmentCommand`.
+
+Given below is an example usage scenario for `EditCommand` and how the mechanism behaves at each step.
+
+Step 1. The user launches the application. All patients are shown on the application as an indexed list.
+
+Step 2. The user executes `edit 1 /n John` to edit te first person in the list to have the name `John`.
+The `EditCommandParser` creates an `EditPersonDescriptor` for the `EditCommand`.
+
+Step 3. The `EditCommand` retrieves the old patient from the `Model`
+and creates the edited `Patient` using the `EditPersonDescriptor`.
+
+Step 4. The `EditCommand` checks if the fields are valid and if replacing the edited `Person` will cause duplicate `Person`s.
+
+Step 5. The `EditCommand` calls `Model#setPerson`, which replaces the patient in the `UniquePersonList` in `ModelManager`.
+
+The sequence diagram below shows how the `EditXXXCommandParser` works:
+
+<puml src="diagrams/EditCommandParserSeqDiagram.puml" alt="EditCommandParserSeqDiagram" />
+
+The seqence diagram below shows how the `EditXXXCommand` works:
+
+<puml src="diagrams/EditCommandSeqDiagram.puml" alt="EditCommandSeqDiagram" />
+
+The `EditAppointmentCommand` works similarly to the `EditCommand` as described in the example and diagram above.
+The only difference is the parameters needed for this command.
+The user can either edit the date or description of an appointment.
+This difference happens in Step 2: <br>
+The user executes the `edit_appt 1 /d changed to x-ray scan /on 01-01-2024 09:00` command
+to change the description and date of the first appointment on the list.
+
+
+#### Design considerations:
+
+**Aspect: How Appointments are going to be edited:**
+
+* **Alternative 1 (current choice):** Appointment is Edited based on its Index in the overall Appointment List
+    * Pros: One centralized Appointment List for all Edit Appointment operations
+    * Cons: Harder to implement
+
+* **Alternative 2:** An additional Index field of the Patients Index is to be given, followed by his/her Appointment to edit
+    * Pros: Appointment to be edited is specified to the specific Patient index input
+    * Cons: Harder for the user to visualise which Appointment he is going to edit
+
+--------------------------------------------------------------------------------------------------------------------
+
+### Delete Patient feature
 
 #### Implementation
 
@@ -209,10 +263,14 @@ Deleting a patient and doctors delete their corresponding appointments.
 The delete command deletes a patient, doctor or appointment identified by their index in the displayed list.
 The deletion is done through the `deletePerson`, `deleteDoctor` and `deleteAppointment` functions in `ModelManager`.
 
-Given below is an example usage scenario for DeleteCommand and how the delete mechanism behaves.
+Given below is an example usage scenario for `DeleteCommand` and how this delete mechanism behaves.
 
-Step 1. The user launches the application. All patients are shown on the application as an indexed list. <br>
+Step 1. The user launches the application. All patients are shown on the application as an indexed list. 
+
 Step 2. The user executes `delete 3` command to delete the third patient in the displayed list.
+The `DeleteCommandParser` creates a `DeleteCommand`.
+
+Step 3. The execution of the `DeleteCommand` calls `Model#deletePerson(personToDelete)` to delete the person from the filtered list of patients.
 
 The following sequence diagram shows how the `DeleteCommand` class works.
 
@@ -237,18 +295,44 @@ The following sequence diagram shows how the `DeleteCommand` class works.
     * Pros: Will be more accurate when deleting a patient.
     * Cons: Typing out patient names has higher room for error and takes a longer time.
     * Cons: User will face issues when trying to delete patients with the same name.
+  
+--------------------------------------------------------------------------------------------------------------------
 
 ### Delete Appointment feature
 
 #### Implementation
 
-The delete appointment mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
-Clinic staff can enter `delete_appt 3` which deletes the appointment at index 3 and the appointment that is stored inside the Patient and Doctor Class.
-The following sequence diagram shows how the DeleteAppointmentCommand class works.
+This delete command deletes an appointment identified by its index in the displayed list.
+This deletion is done through the `deleteAppointment` function in `ModelManager`.
+Its mechanism is facilitated by `DeleteAppointmentCommand`, `UniqueAppointmentList` and the `LogicManager` Class.
+This deletion mechanism is largely similar to the delete patient mechanism, 
+with the only difference being that the appointment is to be deleted from the Patient and Doctor classes.
 
-**Note:** If the index is not a positive integer and less than the amount of appointments the command will fail.
+Given below is an example usage scenario for `DeleteAppointmentCommand` and how this delete mechanism behaves.
+
+Step 1. The user launches the application. All patients are shown on the application as an indexed list.
+
+Step 2. The user executes `delete_appt 3` command to delete the third appointment in the displayed list.
+The `DeleteAppointmentCommandParser` creates a `DeleteAppointmentCommand`.
+
+Step 3. The execution of the `DeleteAppointmentCommand` retrieves the third appointment in the list of unique appointments.
+
+Step 4. The methods `deletePatientAppointment` and `deleteDoctorAppointment` in the `DeleteCommand` class are called. 
+The appointment linked to the corresponding doctor and patient is removed.
+
+Step 5. The execution of the `DeleteAppointmentCommand` calls `Model#deleteAppointment(appointmentToDelete)` to delete the person from the filtered list of patients.
+
+The following sequence diagram shows how the `DeleteAppointmentCommand` class works.
 
 <puml src="diagrams/DeleteAppointments.puml" alt="DeleteAppointment" />
+
+<box type="info" seamless>
+
+**Note:**
+* The lifeline for `DeleteAppointmentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* The command will not execute for any index that is **out-of-bounds**.
+  </box>
+
 
 #### Design considerations:
 
@@ -261,6 +345,8 @@ The following sequence diagram shows how the DeleteAppointmentCommand class work
 * **Alternative 2:** have only one List of Appointments and by deleting it there everywhere else appointment will be deleted.
     * Pros: Will be harder for bugs to happen.
     * Cons: Will be harder to implement.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### List feature
 
@@ -299,6 +385,7 @@ appointments in the database.
     * Pros: Will use less memory
     * Cons: Will be slower because we have to iterate through all the `Person` objects to get the appointments each time
 
+--------------------------------------------------------------------------------------------------------------------
 
 ### Find feature
 
@@ -344,29 +431,7 @@ The user can also execute `find_appt /n Alex` to find all appointments for Alex.
     * Pros: Easier to implement.
     * Cons: Too many prefixes to type in one command if we want to find by multiple fields, which can make the command very long.
 
-
-### Edit Appointment feature
-
-#### Implementation
-
-The edit Appointment mechanism is facilitated by the `EditAppointmentDescriptor` class. It's mechanism is similar to that of `EditCommand`'s implementation.
-An `edit_appt` command input takes in an Appointment Index, followed by a minimum of 1 required input change of either description `[/d]` or date `[/on]`.
-
-After receiving the users input, the `EditAppointmentCommandParser` parses the given input to form an `EditAppointmentDescriptor`, which will then be used by `createEditedAppointment` to create an Appointment to replace the user specified index.
-
-**Note:** If the Index provided is invalid (0 or bigger than the size of Appointment list), or no input change is given, the command will fail.
-
-#### Design considerations:
-
-**Aspect: How Appointments are going to be edited:**
-
-* **Alternative 1 (current choice):** Appointment is Edited based on its Index in the overall Appointment List
-    * Pros: One centralized Appointment List for all Edit Appointment operations
-    * Cons: Harder to implement
-
-* **Alternative 2:** An additional Index field of the Patients Index is to be given, followed by his/her Appointment to edit
-    * Pros: Appointment to be edited is specified to the specific Patient index input
-    * Cons: Harder for the user to visualise which Appointment he is going to edit
+--------------------------------------------------------------------------------------------------------------------
 
 ### View Available Timeslots feature
 
@@ -378,19 +443,21 @@ to identify available timeslots in an instant which they can use to book appoint
 
 After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
 
-**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **past** (eg 01-01-1900)), the command will fail.
+**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **passed** (eg 01-01-1900)), the command will fail.
 
 #### Design considerations:
 
 **Aspect: What Timeslots will be added:**
 
 * **Alternative 1 (current choice):** Loop through all appointments in the appointment list and only add timeslots which are available
-    * Pros: Allows to retrieve the latest appointments and add available timeslots accurately
-    * Cons: Increased coupling between timeslots and appointment
+    * Pros: Allows to retrieve the latest appointments and add available timeslots accurately.
+    * Cons: Increased coupling between timeslots and appointment.
 
 * **Alternative 2:** Add the time from appointments directly without any timeslot
-    * Pros: Easier to implement as we only need to get time from appointment directly
-    * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments
+    * Pros: Easier to implement as we only need to get time from appointment directly.
+    * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Future Features**
 
@@ -413,6 +480,7 @@ This will create a new Doctor Object and transfer over all the information that 
     * Pros: save space and improve space and time complexity
     * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Planned enhancements**
 
@@ -434,6 +502,7 @@ This will then change the doctor associated with the appointment the user is edi
 * Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
     * Pros: Intuitive for clinic assistants to use
     * Cons: Might be difficult to implement
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -722,20 +791,24 @@ testers are expected to do more *exploratory* testing.
        Expected: The most recent window size and location is retained.
 
 ### Adding a Patient
-1. Adding a patient
-   2.  Prerequisite: None
-   3. Test case: `add /n Drizzy /p 99090909 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr` <br>
+1. Adding a patient <br>
+   1. Prerequisite: None
+   1. Test case: `add /n Drizzy /p 99090909 /e drake@gmail.com /g F /age 18 /eth Chinese /ic T0123456E /a 901 Shelby Dr` <br>
    Expected: Given patient is added to the database. Details of the added patient shown in the status message.
-   4. Test case: `add Drizzy /p 99090909` <br>
+   1. Test case: `add Drizzy /p 99090909` <br>
    Expected: Given patient is not added. Error details shown in status message.
-   5. Other incorrect add commands to try: any commands where any of the mandatory parameters are missing. <br>
+   3. Other incorrect add commands to try: any commands where any of the mandatory parameters are missing. <br>
    Expected: Similar to previous.
 
 ### Editing a Patient
 
 1. Editing a patient's details in the `Patients` list
 
-    1. Prerequisites: At least 1 patient in the `Patients` list by listing all patients using the `list` command or find specific patients by name using the `find` command or by NRIC using the `find_nric` command. If there are currently no patients in Clinic Assistant, use `add` command to add a patient into the list.
+    1. Prerequisites: At least 1 patient in the `Patients` list. <br>
+    Done by listing all patients using the `list` command. <br>
+    Or by finding specific patients by name using the `find` command. <br>
+    Or by finding specific patients by NRIC using the `find_nric` command. 
+    If there are currently no patients in Clinic Assistant, use `add` command to add a patient into the list.
 
     2. Test case: `edit 1 /p 91234567 /e johndoe@example.com`<br>
        Expected: The phone number and email of the first person in the `Patients` list is updated to the new values. Details of the updated patient is shown in the status message.
@@ -764,6 +837,74 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
+### Adding a Doctor
+3. Adding a Doctor to the `Doctor` List.
+
+   1. Prerequisites: Make sure to have the Doctor List Panel on the screen by clicking the Doctors Tab.
+   
+   2. Test case: `add_doctor /n Dr Lee /p 91236789 /e lee@gmail.com /g M /age 30 /a Prince Gearge Park ` <br>
+      Expected: The Doctor will show in the Doctor List in the order of first added to last added. Success message will be shown in the output display.
+   
+   3. Test case: `add_doctor`
+      Expected: No Doctor will be added and a error message will be shown at the output display.
+
+   4. Other incorrect add_doctor commands to try: `add_doctor /n John `, `add_doctor /age 100 `, `...` (where you are missing one of the syntax)<br>
+      Expected: Similar to previous.
+
+### Deleting a Doctor
+
+1. Deleting a doctor from `Doctor` list
+
+    1. Prerequisites: List all doctors by clicking on the Doctors tab. At least 1 doctor in the list. Use `add_doctor` to add a doctor into the list.
+
+    2. Test case: `delete_doctor 1`<br>
+       Expected: First doctor is deleted from the list. Details of the deleted doctor is shown in the output display.
+
+    3. Test case: `delete_doctor INDEX` (where INDEX is larger than the number of doctors in the list)<br>
+       Expected: No doctor is deleted. Error message `The doctor index provided is invalid` will be shown in the output display. 
+   
+    4. Test case: `delete_doctor 0`<br>
+       Expected: No doctor is deleted. Error details shown in the output display.
+   
+    5. Other incorrect delete commands to try: `delete_doctor`, `delete_doctor x`, `...` (where x is not a positive integer)<br>
+       Expected: Similar to previous.
+
+### Adding an Appointment
+
+1. Deleting an appointment from `Appointment` list
+
+    1. Prerequisites: At least 1 Doctor and 1 Patient must be present in the clinic records. Use `add_doctor` & `add` to add a Doctor and Patient respectively into the clinic records.
+
+    2. Test case: `appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
+       Expected: An appointment is added to the list. Details of the added appointment is shown in the output display.
+
+    3. Test case: `appt /for 1 /doc 1 /d x-ray scan /on tuesday` (where `DATE_TIME` is invalid)<br>
+       Expected: No appointment is added and an error message will be shown in the output display.
+
+    4. Test case: `appt`<br>
+       Expected: No appointment is added. Error details shown in the output display.
+
+    5. Other incorrect delete commands to try: `appt /for 0`, `appt /for 1 /on 01-01-2024 12:00`<br>
+       Expected: Similar to previous invalid cases.
+
+### Deleting an Appointment
+
+1. Deleting an appointment from `Appointment` list
+
+    1. Prerequisites: List all appointments by clicking on the Appointments tab and use the `list_appt` command. At least 1 appointment in the list. Use `appt` to add an appointment into the list.
+
+    2. Test case: `delete_appt 1`<br>
+       Expected: First appointment is deleted from the list. Details of the deleted appointment is shown in the output display.
+   
+    3. Test case: `delete_appt INDEX` (where `INDEX` is larger than the number of appointments in the list)<br>
+       Expected: No appointment is deleted. Error message `The appointment index provided is invalid` will be shown in the output display. 
+   
+    4. Test case: `delete_appt 0`<br>
+       Expected: No appointment is deleted. Error details shown in the output display.
+
+    5. Other incorrect delete commands to try: `delete_appt`, `delete_appt x`, `...` (where x is not a positive integer)<br>
+       Expected: Similar to previous.
+
 ### View Available Timeslots
 
 1. Viewing available timeslots on a given `DATE`
@@ -782,93 +923,25 @@ testers are expected to do more *exploratory* testing.
 ### Find Patients or Appointments
 
 1. Finding patients using their name
-   2. Prerequisite: None but good to have some patients in the list.
-   3. Test case: `find Alex` <br>
-   Expected: Patient list shows only the patients with the name `Alex`.
-   4. Test case: `find 01-01-2024` <br>
-   Expected: No patients found. Error details shown in the status message.
-   5. Test case: `find T1234567E` <br> 
-   Expected: Similar to previous.
+    2. Prerequisite: None but good to have some patients in the list.
+    3. Test case: `find Alex` <br>
+       Expected: Patient list shows only the patients with the name `Alex`.
+    4. Test case: `find 01-01-2024` <br>
+       Expected: No patients found. Error details shown in the status message.
+    5. Test case: `find T1234567E` <br>
+       Expected: Similar to previous.
 8. Finding patients using their NRIC
-   1. Test case: `find_nric T1234567E` <br>
+    1. Test case: `find_nric T1234567E` <br>
        Expected: Patient list shows the one patient with the given NRIC.
-   2. Test case: `find_nric x12356e` <br>
-   Expected: No patients found. Error details shown in the status message.
+    2. Test case: `find_nric x12356e` <br>
+       Expected: No patients found. Error details shown in the status message.
 11. Finding appointments
     1. Test case: `find_appt /on 01-01-2024` <br>
-    Expected: Appointment list shows all appointments on Jan 01, 2024.
+       Expected: Appointment list shows all appointments on Jan 01, 2024.
     2. Test case: `find_appt /n Alex` <br>
-    Expected: Appointment list shows all appointments for Alex.
+       Expected: Appointment list shows all appointments for Alex.
     3. Test case: `find_appt /on 02/02/2024`<br>
        Expected: No appointments will be displayed. Error details shown in the status message.`
-
-### Adding a Doctor
-3. Adding a Doctor to the `Doctor` List.
-
-   1. Prerequisites: Make sure to have the Doctor List Panel on the screen by clicking the Doctors Tab.
-   
-   2. Test case: `add_doctor /n Dr Lee /p 91236789 /e lee@gmail.com /g M /age 30 /a Prince Gearge Park ` <br>
-      Expected: The Doctor will show in the Doctor List in the order of first added to last added. Success message will be shown in the output display.
-   
-   3. Test case: `add_doctor`
-      Expected: No Doctor will be added and a error message will be shown at the output display.
-
-   4. Other incorrect add_doctor commands to try: `add_doctor /n John `, `add_doctor /age 100 `, `...` (where you are missing one of the syntax)<br>
-      Expected: Similar to previous.
-
-### Deleting a Doctor
-
-4. Deleting a doctor from `Doctor` list
-
-    1. Prerequisites: List all doctors by clicking on the Doctors tab. At least 1 doctor in the list. Use `add_doctor` to add a doctor into the list.
-
-    2. Test case: `delete_doctor 1`<br>
-       Expected: First doctor is deleted from the list. Details of the deleted doctor is shown in the output display.
-
-    3. Test case: `delete_doctor INDEX` (where INDEX is larger than the number of doctors in the list)<br>
-       Expected: No doctor is deleted. Error message `The doctor index provided is invalid` will be shown in the output display. 
-   
-    4. Test case: `delete_doctor 0`<br>
-       Expected: No doctor is deleted. Error details shown in the output display.
-   
-    5. Other incorrect delete commands to try: `delete_doctor`, `delete_doctor x`, `...` (where x is not a positive integer)<br>
-       Expected: Similar to previous.
-
-### Adding an Appointment
-
-5. Deleting an appointment from `Appointment` list
-
-    1. Prerequisites: At least 1 Doctor and 1 Patient must be present in the clinic records. Use `add_doctor` & `add` to add a Doctor and Patient respectively into the clinic records.
-
-    2. Test case: `appt /for 1 /doc 1 /d x-ray scan /on 02-01-2024 12:00`<br>
-       Expected: An appointment is added to the list. Details of the added appointment is shown in the output display.
-
-    3. Test case: `appt /for 1 /doc 1 /d x-ray scan /on tuesday` (where `DATE_TIME` is invalid)<br>
-       Expected: No appointment is added and an error message will be shown in the output display.
-
-    4. Test case: `appt`<br>
-       Expected: No appointment is added. Error details shown in the output display.
-
-    5. Other incorrect delete commands to try: `appt /for 0`, `appt /for 1 /on 01-01-2024 12:00`<br>
-       Expected: Similar to previous invalid cases.
-
-### Deleting an Appointment
-
-6. Deleting an appointment from `Appointment` list
-
-    1. Prerequisites: List all appointments by clicking on the Appointments tab and use the `list_appt` command. At least 1 appointment in the list. Use `appt` to add an appointment into the list.
-
-    2. Test case: `delete_appt 1`<br>
-       Expected: First appointment is deleted from the list. Details of the deleted appointment is shown in the output display.
-   
-    3. Test case: `delete_appt INDEX` (where `INDEX` is larger than the number of appointments in the list)<br>
-       Expected: No appointment is deleted. Error message `The appointment index provided is invalid` will be shown in the output display. 
-   
-    4. Test case: `delete_appt 0`<br>
-       Expected: No appointment is deleted. Error details shown in the output display.
-
-    5. Other incorrect delete commands to try: `delete_appt`, `delete_appt x`, `...` (where x is not a positive integer)<br>
-       Expected: Similar to previous.
 
 ### Saving data
 
@@ -878,6 +951,7 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Planned Enhancements**
 In the near future, we hope to be able to enhance our application as stated below.
@@ -1005,15 +1079,15 @@ Although the Doctor Object also came with challenges that are unique. This is be
 
 <br>
 
-Another unique challenge was the GUI of the project. Most of us are not familiar with javafx outside of ip before this, therefore we encountered difficulties not only in coding the gui, but alos coming up with the design of it.
+Another unique challenge was the GUI of the project. Most of us are not familiar with javafx before this, therefore we encountered difficulties not only in coding the gui, but alos coming up with the design of it.
 We wanted to make it not too cluttered without sacrificing any of the feature we wanted to add. We then went through multiple iterations to figure out what was the best way to get the most out of the UI. We accomplished these eventually by using tab Panes that let
 us have a good amount of information stored in the project without sacrificing the readability of it.
 
 <br>
 
-Testing and Debugging was one of the biggest challenges we encountered throughout this project. Debugging was extremely time consuming and so were finding bugs. We learned that we had quite alot of rrom for improvement during the PE-D. Thia
+Testing and Debugging was one of the biggest challenges we encountered throughout this project. Debugging was extremely time-consuming and so were finding bugs. We learned that we had quite alot of rrom for improvement during the PE-D. Thia
 demo helped us realise things that we have overlooked before as a team. This was an extremely important experience for us as we were forced to not only fix the bugs each memeber is responsible for, but we also had to cooperate in debugging and testing each other's code. This
-part of the project might be the most difficult and time consuming one as it took a lot of hours to finish and not a lot of time to spare. The moment when we realise that we had fixed most of the issues found during and after the PE-D was one of the biggest achievement in this project, as it signifies the end of this team project.
+part of the project might be the most difficult and time-consuming one as it took a lot of hours to finish and not a lot of time to spare. The moment when we realise that we had fixed most of the issues found during and after the PE-D was one of the biggest achievement in this project, as it signifies the end of this team project.
 
 In conclusion, We learned a lot from this team project. Whether that was teamwork, coding, and time management. We struggled a lot at almost every step of the way, but we prevailed and came out of it as better programmers.
 We learned a lot about various programming and software engineering practices and techniques like, testing, uml diagrams, user stories, defensive coding. By using everything that we learned this past semester we are able to come up with a good product with important features that prioritized the user's needs first.
