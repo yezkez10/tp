@@ -30,7 +30,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/yezkez10.md)]
 
 * Role: Team Lead
-* Responsibilities: Add Patients
+* Responsibilities: Add NRIC field to Patients, Implement Finding by NRIC feature, GUI enhancements
 
 ### Niu Wenjia
 
