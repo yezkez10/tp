@@ -10,7 +10,7 @@ ClinicAssistant is a desktop app that offers seamless patient contact management
 optimized for use via a CLI while still having the benefits of a Graphical User Interface (GUI). 
 If you can type fast, ClinicAssistant can get your patient record management tasks done faster than traditional pen-and-paper methods. 
 It ensures efficient adding, editing and finding of patient information, optimising clinic operations.
-<!-- * Table of Contents -->
+
 - **Introduction**
     - [Target Audience](#target-audience)
     - [How to Use the Guide](#how-to-use-the-guide)<br>
@@ -18,7 +18,7 @@ It ensures efficient adding, editing and finding of patient information, optimis
     - [Quick start](#quick-start)<br>
 
 - **Features and Commands**
-    - [Adding a person: `add`](#adding-a-person-add)
+    - [Adding a patient: `add`](#adding-a-patient-add) 
     - [Adding a doctor: `add_doctor`](#adding-a-doctor-add-doctor)
     - [Adding an appointment: `appt`](#adding-an-appointment-appt)
     - [Listing all patients : `list`](#listing-all-patients-list)
@@ -41,8 +41,6 @@ It ensures efficient adding, editing and finding of patient information, optimis
     - [FAQ](#faq)
     - [Known issues](#known-issues)
     - [Command summary](#command-summary)
-
-<page-nav-print />
 
 <hr style="border:1px solid gray">
 
@@ -472,7 +470,7 @@ Examples:<br>
 * Valid input: `delete_doctor 1`
     * Output (success): <br>
       `Deleted Doctor: Dr Lee | Phone: 81824444 | Email: drlee@gmail.com | Gender: M | Age: 30 | Address: 901 Shelby Drive from clinic records`
-* Invalid input 1 (non-positive integer): `delete_doctor 0`
+* Invalid input 1 (non-positive integer, including strings): `delete_doctor 0`
     * Output (failure): <br>
       `Invalid command format!`<br>
       `delete_doctor: Deletes the doctor with the index number used in the clinic records.`<br>
@@ -503,19 +501,18 @@ Format: `delete_appt INDEX`
 </box>
 
 Examples:<br>
-initial Appointment list:
 * Valid input: `delete_appt 1`
     * Output (success): <br>
-      `Deleted Appointment seedu.address.model.appointment.Appointment{description=description details, dateTime=2024-01-02T12:00} of Alex Yeoh | Phone: 87438807 | Email: alexyeoh@example.com | Gender: M | Age: 21 | Ethnic: Chinese | NRIC: T1341367E | Address: Blk 30 Geylang Street 29, #06-40 | Tags: [friends]`
-* Invalid input 1 (non-positive integer): `delete_appt 0`
-    * Output (failure): <br>
-      `Invalid command format:` <br>
-      `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
-      `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
+      `Deleted Appointment  Patient: Charlotte Oliveiro | Description: x-ray scan | Date: 20 Jan 2024 12.00 PM of Charlotte Oliveiro | Phone: 93210283 | Email: charlotte@example.com | Gender: F | Age: 60 | Ethnic: Eurasian | NRIC: T5443267E | Address: Blk 11 Ang Mo Kio Street 74, #11-04 | Tags: [smoker]`
+* Invalid input 1 (non-positive integer, including strings): `delete_appt 0`
+  * Output (failure): <br>
+    `Invalid command format:` <br>
+    `delete_appt: Deletes the Appointment identified by the index number used in the displayed appointments list.` <br>
+    `Parameters: INDEX (must be a positive integer) Example: delete_appt 1`<br>
    * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 * Invalid input (`INDEX` out-of-bounds): `delete_appt 2`
     * Output (failure): <br>
-      `The patient index provided is invalid`<br>
+      `The appointment index provided is invalid`<br>
     * **To fix**: Enter an `INDEX` displayed in `Appointments` tab.
 
 
@@ -634,6 +631,7 @@ Format: `view /on DATE`
 
 * Displays all available timeslots that can be booked on the `DATE` under the `Timeslots` tab.
 * Any Timeslot displayed under the `Timeslot` tab can be used to book an appointment.
+* At the same time, Appointments Tab will also filter to display all appointments on that `DATE` only.
 
 After calling the command, click on the timeslot tab to see something similar to the below:
 ![View_Available_Timeslots](images/view.png)
@@ -643,15 +641,13 @@ After calling the command, click on the timeslot tab to see something similar to
 **Note:**
 * The `DATE` **must be a valid date** on the calendar in the **exact** format `dd-MM-yyyy`.
 * Timeslots for appointments are fixed at 1 hour each, **starting from 9AM to 5PM**.
-* The **very first time** this command is called, the header showing the date will **not** be shown (refer to known issues).
-* Header will be shown for every subsequent view command.
   </box>
 
 <box type="warning" seamless>
 
 **Warning:**
-* Clearing all patients will clear the available timeslots too.
-* The `Timeslot` tab will be **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again when there is at least 1 timeslot.
+* The **very first time** this command is called, the date will **not** be shown since it is not ambiguous (refer to known issues).
+* The `Timeslot` tab will be **deactivated** whenever there is **no available timeslots**. Please enter the command to activate it again when there is at least 1 available timeslot.
   </box>
 
 Examples:<br>
@@ -708,9 +704,9 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicAssistant home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClinicAssistant home folder.<br>
 **Q**: How do I know why my input is invalid? <br>
-**A**: Ouput messages explaining the reason for error will be shown in the output display box. Otherwise, our user guide has some examples of invalid inputs and possible reasons these inputs may be erratic.
+**A**: Output messages explaining the reason for error will be shown in the output display box. Otherwise, our user guide has some examples of invalid inputs and possible reasons these inputs may be erratic.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -718,7 +714,7 @@ If your changes to the data file makes its format invalid, ClinicAssistant will 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **When calling `view` command for the very first time**, there will be no header showing the specified date as there is no ambiguity as to which date the user is searching for. Only on subsequent calls will the header be shown.
+2. **When calling `view` command for the very first time**, there will be no header showing the specified date as there is no ambiguity as to which date the user is searching for. The header date will only be shown on subsequent calls of the view command.
 
 <hr style="border:1px solid gray">
 
@@ -741,5 +737,6 @@ Action     | Format, Examples
 **List**   | `list`
 **View**   | `view /on DATE`<br> e.g., `view /on 02-01-2024`
 **Help**   | `help`
+</hr>
 
 [Back to top](#clinicassistant-user-guide)

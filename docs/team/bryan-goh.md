@@ -45,11 +45,11 @@ request [#106](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/106))
 * Added the UG for the delete_doctor command.
 * Added the GUI explanation for the entire project at the start of the UG.
 * Chose the markdown for Notes and Warnings in the UG.
-* Added images and diagrams for the GUI explanation and the examples for delete appointment and delete doctor.
 
 ### Contributions to the DG:
 * Wrote the Appendix: Effort.
 * Wrote future features of the feature edit doctor.
+* Wrote the planned enhancements for case sensitivity.
 * Made the diagram for the implementation of delete appointment.
 * Updated the UI component of the dg.
 * Updated the diagram for the UI component.
@@ -71,7 +71,7 @@ request [#106](https://github.com/AY2324S1-CS2103T-W09-3/tp/pull/106))
 * added planned enhancements in the DG
 
 ### Review/mentoring contributions:
-* helped reviewed 11 PRs [PR](https://github.com/AY2324S1-CS2103T-W09-3/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me)
+* helped reviewed 12 PRs [PR](https://github.com/AY2324S1-CS2103T-W09-3/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3A%40me)
 
 ### Contributions beyond the project team:
 * found and reported critical and important bugs during the PE-D [PE-D](https://github.com/Bryan-Goh/ped/issues/created_by/Bryan-Goh)

@@ -437,13 +437,26 @@ The user can also execute `find_appt /n Alex` to find all appointments for Alex.
 
 #### Implementation
 
-The view available timeslots mechanism is facilitated by the `UniqueTimeslotList` class.
+The view available timeslots feature displays all available timeslots on the specific date. 
+This mechanism is facilitated by the `UniqueTimeslotList` and `Timeslot` class.
 A `view` command input takes in a `date` and displays all available timeslots for that `date`. This is mainly used by users
-to identify available timeslots in an instant which they can use to book appointments on.
+to identify available timeslots instantly which they can use to book appointments on.
 
-After receiving the users input, the `ViewAvailableCommandParser` parses the given input to return a `ViewAvailableCommand` instance which will then be executed.
+Given below is an example usage scenario for `ViewAvailableCommand` and how view available timeslots mechanism behaves.
 
-**Note:** If the `date` provided is invalid (**non-existent** (eg 31-02-2024), or **passed** (eg 01-01-1900)), the command will fail.
+Step 1. The user launches the application. Patients and appointments already exist in the database and shown on the indexed list.
+
+Step 2. The user executes `view /on 02-01-2024` command to view all available timeslots in the displayed list for 02 Jan 2024.
+The `ViewAvailableCommandParser` creates a `ViewAvailableCommand`.
+
+Step 3. The execution of the `ViewAvailableCommand` retrieves all available timeslots on 02 Jan 2024 in the Timeslots tab.
+
+Step 4. The methods `populateUnavailableTimeslot` and `addAvailableTimeslotsToModel` in the `ViewAvailableCommand` class are called.
+The available timeslots not in the appointment list is added to the `UniqueTimeslotList`.
+
+Step 5. The execution of the `ViewAvailableTimeslot` calls `Model#updateFilteredAvailableTimeslot` to update the new list of available timeslots in the Timeslots tab.
+
+<img src="images/ViewAvailableCommandSequenceDiagram.png" width="1000px">
 
 #### Design considerations:
 
@@ -453,55 +466,10 @@ After receiving the users input, the `ViewAvailableCommandParser` parses the giv
     * Pros: Allows to retrieve the latest appointments and add available timeslots accurately.
     * Cons: Increased coupling between timeslots and appointment.
 
-* **Alternative 2:** Add the time from appointments directly without any timeslot
-    * Pros: Easier to implement as we only need to get time from appointment directly.
+* **Alternative 2:** Add the timeslots taken by appointments directly
+    * Pros: Easier to implement as we only need to get time from appointments.
     * Cons: Harder for user to visualise exactly which timeslot is available and can be used to book appointments.
 
---------------------------------------------------------------------------------------------------------------------
-
-## **Future Features**
-
-### Edit Doctor
-
-#### Implementation
-
-This enhancement will let the user edit details of the doctor inside the clinic assistant without deleting or interfering with the appointments that doctor has.
-
-This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
-
-Furthermore it will take in information that the specified doctor's information will be changed to.
-This will create a new Doctor Object and transfer over all the information that isn't specified in the edit command to be the same as the original doctor.
-
-#### Design consideration:
-
-**Aspect: How the doctor object is going to be edited:**
-
-* You can make it so that you change the value of the variables inside the original doctor
-    * Pros: save space and improve space and time complexity
-    * Cons: Risk introducing unexpected bug as Doctor is no longer immutable
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Planned enhancements**
-
-### Edit Appointment to include editing of Doctor details
-
-#### Implementation
-
-This enhancement will let the user edit the appointments associated doctor.
-
-This edit command will take in a parameter INDEX which is a positive integer which references to the index of doctors shown on the screen.
-
-Furthermore it will take in information that the specified doctor's information will be changed to.
-This will then change the doctor associated with the appointment the user is editing.
-
-#### Design consideration:
-
-**Aspect: How the doctor is going to be edited:**
-
-* Edit associated doctor based on INDEX shown on the present doctor list. e.g., `edit_appt /doc 2` will edit the doctor associated to the appointment to the second doctor displayed in the Doctor list.
-    * Pros: Intuitive for clinic assistants to use
-    * Cons: Might be difficult to implement
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -956,6 +924,22 @@ testers are expected to do more *exploratory* testing.
 ## **Appendix: Planned Enhancements**
 In the near future, we hope to be able to enhance our application as stated below.
 
+### Make the name of the Doctor not case sensitive
+
+#### Implementation
+
+Currently when the system receives an add_doctor command they only check whether the string of the name is exactly the same or not.<br>
+In the feature a good enhancement would be to make this check not case sensitive to follow the real world better.<br>
+This can be done by improving the isSameDoctor feature and replacing the current Name.equal method with a method that considers capital letter also.
+
+### Design consideration
+
+**Aspect: How to check without case sensitivity**
+
+* Create a method to check whether the letters are the same by checking both the letters lower case and upper case char value
+    * Pros: can make sure the letters are not affected by case sensiticity during checks
+    * Cons: will be slightly tedious to implement.
+  
 ### Allow different doctors to have appointment slots at the same timing
 
 #### Implementation
@@ -1039,6 +1023,24 @@ To implement this, there needs to be a logic change in the front end of the view
     * Pros: Helps to make the user experience more smooth.
     * Cons: Difficult to implement.
 
+### Change duration of each timeslot to smaller durations
+
+#### Implementation
+
+Currently, the duration of every timeslot is exactly 1 hour. This is done under the assumption that most appointments take 1 hour and to provide doctors with sufficient rest.
+
+However, in the future, we will change it to variable timeslots which clinic assistants can choose depending on the type of appointment. This will help to improve efficiency of the clinic to be able to treat more patients in a day.
+
+To implement this, there needs to be a back end change in the view available command where timeslots added will be in intervals of different durations.
+
+#### Design consideration:
+
+**Aspect: How to ensure clinic can cater to people of different appointment types:**
+
+* Whenever a view command is called, display all time intervals which the doctor is free.
+    * Pros: Clinic assistant can view the time interval and book the appointment as necessary.
+    * Cons: Difficult to implement.
+
 ## **Appendix: Future Features**
 
 ### Edit Doctor
@@ -1073,20 +1075,20 @@ But when we arrived at the storage implementation we were stuck for quite a whil
 <br>
 
 Although those experiences was frustrating at times, when we finally managed to finish a section, we felt a sense of achievement every single time.
-One of these moments is when we managed to figure out how to read and write from the json file whe we added Appointments to the project. This achievement was one of the bigger milestone that we crossed  that helped with the implementations of future features.
+One of these moments is when we managed to figure out how to read and write from the json file when we added Appointments to the project. This achievement was one of the bigger milestone that we crossed  that helped with the implementations of future features.
 For example, When the Doctor Object was added to the project it was definitely smoother as we already had experience before hand with appointments. This makes the implementation of Doctor slightly faster as we had overcame these challenges before.
 Although the Doctor Object also came with challenges that are unique. This is because the Doctor Object has a deep interaction with the Appointment Objects making it a three-way connection between the three classes. This causes a lot of problems and bugs that took a lot of effort and was very difficult to solve due to the increasingly complex code.
 
 <br>
 
-Another unique challenge was the GUI of the project. Most of us are not familiar with javafx before this, therefore we encountered difficulties not only in coding the gui, but alos coming up with the design of it.
+Another unique challenge was the GUI of the project. Most of us are not familiar with javafx before this, therefore we encountered difficulties not only in coding the gui, but also coming up with the design of it.
 We wanted to make it not too cluttered without sacrificing any of the feature we wanted to add. We then went through multiple iterations to figure out what was the best way to get the most out of the UI. We accomplished these eventually by using tab Panes that let
 us have a good amount of information stored in the project without sacrificing the readability of it.
 
 <br>
 
-Testing and Debugging was one of the biggest challenges we encountered throughout this project. Debugging was extremely time-consuming and so were finding bugs. We learned that we had quite alot of rrom for improvement during the PE-D. Thia
-demo helped us realise things that we have overlooked before as a team. This was an extremely important experience for us as we were forced to not only fix the bugs each memeber is responsible for, but we also had to cooperate in debugging and testing each other's code. This
+Testing and Debugging was one of the biggest challenges we encountered throughout this project. Debugging was extremely time-consuming and so were finding bugs. We learned that we had quite a lot of room for improvement during the PE-D. This
+demo helped us realise things that we have overlooked before as a team. This was an extremely important experience for us as we were forced to not only fix the bugs each member is responsible for, but we also had to cooperate in debugging and testing each other's code. This
 part of the project might be the most difficult and time-consuming one as it took a lot of hours to finish and not a lot of time to spare. The moment when we realise that we had fixed most of the issues found during and after the PE-D was one of the biggest achievement in this project, as it signifies the end of this team project.
 
 In conclusion, We learned a lot from this team project. Whether that was teamwork, coding, and time management. We struggled a lot at almost every step of the way, but we prevailed and came out of it as better programmers.
