@@ -66,7 +66,7 @@ ClinicAssistant allows clinic staff to add, edit, delete, find and list patients
 In order to have a better experience in using **ClinicAssistant**, please take a look at this explanation of the GUI.
 ### Main Window
 ![GUI1](images/GUI1.png)
-![GUI2](images/GUI3.png)
+![GUI2](images/GUI6.png)
 
 | GUI element (red) |                                            Description                                            |
 |:-----------------:|:-------------------------------------------------------------------------------------------------:|
@@ -89,6 +89,7 @@ In order to have a better experience in using **ClinicAssistant**, please take a
 |      Doctor Card       | A card that shows information on doctors such as name, gender, email, age, address, and contact number. |
 |  Timeslot List Panel   |                   A Panel that contains a list of empty Timeslots inside the system.                    |
 |     Timeslot Card      |                                A card that shows what timeslot is free.                                 |
+|          Date          |                                 Shows the date of the time slots shown                                  |
 
 --------------------------------------------------------------------------------------------------------------------
 
