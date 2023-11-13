@@ -18,7 +18,7 @@ It ensures efficient adding, editing and finding of patient information, optimis
     - [Quick start](#quick-start)<br>
 
 - **Features and Commands**
-    - [Adding a person: `add`](#adding-a-patient-add)
+    - [Adding a person: `add`](#adding-a-patient-add) 
     - [Adding a doctor: `add_doctor`](#adding-a-doctor-add-doctor)
     - [Adding an appointment: `appt`](#adding-an-appointment-appt)
     - [Listing all patients : `list`](#listing-all-patients-list)
